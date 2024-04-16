@@ -27,7 +27,6 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     public function loginProcess() {
         $usuarioModel = new \CodeShred\Models\UsuarioModel;
         $_vars = [];
-        // $user = new \Com\Daw2\Helpers\UsuarioSistema();
         if(isset($_POST['user']) && $_POST['pass']){
             $user = $usuarioModel->login($_POST['user'], $_POST['pass']);
             if (is_null($user)) {
