@@ -3,7 +3,7 @@ Red social de elementos web para programadores.
 
 Este es mi trabajo de fin de ciclo.
 
-CONTENIDOS:
+- CONTENIDOS:
 A) Linguaxes de marcas e sistemas de xestión da información.
 • Compatibilidade completa con HTML5 e CSS3. ✅
 • Uso de JSON e/ou XML para intercambio de información a través dos servizos Web.
