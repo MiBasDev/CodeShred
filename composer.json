@@ -1,0 +1,15 @@
+{
+    "name": "com/codeshred",
+    "description": "Proyecto final Miguel Bastos Gándara",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "CodeShred\\": "app/"
+        }
+    },
+    "require": {
+        "steampixel/simple-php-router": "^0.7.1",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
