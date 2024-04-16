@@ -1,22 +1,22 @@
 <!--Main-->
-<main class="flex-col flex-align-c">
+<main class="cs-fl-col cs-fl-align-c">
     <div class="container-code">
         <div class="code-background">
-            <label for="html-code" class="code-title flex flex-align-c">
+            <label for="html-code" class="code-title cs-fl cs-fl-align-c">
                 <i class="fab fa-html5"></i>
                 <p>HTML</p>
             </label>
             <textarea name="html-code" id="html-code" oninput='customSize(this), updateFinalCodeHTML(this)'></textarea>
         </div>
         <div class="code-background">
-            <label for="css-code" class="code-title flex flex-align-c">
+            <label for="css-code" class="code-title cs-fl cs-fl-align-c">
                 <i class="fab fa-css3-alt"></i>
                 <p>CSS</p>
             </label>
             <textarea name="css-code" id="css-code" oninput='customSize(this), updateFinalCodeStyle(this)'></textarea>
         </div>
         <div class="code-background">
-            <label for="js-code" class="code-title flex flex-align-c">
+            <label for="js-code" class="code-title cs-fl cs-fl-align-c">
                 <i class="fab fa-js-square"></i>
                 <p>JS</p>
             </label>

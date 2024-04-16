@@ -6,8 +6,8 @@ class InicioController extends \CodeShred\Core\BaseController {
 
     public function index() {
         $data = array(
-            'titulo' => 'Página de inicio',
-            'breadcrumb' => ['Inicio']
+            'title' => 'codeShred | Inicio',
+            //'breadcrumb' => ['Inicio']
         );        
 //        $modeloCategorias = new \CodeShred\Models\CategoriaModel();
 //        $data['numCategorias'] = $modeloCategorias->size();

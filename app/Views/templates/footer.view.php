@@ -1,8 +1,8 @@
     </main>
 
     <!--Footer position relative si o si-->
-    <footer class="flex flex-just-c flex-align-c">
-        <div class="flex">
+    <footer class="cs-fl cs-fl-just-c cs-fl-align-c">
+        <div class="cs-fl">
             <p>
                 <a href="#">Política de privacidad</a>
             </p>
@@ -13,7 +13,7 @@
                 <a href="#">Contacto</a>
             </p>
         </div>
-        <div class="flex">
+        <div class="cs-fl">
             <p>
                 <a href="#">
                     <i class="fab fa-instagram"></i>

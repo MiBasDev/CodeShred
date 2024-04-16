@@ -10,12 +10,12 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
-    <title>Inicio</title>
+    <title><?php echo $title; ?></title>
 </head>
 
 <body>
     <!--Header-->
-    <header>
+    <header class="cs-fl cs-fl-align-c">
         <input type="search" placeholder="Buscar...">
         <?php if(!isset($_SESSION['user'])){ ?>
         <a href="/registro">

@@ -9,6 +9,13 @@ class FrontController {
     static function main() {
         session_start();
 
+        Route::add('/',
+                function () {
+                    $controlador = new \CodeShred\Controllers\InicioController();
+                    $controlador->index();
+                }
+                , 'get');
+
         if (!isset($_SESSION['usuario'])) {
             Route::add('/login',
                     function () {
@@ -33,25 +40,19 @@ class FrontController {
             Route::add('/registro',
                     function () {
                         $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->loginProcess();
+                        $controlador->registroProcess();
                     }
                     , 'post');
-            Route::add('/',
-                    function () {
-                        $controlador = new \CodeShred\Controllers\InicioController();
-                        $controlador->index();
-                    }
-                    , 'get');
             Route::pathNotFound(
                     function () {
                         header('location: /');
                     }
             );
         } else {
-            Route::add('/login',
+            Route::add('/logout',
                     function () {
-                        $controlador = new \CodeShred\Controllers\InicioController();
-                        $controlador->login();
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
+                        $controlador->logout();
                     }
                     , 'get');
 

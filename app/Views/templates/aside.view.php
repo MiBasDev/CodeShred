@@ -1,7 +1,7 @@
 <!--Aside-->
-<aside class="flex">
-    <div class="aside-content flex-col flex-align-c">
-        <div class="flex flex-align-c">
+<aside class="cs-fl">
+    <div class="aside-content cs-fl-col cs-fl-align-c">
+        <div class="cs-fl cs-fl-align-c">
             <a href="/">
                 <img src="assets/img/codeShred-logo-dark.png" alt="Logo codeShred" id="logo-aside">
             </a>
@@ -19,7 +19,7 @@
                 if ($isUserLoggedIn) :
                 ?>
                     <li class="nav-item">
-                        <a href="/mi-cuenta/mis-posts" class="nav-link flex flex-just-c active">
+                        <a href="/mi-cuenta/mis-posts" class="nav-link cs-fl cs-fl-just-c active">
                             <i class="far fa-file-code"></i>
                             <p>
                                 Mis Shreds
@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/siguiendo" class="nav-link flex flex-just-c ">
+                        <a href="/siguiendo" class="nav-link cs-fl cs-fl-just-c ">
                             <i class="fas fa-user-friends"></i>
                             <p>
                                 Siguiendo
@@ -36,7 +36,7 @@
                     </li>
                 <?php endif; ?>
                 <li class="nav-item">
-                    <a href="/posts" class="nav-link flex flex-just-c ">
+                    <a href="/posts" class="nav-link cs-fl cs-fl-just-c ">
                         <i class="fas fa-laptop-code"></i>
                         <p>
                             Ver Shreds
@@ -45,7 +45,7 @@
                 </li>
                 <?php if ($isUserLoggedIn) :  ?>
                     <li class="nav-item">
-                        <a href="/usuarios" class="nav-link flex flex-just-c ">
+                        <a href="/usuarios" class="nav-link cs-fl cs-fl-just-c ">
                             <i class="fas fa-users"></i>
                             <p>
                                 Usuarios

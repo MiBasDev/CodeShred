@@ -27,20 +27,20 @@
     transition: all 0.3s ease-in-out;
 }
 
-.flex {
+.cs-fl {
     display: flex;
 }
 
-.flex-col {
+.cs-fl-col {
     display: flex;
     flex-direction: column;
 }
 
-.flex-just-c {
+.cs-fl-just-c {
     justify-content: center;
 }
 
-.flex-align-c {
+.cs-fl-align-c {
     align-items: center;
 }
 
@@ -50,9 +50,7 @@ header {
     background-color: var(--static-elements-secondary-bg-color);
     width: var(--other-elements-width);
     height: var(--header-height);
-    display: flex;
     justify-content: right;
-    align-items: center;
     gap: 10px;
     padding: 10px;
 }

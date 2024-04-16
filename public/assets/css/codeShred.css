@@ -159,9 +159,10 @@
 
 /* LOGIN */
 
-.login {
+.login,
+.register {
     padding: 40px 60px;
-    gap: 40px;
+    gap: 30px;
     background-color: var(--static-elements-secondary-bg-color);
     border-radius: 5px;
 }
@@ -213,4 +214,29 @@
 
 .login-buttons {
     justify-content: space-between;
+}
+
+.register h1 {
+    gap: 15px;
+}
+
+.register-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+}
+
+.register-input {
+    grid-column: span 2;
+}
+
+.register-input:nth-child(6) {
+    margin-bottom: 10px;
+}
+
+.register-div-errs {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
