@@ -15,8 +15,21 @@ class FrontController {
                     $controlador->index();
                 }
                 , 'get');
+        Route::add('/posts',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->mostrarTodos();
+                    }
+                    , 'get');
 
-        if (!isset($_SESSION['usuario'])) {
+            Route::add('/posts',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->registroProcess();
+                    }
+                    , 'post');
+
+        if (!isset($_SESSION['user'])) {
             Route::add('/login',
                     function () {
                         $controlador = new \CodeShred\Controllers\UsuarioController();

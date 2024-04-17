@@ -7,7 +7,7 @@ namespace CodeShred\Models;
 class PostsModel extends \CodeShred\Core\BaseDbModel {
 
     function getAll(): array {
-        $stmt = $this->pdo->query('SELECT * FROM posts ORDER BY cif, nombre');
+        $stmt = $this->pdo->query('SELECT * FROM posts ORDER BY id, nombre');
         return $stmt->fetchAll();
     }
     

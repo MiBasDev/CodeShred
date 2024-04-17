@@ -1,5 +1,5 @@
 <!--Aside-->
-<aside class="cs-fl">
+<aside class="cs-fl" id="aside">
     <div class="aside-content cs-fl-col cs-fl-align-c">
         <div class="cs-fl cs-fl-align-c">
             <a href="/">
@@ -14,10 +14,7 @@
         <!-- Sidebar Menu -->
         <nav>
             <ul class="nav">
-                <?php
-                $isUserLoggedIn = isset($_SESSION['user']);
-                if ($isUserLoggedIn) :
-                ?>
+                <?php if (isset($_SESSION['user'])) : ?>
                     <li class="nav-item">
                         <a href="/mi-cuenta/mis-posts" class="nav-link cs-fl cs-fl-just-c active">
                             <i class="far fa-file-code"></i>
@@ -43,7 +40,7 @@
                         </p>
                     </a>
                 </li>
-                <?php if ($isUserLoggedIn) :  ?>
+                <?php if (isset($_SESSION['user'])) : ?>
                     <li class="nav-item">
                         <a href="/usuarios" class="nav-link cs-fl cs-fl-just-c ">
                             <i class="fas fa-users"></i>
@@ -132,9 +129,8 @@
             </ul>
         </nav>
     </div>
-    <div class="aside-hider" onclick="asideHide()">
+    <div class="aside-hider" id="aside-hider">
 
     </div>
-    <!-- /.sidebar-menu -->
 
 </aside>

@@ -31,6 +31,20 @@
             </p>
         </div>
     </footer>
-</body>
+    </body>
+    <script>
+        const asideHider = document.getElementById('aside-hider');
+        const aside = document.getElementById('aside');
 
-</html>
+        asideHider.addEventListener('click', () => {
+            const currentWidth = getComputedStyle(document.documentElement).getPropertyValue('--aside-width');
+
+            if (currentWidth === '250px') {
+                document.documentElement.style.setProperty('--aside-width', '100px');
+            } else {
+                document.documentElement.style.setProperty('--aside-width', '250px');
+            }
+        });
+    </script>
+
+    </html>

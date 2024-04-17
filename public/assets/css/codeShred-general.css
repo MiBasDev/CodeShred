@@ -114,12 +114,17 @@ aside {
     height: var(--header-height);
     gap: 40px;
     padding: 10px;
+    position: relative;
 }
 
 .aside-hider {
     width: 8px;
     border-radius: none;
     background-color: #e9e9e95e;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .aside-hider:hover {

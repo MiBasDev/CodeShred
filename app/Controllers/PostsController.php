@@ -10,8 +10,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     
     function mostrar(){
         $data = [];
-        $data['titulo'] = 'Post';
-        $data['seccion'] = '/post';
+        $data['title'] = 'codeShred | Post';
         
         $modelo = new \CodeShred\Models\PostsModel();
         //$data['productos'] = $modelo->loadPost();
@@ -26,18 +25,12 @@ class PostsController extends \CodeShred\Core\BaseController {
     
     function mostrarTodos(){
         $data = [];
-        $data['titulo'] = 'Todos los fragmentos de código';
-        $data['seccion'] = '/productos';
+        $data['title'] = 'codeShred | Posts';
         
         $modelo = new \CodeShred\Models\PostsModel();
-        $data['productos'] = $modelo->getAll();
+        //$data['posts'] = $modelo->getAll();
         
-        if(isset($_SESSION['mensaje_productos'])){
-            $data['mensaje'] = $_SESSION['mensaje_productos'];
-            unset($_SESSION['mensaje_productos']);
-        }
-        
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
     
     function mostrarAdd(){
