@@ -2,6 +2,7 @@
 .index-main-container {
     width: 100%;
     height: 100%;
+    gap: 40px;
 }
 
 .index-main-container-right,

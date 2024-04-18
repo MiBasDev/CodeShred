@@ -1,5 +1,5 @@
 <main class="cs-fl-col cs-fl-align-c">
-  <div class="index-main-container cs-fl cs-fl-align-c">
+  <div class="index-main-container main-content cs-fl cs-fl-align-c">
     <div class="index-main-container-left cs-fl-col cs-fl-just-c">
       <!-- Logo y slogan -->
       <div class="index-logo-and-slogan cs-fl-col cs-fl-align-c">

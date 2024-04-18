@@ -11,6 +11,8 @@ class PostsController extends \CodeShred\Core\BaseController {
     function mostrar(){
         $data = [];
         $data['title'] = 'codeShred | Post';
+        $data['section'] = '/post';
+
         
         $modelo = new \CodeShred\Models\PostsModel();
         //$data['productos'] = $modelo->loadPost();
@@ -26,6 +28,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     function mostrarTodos(){
         $data = [];
         $data['title'] = 'codeShred | Posts';
+        $data['section'] = '/posts';
         
         $modelo = new \CodeShred\Models\PostsModel();
         //$data['posts'] = $modelo->getAll();

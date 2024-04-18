@@ -13,9 +13,9 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     //const IDIOMAS = ['es', 'en', 'gl'];
 
     public function login() {
-        $data = array(
-            'title' => 'codeShred | Login'
-        );
+        $data = [];
+        $data['title'] = 'codeShred | Registro';
+        $data['section'] = '/login';
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -44,9 +44,9 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     }
 
     public function registro() {
-        $data = array(
-            'title' => 'codeShred | Registro'
-        );
+        $data = [];
+        $data['title'] = 'codeShred | Registro';
+        $data['section'] = '/registro';
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $data);
     }
 
