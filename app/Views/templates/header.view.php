@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
         <title><?php echo $title; ?></title>
-        <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon.png">
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
     </head>
 
     <?php

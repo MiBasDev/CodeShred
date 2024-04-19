@@ -1,10 +1,10 @@
 <!--Aside-->
 <aside class="cs-fl" id="aside">
     <div class="aside-content cs-fl-col cs-fl-align-c">
-        <a href="/post">
+        <a href="/<?= isset($_SESSION['user']) ? 'post' : 'login'; ?>">
             <button class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear</span><span>Shred</span></button>
         </a>
-        
+
         <!-- Sidebar Menu -->
         <nav>
             <ul class="nav">

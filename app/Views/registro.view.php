@@ -13,15 +13,19 @@
                 <div class="cs-fl register-div-errs">
                     <!--Errores nombre-->
                     <p class="login-box-message">
-                        <?php if (isset($loginErrorName)) {
+                        <?php
+                        if (isset($loginErrorName)) {
                             echo $loginErrorName;
-                        } ?>
+                        }
+                        ?>
                     </p>
                     <!--Errores apellidos-->
                     <p class="login-box-message">
-                        <?php if (isset($loginErrorSurname)) {
+                        <?php
+                        if (isset($loginErrorSurname)) {
                             echo $loginErrorSurname;
-                        } ?>
+                        }
+                        ?>
                     </p>
                 </div>
             <?php endif; ?>

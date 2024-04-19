@@ -98,16 +98,16 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                 $data = ['user' => $_POST['user'], 'pass' => $_POST['password1'], 'name' => $_POST['name'], 'surname' => $_POST['surname'], 'email' => $_POST['email'], 'rol' => self::USUARIO];
                 $userOk = $usuarioModel->register($data);
                 if ($userOk == true) {
-                $user = $usuarioModel->login($_POST['user'], $_POST['password1']);
-                $_SESSION['user'] = $user;
-                $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
-                $usuarioModel->updateLoginData($user['id_user']);
+                    $user = $usuarioModel->login($_POST['user'], $_POST['password1']);
+                    $_SESSION['user'] = $user;
+                    $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
+                    $usuarioModel->updateLoginData($user['id_user']);
 //                $logModel = new \Com\Daw2\Models\LogModel();
 //                $logModel->insertLog('login', 'usuarios_sistema', "El usuario '$user[name]' accede al sistema.");                
-                header('location: /');
+                    header('location: /');
                 } else {
-                $_vars['loginError'] = 'Error en la creación del usuario';
-                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $_vars);
+                    $_vars['loginError'] = 'Error en la creación del usuario';
+                    $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $_vars);
                 }
             }
         } else {

@@ -10,7 +10,7 @@
             <a href="#" class="<?= $section === '/cookies' ? 'active' : ''; ?>">Cookies</a>
         </p>
         <p>
-            <a href="#" class="<?= $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
+            <a href="/contacto" class="<?= $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
         </p>
     </div>
     <div class="cs-fl">

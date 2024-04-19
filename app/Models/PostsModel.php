@@ -10,8 +10,8 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         $stmt = $this->pdo->query('SELECT * FROM posts ORDER BY id, nombre');
         return $stmt->fetchAll();
     }
-    
-    function size() : int {
+
+    function size(): int {
         $stmt = $this->pdo->query('SELECT * FROM posts');
         return count($stmt->fetchAll());
     }
@@ -34,27 +34,26 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         if (($size + 1) == $new_size) {
             $stmtLog = $this->pdo->prepare('INSERT INTO log (operacion,tabla,detalle) VALUES (?,?,?)');
             $stmtLog->execute([
-                'insert', 'proveedor', 'Añadido un nuevo elemento a la tabla de proveedores con los datos: ' . print_r($data, true)                
+                'insert', 'proveedor', 'Añadido un nuevo elemento a la tabla de proveedores con los datos: ' . print_r($data, true)
             ]);
             $this->pdo->commit();
             return true;
         } else {
             return false;
-        }        
+        }
     }
 
     function loadPost(int $id_post): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM posts WHERE id_post=?');
         $stmt->execute([$id_post]);
-        if($row == $stmt->fetch()){
-           return $row;
-        }   
-        else{
+        if ($row == $stmt->fetch()) {
+            return $row;
+        } else {
             return null;
         }
     }
 
-    function edit(int $id_post, array $data): bool {        
+    function edit(int $id_post, array $data): bool {
         $this->pdo->beginTransaction();
         $stmt = $this->pdo->prepare('UPDATE posts SET cif=?, codigo=?, nombre=?, direccion=?, website=?, pais=?, email=?, telefono=? WHERE id_post=?');
         $stmt->execute([$data['cif'], $data['codigo'], $data['nombre'], $data['direccion'], $data['website'], $data['pais'], $data['email'], $data['telefono'], $cif]);
@@ -63,7 +62,6 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
 //            'update', 'proveedor', 'Editado el proveedor con cif=' . $cif . ' a los siguientes valores: '. print_r($data, true)
 //        ]);
         $this->pdo->commit();
-        return true;    
+        return true;
     }
-
 }

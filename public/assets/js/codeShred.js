@@ -1,15 +1,17 @@
-
 const asideHider = document.getElementById('aside-hider');
 const aside = document.getElementsByTagName('aside')[0];
 const main = document.getElementsByTagName('main')[0];
 const footer = document.getElementsByTagName('footer')[0];
-
+const navLinkPs = document.querySelectorAll('aside .nav-link p');
 
 asideHider.addEventListener('click', () => {
+    let folded;
     if (aside.classList.contains('folded-aside')) {
         aside.classList.remove('folded-aside');
+        folded = false;
     } else {
         aside.classList.add('folded-aside');
+        folded = true;
     }
 
     if (main.classList.contains('folded-others')) {
@@ -28,5 +30,17 @@ asideHider.addEventListener('click', () => {
         asideHider.classList.remove('aside-hider-folded');
     } else {
         asideHider.classList.add('aside-hider-folded');
+    }
+
+    if (!folded) {
+        setTimeout(() => {
+            navLinkPs.forEach(p => {
+                p.style.display = 'block';
+            });
+        }, 200);
+    } else {
+        navLinkPs.forEach(p => {
+            p.style.display = 'none';
+        });
     }
 });

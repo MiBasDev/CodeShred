@@ -15,19 +15,34 @@ class FrontController {
                     $controlador->index();
                 }
                 , 'get');
-        Route::add('/posts',
-                    function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->mostrarTodos();
-                    }
-                    , 'get');
 
-            Route::add('/posts',
-                    function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->registroProcess();
-                    }
-                    , 'post');
+        Route::add('/posts',
+                function () {
+                    $controlador = new \CodeShred\Controllers\PostsController();
+                    $controlador->mostrarTodos();
+                }
+                , 'get');
+
+        Route::add('/posts',
+                function () {
+                    $controlador = new \CodeShred\Controllers\PostsController();
+                    $controlador->registroProcess();
+                }
+                , 'post');
+
+        Route::add('/contacto',
+                function () {
+                    $controlador = new \CodeShred\Controllers\InicioController();
+                    $controlador->contact();
+                }
+                , 'get');
+
+        Route::add('/contacto',
+                function () {
+                    $controlador = new \CodeShred\Controllers\InicioController();
+                    $controlador->contactForm();
+                }
+                , 'post');
 
         if (!isset($_SESSION['user'])) {
             Route::add('/login',

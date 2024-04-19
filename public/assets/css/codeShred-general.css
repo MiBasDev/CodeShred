@@ -15,6 +15,8 @@
     --button-primary--hover-bg-color: #712ef8;
     --button-secondary--bg-color: #e9e9e9;
     --button-secondary--hover-bg-color: #bdbdbd;
+    --complements-color: #e9e9e95e;
+    --complements-color-hover: #e9e9e9;
 }
 
 * {
@@ -146,7 +148,7 @@ aside {
     width: 15px;
     height: 30px;
     border-radius: 0px 5px 5px 0px;
-    background-color: #e9e9e95e;
+    background-color: var(--complements-color);
     position: absolute;
     top: 10px;
     left: var(--aside-width);
@@ -155,7 +157,7 @@ aside {
 
 .aside-hider:hover {
     width: 30px;
-    background-color: #e9e9e9;
+    background-color: var(--complements-color-hover);
 }
 
 .aside-hider i {
@@ -243,10 +245,28 @@ main {
     height: var(--main-height);
     padding: 50px;
     z-index: -1;
+    overflow-y: auto;
 }
 
 .main-content {
     max-width: 1700px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--static-elements-secondary-bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--complements-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--complements-color-hover);
 }
 
 /* Footer */
@@ -267,4 +287,8 @@ footer div:last-child {
     right: 0;
     gap: 20px;
     margin-right: 10px;
+}
+
+footer a.active {
+    font-weight: bold;
 }

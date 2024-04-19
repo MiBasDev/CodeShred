@@ -67,7 +67,8 @@
 
             try {
                 funcion();
-            } catch (error) {}
+            } catch (error) {
+            }
         }
 
         function containsBalancedTagsHTML(content) {

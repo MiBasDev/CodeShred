@@ -15,7 +15,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         if ($stmt->rowCount() == 1) {
             $userData = $stmt->fetch();
             var_dump($userData);
-            if(password_verify($password, $userData['user_pass'])){
+            if (password_verify($password, $userData['user_pass'])) {
                 unset($userData['user_pass']);
                 return $userData;
             }

@@ -1,15 +1,15 @@
 <?php
+
 require '../vendor/autoload.php';
-        
-try{
+
+try {
     $dotenv = Dotenv\Dotenv::createImmutable('../');
     $dotenv->load();
-    CodeShred\Core\FrontController::main();    
+    CodeShred\Core\FrontController::main();
 } catch (Exception $e) {
-    if($_ENV['app.debug']){
+    if ($_ENV['app.debug']) {
         throw $e;
-    }
-    else{
+    } else {
         echo $e->getMessage();
     }
 }

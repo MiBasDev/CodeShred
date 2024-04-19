@@ -1,14 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CodeShred\Core;
 
-use \PDO; 
+use \PDO;
 
 abstract class BaseDbModel {
+
     protected $pdo;
 
     function __construct() {
-        $this->pdo = DBManager::getInstance()->getConnection();      
+        $this->pdo = DBManager::getInstance()->getConnection();
     }
 }
