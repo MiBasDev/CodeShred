@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c">
+<main class="cs-fl-col cs-fl-align-c <?= $section == '/post' ? 'folded-others' : ''; ?>">
     <div class="container-code">
         <div class="code-background">
             <label for="html-code" class="code-title cs-fl cs-fl-align-c">

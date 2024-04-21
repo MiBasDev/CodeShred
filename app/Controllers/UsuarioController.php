@@ -14,7 +14,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
 
     public function login() {
         $data = [];
-        $data['title'] = 'codeShred | Registro';
+        $data['title'] = 'codeShred | Login';
         $data['section'] = '/login';
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
     }
@@ -32,8 +32,8 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                 $_SESSION['user'] = $user;
                 $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
                 $usuarioModel->updateLoginData($user['id_user']);
-//                $logModel = new \Com\Daw2\Models\LogModel();
-//                $logModel->insertLog('login', 'usuarios_sistema', "El usuario '$user[name]' accede al sistema.");                
+                $logModel = new \CodeShred\Models\LogsModel;
+                $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.");                
                 header('location: /');
             }
         } else {
@@ -102,8 +102,8 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                     $_SESSION['user'] = $user;
                     $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
                     $usuarioModel->updateLoginData($user['id_user']);
-//                $logModel = new \Com\Daw2\Models\LogModel();
-//                $logModel->insertLog('login', 'usuarios_sistema', "El usuario '$user[name]' accede al sistema.");                
+                    $logModel = new \CodeShred\Models\LogsModel;
+                    $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.");               
                     header('location: /');
                 } else {
                     $_vars['loginError'] = 'Error en la creación del usuario';
@@ -122,12 +122,6 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     public function logout(): void {
         session_destroy();
         header('location: /');
-    }
-
-    private function showLoginError() {
-        $_vars = [];
-
-        $this->view->show('login.view.php', $_vars);
     }
 
     private function getPermisos(int $idRol): array {

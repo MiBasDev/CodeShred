@@ -1,7 +1,7 @@
 </main>
 
 <!--Footer position relative si o si-->
-<footer class="cs-fl cs-fl-just-c cs-fl-align-c">
+<footer class="cs-fl cs-fl-just-c cs-fl-align-c <?= $section == '/post' ? 'folded-others' : ''; ?>">
     <div class="cs-fl">
         <p>
             <a href="#" class="<?= $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>

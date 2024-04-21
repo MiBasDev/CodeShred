@@ -7,7 +7,7 @@ namespace CodeShred\Models;
 class PostsModel extends \CodeShred\Core\BaseDbModel {
 
     function getAll(): array {
-        $stmt = $this->pdo->query('SELECT * FROM posts ORDER BY id, nombre');
+        $stmt = $this->pdo->query('SELECT * FROM posts ORDER BY id_post');
         return $stmt->fetchAll();
     }
 
@@ -23,18 +23,20 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function add(array $data): bool {
+        $code = array('html' => $_POST['html-code'], 'css' => $_POST['css-code'], 'js' => $_POST['js-code']);
+        $jsonCode = json_encode($code);
         $size = count($this->getAll());
         $this->pdo->beginTransaction();
-//        $stmt = $this->pdo->prepare('INSERT INTO posts(cif,codigo,nombre,direccion,website,pais,email,telefono) values (?,?,?,?,?,?,?,?)');
-//        $stmt->execute([
-//            $_POST['cif'], $_POST['codigo'], $_POST['nombre'], $_POST['direccion'], $_POST['website'], $_POST['pais'], $_POST['email'], $_POST['telefono']]
-//        );
+        $stmt = $this->pdo->prepare('INSERT INTO posts(post_code,post_img,post_user_id,post_title) values (?,?,?,?)');
+        $stmt->execute([
+            $jsonCode, $_POST['img'], $_SESSION["id_user"], $_POST['tilte']]
+        );
         $new_size = count($this->getAll());
 
         if (($size + 1) == $new_size) {
-            $stmtLog = $this->pdo->prepare('INSERT INTO log (operacion,tabla,detalle) VALUES (?,?,?)');
+            $stmtLog = $this->pdo->prepare('INSERT INTO log (action,detail) VALUES (?,?)');
             $stmtLog->execute([
-                'insert', 'proveedor', 'Añadido un nuevo elemento a la tabla de proveedores con los datos: ' . print_r($data, true)
+                'insert', 'Nuevo post de '.$_SESSION["user"].' añadido: ' . print_r($data, true)
             ]);
             $this->pdo->commit();
             return true;
@@ -54,13 +56,15 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function edit(int $id_post, array $data): bool {
+        $code = array('html' => $_POST['html-code'], 'css' => $_POST['css-code'], 'js' => $_POST['js-code']);
+        $jsonCode = json_encode($code);
         $this->pdo->beginTransaction();
-        $stmt = $this->pdo->prepare('UPDATE posts SET cif=?, codigo=?, nombre=?, direccion=?, website=?, pais=?, email=?, telefono=? WHERE id_post=?');
-        $stmt->execute([$data['cif'], $data['codigo'], $data['nombre'], $data['direccion'], $data['website'], $data['pais'], $data['email'], $data['telefono'], $cif]);
-//        $stmtLog = $this->pdo->prepare('INSERT INTO log (operacion,tabla,detalle) VALUES (?,?,?)');
-//        $stmtLog->execute([
-//            'update', 'proveedor', 'Editado el proveedor con cif=' . $cif . ' a los siguientes valores: '. print_r($data, true)
-//        ]);
+        $stmt = $this->pdo->prepare('UPDATE posts SET post_code=?, post_img=?, post_title=? WHERE id_post=?');
+        $stmt->execute([$jsonCode, $data['post_img'], $data['title'], $id_post]);
+        $stmtLog = $this->pdo->prepare('INSERT INTO log (action,detail) VALUES (?,?)');
+        $stmtLog->execute([
+            'update', 'Editado el post ' . $id_post . ' a los siguientes valores: '. print_r($data, true)
+        ]);
         $this->pdo->commit();
         return true;
     }

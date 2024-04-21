@@ -57,6 +57,10 @@
     width: var(--other-elements-width-folded);
 }
 
+.folded-nav-link {
+    display: none;
+}
+
 .button-primary,
 .button-secondary {
     padding: 10px 15px;
