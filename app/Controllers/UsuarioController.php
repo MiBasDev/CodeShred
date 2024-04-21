@@ -33,7 +33,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                 $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
                 $usuarioModel->updateLoginData($user['id_user']);
                 $logModel = new \CodeShred\Models\LogsModel;
-                $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.");                
+                $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.");
                 header('location: /');
             }
         } else {
@@ -103,7 +103,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                     $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
                     $usuarioModel->updateLoginData($user['id_user']);
                     $logModel = new \CodeShred\Models\LogsModel;
-                    $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.");               
+                    $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.");
                     header('location: /');
                 } else {
                     $_vars['loginError'] = 'Error en la creación del usuario';
@@ -150,20 +150,15 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         return $permisos;
     }
 
-    function mostrarTodos() {
+    function showAll() {
         $data = [];
-        $data['titulo'] = 'Todos los usuarios del sistema';
-        $data['seccion'] = '/usuarios-sistema';
+        $data['title'] = 'codeShred | Usuarios';
+        $data['section'] = '/usuarios';
 
-        $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-        $data['usuarios_sistema'] = $modelo->getAll();
+        $modelo = new \CodeShred\Models\UsuarioModel();
+        $data['users'] = $modelo->getAll();
 
-        if (isset($_SESSION['mensajeUsuarios'])) {
-            $data['mensaje'] = $_SESSION['mensajeUsuarios'];
-            unset($_SESSION['mensajeUsuarios']);
-        }
-
-        $this->view->showViews(array('templates/header.view.php', 'usuarios_sistema.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'usuarios.view.php', 'templates/footer.view.php'), $data);
     }
 
     function delete(string $id) {

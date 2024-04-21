@@ -22,25 +22,37 @@
     <body>
         <!--Header-->
         <header class="cs-fl cs-fl-align-c">
-            <div class="logo-container cs-fl cs-fl-just-c cs-fl-align-c">
+            <div class="header-logo cs-fl cs-fl-just-c cs-fl-align-c">
                 <a href="/">
                     <img src="assets/img/codeShred-logo-dark.png" alt="Logo codeShred" id="logo-cs">
                 </a>
             </div>
-            <div>
-                <input type="search" placeholder="Buscar...">
-                <?php if (!isset($_SESSION['user'])) { ?>
-                    <a href="/registro">
-                        <button class="button-primary" id="button-register">Registrarse</button>
-                    </a>
-                    <a href="/login">
-                        <button class="button-secondary" id="button-login">Login</button>
-                    </a>        
-                <?php } else { ?>
-                    <a href="/logout" class="logout">
-                        <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>
-                    </a>   
-                <?php } ?>
+            <div class="header-buttons cs-fl cs-fl-align-c">
+                <div>
+                    <?php if (isset($section) && strpos($section, '/post') === 0) { ?>
+                        <input type="text" name="title" id="post-title" value="" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
+                    <?php } ?>
+                </div>
+                <div>
+                    <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
+                        <button class="button-secondary" id="button-post-save">Guardar</button>
+                    <?php } ?>
+                    <input type="search" placeholder="Buscar...">
+                    <?php if (!isset($_SESSION['user'])) {
+                        ?>
+                        <a href="/registro">
+                            <button class="button-primary" id="button-register">Registrarse</button>
+                        </a>
+                        <a href="/login">
+                            <button class="button-secondary" id="button-login">Login</button>
+                        </a>        
+                    <?php } else { ?>
+
+                        <a href="/logout" class="logout">
+                            <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>
+                        </a>   
+                    <?php } ?>
+                </div>
             </div>
 
         </header>

@@ -159,7 +159,7 @@
 }
 
 
-/* LOGIN */
+/* LOGIN & REGISTER*/
 
 .login,
 .register {
@@ -250,4 +250,45 @@
 .register-buttons {
     grid-column: span 2;
     justify-content: space-between;
+}
+
+/* USUARIOS*/
+.users-page-container {
+    gap: 30px;
+}
+
+.users-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.users-card{
+    background-color: var(--static-elements-secondary-bg-color);
+    padding: 10px;
+    border: 4px solid var(--button-secondary--hover-bg-color);
+    border-radius: 5px;
+    gap: 10px;
+    max-width: 400px;
+}
+
+.user-name-container {
+    justify-content: space-between;
+}
+
+.user-name,
+.user-content {
+    gap: 10px;
+}
+
+.user-name {
+    align-items: baseline;
+}
+
+.user-img {
+    font-size: 30px;
+}
+
+.user-follow {
+    color: var(--dark-letter-color);
 }

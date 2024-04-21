@@ -6,15 +6,13 @@ namespace CodeShred\Controllers;
 
 class PostsController extends \CodeShred\Core\BaseController {
 
-    private const IVAS = [0, 4, 10, 21];
-
-    function mostrar() {
+    function show(string $id) {
         $data = [];
-        $data['title'] = 'codeShred | Post';
+        $data['title'] = 'codeShred | Shred';
         $data['section'] = '/post';
 
         $modelo = new \CodeShred\Models\PostsModel();
-        //$data['productos'] = $modelo->loadPost();
+        //$data['post'] = $modelo->loadPost();
 //        if(isset($_SESSION['mensaje_productos'])){
 //            $data['mensaje'] = $_SESSION['mensaje_productos'];
 //            unset($_SESSION['mensaje_productos']);
@@ -23,36 +21,18 @@ class PostsController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function mostrarTodos() {
+    function showAdd() {
         $data = [];
-        $data['title'] = 'codeShred | Posts';
-        $data['section'] = '/posts';
+        $data['titulo'] = 'codeShred | Añadir Shred';
+        $data['section'] = '/post/add';
 
-        $modelo = new \CodeShred\Models\PostsModel();
-        //$data['posts'] = $modelo->getAll();
-
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function mostrarAdd() {
+    function showEdit(string $id) {
         $data = [];
-        $data['titulo'] = 'Todos los productos';
-        $data['seccion'] = '/productos/add';
-        $data['tituloDiv'] = 'Alta producto';
-
-        $categoriaModel = new \CodeShred\Models\CategoriaModel();
-        $data['categorias'] = $categoriaModel->getAllCategorias();
-        $data['ivas'] = self::IVAS;
-        //var_dump($data['categorias']); die();
-
-        $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-        $data['proveedores'] = $proveedoresModel->getAll();
-
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
-    }
-
-    function view(string $id) {
-        $data = [];
+        $data['titulo'] = 'codeShred | Edit Shred';
+        $data['section'] = '/post/edit';
         $modelo = new \CodeShred\Models\ProductoModel();
         $input = $modelo->loadProducto($id);
         if (is_null($input)) {
@@ -72,8 +52,19 @@ class PostsController extends \CodeShred\Core\BaseController {
             $proveedoresModel = new \CodeShred\Models\ProveedorModel();
             $data['proveedores'] = $proveedoresModel->getAll();
 
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
         }
+    }
+
+    function mostrarTodos() {
+        $data = [];
+        $data['title'] = 'codeShred | Posts';
+        $data['section'] = '/posts';
+
+        $modelo = new \CodeShred\Models\PostsModel();
+        $data['posts'] = $modelo->getAll();
+
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
 
     function mostrarEdit(string $id) {

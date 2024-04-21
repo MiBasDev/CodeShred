@@ -23,13 +23,6 @@ class FrontController {
                 }
                 , 'get');
 
-        Route::add('/posts',
-                function () {
-                    $controlador = new \CodeShred\Controllers\PostsController();
-                    $controlador->registroProcess();
-                }
-                , 'post');
-
         Route::add('/contacto',
                 function () {
                     $controlador = new \CodeShred\Controllers\InicioController();
@@ -84,12 +77,40 @@ class FrontController {
                     }
                     , 'get');
 
-            Route::add('/post',
+            Route::add('/post/([0-9]+)',
                     function () {
                         $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->mostrar();
+                        $controlador->show();
                     }
                     , 'get');
+
+            Route::add('/post/add',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->showAdd();
+                    }
+                    , 'get');
+
+            Route::add('/post/add',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->processAdd();
+                    }
+                    , 'post');
+
+            Route::add('/post/edit/([0-9]+)',
+                    function ($id) {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->showEdit($id);
+                    }
+                    , 'get');
+
+            Route::add('/post/edit/([0-9]+)',
+                    function ($id) {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->processEdit($id);
+                    }
+                    , 'post');
 
             Route::add('/mi-cuenta/mis-posts',
                     function () {
@@ -121,14 +142,14 @@ class FrontController {
 
             Route::add('/usuarios',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuariosController();
-                        $controlador->mostrar();
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
+                        $controlador->showAll();
                     }
                     , 'get');
 
             Route::add('/usuarios',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuariosController();
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
                         $controlador->mostar();
                     }
                     , 'post');

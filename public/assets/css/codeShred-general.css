@@ -97,11 +97,20 @@ header {
     padding: 10px 10px 10px 0px;
 }
 
-.logo-container {
+.header-logo {
     width: var(--aside-width);
 }
 
 #logo-cs {
+    width: 150px;
+}
+
+.header-buttons {
+    width: calc(100% - var(--aside-width));
+    justify-content: space-between;
+}
+
+#post-title {
     width: 150px;
 }
 

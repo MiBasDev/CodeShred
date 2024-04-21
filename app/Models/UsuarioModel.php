@@ -45,7 +45,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function getAll(): array {
-        $stmt = $this->pdo->query('SELECT usuario_sistema.*, aux_rol.nombre_rol FROM usuario_sistema LEFT JOIN aux_rol ON aux_rol.id_rol = usuario_sistema.id_rol');
+        $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
         return $stmt->fetchAll();
     }
 
