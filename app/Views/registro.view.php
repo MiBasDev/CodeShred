@@ -58,7 +58,8 @@
                 <p class="login-box-message register-input"><?php echo $loginError; ?></p>
             <?php endif; ?>
             <!--Submit-->
-            <div class="cs-fl register-input">
+            <div class="cs-fl cs-fl-align-c register-buttons">
+                <p>¿Ya tienes cuenta? <a href="/login" class="login-resgister-anchor">Logeate</a></p>
                 <button type="submit" class="button-primary">Registrarse</button>
             </div>
         </form>
