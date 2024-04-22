@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 21, 2024 at 01:40 PM
+-- Generation Time: Apr 22, 2024 at 10:53 PM
 -- Server version: 10.6.7-MariaDB-2ubuntu1.1
 -- PHP Version: 8.1.9
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `follows` (
   `user_id` int(11) NOT NULL,
-  `user_id_following` int(11) DEFAULT NULL
+  `user_id_following` int(11) DEFAULT NULL,
+  `id_follow` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -40,7 +41,8 @@ CREATE TABLE `follows` (
 
 CREATE TABLE `likes` (
   `id_post` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL
+  `id_user` int(11) NOT NULL,
+  `id_like` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Likes del post';
 
 -- --------------------------------------------------------
@@ -53,16 +55,25 @@ CREATE TABLE `logs` (
   `id_log` int(11) NOT NULL,
   `action` varchar(50) NOT NULL,
   `detail` varchar(100) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `logs`
 --
 
-INSERT INTO `logs` (`id_log`, `action`, `detail`, `date`) VALUES
-(1, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 11:21:06'),
-(2, 'registro', 'El usuario \'Admin\' se ha registrado en el sistema.', '2024-04-21 11:26:19');
+INSERT INTO `logs` (`id_log`, `action`, `detail`, `date`, `user_id`) VALUES
+(1, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 11:21:06', 0),
+(2, 'registro', 'El usuario \'Admin\' se ha registrado en el sistema.', '2024-04-21 11:26:19', 0),
+(3, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 16:24:13', 0),
+(4, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 16:59:39', 0),
+(5, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 17:52:07', 0),
+(6, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 18:40:30', 0),
+(7, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 18:45:20', 0),
+(8, 'login', 'El usuario \'Admin\' accede al sistema.', '2024-04-21 18:45:29', 0),
+(9, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-22 20:06:21', 0),
+(10, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-22 20:11:20', 0);
 
 -- --------------------------------------------------------
 
@@ -115,8 +126,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `user`, `user_pass`, `user_name`, `user_surname`, `user_email`, `user_rol`, `user_last_login`) VALUES
-(5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-04-21 11:21:06'),
-(6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 3, '2024-04-21 11:26:19');
+(5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-04-22 20:11:20'),
+(6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 1, '2024-04-21 18:45:29');
 
 -- --------------------------------------------------------
 
@@ -126,7 +137,8 @@ INSERT INTO `users` (`id_user`, `user`, `user_pass`, `user_name`, `user_surname`
 
 CREATE TABLE `views` (
   `user_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL
+  `post_id` int(11) NOT NULL,
+  `id_view` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Views del post';
 
 --
@@ -137,6 +149,7 @@ CREATE TABLE `views` (
 -- Indexes for table `follows`
 --
 ALTER TABLE `follows`
+  ADD PRIMARY KEY (`id_follow`),
   ADD KEY `user_follow_FK` (`user_id`),
   ADD KEY `user_following_FK` (`user_id_following`);
 
@@ -144,6 +157,7 @@ ALTER TABLE `follows`
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id_like`),
   ADD KEY `post_likes_FK` (`id_post`),
   ADD KEY `user_likes_FK` (`id_user`);
 
@@ -177,6 +191,7 @@ ALTER TABLE `users`
 -- Indexes for table `views`
 --
 ALTER TABLE `views`
+  ADD PRIMARY KEY (`id_view`),
   ADD KEY `post_views_FK` (`post_id`),
   ADD KEY `user_views_FK` (`user_id`);
 
@@ -185,10 +200,22 @@ ALTER TABLE `views`
 --
 
 --
+-- AUTO_INCREMENT for table `follows`
+--
+ALTER TABLE `follows`
+  MODIFY `id_follow` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -207,6 +234,12 @@ ALTER TABLE `tags`
 --
 ALTER TABLE `users`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `views`
+--
+ALTER TABLE `views`
+  MODIFY `id_view` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

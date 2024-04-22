@@ -22,11 +22,11 @@
                     <?php } ?>
                     <div class="">
                         <label for="subject"><i class=""></i></label>
-                        <input type="text" name="subject" id="subject"></input>
+                        <input type="text" name="subject" id="subject" placeholder="Asunto"></input>
                     </div>
                     <div class="">
                         <label for="message"><i class=""></i></label>
-                        <textarea name="message" id="message" rows="10" class="" length="255" ></textarea>
+                        <textarea name="message" id="message" rows="10" class="" length="255" placeholder="Comentarios..."></textarea>
                     </div>
 
                     <div class="">

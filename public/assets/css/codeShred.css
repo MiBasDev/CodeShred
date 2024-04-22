@@ -255,12 +255,16 @@
 /* USUARIOS*/
 .users-page-container {
     gap: 30px;
-}
+    width: 100%;
+    max-width: 1600px;
+} 
 
 .users-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    width: 100%;
+    justify-items: center;
 }
 
 .users-card{
@@ -289,6 +293,6 @@
     font-size: 30px;
 }
 
-.user-follow {
+.user-follow span {
     color: var(--dark-letter-color);
 }

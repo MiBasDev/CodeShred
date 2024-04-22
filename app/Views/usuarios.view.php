@@ -1,6 +1,5 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-align-c">
-    <?php var_dump($users) ?>
     <div class="cs-fl-col cs-fl-just-c users-page-container">
         <h1>Usuarios en codeShred</h1>
         <div class="users-container">
@@ -9,10 +8,10 @@
                     <div class="user-name-container cs-fl">
                         <div class="user-name cs-fl">
                             <span class="fas fa-user user-img"></span>
-                            <span><?= $user['user'] ?></span>
+                            <span><?= $user['user']; ?></span>
                         </div>
                         <button class="user-follow button-secondary">
-                            <span class="fas fa-user"></span>
+                            <span class="fas fa-user-plus"></span>
                             <span>Seguir</span>
                         </button>
                     </div>
