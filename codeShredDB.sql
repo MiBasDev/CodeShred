@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 22, 2024 at 10:53 PM
+-- Generation Time: Apr 23, 2024 at 10:34 PM
 -- Server version: 10.6.7-MariaDB-2ubuntu1.1
 -- PHP Version: 8.1.9
 
@@ -59,21 +59,18 @@ CREATE TABLE `logs` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `logs`
+-- Table structure for table `options`
 --
 
-INSERT INTO `logs` (`id_log`, `action`, `detail`, `date`, `user_id`) VALUES
-(1, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 11:21:06', 0),
-(2, 'registro', 'El usuario \'Admin\' se ha registrado en el sistema.', '2024-04-21 11:26:19', 0),
-(3, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 16:24:13', 0),
-(4, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 16:59:39', 0),
-(5, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 17:52:07', 0),
-(6, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 18:40:30', 0),
-(7, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-21 18:45:20', 0),
-(8, 'login', 'El usuario \'Admin\' accede al sistema.', '2024-04-21 18:45:29', 0),
-(9, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-22 20:06:21', 0),
-(10, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-04-22 20:11:20', 0);
+CREATE TABLE `options` (
+  `id_option` int(11) NOT NULL,
+  `option_name` varchar(100) NOT NULL,
+  `option_value` varchar(100) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -118,16 +115,17 @@ CREATE TABLE `users` (
   `user_surname` varchar(80) NOT NULL,
   `user_email` varchar(100) NOT NULL,
   `user_rol` int(11) NOT NULL,
-  `user_last_login` timestamp NULL DEFAULT NULL
+  `user_last_login` timestamp NULL DEFAULT NULL,
+  `user_description` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Usuarios de la pagina';
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `user`, `user_pass`, `user_name`, `user_surname`, `user_email`, `user_rol`, `user_last_login`) VALUES
-(5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-04-22 20:11:20'),
-(6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 1, '2024-04-21 18:45:29');
+INSERT INTO `users` (`id_user`, `user`, `user_pass`, `user_name`, `user_surname`, `user_email`, `user_rol`, `user_last_login`, `user_description`) VALUES
+(5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-04-22 20:56:47', NULL),
+(6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 1, '2024-04-21 18:45:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -165,7 +163,15 @@ ALTER TABLE `likes`
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
-  ADD PRIMARY KEY (`id_log`);
+  ADD PRIMARY KEY (`id_log`),
+  ADD KEY `logs_user_FK` (`user_id`);
+
+--
+-- Indexes for table `options`
+--
+ALTER TABLE `options`
+  ADD PRIMARY KEY (`id_option`),
+  ADD KEY `options_user_FK` (`user_id`);
 
 --
 -- Indexes for table `posts`
@@ -215,7 +221,13 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `options`
+--
+ALTER TABLE `options`
+  MODIFY `id_option` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -258,6 +270,18 @@ ALTER TABLE `follows`
 ALTER TABLE `likes`
   ADD CONSTRAINT `post_likes_FK` FOREIGN KEY (`id_post`) REFERENCES `posts` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_likes_FK` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `logs_user_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `options`
+--
+ALTER TABLE `options`
+  ADD CONSTRAINT `options_user_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `posts`

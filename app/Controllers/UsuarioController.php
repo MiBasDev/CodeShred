@@ -33,7 +33,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                 $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
                 $usuarioModel->updateLoginData($user['id_user']);
                 $logModel = new \CodeShred\Models\LogsModel;
-                $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.");
+                $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.", $user['id_user']);
                 header('location: /');
             }
         } else {
