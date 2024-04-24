@@ -36,6 +36,20 @@ class FrontController {
                     $controlador->contactForm();
                 }
                 , 'post');
+                
+        Route::add('/politica-de-privacidad',
+                function () {
+                    $controlador = new \CodeShred\Controllers\InicioController();
+                    $controlador->privacy();
+                }
+                , 'get');
+                
+        Route::add('/politica-de-cookies',
+                function () {
+                    $controlador = new \CodeShred\Controllers\InicioController();
+                    $controlador->cookies();
+                }
+                , 'get');
 
         if (!isset($_SESSION['user'])) {
             Route::add('/login',
@@ -114,28 +128,28 @@ class FrontController {
 
             Route::add('/mi-cuenta/mis-posts',
                     function () {
-                        $controlador = new \CodeShred\Controllers\ProveedorController();
-                        $controlador->mostrarEdit();
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->showMyPosts();
                     }
                     , 'get');
 
             Route::add('/mi-cuenta/mis-posts',
                     function () {
-                        $controlador = new \CodeShred\Controllers\ProveedorController();
+                        $controlador = new \CodeShred\Controllers\PostsController();
                         $controlador->edit();
                     }
                     , 'post');
 
             Route::add('/siguiendo',
                     function () {
-                        $controlador = new \CodeShred\Controllers\ProveedorController();
-                        $controlador->mostrar();
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
+                        $controlador->showFollowing();
                     }
                     , 'get');
 
             Route::add('/siguiendo',
                     function () {
-                        $controlador = new \CodeShred\Controllers\ProveedorController();
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
                         $controlador->mostrar();
                     }
                     , 'post');

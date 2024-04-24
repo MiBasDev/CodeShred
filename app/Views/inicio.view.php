@@ -11,14 +11,14 @@
                 <div class="index-crea cs-fl-col">
                     <h2>Crea contenido</h2>
                     <p>Empieza a crear contenido... ¡Hazte una cuenta ahora!</p>
-                    <a href="#">
+                    <a href="/<?= isset($_SESSION['user']) ? 'post/add' : 'login'; ?>">
                         <button class="button-secondary">Crear Shred</button>
                     </a>
                 </div>
                 <div class="index-comparte cs-fl-col">
                     <h2>Explora contenido</h2>
                     <p>Explora todos los shreds creados por nuestra comunidad.</p>
-                    <a href="#">
+                    <a href="/posts">
                         <button class="button-secondary">Explorar Shreds</button>
                     </a>
                 </div>

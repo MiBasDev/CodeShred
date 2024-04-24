@@ -8,10 +8,10 @@ if (isset($section) && ($section === '/post' || strpos($section, '/post/') === 0
 ?>">
     <div class="cs-fl">
         <p>
-            <a href="#" class="<?= $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>
+            <a href="/politica-de-privacidad" class="<?= $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>
         </p>
         <p>
-            <a href="#" class="<?= $section === '/cookies' ? 'active' : ''; ?>">Cookies</a>
+            <a href="/politica-de-cookies" class="<?= $section === '/politica-de-cookies' ? 'active' : ''; ?>">Cookies</a>
         </p>
         <p>
             <a href="/contacto" class="<?= $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
@@ -37,4 +37,7 @@ if (isset($section) && ($section === '/post' || strpos($section, '/post/') === 0
 </footer>
 </body>
 <script src="assets/js/codeShred.js"></script>
+<?php if (isset($section) && strpos($section, '/post/') === 0) : ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js"></script>
+<?php endif; ?>
 </html>

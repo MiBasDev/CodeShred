@@ -12,14 +12,14 @@ class UsuarioController extends \CodeShred\Core\BaseController {
 
     //const IDIOMAS = ['es', 'en', 'gl'];
 
-    public function login() {
+    public function login(): void {
         $data = [];
         $data['title'] = 'codeShred | Login';
         $data['section'] = '/login';
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
     }
 
-    public function loginProcess() {
+    public function loginProcess(): void {
         $usuarioModel = new \CodeShred\Models\UsuarioModel;
         $_vars = [];
         if (isset($_POST['user']) && $_POST['pass']) {
@@ -43,14 +43,14 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         }
     }
 
-    public function registro() {
+    public function registro(): void {
         $data = [];
         $data['title'] = 'codeShred | Registro';
         $data['section'] = '/registro';
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $data);
     }
 
-    public function registroProcess() {
+    public function registroProcess(): void {
         $usuarioModel = new \CodeShred\Models\UsuarioModel;
         $_vars = [];
         $doQuery = true;
@@ -150,7 +150,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         return $permisos;
     }
 
-    function showAll() {
+    function showAll(): void {
         $data = [];
         $data['title'] = 'codeShred | Usuarios';
         $data['section'] = '/usuarios';
@@ -160,8 +160,19 @@ class UsuarioController extends \CodeShred\Core\BaseController {
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'usuarios.view.php', 'templates/footer.view.php'), $data);
     }
+    
+    function showFollowing(): void {
+        $data = [];
+        $data['title'] = 'codeShred | Siguiendo';
+        $data['section'] = '/siguiendo';
 
-    function delete(string $id) {
+        $modelo = new \CodeShred\Models\UsuarioModel();
+        $data['users'] = $modelo->getFollowing();
+
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'siguiendo.view.php', 'templates/footer.view.php'), $data);
+    }
+
+    function delete(string $id): void {
         if ($_SESSION['usuario']['id_usuario'] == $id) {
             $_SESSION['mensajeUsuarios'] = array(
                 'class' => 'warning',
@@ -183,7 +194,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         }
     }
 
-    function baja(string $id) {
+    function baja(string $id): void {
         if ($_SESSION['usuario']['id_usuario'] == $id) {
             $_SESSION['mensajeUsuarios'] = array(
                 'class' => 'warning',
@@ -204,7 +215,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         }
     }
 
-    function view(string $id) {
+    function view(string $id): void {
         $data = [];
         $data['titulo'] = 'Usuario del sistema ' . $id;
         $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
@@ -213,7 +224,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'detail.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function mostrarAdd() {
+    function mostrarAdd(): void {
         $data = [];
         $data['titulo'] = 'Nuevo usuario del sistema';
         $data['tituloDiv'] = "Alta usuario";

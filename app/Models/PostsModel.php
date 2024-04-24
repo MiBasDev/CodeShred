@@ -11,6 +11,17 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         return $stmt->fetchAll();
     }
 
+    function getMine(int $id_user): array {
+        $stmt = $this->pdo->prepare('SELECT * FROM posts WHERE post_user_id=? ORDER BY id_post');
+        $stmt->execute([$id_user]);
+        $result = $stmt->fetchAll();
+        if (!empty($result)) {
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
     function size(): int {
         $stmt = $this->pdo->query('SELECT * FROM posts');
         return count($stmt->fetchAll());
@@ -36,7 +47,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         if (($size + 1) == $new_size) {
             $stmtLog = $this->pdo->prepare('INSERT INTO log (action,detail) VALUES (?,?)');
             $stmtLog->execute([
-                'insert', 'Nuevo post de '.$_SESSION["user"].' añadido: ' . print_r($data, true)
+                'insert', 'Nuevo post de ' . $_SESSION["user"] . ' añadido: ' . print_r($data, true)
             ]);
             $this->pdo->commit();
             return true;
@@ -63,7 +74,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         $stmt->execute([$jsonCode, $data['post_img'], $data['title'], $id_post]);
         $stmtLog = $this->pdo->prepare('INSERT INTO log (action,detail) VALUES (?,?)');
         $stmtLog->execute([
-            'update', 'Editado el post ' . $id_post . ' a los siguientes valores: '. print_r($data, true)
+            'update', 'Editado el post ' . $id_post . ' a los siguientes valores: ' . print_r($data, true)
         ]);
         $this->pdo->commit();
         return true;

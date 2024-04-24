@@ -92,7 +92,18 @@ class PostsController extends \CodeShred\Core\BaseController {
         }
     }
 
-    function processAdd() {
+    function showMyPosts(): void {
+        $data = [];
+        $data['title'] = 'codeShred | Mis posts';
+        $data['section'] = '/mi-cuenta/mis-posts';
+
+        $modelo = new \CodeShred\Models\PostsModel();
+        $data['posts'] = $modelo->getMine($_SESSION['user']['id_user']);
+
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
+    }
+
+    function processAdd(): void {
         $errores = $this->checkForm($_POST);
         if (count($errores) > 0) {
             $data = [];
@@ -251,7 +262,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         return $errores;
     }
 
-    public function delete(string $codigo) {
+    public function delete(string $codigo): void {
         $modelo = new \CodeShred\Models\ProductoModel();
         if ($modelo->deleteProducto($codigo)) {
             $_SESSION['mensaje_productos'] = array(

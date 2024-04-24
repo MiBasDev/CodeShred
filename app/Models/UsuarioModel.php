@@ -48,6 +48,11 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
         return $stmt->fetchAll();
     }
+    
+    function getFollowing(): array {
+        $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
+        return $stmt->fetchAll();
+    }
 
     function size(): int {
         $stmt = $this->pdo->query('SELECT COUNT(*) as total FROM usuario_sistema');
