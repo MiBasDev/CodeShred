@@ -48,7 +48,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
         return $stmt->fetchAll();
     }
-    
+
     function getFollowing(): array {
         $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
         return $stmt->fetchAll();
@@ -114,6 +114,22 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
             return $row;
         } else {
             return null;
+        }
+    }
+
+    public function toggleFolded($idUser) {
+        $stmtCheck = $this->pdo->prepare('SELECT option_value FROM options WHERE user_id = :user_id AND option_name = :option_name');
+        $stmtCheck->execute(['user_id' => $idUser, 'option_name' => 'folded']);
+        $row = $stmtCheck->fetch();
+
+        if ($row) {
+            $optionValue = $row['option_value'];
+            $newOptionValue = $optionValue == 1 ? 0 : 1;
+            $stmt = $this->pdo->prepare('UPDATE options SET option_value = :option_value WHERE user_id = :user_id AND option_name = :option_name');
+            return $stmt->execute(['option_value' => $newOptionValue, 'user_id' => $idUser, 'option_name' => 'folded']);
+        } else {
+            $stmt = $this->pdo->prepare('INSERT INTO options(option_name, option_value, user_id) VALUES (:option_name, :option_value, :user_id)');
+            return $stmt->execute(['option_name' => 'folded', 'option_value' => 1, 'user_id' => $idUser]);
         }
     }
 }

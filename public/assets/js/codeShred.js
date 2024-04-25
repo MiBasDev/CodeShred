@@ -1,49 +1,38 @@
 const asideHider = document.getElementById('aside-hider');
-const aside = document.getElementsByTagName('aside')[0];
-const main = document.getElementsByTagName('main')[0];
-const footer = document.getElementsByTagName('footer')[0];
-const navLinkPs = document.querySelectorAll('aside .nav-link p');
-
 asideHider.addEventListener('click', () => {
-    let folded;
-    if (aside.classList.contains('folded-aside')) {
-        aside.classList.remove('folded-aside');
-        folded = false;
-    } else {
-        aside.classList.add('folded-aside');
-        folded = true;
-    }
+    const aside = document.querySelector('aside');
+    const main = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    const navLinkPs = document.querySelectorAll('aside .nav-link p');
 
-    if (main.classList.contains('folded-others')) {
-        main.classList.remove('folded-others');
-    } else {
-        main.classList.add('folded-others');
-    }
+    aside.classList.toggle('folded-aside');
+    main.classList.toggle('folded-others');
+    footer.classList.toggle('folded-others');
+    asideHider.classList.toggle('aside-hider-folded');
 
-    if (footer.classList.contains('folded-others')) {
-        footer.classList.remove('folded-others');
-    } else {
-        footer.classList.add('folded-others');
-    }
+    navLinkPs.forEach(p => {
+        p.style.display = aside.classList.contains('folded-aside') ? 'none' : 'block';
+    });
 
-    if (asideHider.classList.contains('aside-hider-folded')) {
-        asideHider.classList.remove('aside-hider-folded');
-    } else {
-        asideHider.classList.add('aside-hider-folded');
-    }
-
-    if (!folded) {
-        setTimeout(() => {
-            navLinkPs.forEach(p => {
-                p.style.display = 'block';
-            });
-        }, 200);
-    } else {
-        navLinkPs.forEach(p => {
-            p.style.display = 'none';
-        });
-    }
+    const functionName = 'ajaxHandler';
+    const action = 'toggleFolded';
+    console.log('hola');
+    
+    fetch('/app/Controllers/UsuarioController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            functionName: functionName,
+            action: action,
+        }),
+    })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error al realizar la solicitud AJAX:', error));
 });
+
 
 
 const htmlCodeTx = document.getElementById('html-code');
@@ -81,3 +70,4 @@ function mostrarResultado() {
         console.error('El iframe no se ha creado correctamente.');
     }
 }
+

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CodeShred\Controllers;
 
+//use Illuminate\Http\Request;
+
 class UsuarioController extends \CodeShred\Core\BaseController {
 
     const ADMINISTRADOR = 1;
@@ -160,7 +162,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'usuarios.view.php', 'templates/footer.view.php'), $data);
     }
-    
+
     function showFollowing(): void {
         $data = [];
         $data['title'] = 'codeShred | Siguiendo';
@@ -378,5 +380,21 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         }
 
         return $errores;
+    }
+
+    public function ajaxHandler(): void {
+        if (isset($_POST['functionName']) && isset($_POST['action'])) {
+            $functionName = $_POST['functionName'];
+            $action = $_POST['action'];
+            $model = new \CodeShred\Models\UsuarioModel();
+            switch ($action) {
+                case 'toggleFolded':
+                    $model->setFolded($_SESSION['user']['id_user']);
+                    echo json_encode(array('success' => true, 'message' => 'Estado del aside guardado'));
+                    break;
+            }
+        } else {
+            echo json_encode(['error' => 'Datos insuficientes en la solicitud']);
+        }
     }
 }
