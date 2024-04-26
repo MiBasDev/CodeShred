@@ -1,9 +1,9 @@
-<main class="cs-fl-col cs-fl-align-c">
+<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : '';?>">
     <div class="index-main-container main-content cs-fl cs-fl-align-c">
         <div class="index-main-container-left cs-fl-col cs-fl-just-c">
             <!-- Logo y slogan -->
             <div class="index-logo-and-slogan cs-fl-col cs-fl-align-c">
-                <img src="assets/img/codeShred-logo-dark.png">
+                <img src="assets/img/cs-logo.png">
                 <h1>La red social de los programadores web</h1>
             </div>
             <!-- Crea y comparte -->
@@ -31,7 +31,7 @@
                 <!-- Generarlos dinamicamente -->
                 <div class="post-card cs-fl-col">
                     <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/codeShred-logo-dark.png" class="post-card-img">
+                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
                     </a>
                     <div class="post-card-title-container">
                         <h3>Nombre del post</h3>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="post-card cs-fl-col">
                     <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/codeShred-logo-dark.png" class="post-card-img">
+                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
                     </a>
                     <div class="post-card-title-container">
                         <h3>Nombre del post</h3>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="post-card cs-fl-col">
                     <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/codeShred-logo-dark.png" class="post-card-img">
+                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
                     </a>
                     <div class="post-card-title-container">
                         <h3>Nombre del post</h3>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="post-card cs-fl-col">
                     <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/codeShred-logo-dark.png" class="post-card-img">
+                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
                     </a>
                     <div class="post-card-title-container">
                         <h3>Nombre del post</h3>
@@ -117,6 +117,45 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                if (isset($posts) && !empty($posts)) {
+                    foreach ($posts as $post) {
+                        ?>
+                        <a href = "/post/<?= $post['id_post'] ?>" class = "post-card cs-fl-col">
+                            <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
+                                <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
+                            </a>
+                            <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-title-container">
+                                <h3><?= $post['post_title'] ?></h3>
+                            </a>
+                            <div class = "post-card-specifications cs-fl cs-fl-align-c">
+                                <div class = "post-card-user cs-fl">
+                                    <i class = "fas fa-user"></i>
+                                    <span>
+                                        <?= $post['post_user'] ?>
+                                    </span>
+                                </div>
+                                <div class = "post-card-tags">
+                                    <?php
+                                    if (isset($post['post_tags']) && !empty($post['post_tags'])) {
+                                        foreach ($post['post_tags'] as $tag) {
+                                            ?>
+                                            <span><?= '#' . $tag ?></span>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </a>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <div class = "cs-fl-col">No hemos encontrado ningún post.</div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>

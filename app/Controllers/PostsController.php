@@ -23,7 +23,7 @@ class PostsController extends \CodeShred\Core\BaseController {
 
     function showAdd() {
         $data = [];
-        $data['titulo'] = 'codeShred | Añadir Shred';
+        $data['title'] = 'codeShred | Crear Shred';
         $data['section'] = '/post/add';
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -31,7 +31,7 @@ class PostsController extends \CodeShred\Core\BaseController {
 
     function showEdit(string $id) {
         $data = [];
-        $data['titulo'] = 'codeShred | Edit Shred';
+        $data['title'] = 'codeShred | Editar Shred';
         $data['section'] = '/post/edit';
         $modelo = new \CodeShred\Models\ProductoModel();
         $input = $modelo->loadProducto($id);
@@ -56,9 +56,9 @@ class PostsController extends \CodeShred\Core\BaseController {
         }
     }
 
-    function mostrarTodos() {
+    function showAll() {
         $data = [];
-        $data['title'] = 'codeShred | Posts';
+        $data['title'] = 'codeShred | Shreds';
         $data['section'] = '/posts';
 
         $modelo = new \CodeShred\Models\PostsModel();
@@ -94,7 +94,7 @@ class PostsController extends \CodeShred\Core\BaseController {
 
     function showMyPosts(): void {
         $data = [];
-        $data['title'] = 'codeShred | Mis posts';
+        $data['title'] = 'codeShred | Mis Shreds';
         $data['section'] = '/mi-cuenta/mis-posts';
 
         $modelo = new \CodeShred\Models\PostsModel();

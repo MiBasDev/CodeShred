@@ -1,11 +1,7 @@
 </main>
 
 <!--Footer position relative si o si-->
-<footer class="cs-fl cs-fl-just-c cs-fl-align-c <?php
-if (isset($section) && ($section === '/post' || strpos($section, '/post/') === 0)) {
-    echo 'folded-others';
-}
-?>">
+<footer class="cs-fl cs-fl-just-c cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl">
         <p>
             <a href="/politica-de-privacidad" class="<?= $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>

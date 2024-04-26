@@ -8,9 +8,9 @@ namespace CodeShred\Controllers;
 
 class UsuarioController extends \CodeShred\Core\BaseController {
 
-    const ADMINISTRADOR = 1;
-    const MODERADOR = 2;
-    const USUARIO = 3;
+    const ADMIN = 1;
+    const MOD = 2;
+    const USER = 3;
 
     //const IDIOMAS = ['es', 'en', 'gl'];
 
@@ -22,18 +22,18 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     }
 
     public function loginProcess(): void {
-        $usuarioModel = new \CodeShred\Models\UsuarioModel;
+        $model = new \CodeShred\Models\UsuarioModel;
         $_vars = [];
         if (isset($_POST['user']) && $_POST['pass']) {
-            $user = $usuarioModel->login($_POST['user'], $_POST['pass']);
+            $user = $model->login($_POST['user'], $_POST['pass']);
             if (is_null($user)) {
                 $_vars['loginError'] = 'Datos de acceso incorrectos';
                 $_vars['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $_vars);
             } else {
                 $_SESSION['user'] = $user;
-                $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
-                $usuarioModel->updateLoginData($user['id_user']);
+                $_SESSION['permisos'] = $this->getPermissions($user['user_rol']);
+                $model->updateLoginData($user['id_user']);
                 $logModel = new \CodeShred\Models\LogsModel;
                 $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.", $user['id_user']);
                 header('location: /');
@@ -45,15 +45,15 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         }
     }
 
-    public function registro(): void {
+    public function register(): void {
         $data = [];
         $data['title'] = 'codeShred | Registro';
         $data['section'] = '/registro';
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $data);
     }
 
-    public function registroProcess(): void {
-        $usuarioModel = new \CodeShred\Models\UsuarioModel;
+    public function registerProcess(): void {
+        $model = new \CodeShred\Models\UsuarioModel;
         $_vars = [];
         $doQuery = true;
         $bothPass = true;
@@ -88,7 +88,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
             $doQuery = false;
         }
         if ($doQuery == true) {
-            $user = $usuarioModel->registerCheck($_POST['user']);
+            $user = $model->registerCheck($_POST['user']);
             if (!is_null($user)) {
                 $_vars['loginError'] = 'Ya existe un usuario con ese nombre';
                 $_vars['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -97,13 +97,13 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                 $_vars['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $_vars);
             } else {
-                $data = ['user' => $_POST['user'], 'pass' => $_POST['password1'], 'name' => $_POST['name'], 'surname' => $_POST['surname'], 'email' => $_POST['email'], 'rol' => self::USUARIO];
-                $userOk = $usuarioModel->register($data);
+                $data = ['user' => $_POST['user'], 'pass' => $_POST['password1'], 'name' => $_POST['name'], 'surname' => $_POST['surname'], 'email' => $_POST['email'], 'rol' => self::USER];
+                $userOk = $model->register($data);
                 if ($userOk == true) {
-                    $user = $usuarioModel->login($_POST['user'], $_POST['password1']);
+                    $user = $model->login($_POST['user'], $_POST['password1']);
                     $_SESSION['user'] = $user;
-                    $_SESSION['permisos'] = $this->getPermisos($user['user_rol']);
-                    $usuarioModel->updateLoginData($user['id_user']);
+                    $_SESSION['permisos'] = $this->getPermissions($user['user_rol']);
+                    $model->updateLoginData($user['id_user']);
                     $logModel = new \CodeShred\Models\LogsModel;
                     $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.");
                     header('location: /');
@@ -126,30 +126,41 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         header('location: /');
     }
 
-    private function getPermisos(int $idRol): array {
+    private function getPermissions(int $idRol): array {
         $permisos = array(
             'categorias' => '',
             'proveedores' => '',
             'productos' => '',
             'usuarios_sistema' => '');
 
-        if (self::ADMINISTRADOR == $idRol) {
+        if (self::ADMIN == $idRol) {
             $permisos['categorias'] = 'rwd';
             $permisos['proveedores'] = 'rwd';
             $permisos['productos'] = 'rwd';
             $permisos['usuarios_sistema'] = 'rwd';
-        } else if (self::MODERADOR == $idRol) {
+        } else if (self::MOD == $idRol) {
             $permisos['categorias'] = 'r';
             $permisos['proveedores'] = 'r';
             $permisos['productos'] = 'r';
             $permisos['usuarios_sistema'] = 'r';
-        } else if (self::USUARIO == $idRol) {
+        } else if (self::USER == $idRol) {
             $permisos['proveedores'] = 'rd';
             $permisos['productos'] = 'rd';
             $permisos['categorias'] = 'rd';
         }
 
         return $permisos;
+    }
+    
+    function myAccount(): void {
+        $data = [];
+        $data['title'] = 'codeShred | Mi cuenta';
+        $data['section'] = '/mi-cuenta';
+        
+        $modelo = new \CodeShred\Models\UsuarioModel();
+        $data['userData'] = $modelo->getUser($_SESSION['user']['id_user']);
+
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
     }
 
     function showAll(): void {

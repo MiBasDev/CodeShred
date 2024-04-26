@@ -19,7 +19,7 @@ class FrontController {
         Route::add('/posts',
                 function () {
                     $controlador = new \CodeShred\Controllers\PostsController();
-                    $controlador->mostrarTodos();
+                    $controlador->showAll();
                 }
                 , 'get');
 
@@ -36,14 +36,14 @@ class FrontController {
                     $controlador->contactForm();
                 }
                 , 'post');
-                
+
         Route::add('/politica-de-privacidad',
                 function () {
                     $controlador = new \CodeShred\Controllers\InicioController();
                     $controlador->privacy();
                 }
                 , 'get');
-                
+
         Route::add('/politica-de-cookies',
                 function () {
                     $controlador = new \CodeShred\Controllers\InicioController();
@@ -68,14 +68,14 @@ class FrontController {
             Route::add('/registro',
                     function () {
                         $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->registro();
+                        $controlador->register();
                     }
                     , 'get');
 
             Route::add('/registro',
                     function () {
                         $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->registroProcess();
+                        $controlador->registerProcess();
                     }
                     , 'post');
             Route::pathNotFound(
@@ -162,6 +162,20 @@ class FrontController {
                     , 'get');
 
             Route::add('/usuarios',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
+                        $controlador->mostar();
+                    }
+                    , 'post');
+
+            Route::add('/mi-cuenta',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
+                        $controlador->myAccount();
+                    }
+                    , 'get');
+
+            Route::add('/mi-cuenta',
                     function () {
                         $controlador = new \CodeShred\Controllers\UsuarioController();
                         $controlador->mostar();

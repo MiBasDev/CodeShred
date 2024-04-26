@@ -27,6 +27,10 @@
     padding: 0px 15px;
 }
 
+.index-logo-and-slogan img {
+    width: 100%;
+}
+
 .index-crea-y-comparte {
     padding: 20px;
     gap: 40px;
@@ -54,7 +58,7 @@
 
 .post-card {
     background-color: var(--static-elements-secondary-bg-color);
-    padding: 10px;
+    padding: 20px;
     border: 4px solid var(--button-secondary--hover-bg-color);
     border-radius: 5px;
     gap: 10px;
@@ -62,12 +66,12 @@
 
 .post-card-img-a {
     height: 200px;
-    margin: 10px;
     border-radius: 5px;
 }
 
 .post-card-img {
-    max-width: 150px;
+    max-width: 350px;
+    border-radius: 5px;
 }
 
 .post-card-title-container,
@@ -257,7 +261,7 @@
     gap: 30px;
     width: 100%;
     max-width: 1600px;
-} 
+}
 
 .users-container {
     display: grid;
@@ -267,7 +271,7 @@
     justify-items: center;
 }
 
-.users-card{
+.users-card {
     background-color: var(--static-elements-secondary-bg-color);
     padding: 10px;
     border: 4px solid var(--button-secondary--hover-bg-color);
@@ -295,4 +299,50 @@
 
 .user-follow span {
     color: var(--dark-letter-color);
+}
+
+/* POSTS */
+.posts-container {
+    gap: 30px;
+}
+
+.posts-cards-container {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    width: 100%;
+    justify-items: center;
+}
+
+.post-card {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* CONTACT */
+.contact-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.contact-form-span {
+    grid-column: span 2;
+}
+
+.contact-form-span input {
+    width: 100%;
+}
+
+.contact-cont {
+    padding: 40px 60px;
+    gap: 30px;
+    background-color: var(--static-elements-secondary-bg-color);
+    border-radius: 5px;
+}
+
+.contact-form-textarea {
+    padding: 10px 15px;
+    background: none;
+    border-radius: 5px;
+    width: 100%;
 }

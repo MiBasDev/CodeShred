@@ -11,20 +11,15 @@
         <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
         <title><?php echo $title; ?></title>
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+        <link rel="icon" type="image/x-icon" href="assets/img/cs-logo-favicon.png">
     </head>
-
-    <?php
-    if (!isset($section)) {
-        $section = '';
-    }
-    ?>
     <body>
+
         <!--Header-->
         <header class="cs-fl cs-fl-align-c">
             <div class="header-logo cs-fl cs-fl-just-c cs-fl-align-c">
                 <a href="/">
-                    <img src="assets/img/codeShred-logo-dark.png" alt="Logo codeShred" id="logo-cs">
+                    <img src="assets/img/cs-logo.png" alt="Logo codeShred" id="logo-cs">
                 </a>
             </div>
             <div class="header-buttons cs-fl cs-fl-align-c">
@@ -47,7 +42,9 @@
                             <button class="button-secondary" id="button-login">Login</button>
                         </a>        
                     <?php } else { ?>
-
+                        <a href="/mi-cuenta">
+                            <button class="button-secondary" id="button-my-account"><i class="fas fa-user"></i></button>
+                        </a> 
                         <a href="/logout" class="logout">
                             <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>
                         </a>   

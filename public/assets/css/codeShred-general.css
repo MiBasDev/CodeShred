@@ -102,7 +102,7 @@ header {
 }
 
 #logo-cs {
-    width: 150px;
+    width: 230px;
 }
 
 .header-buttons {
@@ -133,6 +133,14 @@ header input:focus-visible {
 #button-logout {
     font-size: 16px;
     padding-left: 17px;
+}
+
+#button-my-account {
+    font-size: 16px;
+}
+
+#button-my-account>i {
+    color: var(--dark-letter-color);
 }
 
 /* Aside */

@@ -7,12 +7,12 @@ namespace CodeShred\Models;
 class PostsModel extends \CodeShred\Core\BaseDbModel {
 
     function getAll(): array {
-        $stmt = $this->pdo->query('SELECT * FROM posts ORDER BY id_post');
+        $stmt = $this->pdo->query('SELECT posts.*, users.user, tags.* FROM posts  LEFT JOIN users ON posts.post_user_id = users.id_user LEFT JOIN tags ON posts.id_post = tags.tags_post_id ORDER BY posts.id_post');
         return $stmt->fetchAll();
     }
 
     function getMine(int $id_user): array {
-        $stmt = $this->pdo->prepare('SELECT * FROM posts WHERE post_user_id=? ORDER BY id_post');
+        $stmt = $this->pdo->prepare('SELECT posts.*, users.user, tags.* FROM posts LEFT JOIN users ON posts.post_user_id = users.id_user LEFT JOIN tags ON posts.id_post = tags.tags_post_id WHERE posts.post_user_id = ? ORDER BY posts.id_post');
         $stmt->execute([$id_user]);
         $result = $stmt->fetchAll();
         if (!empty($result)) {
