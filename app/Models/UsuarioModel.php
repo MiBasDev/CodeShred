@@ -52,7 +52,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
     function getUser(int $id): array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE id_user=?');
         $stmt->execute([$id]);
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }
 
     function getFollowing(): array {

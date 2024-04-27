@@ -105,7 +105,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                     $_SESSION['permisos'] = $this->getPermissions($user['user_rol']);
                     $model->updateLoginData($user['id_user']);
                     $logModel = new \CodeShred\Models\LogsModel;
-                    $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.");
+                    $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.", $_SESSION['user']['id_user']);
                     header('location: /');
                 } else {
                     $_vars['loginError'] = 'Error en la creación del usuario';
@@ -151,14 +151,16 @@ class UsuarioController extends \CodeShred\Core\BaseController {
 
         return $permisos;
     }
-    
+
     function myAccount(): void {
         $data = [];
         $data['title'] = 'codeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
-        
-        $modelo = new \CodeShred\Models\UsuarioModel();
-        $data['userData'] = $modelo->getUser($_SESSION['user']['id_user']);
+
+        $model = new \CodeShred\Models\UsuarioModel();
+        $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
+        $model = new \CodeShred\Models\PostsModel();
+        $data['userPosts'] = $model->getMine($_SESSION['user']['id_user']);
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
     }
