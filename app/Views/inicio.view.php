@@ -1,4 +1,4 @@
-<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : '';?>">
+<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="index-main-container main-content cs-fl cs-fl-align-c">
         <div class="index-main-container-left cs-fl-col cs-fl-just-c">
             <!-- Logo y slogan -->
@@ -6,23 +6,25 @@
                 <img src="assets/img/cs-logo.png">
                 <h1>La red social de los programadores web</h1>
             </div>
-            <!-- Crea y comparte -->
-            <div class="index-crea-y-comparte cs-fl cs-fl-just-c">
-                <div class="index-crea cs-fl-col">
-                    <h2>Crea contenido</h2>
-                    <p>Empieza a crear contenido... ¡Hazte una cuenta ahora!</p>
-                    <a href="/<?= isset($_SESSION['user']) ? 'post/add' : 'login'; ?>">
-                        <button class="button-secondary">Crear Shred</button>
-                    </a>
+            <?php if (!isset($_SESSION['user'])) { ?>
+                <!-- Crea y comparte -->
+                <div class="index-crea-y-comparte cs-fl cs-fl-just-c">
+                    <div class="index-crea cs-fl-col">
+                        <h2>Crea contenido</h2>
+                        <p>Empieza a crear contenido... ¡Hazte una cuenta ahora!</p>
+                        <a href="/login">
+                            <button class="button-secondary">Crear Shred</button>
+                        </a>
+                    </div>
+                    <div class="index-comparte cs-fl-col">
+                        <h2>Explora contenido</h2>
+                        <p>Explora todos los shreds creados por nuestra comunidad.</p>
+                        <a href="/posts">
+                            <button class="button-secondary">Explorar Shreds</button>
+                        </a>
+                    </div>
                 </div>
-                <div class="index-comparte cs-fl-col">
-                    <h2>Explora contenido</h2>
-                    <p>Explora todos los shreds creados por nuestra comunidad.</p>
-                    <a href="/posts">
-                        <button class="button-secondary">Explorar Shreds</button>
-                    </a>
-                </div>
-            </div>
+            <?php } ?>
         </div>
         <!-- Posts destacados -->
         <div class="index-main-container-right cs-fl-col cs-fl-just-c">

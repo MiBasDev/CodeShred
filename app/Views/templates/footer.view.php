@@ -35,5 +35,6 @@
 <script src="assets/js/codeShred.js"></script>
 <?php if (isset($section) && strpos($section, '/post/') === 0) : ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js"></script>
+    <script src="assets/js/postControl.js"></script>
 <?php endif; ?>
 </html>

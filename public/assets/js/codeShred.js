@@ -34,41 +34,6 @@ function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
-//const htmlCodeTx = document.getElementById('html-code');
-//const cssCodeTx = document.getElementById('css-code');
-//const jsCodeTx = document.getElementById('js-code');
-//const finalCode = document.getElementById('final-code');
-//
-//htmlCodeTx.addEventListener('input', mostrarResultado);
-//cssCodeTx.addEventListener('input', mostrarResultado);
-//jsCodeTx.addEventListener('input', mostrarResultado);
-//
-//function mostrarResultado() {
-//    const iframe = document.createElement('iframe');
-//    iframe.style.width = '100%';
-//    iframe.style.height = '100%';
-//
-//    iframe.sandbox = 'allow-scripts';
-//
-//    const htmlCode = htmlCodeTx.value;
-//    const cssCode = '<style>' + cssCodeTx.value + '</style>';
-//    const jsCode = '<script>' + jsCodeTx.value + '</script>';
-//    const allCode = htmlCode + cssCode + jsCode;
-//
-//    const saveCode = DOMPurify.sanitize(allCode);
-//
-//    const doc = iframe.contentDocument;
-//    if (doc) {
-//        doc.open();
-//        doc.write(saveCode);
-//        doc.close();
-//
-//        finalCode.innerHTML = '';
-//        finalCode.appendChild(iframe);
-//    } else {
-//        console.error('El iframe no se ha creado correctamente.');
-//    }
-//}
 
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
