@@ -17,9 +17,9 @@
             if (event.origin === window.location.origin) {
                 var message = event.data;
                 $("#iframe-content").html(
-                    "<style>" + message.css + "</style>" +
+                    ("<style>" + message.css + "</style>") +
                     message.html +
-                    "<script>" + message.js + "</script>"
+                    ("<script>" + message.js )
                 );
             }
         });

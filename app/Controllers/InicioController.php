@@ -8,7 +8,9 @@ class InicioController extends \CodeShred\Core\BaseController {
         $data = [];
         $data['title'] = 'codeShred | Inicio';
         $data['section'] = '/';
-
+        
+        $postModel = new \CodeShred\Models\PostsModel();
+        $data['posts'] = $postModel->getAllIndex();
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'inicio.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -27,7 +29,7 @@ class InicioController extends \CodeShred\Core\BaseController {
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contacto.view.php', 'templates/footer.view.php'), $data);
     }
-    
+
     public function privacy(): void {
         $data = [];
         $data['title'] = 'codeShred | Política de privacidad';
@@ -35,7 +37,7 @@ class InicioController extends \CodeShred\Core\BaseController {
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'privacidad.view.php', 'templates/footer.view.php'), $data);
     }
-    
+
     public function cookies(): void {
         $data = [];
         $data['title'] = 'codeShred | Política de cookies';

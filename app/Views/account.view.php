@@ -1,23 +1,23 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="my-account-container cs-fl">
-        <div class="my-account-data cs-fl-col cs-fl-just-c cs-fl-align-c">
+        <form action="/mi-cuenta" method="POST" class="my-account-data cs-fl-col cs-fl-just-c cs-fl-align-c">
             <h1>Hola, <?= $userData['user']; ?> <i class="fab fa-accessible-icon"></i></h1>
             <span class="fa fa-user my-account-data-logo"></span>
             <div class="my-account-data-description cs-fl-col">
                 <label for="user-description">Sobre mí:</label>
-                <textarea name="user-description" id="user-description" rows="6" class="contact-form-textarea" length="255" placeholder="Pequeña descripción sobre mí..."></textarea>
+                <textarea name="user-description" id="user-description" rows="6" class="contact-form-textarea" length="255" placeholder="Pequeña descripción sobre ti..."><?= isset($userData) && !empty($userData['user_description']) ? $userData['user_description'] : ''; ?></textarea>
             </div>
             <div class="my-account-data-buttons cs-fl">
                 <input class="button-secondary" type="submit" value="Guardar descripción">
             </div>
-        </div>
+        </form>
         <div class="my-account-tab">
             <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'mis-shreds')" id="defaultOpen">Mis Shreds</button>
-                <button class="tablinks" onclick="openCity(event, 'likes')">Likes</button>
-                <button class="tablinks" onclick="openCity(event, 'cuentas-seguidas')">Cuentas seguidas</button>
-                <button class="tablinks" onclick="openCity(event, 'configuracion')">Configuración</button>
+                <button class="tablinks" onclick="openTabOption(event, 'mis-shreds')" id="defaultOpen">Mis Shreds</button>
+                <button class="tablinks" onclick="openTabOption(event, 'likes')">Likes</button>
+                <button class="tablinks" onclick="openTabOption(event, 'cuentas-seguidas')">Cuentas seguidas</button>
+                <button class="tablinks" onclick="openTabOption(event, 'configuracion')">Configuración</button>
             </div>
 
             <div id="mis-shreds" class="tabcontent">
@@ -32,10 +32,10 @@
 //                    }
                             ?>
                             <div class = "post-card cs-fl-col">
-                                <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
+                                <a href = "/post/<?= $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                                     <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
                                 </a>
-                                <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-title-container">
+                                <a href = "/post/<?= $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
                                     <h3><?= $post['post_title'] ?></h3>
                                 </a>
                                 <div class = "post-card-specifications cs-fl cs-fl-align-c">

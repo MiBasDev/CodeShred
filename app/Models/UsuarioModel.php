@@ -48,7 +48,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
         return $stmt->fetchAll();
     }
-    
+
     function getUser(int $id): array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE id_user=?');
         $stmt->execute([$id]);
@@ -105,6 +105,11 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         $stmt = $this->pdo->prepare('UPDATE usuario_sistema SET contrasinal=? WHERE id_usuario=?');
         $passEnc = password_hash($pass, PASSWORD_DEFAULT);
         return $stmt->execute([$passEnc, $idUsuario]);
+    }
+
+    function updateUserDescription(int $idUser, string $description): bool {
+        $stmt = $this->pdo->prepare('UPDATE users SET user_description=? WHERE id_user=?');
+        return $stmt->execute([$description, $idUser]);
     }
 
     function countByEmailNotUser(string $email, int $id_user): int {

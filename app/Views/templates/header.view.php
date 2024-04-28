@@ -14,7 +14,6 @@
         <link rel="icon" type="image/x-icon" href="assets/img/cs-logo-favicon.png">
     </head>
     <body>
-
         <!--Header-->
         <header class="cs-fl cs-fl-align-c">
             <div class="header-logo cs-fl cs-fl-just-c cs-fl-align-c">
@@ -24,15 +23,20 @@
             </div>
             <div class="header-buttons cs-fl cs-fl-align-c">
                 <div>
-                    <?php if (isset($section) && strpos($section, '/post/') === 0) { ?>
-                        <input type="text" name="title" id="post-title" value="" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
+                    <?php if (isset($section) && strpos($section, '/post') === 0) { ?>
+                        <input type="text" name="title" id="post-title" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
                     <?php } ?>
                 </div>
                 <div>
-                    <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
-                        <button class="button-secondary" id="button-post-save">Guardar</button>
+                    <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
+                        <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
                     <?php } ?>
-                    <input type="search" placeholder="Buscar...">
+                    <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
+                        <button class="button-primary" id="button-post-save" onclick="openPopup()">Guardar</button>
+                    <?php } ?>
+                    <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post') !== 0) { ?>
+                        <input type="search" placeholder="Buscar...">
+                    <?php } ?>
                     <?php if (!isset($_SESSION['user'])) {
                         ?>
                         <a href="/registro">
@@ -51,5 +55,10 @@
                     <?php } ?>
                 </div>
             </div>
-
         </header>
+
+        <!--Notificaciones???-->
+        <div class="<?= isset($notification) ? 'cs-fl-col' : 'user-notificactions-none'; ?> cs-fl-just-c user-notificactions" id="user-notificactions">
+            <h3>Nueva notifiación</h3>
+            <p><?= $notification['message']; ?></p>
+        </div>

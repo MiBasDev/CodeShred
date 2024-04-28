@@ -50,6 +50,12 @@ class FrontController {
                     $controlador->cookies();
                 }
                 , 'get');
+        Route::add('/post/([0-9]+)',
+                function ($id) {
+                    $controlador = new \CodeShred\Controllers\PostsController();
+                    $controlador->show($id);
+                }
+                , 'get');
 
         if (!isset($_SESSION['user'])) {
             Route::add('/login',
@@ -91,13 +97,6 @@ class FrontController {
                     }
                     , 'get');
 
-            Route::add('/post/([0-9]+)',
-                    function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->show();
-                    }
-                    , 'get');
-
             Route::add('/post/add',
                     function () {
                         $controlador = new \CodeShred\Controllers\PostsController();
@@ -123,6 +122,13 @@ class FrontController {
                     function ($id) {
                         $controlador = new \CodeShred\Controllers\PostsController();
                         $controlador->processEdit($id);
+                    }
+                    , 'post');
+
+            Route::add('/post/delete/([0-9]+)',
+                    function ($id) {
+                        $controlador = new \CodeShred\Controllers\PostsController();
+                        $controlador->deletePost($id);
                     }
                     , 'post');
 
@@ -178,7 +184,7 @@ class FrontController {
             Route::add('/mi-cuenta',
                     function () {
                         $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->mostar();
+                        $controlador->myAccountProcess();
                     }
                     , 'post');
 

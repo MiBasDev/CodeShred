@@ -7,16 +7,12 @@
             //var_dump($posts);
             if (isset($posts) && !empty($posts)) {
                 foreach ($posts as $post) {
-//                    $json = json_decode($post['post_code']);
-//                    foreach ($json as $key => $value) {
-//                        echo $key. ' => ' . $value;
-//                    }
                     ?>
                     <div class = "post-card cs-fl-col">
-                        <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
+                        <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                             <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
                         </a>
-                        <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-title-container">
+                        <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
                             <h3><?= $post['post_title'] ?></h3>
                         </a>
                         <div class = "post-card-specifications cs-fl cs-fl-align-c">

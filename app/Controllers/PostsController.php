@@ -6,22 +6,19 @@ namespace CodeShred\Controllers;
 
 class PostsController extends \CodeShred\Core\BaseController {
 
-    function show(string $id) {
+    public function show(string $id) {
         $data = [];
         $data['title'] = 'codeShred | Shred';
         $data['section'] = '/post';
 
         $modelo = new \CodeShred\Models\PostsModel();
-        //$data['post'] = $modelo->loadPost();
-//        if(isset($_SESSION['mensaje_productos'])){
-//            $data['mensaje'] = $_SESSION['mensaje_productos'];
-//            unset($_SESSION['mensaje_productos']);
-//        }
+
+        $data['post'] = $modelo->loadPost(intval($id));
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function showAdd() {
+    public function showAdd() {
         $data = [];
         $data['title'] = 'codeShred | Crear Shred';
         $data['section'] = '/post/add';
@@ -29,34 +26,20 @@ class PostsController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function showEdit(string $id) {
+    public function showEdit(string $id) {
         $data = [];
         $data['title'] = 'codeShred | Editar Shred';
         $data['section'] = '/post/edit';
-        $modelo = new \CodeShred\Models\ProductoModel();
-        $input = $modelo->loadProducto($id);
-        if (is_null($input)) {
-            header('location: /productos');
+        $modelo = new \CodeShred\Models\PostsModel();
+        $data['post'] = $modelo->loadPost(intval($id));
+        if (is_null($data['post'])) {
+            header('location: /');
         } else {
-            $data['titulo'] = 'Mostrando producto: ' . $input['nombre'];
-            $data['tituloDiv'] = 'Datos del producto';
-            $data['seccion'] = '/productos/view';
-            $data['ivas'] = self::IVAS;
-
-            $data['input'] = $input;
-
-            $categoriaModel = new \CodeShred\Models\CategoriaModel();
-            $data['categorias'] = $categoriaModel->getAllCategorias();
-            //var_dump($data['categorias']); die();
-
-            $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-            $data['proveedores'] = $proveedoresModel->getAll();
-
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
         }
     }
 
-    function showAll() {
+    public function showAll() {
         $data = [];
         $data['title'] = 'codeShred | Shreds';
         $data['section'] = '/posts';
@@ -67,32 +50,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function mostrarEdit(string $id) {
-        $data = [];
-        $modelo = new \CodeShred\Models\ProductoModel();
-        $input = $modelo->loadProducto($id);
-        if (is_null($input)) {
-            header('location: /productos');
-        } else {
-            $data['titulo'] = 'Editando producto: ' . $input['nombre'];
-            $data['tituloDiv'] = 'Modificar producto';
-            $data['seccion'] = '/productos/edit';
-            $data['ivas'] = self::IVAS;
-
-            $data['input'] = $input;
-
-            $categoriaModel = new \CodeShred\Models\CategoriaModel();
-            $data['categorias'] = $categoriaModel->getAllCategorias();
-            //var_dump($data['categorias']); die();
-
-            $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-            $data['proveedores'] = $proveedoresModel->getAll();
-
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
-        }
-    }
-
-    function showMyPosts(): void {
+    public function showMyPosts(): void {
         $data = [];
         $data['title'] = 'codeShred | Mis Shreds';
         $data['section'] = '/mi-cuenta/mis-posts';
@@ -103,54 +61,28 @@ class PostsController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function processAdd(): void {
-        $errores = $this->checkForm($_POST);
-        if (count($errores) > 0) {
-            $data = [];
-            $data['titulo'] = 'Insertar producto';
-            $data['seccion'] = '/productos/add';
-            $data['tituloDiv'] = 'Alta producto';
-
-            $categoriaModel = new \CodeShred\Models\CategoriaModel();
-            $data['categorias'] = $categoriaModel->getAllCategorias();
-            $data['ivas'] = self::IVAS;
-            //var_dump($data['categorias']); die();
-
-            $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-            $data['proveedores'] = $proveedoresModel->getAll();
-            $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            $data['errores'] = $errores;
-
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.producto.view.php', 'templates/footer.view.php'), $data);
+    public function processAdd(): void {
+        $modelo = new \CodeShred\Models\PostsModel();
+        $_POST['user_id'] = $_SESSION['user']['id_user'];
+        if ($modelo->add($_POST)) {
+            $modelo->addTags($_POST);
+            header('location: /posts');
         } else {
-            //Procesar el alta
-            $modelo = new \CodeShred\Models\ProductoModel();
-            if ($modelo->insertProducto($_POST)) {
-                header('location: /productos');
-            } else {
-                $data = [];
-                $data['titulo'] = 'Insertar producto';
-                $data['seccion'] = '/productos/add';
-                $data['tituloDiv'] = 'Alta producto';
+            $data = [];
 
-                $categoriaModel = new \CodeShred\Models\CategoriaModel();
-                $data['categorias'] = $categoriaModel->getAllCategorias();
-                $data['ivas'] = self::IVAS;
-                //var_dump($data['categorias']); die();
+            $data['errors']['title'] = $_POST['shred-title'];
+            $data['errors']['html'] = $_POST['shred-html'];
+            $data['errors']['css'] = $_POST['shred-css'];
+            $data['errors']['js'] = $_POST['shred-js'];
 
-                $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-                $data['proveedores'] = $proveedoresModel->getAll();
-                $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-                $data['errores'] = ['codigo' => 'Error indeterminado al realizar el guardado'];
+            $data['errors']['error'] = 'Error indeterminado al realizar el guardado.';
 
-                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
-            }
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
         }
     }
 
-    function processEdit() {
-        $errores = $this->checkForm($_POST, false);
-        $modelo = new \CodeShred\Models\ProductoModel();
+    public function processEdit(string $id): void {
+        $errores = array();
         if (count($errores) > 0) {
 
             $data = [];
@@ -170,11 +102,10 @@ class PostsController extends \CodeShred\Core\BaseController {
 
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
         } else {
-            //Procesar el alta
-            $modelo = new \CodeShred\Models\ProductoModel();
-            $saneado = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            if ($modelo->updateProducto($saneado)) {
-                header('location: /productos');
+            $modelo = new \CodeShred\Models\PostsModel;
+            $_POST['user_id'] = $_SESSION['user']['id_user'];
+            if ($modelo->editPost(intval($id), $_POST)) {
+                header('location: /');
             } else {
                 $data = [];
                 $data['titulo'] = 'Editando producto: ' . $_POST['codigo'];
@@ -196,83 +127,17 @@ class PostsController extends \CodeShred\Core\BaseController {
         }
     }
 
-    private function checkForm(array $post, bool $alta = true) {
-        $errores = [];
-        if ($post['codigo'] == '') {
-            $errores['codigo'] = 'Inserte un código';
-        } else if (strlen($post['codigo']) > 10) {
-            $errores['codigo'] = 'El código debe tener una longitud máxima de 10 caracteres';
-        } else if ($alta) {
-            $modelo = new \CodeShred\Models\ProductoModel();
-            $row = $modelo->loadProducto($post['codigo']);
-            if (!is_null($row)) {
-                $errores['codigo'] = 'El código ya está en uso por otro producto.';
-            }
-        }
-        //Es una modificación
-        else {
-            $modelo = new \CodeShred\Models\ProductoModel();
-            $row = $modelo->loadProducto($post['codigo']);
-            if (is_null($row)) {
-                $errores['codigo'] = 'No se encuentra en base de datos el producto que se desea editar.';
-            }
-        }
-
-        if (strlen($post['nombre']) == 0) {
-            $errores['nombre'] = 'Debe insertar un nombre de producto.';
-        }
-
-        if ($post['id_categoria'] == '') {
-            $errores['id_categoria'] = 'Seleccione una categoría';
-        } else if (!is_numeric($post['id_categoria'])) {
-            $errores['id_categoria'] = 'Categoría seleccionada inválida.';
-        } else {
-            $categoriaModel = new \CodeShred\Models\CategoriaModel();
-            $categoriaRow = $categoriaModel->loadCategoria((int) $post['id_categoria']);
-            if (is_null($categoriaRow)) {
-                $errores['id_categoria'] = 'La categoría seleccionada no existe.';
-            }
-        }
-
-        if ($post['proveedor'] == '') {
-            $errores['proveedor'] = 'Debe seleccionar un proveedor.';
-        } else {
-            $proveedorModel = new \CodeShred\Models\ProveedorModel();
-            $proveedorRow = $proveedorModel->loadProveedor($post['proveedor']);
-            if (is_null($proveedorRow)) {
-                $errores['proveedor'] = 'El proveedor seleccionado no existe.';
-            }
-        }
-
-        $numericos = ['coste', 'margen', 'stock'];
-
-        foreach ($numericos as $variable) {
-            if (!is_numeric($post[$variable])) {
-                $errores[$variable] = "Por favor inserte un número.";
-            } else if ($post[$variable] <= 0) {
-                $errores[$variable] = "El campo $variable debe tener un valor mayor que cero.";
-            }
-        }
-
-        if ($post['iva'] == '') {
-            $errores['iva'] = 'Seleccione un IVA';
-        } else if (!in_array($post['iva'], self::IVAS)) {
-            $errores['iva'] = 'El iva puede tener los siguientes valores: ' . implode(",", self::IVAS);
-        }
-        return $errores;
-    }
-
-    public function delete(string $codigo): void {
-        $modelo = new \CodeShred\Models\ProductoModel();
-        if ($modelo->deleteProducto($codigo)) {
+    public function deletePost(string $id): void {
+        $modelo = new \CodeShred\Models\PostsModel();
+        if ($modelo->deletePost(intval($id))) {
             $_SESSION['mensaje_productos'] = array(
                 'class' => 'success',
-                'texto' => "Producto $codigo eliminado con éxito");
+                'texto' => "Producto $id eliminado con éxito");
         } else {
             $_SESSION['mensaje_productos'] = array(
                 'class' => 'danger',
-                'texto' => 'No se ha logrado eliminar el producto ' . $codigo);
+                'texto' => 'No se ha logrado eliminar el producto ' . $id);
         }
-        header('location: /productos');
+        header('location: /');
     }
 }

@@ -30,126 +30,32 @@
         <div class="index-main-container-right cs-fl-col cs-fl-just-c">
             <h2>Posts destacados</h2>
             <div class="index-posts-container">
-                <!-- Generarlos dinamicamente -->
-                <div class="post-card cs-fl-col">
-                    <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
-                    </a>
-                    <div class="post-card-title-container">
-                        <h3>Nombre del post</h3>
-                    </div>
-                    <div class="post-card-specifications cs-fl cs-fl-align-c">
-                        <div class="post-card-user cs-fl">
-                            <i class="fas fa-user"></i>
-                            <span>
-                                Usuario
-                            </span>
-                        </div>
-                        <div class="post-card-tags">
-                            <!-- Generarlos dinamicamente -->
-                            <span>#HTML</span>
-                            <span>#CSS</span>
-                            <span>#JS</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card cs-fl-col">
-                    <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
-                    </a>
-                    <div class="post-card-title-container">
-                        <h3>Nombre del post</h3>
-                    </div>
-                    <div class="post-card-specifications cs-fl cs-fl-align-c">
-                        <div class="post-card-user cs-fl">
-                            <i class="fas fa-user"></i>
-                            <span>
-                                Usuario
-                            </span>
-                        </div>
-                        <div class="post-card-tags">
-                            <!-- Generarlos dinamicamente -->
-                            <span>#HTML</span>
-                            <span>#CSS</span>
-                            <span>#JS</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card cs-fl-col">
-                    <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
-                    </a>
-                    <div class="post-card-title-container">
-                        <h3>Nombre del post</h3>
-                    </div>
-                    <div class="post-card-specifications cs-fl cs-fl-align-c">
-                        <div class="post-card-user cs-fl">
-                            <i class="fas fa-user"></i>
-                            <span>
-                                Usuario
-                            </span>
-                        </div>
-                        <div class="post-card-tags">
-                            <!-- Generarlos dinamicamente -->
-                            <span>#HTML</span>
-                            <span>#CSS</span>
-                            <span>#JS</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card cs-fl-col">
-                    <a href="/" class="post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="assets/img/cs-logo-color.png" class="post-card-img">
-                    </a>
-                    <div class="post-card-title-container">
-                        <h3>Nombre del post</h3>
-                    </div>
-                    <div class="post-card-specifications cs-fl cs-fl-align-c">
-                        <div class="post-card-user cs-fl">
-                            <i class="fas fa-user"></i>
-                            <span>
-                                Usuario
-                            </span>
-                        </div>
-                        <div class="post-card-tags">
-                            <!-- Generarlos dinamicamente -->
-                            <span>#HTML</span>
-                            <span>#CSS</span>
-                            <span>#JS</span>
-                        </div>
-                    </div>
-                </div>
                 <?php
                 if (isset($posts) && !empty($posts)) {
                     foreach ($posts as $post) {
                         ?>
-                        <a href = "/post/<?= $post['id_post'] ?>" class = "post-card cs-fl-col">
-                            <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
+                        <div class = "post-card cs-fl-col">
+                            <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                                 <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
                             </a>
-                            <a href = "/post/<?= $post['id_post'] ?>" class = "post-card-title-container">
+                            <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
                                 <h3><?= $post['post_title'] ?></h3>
                             </a>
                             <div class = "post-card-specifications cs-fl cs-fl-align-c">
                                 <div class = "post-card-user cs-fl">
                                     <i class = "fas fa-user"></i>
                                     <span>
-                                        <?= $post['post_user'] ?>
+                                        <?= $post['user'] ?>
                                     </span>
                                 </div>
                                 <div class = "post-card-tags">
-                                    <?php
-                                    if (isset($post['post_tags']) && !empty($post['post_tags'])) {
-                                        foreach ($post['post_tags'] as $tag) {
-                                            ?>
-                                            <span><?= '#' . $tag ?></span>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                    <?= $post['tags_html'] == 1 ? '<span>#HTML</span>' : ''; ?>
+                                    <?= $post['tags_css'] == 1 ? '<span>#CSS</span>' : ''; ?>
+                                    <?= $post['tags_js'] == 1 ? '<span>#JS</span>' : ''; ?>
+
                                 </div>
                             </div>
-                        </a>
+                        </div>
                         <?php
                     }
                 } else {

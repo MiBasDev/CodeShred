@@ -12,8 +12,6 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     const MOD = 2;
     const USER = 3;
 
-    //const IDIOMAS = ['es', 'en', 'gl'];
-
     public function login(): void {
         $data = [];
         $data['title'] = 'codeShred | Login';
@@ -156,6 +154,29 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data = [];
         $data['title'] = 'codeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
+        //$data['notification']['message'] = 'Hemos vuelto chavales';
+
+        $model = new \CodeShred\Models\UsuarioModel();
+        $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
+        $model = new \CodeShred\Models\PostsModel();
+        $data['userPosts'] = $model->getMine($_SESSION['user']['id_user']);
+
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
+    }
+
+    function myAccountProcess(): void {
+        $data = [];
+        $data['title'] = 'codeShred | Mi cuenta';
+        $data['section'] = '/mi-cuenta';
+
+        if (isset($_POST['user-description'])) {
+            $model = new \CodeShred\Models\UsuarioModel();
+            $model->updateUserDescription(intval($_SESSION['user']['id_user']), $_POST['user-description']);
+            $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
+            $model = new \CodeShred\Models\PostsModel();
+            $data['userPosts'] = $model->getMine($_SESSION['user']['id_user']);
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
+        }
 
         $model = new \CodeShred\Models\UsuarioModel();
         $data['userData'] = $model->getUser($_SESSION['user']['id_user']);

@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : '';?>">
+<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl-col cs-fl-just-c users-page-container">
         <h1>Usuarios en codeShred</h1>
         <div class="users-container">
@@ -19,8 +19,8 @@
                             </button>
                         </div>
                         <div class="user-content cs-fl">
-                            <div>Descripción Descripción Descripción Descripción Descripción Descripción Descripción Descripción</div>
-                            <span>#TAGS #TAGS #TAGS</span>
+                            <div><?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
+                            <!--<span>#TAGS #TAGS #TAGS</span>-->
                         </div>
                     </div>
                     <?php

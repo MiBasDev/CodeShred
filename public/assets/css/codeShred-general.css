@@ -62,7 +62,8 @@
 }
 
 .button-primary,
-.button-secondary {
+.button-secondary,
+.button-warning {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -85,6 +86,14 @@
 
 .button-secondary:hover {
     background-color: var(--button-secondary--hover-bg-color);
+}
+
+.button-warning {
+    background-color: #920000;
+}
+
+.button-warning:hover {
+    background-color: #b10000;
 }
 
 /* Header */
@@ -121,6 +130,7 @@ header input {
     border: none;
     border-bottom: 1px solid #b2b2b2;
     border-radius: 5px 5px 0px 0px;
+    font-weight: bold;
 }
 
 header input:hover,
@@ -128,6 +138,10 @@ header input:focus-visible {
     outline-offset: none;
     outline: none;
     background-color: #f5f5f50f;
+}
+
+#button-post-save {
+    margin-right: 20px;
 }
 
 #button-logout {
@@ -315,4 +329,19 @@ footer div:last-child {
 
 footer a.active {
     font-weight: bold;
+}
+
+/* Notifications */
+.user-notificactions {
+    position: absolute;
+    top: calc(var(--header-height) + 5px);
+    right: 0;
+    max-width: 350px;
+    padding: 20px;
+    border-left: 3px solid var(--button-secondary--bg-color);
+    background-color: var(--static-elements-secondary-bg-color);
+}
+
+.user-notificactions-none {
+    display: none;
 }
