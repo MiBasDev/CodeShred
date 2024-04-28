@@ -82,48 +82,21 @@ class PostsController extends \CodeShred\Core\BaseController {
     }
 
     public function processEdit(string $id): void {
-        $errores = array();
-        if (count($errores) > 0) {
-
-            $data = [];
-            $data['titulo'] = 'Editando producto: ' . $_POST['codigo'];
-            $data['tituloDiv'] = 'Modificar producto';
-            $data['seccion'] = '/productos/edit';
-
-            $categoriaModel = new \CodeShred\Models\CategoriaModel();
-            $data['categorias'] = $categoriaModel->getAllCategorias();
-            $data['ivas'] = self::IVAS;
-            //var_dump($data['categorias']); die();
-
-            $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-            $data['proveedores'] = $proveedoresModel->getAll();
-            $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            $data['errores'] = $errores;
-
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
+        $modelo = new \CodeShred\Models\PostsModel;
+        $_POST['user_id'] = $_SESSION['user']['id_user'];
+        if ($modelo->editPost(intval($id), $_POST)) {
+            header('location: /');
         } else {
-            $modelo = new \CodeShred\Models\PostsModel;
-            $_POST['user_id'] = $_SESSION['user']['id_user'];
-            if ($modelo->editPost(intval($id), $_POST)) {
-                header('location: /');
-            } else {
-                $data = [];
-                $data['titulo'] = 'Editando producto: ' . $_POST['codigo'];
-                $data['tituloDiv'] = 'Modificar producto';
-                $data['seccion'] = '/productos/edit';
+            $data = [];
 
-                $categoriaModel = new \CodeShred\Models\CategoriaModel();
-                $data['categorias'] = $categoriaModel->getAllCategorias();
-                $data['ivas'] = self::IVAS;
-                //var_dump($data['categorias']); die();
+            $data['errors']['title'] = $_POST['shred-title'];
+            $data['errors']['html'] = $_POST['shred-html'];
+            $data['errors']['css'] = $_POST['shred-css'];
+            $data['errors']['js'] = $_POST['shred-js'];
 
-                $proveedoresModel = new \CodeShred\Models\ProveedorModel();
-                $data['proveedores'] = $proveedoresModel->getAll();
-                $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-                $data['errores'] = ['codigo' => 'Error indeterminado al realizar el guardado'];
+            $data['errors']['error'] = 'Error indeterminado al realizar el guardado.';
 
-                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'edit.code-fragments.view.php', 'templates/footer.view.php'), $data);
-            }
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
         }
     }
 
