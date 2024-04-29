@@ -45,7 +45,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function getAll(): array {
-        $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
+        $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=' . \CodeShred\Controllers\UsuarioController::USER);
         return $stmt->fetchAll();
     }
 
@@ -55,8 +55,9 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         return $stmt->fetch();
     }
 
-    function getFollowing(): array {
-        $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=3');
+    function getFollowing(int $id): array {
+        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
+        $stmt->execute(['id' => $id]);
         return $stmt->fetchAll();
     }
 
@@ -142,5 +143,28 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
             $stmt = $this->pdo->prepare('INSERT INTO options(option_name, option_value, user_id) VALUES (:option_name, :option_value, :user_id)');
             return $stmt->execute(['option_name' => 'folded', 'option_value' => 1, 'user_id' => $idUser]);
         }
+    }
+
+    public function followCheck(int $userId, int $userIdToFollow): ?bool {
+        $stmt = $this->pdo->prepare("SELECT * FROM follows WHERE user_id=? AND user_id_following=?");
+        $stmt->execute([$userId, $userIdToFollow]);
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function follow(int $userId, int $userIdToFollow): ?bool {
+        $stmt = $this->pdo->prepare('INSERT INTO follows(user_id, user_id_following) values(:user_id, :user_id_following)');
+        return $stmt->execute(['user_id' => $userId, 'user_id_following' => $userIdToFollow]);
+    }
+
+    public function unfollow(int $userId, int $userIdToFollow): ?bool {
+        $stmt = $this->pdo->prepare('DELETE FROM follows WHERE user_id=? AND user_id_following=?');
+        return $stmt->execute([$userId, $userIdToFollow]);
     }
 }

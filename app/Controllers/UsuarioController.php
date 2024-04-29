@@ -203,7 +203,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data['section'] = '/siguiendo';
 
         $modelo = new \CodeShred\Models\UsuarioModel();
-        $data['users'] = $modelo->getFollowing();
+        $data['users'] = $modelo->getFollowing($_SESSION['user']['id_user']);
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'siguiendo.view.php', 'templates/footer.view.php'), $data);
     }
@@ -416,19 +416,19 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         return $errores;
     }
 
-    public function ajaxHandler(): void {
-        if (isset($_POST['functionName']) && isset($_POST['action'])) {
-            $functionName = $_POST['functionName'];
-            $action = $_POST['action'];
-            $model = new \CodeShred\Models\UsuarioModel();
-            switch ($action) {
-                case 'toggleFolded':
-                    $model->setFolded($_SESSION['user']['id_user']);
-                    echo json_encode(array('success' => true, 'message' => 'Estado del aside guardado'));
-                    break;
-            }
+    public function followProcess(): void {
+        $userId = intval($_SESSION['user']['id_user']);
+        $userIdToFollow = intval($_POST['userIdToFollow']);
+
+        $model = new \CodeShred\Models\UsuarioModel();
+        $isFollowing = $model->followCheck($userId, $userIdToFollow);
+
+        if ($isFollowing) {
+            $success = $model->unfollow($userId, $userIdToFollow);
+            echo json_encode(['success' => $success, 'action' => 'unfollow']);
         } else {
-            echo json_encode(['error' => 'Datos insuficientes en la solicitud']);
+            $success = $model->follow($userId, $userIdToFollow);
+            echo json_encode(['success' => $success, 'action' => 'follow']);
         }
     }
 }

@@ -63,7 +63,8 @@
 
 .button-primary,
 .button-secondary,
-.button-warning {
+.button-warning,
+.button-success {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -94,6 +95,14 @@
 
 .button-warning:hover {
     background-color: #b10000;
+}
+
+.button-success {
+    background-color: #008a22;
+}
+
+.button-success:hover {
+    background-color: #00ac2b;
 }
 
 /* Header */
@@ -242,8 +251,12 @@ aside.folded-aside #button-create-shred {
 }
 
 #button-create-shred:hover {
-    border-color: var(--button-primary--bg-color);
-    background-color: var(--button-secondary--hover-bg-color);
+    border-color: var(--button-primary--hover-bg-color);
+    background-color: var(--button-primary--hover-bg-color);
+}
+
+#button-create-shred:hover span {
+    color: var(--light-letter-color);
 }
 
 nav {

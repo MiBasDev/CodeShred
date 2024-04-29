@@ -188,6 +188,13 @@ class FrontController {
                     }
                     , 'post');
 
+            Route::add('/user-follow',
+                    function () {
+                        $controlador = new \CodeShred\Controllers\UsuarioController();
+                        $controlador->followProcess();
+                    }
+                    , 'post');
+
             Route::pathNotFound(
                     function () {
                         $controller = new \CodeShred\Controllers\ErroresController();

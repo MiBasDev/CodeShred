@@ -7,22 +7,23 @@
             if (isset($users) && !empty($users)) {
                 foreach ($users as $user) {
                     ?>
-                    <div class="users-card cs-fl-col cs-fl-just-c">
-                        <div class="user-name-container cs-fl">
-                            <div class="user-name cs-fl">
-                                <span class="fas fa-user user-img"></span>
-                                <span><?= $user['user']; ?></span>
+                    <?php if ($user['user'] != $_SESSION['user']['user']) { ?>
+                        <div class="users-card cs-fl-col cs-fl-just-c">
+                            <div class="user-name-container cs-fl">
+                                <div class="user-name cs-fl">
+                                    <span class="fas fa-user user-img"></span>
+                                    <span><?= $user['user']; ?></span>
+                                </div>
+                                <button class="user-follow button-secondary" id="user-<?= $user['id_user']; ?>">
+                                    <span class="fas fa-user-plus"></span>
+                                </button>
                             </div>
-                            <button class="user-follow button-secondary">
-                                <span class="fas fa-user-plus"></span>
-                                <span>Seguir</span>
-                            </button>
+                            <div class="user-content cs-fl">
+                                <div><?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
+                                <!--<span>#TAGS #TAGS #TAGS</span>-->
+                            </div>
                         </div>
-                        <div class="user-content cs-fl">
-                            <div><?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
-                            <!--<span>#TAGS #TAGS #TAGS</span>-->
-                        </div>
-                    </div>
+                    <?php } ?>
                     <?php
                 }
             } else {

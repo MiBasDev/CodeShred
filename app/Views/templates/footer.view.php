@@ -41,4 +41,8 @@
 <?php if (isset($section) && $section == '/mi-cuenta') : ?>
     <script src="assets/js/tabControl.js"></script>
 <?php endif; ?>
+<?php if (isset($section) && $section == '/usuarios') : ?>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="assets/js/userAjax.js"></script>
+<?php endif; ?>
 </html>
