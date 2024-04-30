@@ -1,28 +1,47 @@
-$(document).ready(function () {
-    $('.user-follow').click(function () {
-        var $button = $(this);
+document.addEventListener('DOMContentLoaded', function () {
+    // Asincronismo para los botones de follow
+    document.querySelectorAll('.user-follow').forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Recogemos los datos que necesitamos del botón
+            var userId = this.id.split('-')[1];
+            var userName = this.getAttribute('data');
 
-        var elementId = $button.attr('id');
-        var userId = elementId.split('-')[1];
-
-        $.ajax({
-            url: '/user-follow',
-            type: 'POST',
-            data: {userIdToFollow: userId},
-            dataType: 'json',
-            success: function (response) {
-                console.log(response);
-                if (response.action === 'follow') {
-                    $button.removeClass('button-secondary').addClass('button-success');
-                    $button.find('span.fa-user-plus').removeClass('fa-user-plus').addClass('fa-check');
-                } else {
-                    $button.removeClass('button-success').addClass('button-secondary');
-                    $button.find('span.fa-check').removeClass('fa-check').addClass('fa-user-plus');
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error', status, error);
-            }
+            // Empezamos la petición
+            fetch('/user-follow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userIdToFollow: userId,
+                    userName: userName
+                }),
+            })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Respuesta fallida.');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        // Procesamos la respuesta en el front
+                        if (data.success) {
+                            if (data.action === 'follow') {
+                                button.classList.remove('button-secondary');
+                                button.classList.add('button-success');
+                                button.querySelector('span').classList.remove('fa-user-plus');
+                                button.querySelector('span').classList.add('fa-check');
+                            } else {
+                                button.classList.remove('button-success');
+                                button.classList.add('button-secondary');
+                                button.querySelector('span').classList.remove('fa-check');
+                                button.querySelector('span').classList.add('fa-user-plus');
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
         });
     });
-});
+}); 

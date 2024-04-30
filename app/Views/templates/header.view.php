@@ -23,7 +23,7 @@
             </div>
             <div class="header-buttons cs-fl cs-fl-align-c">
                 <div>
-                    <?php if (isset($section) && strpos($section, '/post') === 0) { ?>
+                    <?php if (isset($section) && strpos($section, '/post') === 0 && $section !== '/posts') { ?>
                         <input type="text" name="title" id="post-title" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
                     <?php } ?>
                 </div>

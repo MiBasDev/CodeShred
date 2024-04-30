@@ -29,6 +29,9 @@
 
                             </div>
                         </div>
+                        <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
+                            <span class="far fa-heart"></span>
+                        </button>
                     </div>
                     <?php
                 }

@@ -192,7 +192,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data['section'] = '/usuarios';
 
         $modelo = new \CodeShred\Models\UsuarioModel();
-        $data['users'] = $modelo->getAll();
+        $data['users'] = $modelo->getAll(intval($_SESSION['user']['id_user']));
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'usuarios.view.php', 'templates/footer.view.php'), $data);
     }
@@ -417,18 +417,39 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     }
 
     public function followProcess(): void {
+        // Decodificamos los datos enviados en la petición
+        $postData = file_get_contents("php://input");
+        $data = json_decode($postData, true);
+
+        // Guardamos las variables
         $userId = intval($_SESSION['user']['id_user']);
-        $userIdToFollow = intval($_POST['userIdToFollow']);
+        $userIdToFollow = intval($data['userIdToFollow']);
 
-        $model = new \CodeShred\Models\UsuarioModel();
-        $isFollowing = $model->followCheck($userId, $userIdToFollow);
+        // Variables por defecto para la respuesta
+        $success = false;
+        $action = '';
 
-        if ($isFollowing) {
-            $success = $model->unfollow($userId, $userIdToFollow);
-            echo json_encode(['success' => $success, 'action' => 'unfollow']);
-        } else {
-            $success = $model->follow($userId, $userIdToFollow);
-            echo json_encode(['success' => $success, 'action' => 'follow']);
+        //Comprobamos que no sean el mismo id (por si nos quieren hackear)
+        if ($userId !== $userIdToFollow) {
+            $userName = $data['userName'];
+
+            // Comprobamos si el usuario se la sesión o no al usuario en cuestión
+            $model = new \CodeShred\Models\UsuarioModel();
+            $isFollowing = $model->followCheck($userId, $userIdToFollow);
+
+            // Ejecutamos un método u otro en función del follow
+            if ($isFollowing) {
+                $success = $model->unfollow($userId, $userIdToFollow);
+            } else {
+                $success = $model->follow($userId, $userIdToFollow);
+            }
+
+            // Creamos un log de lo ocurrido
+            $logModel = new \CodeShred\Models\LogsModel;
+            $action = $isFollowing ? 'unfollow' : 'follow';
+            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isFollowing ? "dejado de seguir" : "seguido") . " a " . $userName . ".", $_SESSION['user']['id_user']);
         }
+        // Enviamos el resultado al front
+        echo json_encode(['success' => $success, 'action' => $action]);
     }
 }

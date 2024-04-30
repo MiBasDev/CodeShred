@@ -44,8 +44,9 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         return $stmt->execute([$id_usuario]);
     }
 
-    function getAll(): array {
-        $stmt = $this->pdo->query('SELECT * FROM users WHERE user_rol=' . \CodeShred\Controllers\UsuarioController::USER);
+    function getAll(int $id): array {
+        $stmt = $this->pdo->prepare('SELECT u.*, f.user_id_following FROM users u LEFT JOIN follows f ON u.id_user = f.user_id_following AND f.user_id = ? WHERE u.id_user != ? AND u.user_rol = ?');
+        $stmt->execute([$id, $id, \CodeShred\Controllers\UsuarioController::USER]);
         return $stmt->fetchAll();
     }
 

@@ -14,8 +14,8 @@
                                     <span class="fas fa-user user-img"></span>
                                     <span><?= $user['user']; ?></span>
                                 </div>
-                                <button class="user-follow button-secondary" id="user-<?= $user['id_user']; ?>">
-                                    <span class="fas fa-user-plus"></span>
+                                <button class="user-follow <?= $user['user_id_following'] != null ? 'button-success' : 'button-secondary' ; ?>" id="user-<?= $user['id_user']; ?>" data="<?= $user['user']; ?>">
+                                    <span class="fas <?= $user['user_id_following'] != null ? 'fa-check' : 'fa-user-plus' ; ?>"></span>
                                 </button>
                             </div>
                             <div class="user-content cs-fl">
