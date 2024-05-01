@@ -181,6 +181,7 @@ class FrontController {
                     }
                     , 'get');
 
+            /* AJAX */
             Route::add('/update-description',
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
@@ -199,6 +200,13 @@ class FrontController {
                     function () {
                         $controller = new \CodeShred\Controllers\PostsController();
                         $controller->likeProcess();
+                    }
+                    , 'post');
+
+            Route::add('/post-delete',
+                    function () {
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->tablePostDeleteProcess();
                     }
                     , 'post');
 

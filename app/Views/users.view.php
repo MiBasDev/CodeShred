@@ -20,7 +20,6 @@
                             </div>
                             <div class="user-content cs-fl">
                                 <div><?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
-                                <!--<span>#TAGS #TAGS #TAGS</span>-->
                             </div>
                         </div>
                     <?php } ?>

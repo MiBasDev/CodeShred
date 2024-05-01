@@ -1,4 +1,6 @@
-/* Index */
+/*****************/
+/***** Index *****/
+/*****************/
 .index-main-container {
     width: 100%;
     height: 100%;
@@ -59,7 +61,6 @@
 .post-card {
     background-color: var(--static-elements-secondary-bg-color);
     padding: 20px;
-    /*border: 2px solid var(--button-secondary--hover-bg-color);*/
     border-radius: 5px;
     gap: 10px;
     position: relative;
@@ -98,7 +99,9 @@
 }
 
 
-/* Single post view */
+/****************************/
+/***** SINGLE POST VIEW *****/
+/****************************/
 .container-code {
     width: 100%;
     height: 320px;
@@ -191,9 +194,70 @@
     color: #f0db4f;
 }
 
+.popup,
+.popup-delete {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
 
-/* LOGIN & REGISTER*/
+.popup-content,
+.popup-delete-content {
+    background-color: var(--static-elements-secondary-bg-color);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    gap: 20px;
+}
 
+.popup-delete-content {
+    width: auto;
+}
+
+.popup-title {
+    justify-content: space-between
+}
+
+#popup-form {
+    padding: 10px;
+    gap: 20px;
+}
+
+.close-popup {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    align-self: baseline;
+}
+
+.close-popup:hover,
+.close-popup:focus {
+    color: #930000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-button {
+    justify-content: end;
+}
+
+.popup-delete-button {
+    justify-content: space-evenly;
+}
+
+
+/****************************/
+/***** LOGIN & REGISTER *****/
+/****************************/
 .login,
 .register {
     padding: 40px 60px;
@@ -303,7 +367,6 @@
 .users-card {
     background-color: var(--static-elements-secondary-bg-color);
     padding: 20px;
-    /*border: 2px solid var(--button-secondary--hover-bg-color);*/
     border-radius: 5px;
     gap: 10px;
     max-width: 400px;
@@ -331,7 +394,10 @@
     color: var(--dark-letter-color);
 }
 
-/* POSTS */
+
+/*****************/
+/***** POSTS *****/
+/*****************/
 .posts-container {
     gap: 30px;
 }
@@ -372,7 +438,10 @@
     color: #a50101;
 }
 
-/* CONTACT */
+
+/*******************/
+/***** CONTACT *****/
+/*******************/
 .contact-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -400,7 +469,10 @@
     width: 100%;
 }
 
-/* MI CUENTA */
+
+/*********************/
+/***** MI CUENTA *****/
+/*********************/
 .my-account-container {
     width: 100%;
     height: 100%;
@@ -431,106 +503,45 @@
     width: 70%;
 }
 
-.my-account-posts-table {
-    width: 100%;
-}
-
-.my-account-posts-table thead td {
-    font-weight: bold;
-}
-
-.my-account-posts-table td {
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-}
-
-.my-account-posts-table thead tr {
-    background-color: var(--static-elements-secondary-bg-color);
-}
-
-.my-account-posts-table thead tr td:first-child {
-    border-radius: 5px 0 0 0;
-}
-
-.my-account-posts-table thead tr td:last-child {
-    border-radius: 0 5px 0 0;
-}
-
-.my-account-posts-table tr:nth-child(even) {
-    background-color: var(--static-elements-secondary-bg-color);
-}
-
-
-.my-account-posts-table td:nth-child(2) {
-    border-right: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-
-}
-
-.my-account-posts-table tr,
-.my-account-posts-table td {
-    padding: 20px;
-}
-
-#user-description {
-    resize: none;
-}
-
-/* Style the tab */
 .tab {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
-    border-bottom: 1px solid #ccc;
+    border-radius: 5px 5px 0 0;
 }
 
-/* Style the buttons inside the tab */
 .tab button {
     background-color: inherit;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 20px;
     font-size: 16px;
     font-weight: bold;
 }
 
-.tab button:not(:last-child) {
-    border-right: 1px solid #ccc;
-}
-
-.tab button:last-child {
-    border-radius: 0px 5px 0px 0px;
-}
-
-.tab button:first-child {
-    border-radius: 5px 0px 0px 0px;
-}
-
-/* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: var(--button-secondary--hover-bg-color);
-    color: var(--dark-letter-color);
+    background-color: var(--static-elements-secondary-bg-color);
 }
 
-/* Create an active/current tablink class */
 .tab button.active {
-    background-color: var(--button-secondary--bg-color);
-    color: var(--dark-letter-color);
+    background-color: var(--static-elements-secondary-bg-color);
+    color: var(--light-letter-color);
 }
 
-/* Style the tab content */
 .tabcontent {
     display: none;
     padding: 20px;
     border-top: none;
+    background-color: var(--static-elements-secondary-bg-color);
+    border-radius: 0 0 5px 5px;
 }
 
 .tabcontent {
-    animation: fadeEffect 1s;
-    /* Fading effect takes 1 second */
+    animation: fadeEffect 0.6s;
 }
 
-/* Go from zero to full opacity */
 @keyframes fadeEffect {
     from {
         opacity: 0;
@@ -545,67 +556,65 @@
     gap: 20px;
 }
 
-.popup,
-.popup-delete {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+.my-account-posts-table,
+.my-account-following-table {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    justify-content: center;
-    align-items: center;
 }
 
-.popup-content,
-.popup-delete-content {
-    background-color: var(--static-elements-secondary-bg-color);
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 600px;
-    gap: 20px;
-}
-
-.popup-delete-content {
-    width: auto;
-}
-
-.popup-title {
-    justify-content: space-between
-}
-
-#popup-form {
-    padding: 10px;
-    gap: 20px;
-}
-
-.close-popup {
-    color: #aaa;
-    font-size: 28px;
+.my-account-posts-table thead td,
+.my-account-following-table thead td {
     font-weight: bold;
-    align-self: baseline;
 }
 
-.close-popup:hover,
-.close-popup:focus {
-    color: #930000;
-    text-decoration: none;
-    cursor: pointer;
+.my-account-posts-table td,
+.my-account-following-table td {
+    padding: 20px;
+    border-bottom: 2px solid var(--static-elements-bg-color);
+    text-align: center;
 }
 
-.popup-button {
-    justify-content: end;
+.my-account-posts-table thead tr,
+.my-account-following-table thead tr {
+    background-color: var(--button-primary--bg-color);
 }
 
-.popup-delete-button {
-    justify-content: space-evenly;
+.my-account-posts-table thead tr td:first-child,
+.my-account-following-table thead tr td:first-child {
+    border-radius: 5px 0 0 0;
 }
 
-/* Following */
+.my-account-posts-table thead tr td:last-child,
+.my-account-following-table thead tr td:last-child{
+    border-radius: 0 5px 0 0;
+}
+
+
+.my-account-posts-table td:nth-child(2),
+.my-account-following-table td:nth-child(2) {
+    border-right: 2px solid var(--static-elements-bg-color);
+    border-left: 2px solid var(--static-elements-bg-color);
+}
+
+.my-account-posts-table td:nth-child(3) {
+    border-right: 2px solid var(--static-elements-bg-color);
+}
+
+#user-description {
+    resize: none;
+}
+
+.button-my-account-post-delete span {
+    font-size: 18px;
+}
+
+.button-my-account-post-edit span {
+    color: var(--dark-letter-color);
+}
+
+
+/*********************/
+/***** FOLLOWING *****/
+/*********************/
 .following-container {
     gap: 20px;
 }

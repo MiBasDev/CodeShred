@@ -171,6 +171,7 @@ class UsersController extends \CodeShred\Core\BaseController {
 
         $model = new \CodeShred\Models\UsersModel();
         $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
+        $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);
         $model = new \CodeShred\Models\PostsModel();
         $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
 

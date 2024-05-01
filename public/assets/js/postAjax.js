@@ -88,4 +88,45 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
         });
     });
+
+    // Asincronismo para los botones de like
+    document.querySelectorAll('.button-my-account-post-delete').forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Recogemos los datos que necesitamos del botón
+            var postId = this.id.split('-')[5];
+
+            // Empezamos la petición
+            fetch('/post-delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    postId: postId,
+                }),
+            })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Respuesta fallida.');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        // Procesamos la respuesta en el front
+                        if (data.success) {
+                            if (data.action === 'deleted') {
+                                // Cogemos el tr padre
+                                var trElement = document.getElementById('my-account-table-post-' + postId);
+                                // Lo quitamos de la tabla
+                                if (trElement) {
+                                    trElement.style.display = 'none';
+                                }
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+        });
+    });
 }); 

@@ -40,8 +40,6 @@
 <?php if (isset($section) && $section == '/mi-cuenta') : ?>
     <script src="assets/js/tabControl.js"></script>
 <?php endif; ?>
-<?php if (isset($section) && $section == '/usuarios') : ?>
-    <script src="assets/js/userAjax.js"></script>
-<?php endif; ?>
-    <script src="assets/js/postAjax.js"></script>
+<script src="assets/js/userAjax.js"></script>
+<script src="assets/js/postAjax.js"></script>
 </html>

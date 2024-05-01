@@ -20,12 +20,14 @@
                 <button class="tablinks" onclick="openTabOption(event, 'configuracion')">Configuración</button>
             </div>
 
+            <!--Mis Shreds-->
             <div id="mis-shreds" class="tabcontent">
                 <table class="my-account-posts-table">
                     <thead>
                         <tr>
                             <td>TÍTULO</td>                           
-                            <td>TAGS</td>
+                            <td><span class="fa fa-eye"></span></td>                            
+                            <td><span class="fa fa-heart"></span></td>
                             <td>CONTROL</td>
                         </tr>
                     </thead>
@@ -34,19 +36,22 @@
                         if (isset($userPosts) && !empty($userPosts)) {
                             foreach ($userPosts as $post) {
                                 ?>
-                                <tr>
+                                <tr id="my-account-table-post-<?= $post['id_post']; ?>">
                                     <td>
-                                        <a href = "/post/<?= $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
+                                        <a href = "/post/<?= $post['id_post']; ?>">
                                             <?= $post['post_title'] ?>
                                         </a>
                                     </td>
                                     <td>
-                                        <?= $post['tags_html'] == 1 ? '<span>#HTML</span>' : ''; ?>
-                                        <?= $post['tags_css'] == 1 ? '<span>#CSS</span>' : ''; ?>
-                                        <?= $post['tags_js'] == 1 ? '<span>#JS</span>' : ''; ?>
+                                        num
                                     </td>
                                     <td>
-                                        <button>a</button>
+                                        num
+                                    </td>
+                                    <td>
+                                        <button class="button-warning button-my-account-post-delete" id="button-my-account-post-delete-<?= $post['id_post']; ?>" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
+                                        <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?= $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
+                                        <a href="/post/<?= $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?= $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -63,14 +68,56 @@
                 </table>
             </div>
 
+            <!--Likes-->
             <div id="likes" class="tabcontent">
                 <h3>Likes</h3>
             </div>
 
+            <!--Cuentas seguidas-->
             <div id="cuentas-seguidas" class="tabcontent">
-                <h3>Cuentas seguidas</h3>
+                <table class="my-account-following-table">
+                    <thead>
+                        <tr>
+                            <td>USUARIO</td>                           
+                            <td>DESCRIPCIÓN</td>
+                            <td>CONTROL</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (isset($userFollowing) && !empty($userFollowing)) {
+                            foreach ($userFollowing as $user) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <a href = "/siguiendo">
+                                            <?= $user['user'] ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
+                                    </td>
+                                    <td>
+                                        <button class="user-follow button-success" id="user-<?= $user['id_user']; ?>" data="<?= $user['user']; ?>">
+                                            <span class="fas fa-check"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="3">No sigues a ningún usuario.</td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    <tbody>
+                </table>
             </div>
 
+            <!--Configuración-->
             <div id="configuracion" class="tabcontent">
                 <div class="tab-conf cs-fl-col">
                     <h3>Tu cuenta</h3>

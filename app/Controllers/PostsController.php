@@ -148,4 +148,25 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Enviamos el resultado al front
         echo json_encode(['success' => $success, 'action' => $action]);
     }
+
+    public function tablePostDeleteProcess(): void {
+        // Decodificamos los datos enviados en la petición
+        $postData = file_get_contents("php://input");
+        $data = json_decode($postData, true);
+
+        // Guardamos las variables
+        $postId = intval($data['postId']);
+
+        // Comprobamos el like
+        $model = new \CodeShred\Models\PostsModel();
+        $isDeleted = $model->deletePost($postId);
+
+        // Creamos un log de lo ocurrido
+        $logModel = new \CodeShred\Models\LogsModel;
+        $action = $isDeleted ? 'deleted' : 'not deleted';
+        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
+
+        // Enviamos el resultado al front
+        echo json_encode(['success' => $isDeleted, 'action' => $action]);
+    }
 }

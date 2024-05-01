@@ -62,10 +62,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function getFollowing(int $id): array {
-        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description
-                                 FROM users u
-                                 JOIN follows f ON u.id_user = f.user_id_following
-                                 WHERE f.user_id = :id');
+        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
         $stmt->execute(['id' => $id]);
         return $stmt->fetchAll();
     }
