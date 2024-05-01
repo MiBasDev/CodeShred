@@ -6,19 +6,26 @@ namespace CodeShred\Models;
 
 class PostsModel extends \CodeShred\Core\BaseDbModel {
 
-    function getAll(): array {
-        $stmt = $this->pdo->query('SELECT posts.*, users.user, tags.* FROM posts  LEFT JOIN users ON posts.post_user_id = users.id_user LEFT JOIN tags ON posts.id_post = tags.tags_post_id ORDER BY posts.id_post DESC');
+    function getAll(int $userId): array {
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC');
+        $stmt->execute(['userId' => $userId]);
+
+        return $stmt->fetchAll();
+    }
+
+    function getAllForSize(): array {
+        $stmt = $this->pdo->query('SELECT * FROM posts');
         return $stmt->fetchAll();
     }
 
     function getAllIndex(): array {
-        $stmt = $this->pdo->query('SELECT posts.*, users.user, tags.* FROM posts  LEFT JOIN users ON posts.post_user_id = users.id_user LEFT JOIN tags ON posts.id_post = tags.tags_post_id ORDER BY posts.id_post DESC LIMIT 4');
+        $stmt = $this->pdo->query('SELECT p.*, u.user, t.* FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC LIMIT 4');
         return $stmt->fetchAll();
     }
 
-    function getMine(int $idUser): array {
-        $stmt = $this->pdo->prepare('SELECT posts.*, users.user, tags.* FROM posts LEFT JOIN users ON posts.post_user_id = users.id_user LEFT JOIN tags ON posts.id_post = tags.tags_post_id WHERE posts.post_user_id = ? ORDER BY posts.id_post DESC');
-        $stmt->execute([$idUser]);
+    function getUserPosts(int $sessionUserId, int $userId): array {
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
+        $stmt->execute(['sessionUserId' => $sessionUserId, 'userId' => $userId]);
         $result = $stmt->fetchAll();
         if (!empty($result)) {
             return $result;
@@ -35,14 +42,14 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
     function add(array $data): bool {
         $code = array('html' => $data['shred-html'], 'css' => $data['shred-css'], 'js' => $data['shred-js']);
         $jsonCode = json_encode($code);
-        $size = count($this->getAll());
+        $size = count($this->getAllForSize());
         $this->pdo->beginTransaction();
         $stmt = $this->pdo->prepare('INSERT INTO posts(post_code,post_img,post_user_id,post_title) VALUES (?,?,?,?)');
         $stmt->execute([
             $jsonCode, '-', $data['user_id'], $data['shred-title']
         ]);
 
-        $newSize = count($this->getAll());
+        $newSize = count($this->getAllForSize());
 
         if (($size + 1) == $newSize) {
 

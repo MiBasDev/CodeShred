@@ -130,6 +130,12 @@ header {
 
 #post-title {
     width: 150px;
+    background-color: #f5f5f50f;
+}
+
+#post-title:hover {
+    width: 150px;
+    background-color: #f5f5f51a;
 }
 
 header input {

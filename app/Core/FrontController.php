@@ -11,77 +11,77 @@ class FrontController {
 
         Route::add('/',
                 function () {
-                    $controlador = new \CodeShred\Controllers\InicioController();
-                    $controlador->index();
+                    $controller = new \CodeShred\Controllers\InitController();
+                    $controller->index();
                 }
                 , 'get');
 
         Route::add('/posts',
                 function () {
-                    $controlador = new \CodeShred\Controllers\PostsController();
-                    $controlador->showAll();
+                    $controller = new \CodeShred\Controllers\PostsController();
+                    $controller->showAll();
                 }
                 , 'get');
 
         Route::add('/contacto',
                 function () {
-                    $controlador = new \CodeShred\Controllers\InicioController();
-                    $controlador->contact();
+                    $controller = new \CodeShred\Controllers\InitController();
+                    $controller->contact();
                 }
                 , 'get');
 
         Route::add('/contacto',
                 function () {
-                    $controlador = new \CodeShred\Controllers\InicioController();
-                    $controlador->contactForm();
+                    $controller = new \CodeShred\Controllers\InitController();
+                    $controller->contactForm();
                 }
                 , 'post');
 
         Route::add('/politica-de-privacidad',
                 function () {
-                    $controlador = new \CodeShred\Controllers\InicioController();
-                    $controlador->privacy();
+                    $controller = new \CodeShred\Controllers\InitController();
+                    $controller->privacy();
                 }
                 , 'get');
 
         Route::add('/politica-de-cookies',
                 function () {
-                    $controlador = new \CodeShred\Controllers\InicioController();
-                    $controlador->cookies();
+                    $controller = new \CodeShred\Controllers\InitController();
+                    $controller->cookies();
                 }
                 , 'get');
         Route::add('/post/([0-9]+)',
                 function ($id) {
-                    $controlador = new \CodeShred\Controllers\PostsController();
-                    $controlador->show($id);
+                    $controller = new \CodeShred\Controllers\PostsController();
+                    $controller->show($id);
                 }
                 , 'get');
 
         if (!isset($_SESSION['user'])) {
             Route::add('/login',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->login();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->login();
                     }
                     , 'get');
 
             Route::add('/login',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->loginProcess();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->loginProcess();
                     }
                     , 'post');
             Route::add('/registro',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->register();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->register();
                     }
                     , 'get');
 
             Route::add('/registro',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->registerProcess();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->registerProcess();
                     }
                     , 'post');
             Route::pathNotFound(
@@ -92,119 +92,126 @@ class FrontController {
         } else {
             Route::add('/logout',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->logout();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->logout();
                     }
                     , 'get');
 
             Route::add('/post/add',
                     function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->showAdd();
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->showAdd();
                     }
                     , 'get');
 
             Route::add('/post/add',
                     function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->processAdd();
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->processAdd();
                     }
                     , 'post');
 
             Route::add('/post/edit/([0-9]+)',
                     function ($id) {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->showEdit($id);
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->showEdit($id);
                     }
                     , 'get');
 
             Route::add('/post/edit/([0-9]+)',
                     function ($id) {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->processEdit($id);
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->processEdit($id);
                     }
                     , 'post');
 
             Route::add('/post/delete/([0-9]+)',
                     function ($id) {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->deletePost($id);
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->deletePost($id);
                     }
                     , 'post');
 
             Route::add('/mi-cuenta/mis-posts',
                     function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->showMyPosts();
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->showMyPosts();
                     }
                     , 'get');
 
             Route::add('/mi-cuenta/mis-posts',
                     function () {
-                        $controlador = new \CodeShred\Controllers\PostsController();
-                        $controlador->edit();
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->edit();
                     }
                     , 'post');
 
             Route::add('/siguiendo',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->showFollowing();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->showFollowing();
                     }
                     , 'get');
 
             Route::add('/siguiendo',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->mostrar();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->mostrar();
                     }
                     , 'post');
 
             Route::add('/usuarios',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->showAll();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->showAll();
                     }
                     , 'get');
 
             Route::add('/usuarios',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->mostar();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->mostar();
                     }
                     , 'post');
 
             Route::add('/mi-cuenta',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->myAccount();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->myAccount();
                     }
                     , 'get');
 
-            Route::add('/mi-cuenta',
+            Route::add('/update-description',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->myAccountProcess();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->updateDescription();
                     }
                     , 'post');
 
             Route::add('/user-follow',
                     function () {
-                        $controlador = new \CodeShred\Controllers\UsuarioController();
-                        $controlador->followProcess();
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->followProcess();
+                    }
+                    , 'post');
+
+            Route::add('/post-like',
+                    function () {
+                        $controller = new \CodeShred\Controllers\PostsController();
+                        $controller->likeProcess();
                     }
                     , 'post');
 
             Route::pathNotFound(
                     function () {
-                        $controller = new \CodeShred\Controllers\ErroresController();
+                        $controller = new \CodeShred\Controllers\ErrorsController();
                         $controller->error404();
                     }
             );
 
             Route::methodNotAllowed(
                     function () {
-                        $controller = new \CodeShred\Controllers\ErroresController();
+                        $controller = new \CodeShred\Controllers\ErrorsController();
                         $controller->error405();
                     }
             );

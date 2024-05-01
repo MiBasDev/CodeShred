@@ -11,9 +11,9 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data['title'] = 'codeShred | Shred';
         $data['section'] = '/post';
 
-        $modelo = new \CodeShred\Models\PostsModel();
+        $model = new \CodeShred\Models\PostsModel();
 
-        $data['post'] = $modelo->loadPost(intval($id));
+        $data['post'] = $model->loadPost(intval($id));
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
     }
@@ -30,8 +30,8 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data = [];
         $data['title'] = 'codeShred | Editar Shred';
         $data['section'] = '/post/edit';
-        $modelo = new \CodeShred\Models\PostsModel();
-        $data['post'] = $modelo->loadPost(intval($id));
+        $model = new \CodeShred\Models\PostsModel();
+        $data['post'] = $model->loadPost(intval($id));
         if (is_null($data['post'])) {
             header('location: /');
         } else {
@@ -44,8 +44,8 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data['title'] = 'codeShred | Shreds';
         $data['section'] = '/posts';
 
-        $modelo = new \CodeShred\Models\PostsModel();
-        $data['posts'] = $modelo->getAll();
+        $model = new \CodeShred\Models\PostsModel();
+        $data['posts'] = $model->getAll($_SESSION['user']['id_user']);
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
@@ -55,17 +55,17 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data['title'] = 'codeShred | Mis Shreds';
         $data['section'] = '/mi-cuenta/mis-posts';
 
-        $modelo = new \CodeShred\Models\PostsModel();
-        $data['posts'] = $modelo->getMine($_SESSION['user']['id_user']);
+        $model = new \CodeShred\Models\PostsModel();
+        $data['posts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
 
     public function processAdd(): void {
-        $modelo = new \CodeShred\Models\PostsModel();
+        $model = new \CodeShred\Models\PostsModel();
         $_POST['user_id'] = $_SESSION['user']['id_user'];
-        if ($modelo->add($_POST)) {
-            $modelo->addTags($_POST);
+        if ($model->add($_POST)) {
+            $model->addTags($_POST);
             header('location: /posts');
         } else {
             $data = [];
@@ -74,6 +74,8 @@ class PostsController extends \CodeShred\Core\BaseController {
             $data['errors']['html'] = $_POST['shred-html'];
             $data['errors']['css'] = $_POST['shred-css'];
             $data['errors']['js'] = $_POST['shred-js'];
+            $data['title'] = 'codeShred | Shred';
+            $data['section'] = '/post';
 
             $data['errors']['error'] = 'Error indeterminado al realizar el guardado.';
 
@@ -82,9 +84,9 @@ class PostsController extends \CodeShred\Core\BaseController {
     }
 
     public function processEdit(string $id): void {
-        $modelo = new \CodeShred\Models\PostsModel;
+        $model = new \CodeShred\Models\PostsModel;
         $_POST['user_id'] = $_SESSION['user']['id_user'];
-        if ($modelo->editPost(intval($id), $_POST)) {
+        if ($model->editPost(intval($id), $_POST)) {
             header('location: /');
         } else {
             $data = [];
@@ -101,8 +103,8 @@ class PostsController extends \CodeShred\Core\BaseController {
     }
 
     public function deletePost(string $id): void {
-        $modelo = new \CodeShred\Models\PostsModel();
-        if ($modelo->deletePost(intval($id))) {
+        $model = new \CodeShred\Models\PostsModel();
+        if ($model->deletePost(intval($id))) {
             $_SESSION['mensaje_productos'] = array(
                 'class' => 'success',
                 'texto' => "Producto $id eliminado con éxito");
@@ -112,5 +114,38 @@ class PostsController extends \CodeShred\Core\BaseController {
                 'texto' => 'No se ha logrado eliminar el producto ' . $id);
         }
         header('location: /');
+    }
+
+    public function likeProcess(): void {
+        // Decodificamos los datos enviados en la petición
+        $postData = file_get_contents("php://input");
+        $data = json_decode($postData, true);
+
+        // Guardamos las variables
+        $userId = intval($_SESSION['user']['id_user']);
+        $postId = intval($data['postId']);
+
+        // Variables por defecto para la respuesta
+        $success = false;
+        $action = '';
+
+        // Comprobamos el like
+        $model = new \CodeShred\Models\LikesModel();
+        $isLiked = $model->likeCheck($userId, $postId);
+
+        // Ejecutamos un método u otro en función del follow
+        if ($isLiked) {
+            $success = $model->unlike($userId, $postId);
+        } else {
+            $success = $model->like($userId, $postId);
+        }
+
+        // Creamos un log de lo ocurrido
+        $logModel = new \CodeShred\Models\LogsModel;
+        $action = $isLiked ? 'unlike' : 'like';
+        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isLiked ? "quitado el like" : "dado like") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
+
+        // Enviamos el resultado al front
+        echo json_encode(['success' => $success, 'action' => $action]);
     }
 }

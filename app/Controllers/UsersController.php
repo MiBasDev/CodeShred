@@ -6,7 +6,7 @@ namespace CodeShred\Controllers;
 
 //use Illuminate\Http\Request;
 
-class UsuarioController extends \CodeShred\Core\BaseController {
+class UsersController extends \CodeShred\Core\BaseController {
 
     const ADMIN = 1;
     const MOD = 2;
@@ -20,14 +20,16 @@ class UsuarioController extends \CodeShred\Core\BaseController {
     }
 
     public function loginProcess(): void {
-        $model = new \CodeShred\Models\UsuarioModel;
-        $_vars = [];
-        if (isset($_POST['user']) && $_POST['pass']) {
+        $model = new \CodeShred\Models\UsersModel;
+        $data = [];
+        if (isset($_POST['user']) && isset($_POST['pass']) && !empty($_POST['user']) && !empty($_POST['pass'])) {
             $user = $model->login($_POST['user'], $_POST['pass']);
             if (is_null($user)) {
-                $_vars['loginError'] = 'Datos de acceso incorrectos';
-                $_vars['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
-                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $_vars);
+                $data['loginError'] = 'Datos de acceso incorrectos';
+                $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['title'] = 'codeShred | Login';
+                $data['section'] = '/login';
+                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
             } else {
                 $_SESSION['user'] = $user;
                 $_SESSION['permisos'] = $this->getPermissions($user['user_rol']);
@@ -37,9 +39,11 @@ class UsuarioController extends \CodeShred\Core\BaseController {
                 header('location: /');
             }
         } else {
-            $_vars['loginError'] = 'Datos de acceso incorrectos';
-            $_vars['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $_vars);
+            $data['loginError'] = 'Datos de acceso incorrectos';
+            $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['title'] = 'codeShred | Login';
+            $data['section'] = '/login';
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
         }
     }
 
@@ -47,75 +51,84 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data = [];
         $data['title'] = 'codeShred | Registro';
         $data['section'] = '/registro';
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
     }
 
     public function registerProcess(): void {
-        $model = new \CodeShred\Models\UsuarioModel;
-        $_vars = [];
+        $model = new \CodeShred\Models\UsersModel;
+        $data = [];
         $doQuery = true;
         $bothPass = true;
         if (isset($_POST['name']) && empty($_POST['name'])) {
-            $_vars['loginErrorName'] = 'Campo obligatorio';
+            $data['loginErrorName'] = 'Campo obligatorio';
             $doQuery = false;
         }
         if (isset($_POST['surname']) && empty($_POST['surname'])) {
-            $_vars['loginErrorSurname'] = 'Campo obligatorio';
+            $data['loginErrorSurname'] = 'Campo obligatorio';
             $doQuery = false;
         }
         if (isset($_POST['email']) && empty($_POST['email'])) {
-            $_vars['loginErrorEmail'] = 'Campo obligatorio';
+            $data['loginErrorEmail'] = 'Campo obligatorio';
             $doQuery = false;
         }
         if (isset($_POST['user']) && empty($_POST['user'])) {
-            $_vars['loginErrorUser'] = 'Campo obligatorio';
+            $data['loginErrorUser'] = 'Campo obligatorio';
             $doQuery = false;
         }
         if (isset($_POST['password1']) && empty($_POST['password1'])) {
-            $_vars['loginErrorPass1'] = 'Campo obligatorio';
+            $data['loginErrorPass1'] = 'Campo obligatorio';
             $doQuery = false;
             $bothPass = false;
         }
         if (isset($_POST['password2']) && empty($_POST['password2'])) {
-            $_vars['loginErrorPass2'] = 'Campo obligatorio';
+            $data['loginErrorPass2'] = 'Campo obligatorio';
             $doQuery = false;
             $bothPass = false;
         }
         if ($bothPass == true && $_POST['password1'] != $_POST['password2']) {
-            $_vars['loginError'] = 'Las contraseñas no coinciden';
+            $data['loginError'] = 'Las contraseñas no coinciden';
             $doQuery = false;
         }
         if ($doQuery == true) {
             $user = $model->registerCheck($_POST['user']);
             if (!is_null($user)) {
-                $_vars['loginError'] = 'Ya existe un usuario con ese nombre';
-                $_vars['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-                $_vars['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
-                $_vars['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-                $_vars['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
-                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $_vars);
+                $data['loginError'] = 'Ya existe un usuario con ese nombre';
+                $data['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+                $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['title'] = 'codeShred | Registro';
+                $data['section'] = '/registro';
+                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
             } else {
                 $data = ['user' => $_POST['user'], 'pass' => $_POST['password1'], 'name' => $_POST['name'], 'surname' => $_POST['surname'], 'email' => $_POST['email'], 'rol' => self::USER];
                 $userOk = $model->register($data);
-                if ($userOk == true) {
-                    $user = $model->login($_POST['user'], $_POST['password1']);
-                    $_SESSION['user'] = $user;
-                    $_SESSION['permisos'] = $this->getPermissions($user['user_rol']);
-                    $model->updateLoginData($user['id_user']);
+                if ($userOk === true) {
+                    $_SESSION['user'] = $model->getUserByUser($_POST['user']);
+                    $_SESSION['permisos'] = $this->getPermissions($_SESSION['user']['user_rol']);
+                    $model->updateLoginData($_SESSION['user']['id_user']);
                     $logModel = new \CodeShred\Models\LogsModel;
-                    $logModel->insertLog('registro', "El usuario '$user[user]' se ha registrado en el sistema.", $_SESSION['user']['id_user']);
+                    $logModel->insertLog('registro', "El usuario " . $_SESSION['user']['user'] . " se ha registrado en el sistema.", $_SESSION['user']['id_user']);
                     header('location: /');
                 } else {
-                    $_vars['loginError'] = 'Error en la creación del usuario';
-                    $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $_vars);
+                    $data['loginError'] = 'Error en la creación del usuario';
+                    $data['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+                    $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['title'] = 'codeShred | Registro';
+                    $data['section'] = '/registro';
+                    $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
                 }
             }
         } else {
-            $_vars['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-            $_vars['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
-            $_vars['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-            $_vars['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'registro.view.php', 'templates/footer.view.php'), $_vars);
+            $data['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['title'] = 'codeShred | Registro';
+            $data['section'] = '/registro';
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
         }
     }
 
@@ -156,34 +169,34 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data['section'] = '/mi-cuenta';
         //$data['notification']['message'] = 'Hemos vuelto chavales';
 
-        $model = new \CodeShred\Models\UsuarioModel();
+        $model = new \CodeShred\Models\UsersModel();
         $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
         $model = new \CodeShred\Models\PostsModel();
-        $data['userPosts'] = $model->getMine($_SESSION['user']['id_user']);
+        $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function myAccountProcess(): void {
-        $data = [];
-        $data['title'] = 'codeShred | Mi cuenta';
-        $data['section'] = '/mi-cuenta';
+    function updateDescription(): void {
+        // Decodificamos los datos enviados en la petición
+        $postData = file_get_contents("php://input");
+        $data = json_decode($postData, true);
 
-        if (isset($_POST['user-description'])) {
-            $model = new \CodeShred\Models\UsuarioModel();
-            $model->updateUserDescription(intval($_SESSION['user']['id_user']), $_POST['user-description']);
-            $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
-            $model = new \CodeShred\Models\PostsModel();
-            $data['userPosts'] = $model->getMine($_SESSION['user']['id_user']);
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
-        }
+        // Guardamos las variables
+        $userId = intval($_SESSION['user']['id_user']);
+        $userDescription = $data['userDescription'];
 
-        $model = new \CodeShred\Models\UsuarioModel();
-        $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
-        $model = new \CodeShred\Models\PostsModel();
-        $data['userPosts'] = $model->getMine($_SESSION['user']['id_user']);
+        // Ejecutamos la query
+        $model = new \CodeShred\Models\UsersModel();
+        $descriptionUpdated = $model->updateUserDescription($userId, $userDescription);
 
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
+        // Creamos un log de lo ocurrido
+        $logModel = new \CodeShred\Models\LogsModel;
+        $action = $descriptionUpdated ? 'updated' : 'error upating';
+        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($descriptionUpdated ? "actualizado" : "no actualizado") . " su descripción.", $_SESSION['user']['id_user']);
+
+        // Enviamos el resultado al front
+        echo json_encode(['success' => $descriptionUpdated, 'action' => $action]);
     }
 
     function showAll(): void {
@@ -191,10 +204,10 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data['title'] = 'codeShred | Usuarios';
         $data['section'] = '/usuarios';
 
-        $modelo = new \CodeShred\Models\UsuarioModel();
-        $data['users'] = $modelo->getAll(intval($_SESSION['user']['id_user']));
+        $model = new \CodeShred\Models\UsersModel();
+        $data['users'] = $model->getAll(intval($_SESSION['user']['id_user']));
 
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'usuarios.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'users.view.php', 'templates/footer.view.php'), $data);
     }
 
     function showFollowing(): void {
@@ -202,10 +215,20 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         $data['title'] = 'codeShred | Siguiendo';
         $data['section'] = '/siguiendo';
 
-        $modelo = new \CodeShred\Models\UsuarioModel();
-        $data['users'] = $modelo->getFollowing($_SESSION['user']['id_user']);
+        // Obtenemos los ususario seguidos
+        $model = new \CodeShred\Models\UsersModel();
+        $followingUsers = $model->getFollowing($_SESSION['user']['id_user']);
 
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'siguiendo.view.php', 'templates/footer.view.php'), $data);
+        // Obtenemos los posts de cada susuario
+        $postModel = new \CodeShred\Models\PostsModel();
+        foreach ($followingUsers as &$user) {
+            $userId = $user['id_user'];
+            $user['posts'] = $postModel->getUserPosts($_SESSION['user']['id_user'], $userId);
+        }
+
+        $data['users'] = $followingUsers;
+
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'following.view.php', 'templates/footer.view.php'), $data);
     }
 
     function delete(string $id): void {
@@ -216,8 +239,8 @@ class UsuarioController extends \CodeShred\Core\BaseController {
             );
             header('Location: /usuarios-sistema');
         } else {
-            $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-            $result = $modelo->delete($id);
+            $model = new \Com\Daw2\Models\UsuarioSistemaModel();
+            $result = $model->delete($id);
             if ($result) {
                 header('Location: /usuarios-sistema');
             } else {
@@ -356,7 +379,7 @@ class UsuarioController extends \CodeShred\Core\BaseController {
 
     function checkForm(array $post, bool $esAlta = true, int $id = 0): array {
         $errores = [];
-        $userModel = new \CodeShred\Models\UsuarioModel;
+        $userModel = new \CodeShred\Models\UsersModel();
 
         if (!preg_match('/^[a-zA-Z ]{5,70}$/', $post['nombre_completo'])) {
             $errores['nombre_completo'] = 'El nombre sólo permite letras y espacios. Longitud entre 5 y 70 caracteres';
@@ -433,8 +456,8 @@ class UsuarioController extends \CodeShred\Core\BaseController {
         if ($userId !== $userIdToFollow) {
             $userName = $data['userName'];
 
-            // Comprobamos si el usuario se la sesión o no al usuario en cuestión
-            $model = new \CodeShred\Models\UsuarioModel();
+            // Comprobamos si el usuario de la sesión sigue o no al usuario en cuestión
+            $model = new \CodeShred\Models\UsersModel();
             $isFollowing = $model->followCheck($userId, $userIdToFollow);
 
             // Ejecutamos un método u otro en función del follow

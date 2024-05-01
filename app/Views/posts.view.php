@@ -4,9 +4,9 @@
         <h1><?= isset($section) && $section == '/mi-cuenta/mis-posts' ? 'Mis Shreds' : 'Shreds'; ?></h1>
         <div class="posts-cards-container">
             <?php
-            //var_dump($posts);
             if (isset($posts) && !empty($posts)) {
                 foreach ($posts as $post) {
+                    //var_dump($post);
                     ?>
                     <div class = "post-card cs-fl-col">
                         <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
@@ -29,9 +29,11 @@
 
                             </div>
                         </div>
-                        <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
-                            <span class="far fa-heart"></span>
-                        </button>
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user']) { ?>
+                            <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
+                                <span class="<?= $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?= $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
+                            </button>
+                        <?php } ?>
                     </div>
                     <?php
                 }

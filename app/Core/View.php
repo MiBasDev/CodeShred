@@ -35,12 +35,13 @@ class View {
         include($path);
     }
 
-    public function showViews(array $views, $vars = array()) {
-        //$name - nombre de nuestra plantilla, por ej, listar.php
-        //$vars - contenedor de variables,
-        //   es un array del tipo clave => valor (opcional).
-        //Cogemos una instancia de nuestra clase de configuracion.        
-
+    /**
+     * Método para 
+     * @param array $views
+     * @param type $data
+     * @throws \Exception
+     */
+    public function showViews(array $views, $data = array()) {
         foreach ($views as $viewPath) {
             //Creamos la ruta real a la plantilla
             $path = $_ENV['folder.views'] . $viewPath;
@@ -52,8 +53,8 @@ class View {
         }
 
         //Si hay variables para asignar, las pasamos una a una.
-        if (is_array($vars)) {
-            foreach ($vars as $key => $value) {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
                 $$key = $value;
             }
         }

@@ -6,7 +6,7 @@ namespace CodeShred\Models;
 
 use \PDOException;
 
-class UsuarioModel extends \CodeShred\Core\BaseDbModel {
+class UsersModel extends \CodeShred\Core\BaseDbModel {
 
     public function login(string $name, string $password): ?array {
         //$stmt = $this->pdo->prepare("SELECT usuario_sistema.*, aux_rol.nombre_rol FROM usuario_sistema LEFT JOIN aux_rol ON aux_rol.id_rol = usuario_sistema.id_rol WHERE dni=? and baja=0");
@@ -14,7 +14,6 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         $stmt->execute([$name]);
         if ($stmt->rowCount() == 1) {
             $userData = $stmt->fetch();
-            var_dump($userData);
             if (password_verify($password, $userData['user_pass'])) {
                 unset($userData['user_pass']);
                 return $userData;
@@ -39,6 +38,12 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
         return $stmt->execute(['user' => $data['user'], 'pass' => $pass, 'name' => $data['name'], 'surname' => $data['surname'], 'email' => $data['email'], 'rol' => $data['rol']]);
     }
 
+    function getUserByUser(string $user): array {
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE user=?');
+        $stmt->execute([$user]);
+        return $stmt->fetch();
+    }
+
     public function updateLoginData(int $id_usuario): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_last_login=NOW() WHERE id_user=?');
         return $stmt->execute([$id_usuario]);
@@ -46,7 +51,7 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
 
     function getAll(int $id): array {
         $stmt = $this->pdo->prepare('SELECT u.*, f.user_id_following FROM users u LEFT JOIN follows f ON u.id_user = f.user_id_following AND f.user_id = ? WHERE u.id_user != ? AND u.user_rol = ?');
-        $stmt->execute([$id, $id, \CodeShred\Controllers\UsuarioController::USER]);
+        $stmt->execute([$id, $id, \CodeShred\Controllers\UsersController::USER]);
         return $stmt->fetchAll();
     }
 
@@ -57,7 +62,10 @@ class UsuarioModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function getFollowing(int $id): array {
-        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
+        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description
+                                 FROM users u
+                                 JOIN follows f ON u.id_user = f.user_id_following
+                                 WHERE f.user_id = :id');
         $stmt->execute(['id' => $id]);
         return $stmt->fetchAll();
     }

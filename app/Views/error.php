@@ -3,7 +3,7 @@
 <div>  
     <div>
         <div>
-            <?php echo $texto; ?>
+            <?php echo $text; ?>
         </div>
     </div>
 </div>

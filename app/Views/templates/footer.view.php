@@ -43,4 +43,5 @@
 <?php if (isset($section) && $section == '/usuarios') : ?>
     <script src="assets/js/userAjax.js"></script>
 <?php endif; ?>
+    <script src="assets/js/postAjax.js"></script>
 </html>
