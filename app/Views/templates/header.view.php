@@ -34,7 +34,7 @@
                     <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
                         <button class="button-primary" id="button-post-save" onclick="openPopup()">Guardar</button>
                     <?php } ?>
-                    <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post') !== 0) { ?>
+                    <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post') !== 0 || $section === '/posts') { ?>
                         <input type="search" placeholder="Buscar...">
                     <?php } ?>
                     <?php if (!isset($_SESSION['user'])) {

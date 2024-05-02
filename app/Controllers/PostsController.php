@@ -45,7 +45,11 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data['section'] = '/posts';
 
         $model = new \CodeShred\Models\PostsModel();
-        $data['posts'] = $model->getAll($_SESSION['user']['id_user']);
+        if (isset($_SESSION['user']['id_user'])) {
+            $data['posts'] = $model->getAll($_SESSION['user']['id_user']);
+        } else {
+            $data['posts'] = $model->getAllNotUser();
+        }
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
     }
@@ -105,13 +109,9 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function deletePost(string $id): void {
         $model = new \CodeShred\Models\PostsModel();
         if ($model->deletePost(intval($id))) {
-            $_SESSION['mensaje_productos'] = array(
-                'class' => 'success',
-                'texto' => "Producto $id eliminado con éxito");
+            
         } else {
-            $_SESSION['mensaje_productos'] = array(
-                'class' => 'danger',
-                'texto' => 'No se ha logrado eliminar el producto ' . $id);
+            
         }
         header('location: /');
     }

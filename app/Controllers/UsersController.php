@@ -174,7 +174,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);
         $model = new \CodeShred\Models\PostsModel();
         $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
-
+        $data['userLikedPosts'] = $model->getUserLikedPosts($_SESSION['user']['id_user']);
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
     }
 

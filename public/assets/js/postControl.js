@@ -28,7 +28,6 @@ function openPopup() {
     document.getElementById('shred-html').value = htmlCode;
     document.getElementById('shred-css').value = cssCode;
     document.getElementById('shred-js').value = jsCode;
-
 }
 
 function closePopup() {

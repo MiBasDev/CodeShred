@@ -22,7 +22,7 @@
 
             <!--Mis Shreds-->
             <div id="mis-shreds" class="tabcontent">
-                <table class="my-account-posts-table">
+                <table class="my-account-table">
                     <thead>
                         <tr>
                             <td>TÍTULO</td>                           
@@ -59,7 +59,7 @@
                         } else {
                             ?>
                             <tr>
-                                <td colspan="3">No hemos encontrado ningún post.</td>
+                                <td colspan="4">Todavía no has creado ningún Shred.</td>
                             </tr>
                             <?php
                         }
@@ -70,12 +70,51 @@
 
             <!--Likes-->
             <div id="likes" class="tabcontent">
-                <h3>Likes</h3>
+                <table class="my-account-table">
+                    <thead>
+                        <tr>
+                            <td>SHRED</td>                           
+                            <td>USUARIO</td>
+                            <td>CONTROL</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (isset($userLikedPosts) && !empty($userLikedPosts)) {
+                            foreach ($userLikedPosts as $post) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <a href = "/post/<?= $post['id_post']; ?>" title="Ir al Shred '<?= $post['post_title'] ?>'">
+                                            <?= $post['post_title'] ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <?= $post['user'] ?>
+                                    </td>
+                                    <td>
+                                        <button class="post-like post-like-tab" id="post-like-<?= $post['id_post']; ?>">
+                                            <span class="fa fa-heart post-liked"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="3">No le has dado like a ningún Shred.</td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    <tbody>
+                </table>
             </div>
 
             <!--Cuentas seguidas-->
             <div id="cuentas-seguidas" class="tabcontent">
-                <table class="my-account-following-table">
+                <table class="my-account-table">
                     <thead>
                         <tr>
                             <td>USUARIO</td>                           

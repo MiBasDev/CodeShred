@@ -13,6 +13,11 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         return $stmt->fetchAll();
     }
 
+    function getAllNotUser(): array {
+        $stmt = $this->pdo->query('SELECT p.*, u.user, t.* FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC');
+        return $stmt->fetchAll();
+    }
+
     function getAllForSize(): array {
         $stmt = $this->pdo->query('SELECT * FROM posts');
         return $stmt->fetchAll();
@@ -32,6 +37,12 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         } else {
             return array();
         }
+    }
+
+    function getUserLikedPosts(int $userId): array {
+        $stmt = $this->pdo->prepare('SELECT p.id_post, p.post_title, u.user FROM posts p JOIN likes l ON p.id_post = l.id_post JOIN users u ON p.post_user_id = u.id_user WHERE l.id_user = :userId ORDER BY l.id_like DESC');
+        $stmt->execute(['userId' => $userId]);
+        return $stmt->fetchAll();
     }
 
     function size(): int {

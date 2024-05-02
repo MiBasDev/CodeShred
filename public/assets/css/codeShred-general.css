@@ -273,6 +273,11 @@ nav {
     list-style: none;
 }
 
+.nav-item,
+.nav-link {
+    border-radius: 5px;
+}
+
 .nav-item:hover {
     background-color: var(--static-elements-bg-color);
 }
@@ -284,14 +289,11 @@ nav {
 
 .nav-link.active {
     background-color: #1f1822a6;
+    font-weight: bold;
 }
 
 aside.folded-aside .nav-link p {
     display: none;
-}
-
-.nav-link.active {
-    font-weight: bold;
 }
 
 /* Main */

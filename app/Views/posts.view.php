@@ -39,7 +39,7 @@
                 }
             } else {
                 ?>
-                <div class = "cs-fl-col">No hemos encontrado ningún post.</div>
+                <div class = "cs-fl-col">No hemos encontrado ningún Shred.</div>
                 <?php
             }
             ?>

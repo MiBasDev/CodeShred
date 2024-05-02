@@ -507,7 +507,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
-    border-radius: 5px 5px 0 0;
 }
 
 .tab button {
@@ -519,6 +518,7 @@
     padding: 20px;
     font-size: 16px;
     font-weight: bold;
+    border-radius: 5px 5px 0 0;
 }
 
 .tab button:hover {
@@ -556,47 +556,29 @@
     gap: 20px;
 }
 
-.my-account-posts-table,
-.my-account-following-table {
+.my-account-table{
     width: 100%;
 }
 
-.my-account-posts-table thead td,
-.my-account-following-table thead td {
+.my-account-table thead td{
     font-weight: bold;
 }
 
-.my-account-posts-table td,
-.my-account-following-table td {
+.my-account-table td {
     padding: 20px;
-    border-bottom: 2px solid var(--static-elements-bg-color);
     text-align: center;
 }
 
-.my-account-posts-table thead tr,
-.my-account-following-table thead tr {
+.my-account-table thead tr {
     background-color: var(--button-primary--bg-color);
 }
 
-.my-account-posts-table thead tr td:first-child,
-.my-account-following-table thead tr td:first-child {
-    border-radius: 5px 0 0 0;
+.my-account-table td {
+    border-radius: 5px;
 }
 
-.my-account-posts-table thead tr td:last-child,
-.my-account-following-table thead tr td:last-child{
-    border-radius: 0 5px 0 0;
-}
-
-
-.my-account-posts-table td:nth-child(2),
-.my-account-following-table td:nth-child(2) {
-    border-right: 2px solid var(--static-elements-bg-color);
-    border-left: 2px solid var(--static-elements-bg-color);
-}
-
-.my-account-posts-table td:nth-child(3) {
-    border-right: 2px solid var(--static-elements-bg-color);
+.my-account-table td{
+    border: 2px solid var(--static-elements-bg-color);
 }
 
 #user-description {
@@ -609,6 +591,10 @@
 
 .button-my-account-post-edit span {
     color: var(--dark-letter-color);
+}
+
+.post-like-tab {
+    position: unset;    
 }
 
 
