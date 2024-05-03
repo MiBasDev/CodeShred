@@ -30,12 +30,26 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data = [];
         $data['title'] = 'codeShred | Editar Shred';
         $data['section'] = '/post/edit';
+
         $model = new \CodeShred\Models\PostsModel();
-        $data['post'] = $model->loadPost(intval($id));
-        if (is_null($data['post'])) {
-            header('location: /');
+        $userPosts = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
+        $idFromUser = false;
+
+        foreach ($userPosts as $userPost) {
+            if ($userPost['id_post'] == $id) {
+                $idFromUser = true;
+            }
+        }
+
+        if ($idFromUser || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+            $data['post'] = $model->loadPost(intval($id));
+            if (is_null($data['post'])) {
+                header('location: /');
+            } else {
+                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
+            }
         } else {
-            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
+            header('location: /');
         }
     }
 
@@ -48,7 +62,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         if (isset($_SESSION['user']['id_user'])) {
             $data['posts'] = $model->getAll($_SESSION['user']['id_user']);
         } else {
-            $data['posts'] = $model->getAllNotUser();
+            $data['posts'] = $model->getAllNotSession();
         }
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'posts.view.php', 'templates/footer.view.php'), $data);
@@ -157,16 +171,30 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Guardamos las variables
         $postId = intval($data['postId']);
 
-        // Comprobamos el like
+        // Comprobamos si el post es del usuario
         $model = new \CodeShred\Models\PostsModel();
-        $isDeleted = $model->deletePost($postId);
+        $userPosts = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
+        $idFromUser = false;
 
-        // Creamos un log de lo ocurrido
-        $logModel = new \CodeShred\Models\LogsModel;
-        $action = $isDeleted ? 'deleted' : 'not deleted';
-        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
+        foreach ($userPosts as $userPost) {
+            if ($userPost['id_post'] === $postId) {
+                $idFromUser = true;
+            }
+        }
 
-        // Enviamos el resultado al front
-        echo json_encode(['success' => $isDeleted, 'action' => $action]);
+        if ($idFromUser || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+            // Borramos el post
+            $isDeleted = $model->deletePost($postId);
+
+            // Creamos un log de lo ocurrido
+            $logModel = new \CodeShred\Models\LogsModel;
+            $action = $isDeleted ? 'deleted' : 'not deleted';
+            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
+
+            // Enviamos el resultado al front
+            echo json_encode(['success' => $isDeleted, 'action' => $action]);
+        } else {
+            echo json_encode(['success' => false, 'action' => 'Intento de hackeo']);
+        }
     }
 }

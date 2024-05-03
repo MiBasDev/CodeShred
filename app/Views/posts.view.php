@@ -4,7 +4,7 @@
         <h1><?= isset($section) && $section == '/mi-cuenta/mis-posts' ? 'Mis Shreds' : 'Shreds'; ?></h1>
         <div class="posts-cards-container">
             <?php
-            if (isset($posts) && !empty($posts)) {
+            if (isset($posts) && !is_null($posts) && !empty($posts)) {
                 foreach ($posts as $post) {
                     //var_dump($post);
                     ?>

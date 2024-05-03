@@ -573,6 +573,10 @@
     background-color: var(--button-primary--bg-color);
 }
 
+.my-account-table tbody tr {
+    transition: opacity 1s ease;
+}
+
 .my-account-table td {
     border-radius: 5px;
 }
@@ -594,7 +598,7 @@
 }
 
 .post-like-tab {
-    position: unset;    
+    position: unset;
 }
 
 

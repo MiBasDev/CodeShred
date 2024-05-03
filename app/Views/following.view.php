@@ -9,7 +9,7 @@
                 <h2>Shreds de <?= $user['user'] ?></h2>
                 <div class="posts-cards-container">
                     <?php
-                    if (isset($user['posts']) && !empty($user['posts'])) {
+                    if (isset($user['posts']) && !is_null($user['posts']) && !empty($user['posts'])) {
                         foreach ($user['posts'] as $post) {
                             //var_dump($post);
                             ?>

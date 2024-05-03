@@ -6,47 +6,48 @@ namespace CodeShred\Models;
 
 class PostsModel extends \CodeShred\Core\BaseDbModel {
 
-    function getAll(int $userId): array {
+    function getAll(int $userId): ?array {
         $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC');
         $stmt->execute(['userId' => $userId]);
 
         return $stmt->fetchAll();
     }
 
-    function getAllNotUser(): array {
+    function getAllNotSession(): ?array {
         $stmt = $this->pdo->query('SELECT p.*, u.user, t.* FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC');
+
         return $stmt->fetchAll();
     }
 
-    function getAllForSize(): array {
+    function getAllForSize(): ?array {
         $stmt = $this->pdo->query('SELECT * FROM posts');
+
         return $stmt->fetchAll();
     }
 
-    function getAllIndex(): array {
+    function getAllIndex(): ?array {
         $stmt = $this->pdo->query('SELECT p.*, u.user, t.* FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC LIMIT 4');
+
         return $stmt->fetchAll();
     }
 
-    function getUserPosts(int $sessionUserId, int $userId): array {
+    function getUserPosts(int $sessionUserId, int $userId): ?array {
         $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
         $stmt->execute(['sessionUserId' => $sessionUserId, 'userId' => $userId]);
-        $result = $stmt->fetchAll();
-        if (!empty($result)) {
-            return $result;
-        } else {
-            return array();
-        }
+
+        return $stmt->fetchAll();
     }
 
-    function getUserLikedPosts(int $userId): array {
+    function getUserLikedPosts(int $userId): ?array {
         $stmt = $this->pdo->prepare('SELECT p.id_post, p.post_title, u.user FROM posts p JOIN likes l ON p.id_post = l.id_post JOIN users u ON p.post_user_id = u.id_user WHERE l.id_user = :userId ORDER BY l.id_like DESC');
         $stmt->execute(['userId' => $userId]);
+
         return $stmt->fetchAll();
     }
 
     function size(): int {
         $stmt = $this->pdo->query('SELECT * FROM posts');
+
         return count($stmt->fetchAll());
     }
 
@@ -113,6 +114,24 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         } else {
             return null;
         }
+    }
+
+    function addViewToPost(int $idPost): ?int {
+        $stmt = $this->pdo->prepare('SELECT * FROM views WHERE view_post_id = ?');
+        $existingViews = $stmt->execute([$idPost]);
+        var_dump($existingViews);
+
+        if ($existingViews) {
+            $newCount = $existingViews['view_count'] + 1;
+            $stmt = $this->pdo->prepare('UPDATE views SET view_count = ? WHERE view_post_id = ?');
+            $stmt->execute([$newCount, $idPost]);
+        } else {
+            $newCount = 1;
+            $stmt = $this->pdo->prepare('INSERT INTO views (view_post_id, view_count) VALUES (?, ?)');
+            $stmt->execute([$idPost, $newCount]);
+        }
+
+        return $newCount;
     }
 
     function editPost(int $idPost, array $data): bool {

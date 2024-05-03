@@ -35,38 +35,45 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     public function register(array $data): ?bool {
         $stmt = $this->pdo->prepare('INSERT INTO users(user, user_pass, user_name, user_surname, user_email, user_rol) values (:user, :pass, :name, :surname, :email, :rol)');
         $pass = password_hash($data['pass'], PASSWORD_DEFAULT);
+
         return $stmt->execute(['user' => $data['user'], 'pass' => $pass, 'name' => $data['name'], 'surname' => $data['surname'], 'email' => $data['email'], 'rol' => $data['rol']]);
     }
 
-    function getUserByUser(string $user): array {
+    function getUserByUser(string $user): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE user=?');
         $stmt->execute([$user]);
+
         return $stmt->fetch();
     }
 
     public function updateLoginData(int $id_usuario): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_last_login=NOW() WHERE id_user=?');
+
         return $stmt->execute([$id_usuario]);
     }
 
-    function getAll(int $id): array {
+    function getAll(int $id): ?array {
         $stmt = $this->pdo->prepare('SELECT u.*, f.user_id_following FROM users u LEFT JOIN follows f ON u.id_user = f.user_id_following AND f.user_id = ? WHERE u.id_user != ? AND u.user_rol = ?');
         $stmt->execute([$id, $id, \CodeShred\Controllers\UsersController::USER]);
+
         return $stmt->fetchAll();
     }
 
-    function getUser(int $id): array {
+    function getUser(int $id): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE id_user=?');
         $stmt->execute([$id]);
+
         return $stmt->fetch();
     }
 
-    function getFollowing(int $id): array {
+    function getFollowing(int $id): ?array {
         $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
         $stmt->execute(['id' => $id]);
+
         return $stmt->fetchAll();
     }
 
+    /////
     function size(): int {
         $stmt = $this->pdo->query('SELECT COUNT(*) as total FROM usuario_sistema');
         return $stmt->fetchColumn(0);
@@ -134,43 +141,23 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
             return null;
         }
     }
+    /////
 
-    public function toggleFolded($idUser) {
-        $stmtCheck = $this->pdo->prepare('SELECT option_value FROM options WHERE user_id = :user_id AND option_name = :option_name');
-        $stmtCheck->execute(['user_id' => $idUser, 'option_name' => 'folded']);
-        $row = $stmtCheck->fetch();
-
-        if ($row) {
-            $optionValue = $row['option_value'];
-            $newOptionValue = $optionValue == 1 ? 0 : 1;
-            $stmt = $this->pdo->prepare('UPDATE options SET option_value = :option_value WHERE user_id = :user_id AND option_name = :option_name');
-            return $stmt->execute(['option_value' => $newOptionValue, 'user_id' => $idUser, 'option_name' => 'folded']);
-        } else {
-            $stmt = $this->pdo->prepare('INSERT INTO options(option_name, option_value, user_id) VALUES (:option_name, :option_value, :user_id)');
-            return $stmt->execute(['option_name' => 'folded', 'option_value' => 1, 'user_id' => $idUser]);
-        }
-    }
-
-    public function followCheck(int $userId, int $userIdToFollow): ?bool {
+    public function followCheck(int $userId, int $userIdToFollow): bool {
         $stmt = $this->pdo->prepare("SELECT * FROM follows WHERE user_id=? AND user_id_following=?");
-        $stmt->execute([$userId, $userIdToFollow]);
 
-        $result = $stmt->fetch();
-
-        if ($result !== false) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute([$userId, $userIdToFollow]);
     }
 
-    public function follow(int $userId, int $userIdToFollow): ?bool {
+    public function follow(int $userId, int $userIdToFollow): bool {
         $stmt = $this->pdo->prepare('INSERT INTO follows(user_id, user_id_following) values(:user_id, :user_id_following)');
+
         return $stmt->execute(['user_id' => $userId, 'user_id_following' => $userIdToFollow]);
     }
 
-    public function unfollow(int $userId, int $userIdToFollow): ?bool {
+    public function unfollow(int $userId, int $userIdToFollow): bool {
         $stmt = $this->pdo->prepare('DELETE FROM follows WHERE user_id=? AND user_id_following=?');
+
         return $stmt->execute([$userId, $userIdToFollow]);
     }
 }

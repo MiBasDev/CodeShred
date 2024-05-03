@@ -89,11 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Asincronismo para los botones de like
-    document.querySelectorAll('.button-my-account-post-delete').forEach(function (button) {
+    // Asincronismo para el botón de borrar post de mi cuenta
+    document.querySelectorAll('#button-my-account-post-delete-popup').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var postId = this.id.split('-')[5];
+            var postId = this.getAttribute('data');
 
             // Empezamos la petición
             fetch('/post-delete', {
@@ -117,12 +117,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
                                 var trElement = document.getElementById('my-account-table-post-' + postId);
-                                // Lo quitamos de la tabla
+                                // Lo quitamos de la tabla con una animación
                                 if (trElement) {
-                                    trElement.style.display = 'none';
+                                    trElement.style.opacity = 0;
+                                    setTimeout(function () {
+                                        trElement.style.display = 'none';
+                                    }, 1000);
                                 }
                             }
+
                         }
+                        // Pase lo que pase, cerramos el popup
+                        var popup = document.getElementById('popup-delete');
+                        popup.style.display = 'none';
                     })
                     .catch(function (error) {
                         console.error('Error:', error);

@@ -49,7 +49,7 @@
                                         num
                                     </td>
                                     <td>
-                                        <button class="button-warning button-my-account-post-delete" id="button-my-account-post-delete-<?= $post['id_post']; ?>" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
+                                        <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?= $post['id_post']; ?>)" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
                                         <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?= $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
                                         <a href="/post/<?= $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?= $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
                                     </td>
@@ -196,4 +196,16 @@
             </div>
         </div>
     </div>
-</div>
+    <div id="popup-delete" class="popup-delete">
+        <div class="popup-delete-content cs-fl-col">
+            <div class="popup-delete-title cs-fl cs-fl-just-c">
+                <h2>¿Seguro que quieres borrar este Shred?</h2>
+            </div>
+            <div id="" class="cs-fl-col">
+                <div class="popup-delete-button cs-fl">
+                    <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
+                    <button type="submit" class="button-warning" id="button-my-account-post-delete-popup">Borrar</button>
+                </div>
+            </div>
+        </div>
+    </div>

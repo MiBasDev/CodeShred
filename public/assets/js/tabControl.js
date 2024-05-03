@@ -13,3 +13,17 @@ function openTabOption(evt, cityName) {
 }
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+
+
+function openDeletePopup(id) {
+    var popup = document.getElementById('popup-delete');
+    var buttonDelete = document.getElementById('button-my-account-post-delete-popup');
+
+    popup.style.display = 'flex';
+    buttonDelete.setAttribute('data', id);
+}
+
+function closeDeletePopup() {
+    var popup = document.getElementById('popup-delete');
+    popup.style.display = 'none';
+}

@@ -31,7 +31,7 @@
             <h2>Posts destacados</h2>
             <div class="index-posts-container">
                 <?php
-                if (isset($posts) && !empty($posts)) {
+                if (isset($posts) && !is_null($posts) && !empty($posts)) {
                     foreach ($posts as $post) {
                         ?>
                         <div class = "post-card cs-fl-col">
