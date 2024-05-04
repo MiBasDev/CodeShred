@@ -17,9 +17,16 @@
                                 <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                                     <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
                                 </a>
-                                <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
-                                    <h3><?= $post['post_title'] ?></h3>
-                                </a>
+                                <div class="cs-fl cs-fl-align-c post-card-title">
+                                    <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
+                                        <h3><?= $post['post_title'] ?></h3>
+                                    </a>
+                                    <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'] && $_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
+                                        <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
+                                            <span class="<?= $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?= $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
+                                        </button>
+                                    <?php } ?>
+                                </div>
                                 <div class = "post-card-specifications cs-fl cs-fl-align-c">
                                     <div class = "post-card-user cs-fl">
                                         <i class = "fas fa-user"></i>
@@ -34,11 +41,6 @@
 
                                     </div>
                                 </div>
-                                <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user']) { ?>
-                                    <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
-                                        <span class="<?= $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?= $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
-                                    </button>
-                                <?php } ?>
                             </div>
                             <?php
                         }

@@ -67,12 +67,12 @@
 }
 
 .post-card-img-a {
-    height: 200px;
     border-radius: 5px;
 }
 
 .post-card-img {
-    max-width: 350px;
+    width: 100%;
+    max-width: 450px;
     border-radius: 5px;
 }
 
@@ -403,9 +403,10 @@
 }
 
 .posts-cards-container {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    /*grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));*/
     width: 100%;
     justify-items: center;
 }
@@ -415,10 +416,15 @@
     max-width: 500px;
 }
 
+.post-card-title {
+    justify-content: space-between;
+    position: relative;
+}
+
 .post-like {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: -50px;
+    right: -20px;
     padding: 10px;
     border-radius: 50%;
     background-color: transparent;
@@ -436,6 +442,20 @@
 
 .post-liked {
     color: #a50101;
+}
+
+.post-card-stats {
+    gap: 10px;
+    position: absolute;
+    top: -10px;
+    right: 10px;
+}
+
+.post-card-stats-inner {
+    align-items: baseline;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 
@@ -503,10 +523,18 @@
     width: 70%;
 }
 
+.my-account-tab.admin {
+    width: 100%;
+}
+
 .tab {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
+}
+
+.tab.admin {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .tab button {
@@ -611,4 +639,9 @@
 
 .user-following-container {
     gap: 20px;
+}
+
+.admin-mod-text {
+    margin-right: 5px;
+    font-size: 18px;
 }

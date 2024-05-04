@@ -169,12 +169,19 @@ class UsersController extends \CodeShred\Core\BaseController {
         $data['section'] = '/mi-cuenta';
         //$data['notification']['message'] = 'Hemos vuelto chavales';
 
-        $model = new \CodeShred\Models\UsersModel();
-        $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
-        $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);
-        $model = new \CodeShred\Models\PostsModel();
-        $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
-        $data['userLikedPosts'] = $model->getUserLikedPosts($_SESSION['user']['id_user']);
+        if ($_SESSION['user']['user_rol'] == UsersController::USER) {
+            $model = new \CodeShred\Models\UsersModel();
+            $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
+            $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);
+            $model = new \CodeShred\Models\PostsModel();
+            $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
+            $data['userLikedPosts'] = $model->getUserLikedPosts($_SESSION['user']['id_user']);
+        } else {
+            $model = new \CodeShred\Models\UsersModel();
+            $data['usersData'] = $model->getAllAdmin();
+            $model = new \CodeShred\Models\PostsModel();
+            $data['usersPosts'] = $model->getAllAdmin();
+        }
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -201,35 +208,43 @@ class UsersController extends \CodeShred\Core\BaseController {
     }
 
     function showAll(): void {
-        $data = [];
-        $data['title'] = 'codeShred | Usuarios';
-        $data['section'] = '/usuarios';
+        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+            $data = [];
+            $data['title'] = 'codeShred | Usuarios';
+            $data['section'] = '/usuarios';
 
-        $model = new \CodeShred\Models\UsersModel();
-        $data['users'] = $model->getAll(intval($_SESSION['user']['id_user']));
+            $model = new \CodeShred\Models\UsersModel();
+            $data['users'] = $model->getAll(intval($_SESSION['user']['id_user']));
 
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'users.view.php', 'templates/footer.view.php'), $data);
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'users.view.php', 'templates/footer.view.php'), $data);
+        } else {
+            header('location: /');
+        }
     }
 
     function showFollowing(): void {
-        $data = [];
-        $data['title'] = 'codeShred | Siguiendo';
-        $data['section'] = '/siguiendo';
+        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+            $data = [];
+            $data['title'] = 'codeShred | Siguiendo';
+            $data['section'] = '/siguiendo';
 
-        // Obtenemos los ususario seguidos
-        $model = new \CodeShred\Models\UsersModel();
-        $followingUsers = $model->getFollowing($_SESSION['user']['id_user']);
+            // Obtenemos los ususario seguidos
+            $model = new \CodeShred\Models\UsersModel();
+            $followingUsers = $model->getFollowing($_SESSION['user']['id_user']);
 
-        // Obtenemos los posts de cada susuario
-        $postModel = new \CodeShred\Models\PostsModel();
-        foreach ($followingUsers as &$user) {
-            $userId = $user['id_user'];
-            $user['posts'] = $postModel->getUserPosts($_SESSION['user']['id_user'], $userId);
+            // Obtenemos los posts de cada susuario
+            $postModel = new \CodeShred\Models\PostsModel();
+            foreach ($followingUsers as &$user) {
+                $userId = $user['id_user'];
+                $user['posts'] = $postModel->getUserPosts($_SESSION['user']['id_user'], $userId);
+            }
+
+            $data['users'] = $followingUsers;
+
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'following.view.php', 'templates/footer.view.php'), $data);
+        } else {
+            header('location: /');
         }
-
-        $data['users'] = $followingUsers;
-
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'following.view.php', 'templates/footer.view.php'), $data);
     }
 
     function delete(string $id): void {

@@ -17,14 +17,16 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item" title="Siguiendo">
-                        <a href="/siguiendo" class="nav-link cs-fl cs-fl-just-c <?= $section === '/siguiendo' ? 'active' : ''; ?>">
-                            <i class="fas fa-user-friends"></i>
-                            <p>
-                                Siguiendo
-                            </p>
-                        </a>
-                    </li>
+                    <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
+                        <li class="nav-item" title="Siguiendo">
+                            <a href="/siguiendo" class="nav-link cs-fl cs-fl-just-c <?= $section === '/siguiendo' ? 'active' : ''; ?>">
+                                <i class="fas fa-user-friends"></i>
+                                <p>
+                                    Siguiendo
+                                </p>
+                            </a>
+                        </li>                
+                    <?php } ?>
                 <?php endif; ?>
                 <li class="nav-item" title="Ver Shreds">
                     <a href="/posts" class="nav-link cs-fl cs-fl-just-c <?= $section === '/posts' ? 'active' : ''; ?>">
@@ -35,14 +37,16 @@
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user'])) : ?>
-                    <li class="nav-item" title="Usuarios">
-                        <a href="/usuarios" class="nav-link cs-fl cs-fl-just-c <?= $section === '/usuarios' ? 'active' : ''; ?>">
-                            <i class="fas fa-users"></i>
-                            <p>
-                                Usuarios
-                            </p>
-                        </a>
-                    </li>
+                    <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
+                        <li class="nav-item" title="Usuarios">
+                            <a href="/usuarios" class="nav-link cs-fl cs-fl-just-c <?= $section === '/usuarios' ? 'active' : ''; ?>">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Usuarios
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
                 <?php endif; ?>
             </ul>
         </nav>

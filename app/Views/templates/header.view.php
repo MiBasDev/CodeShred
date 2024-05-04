@@ -47,7 +47,7 @@
                         </a>        
                     <?php } else { ?>
                         <a href="/mi-cuenta">
-                            <button class="button-secondary" id="button-my-account"><i class="fas fa-user"></i></button>
+                            <button class="button-secondary" id="button-my-account" title="<?= $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></button>
                         </a> 
                         <a href="/logout" class="logout">
                             <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>

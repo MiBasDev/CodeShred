@@ -12,7 +12,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         $data['section'] = '/post';
 
         $model = new \CodeShred\Models\PostsModel();
-
+        $model->addViewToPost(intval($id));
         $data['post'] = $model->loadPost(intval($id));
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
