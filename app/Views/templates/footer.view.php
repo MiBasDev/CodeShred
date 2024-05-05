@@ -42,4 +42,9 @@
 <?php endif; ?>
 <script src="assets/js/userAjax.js"></script>
 <script src="assets/js/postAjax.js"></script>
+<?php if (isset($section) && strpos($section, '/post') === 0) { ?>
+    <!--Codemirror-->
+    <script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/textareaCode.js"></script>
+<?php } ?>
 </html>

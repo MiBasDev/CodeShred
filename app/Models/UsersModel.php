@@ -80,18 +80,13 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
         return $stmt->fetchAll();
     }
 
-    /////
-    function size(): int {
-        $stmt = $this->pdo->query('SELECT COUNT(*) as total FROM usuario_sistema');
-        return $stmt->fetchColumn(0);
-    }
-
-    function delete(string $id): bool {
-        $stmt = $this->pdo->prepare('DELETE FROM usuario_sistema WHERE id_usuario=?');
-        $stmt->execute([$id]);
+    function delete(int $id): bool {
+        $stmt = $this->pdo->prepare('DELETE FROM users WHERE id_user = :id');
+        $stmt->execute(['id' => $id]);
         return ($stmt->rowCount() == 1);
     }
 
+    //////
     function baja(string $id): bool {
         $prev = $this->pdo->prepare('SELECT baja FROM usuario_sistema WHERE id_usuario=?');
         $prev->execute([$id]);

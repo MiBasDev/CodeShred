@@ -1,8 +1,8 @@
 <!--Main-->
-<main class="cs-fl-col <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="posts-container cs-fl-col">
         <h1><?= isset($section) && $section == '/mi-cuenta/mis-posts' ? 'Mis Shreds' : 'Shreds'; ?></h1>
-        <div class="posts-cards-container">
+        <div class="posts-cards-container-<?= isset($posts) && !empty($posts) && count($posts) > 2 ? 'grid' : 'flex'; ?>">
             <?php
             if (isset($posts) && !is_null($posts) && !empty($posts)) {
                 foreach ($posts as $post) {
@@ -29,10 +29,12 @@
                                     <?= $post['user'] ?>
                                 </span>
                             </div>
-                            <div class = "post-card-tags">
-                                <?= $post['tags_html'] == 1 ? '<span>#HTML</span>' : ''; ?>
-                                <?= $post['tags_css'] == 1 ? '<span>#CSS</span>' : ''; ?>
-                                <?= $post['tags_js'] == 1 ? '<span>#JS</span>' : ''; ?>
+                            <div class = "post-card-tags cs-fl">
+                                <span>
+                                    <?= $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
+                                    <?= $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
+                                    <?= $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
+                                </span>
                             </div>
                         </div>
                         <div class="cs-fl cs-fl-align-c post-card-stats">
@@ -40,7 +42,7 @@
                                 <span class="fa fa-eye"></span><span><?= $post['views'] ?></span>
                             </div>
                             <div class="cs-fl post-card-stats-inner">
-                                <span class="fa fa-heart"></span><span><?= $post['views'] ?></span>
+                                <span class="fa fa-heart"></span><span id="post-total-likes-<?= $post['id_post'] ?>"><?= $post['total_likes'] ?></span>
                             </div>
                         </div>
                     </div>

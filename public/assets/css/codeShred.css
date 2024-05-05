@@ -92,10 +92,9 @@
 
 .post-card-tags {
     width: 40%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: end;
     gap: 5px;
-    font-style: italic;
+    font-size: 20px;
 }
 
 
@@ -126,6 +125,7 @@
     flex-direction: column;
     color: white;
     border-radius: 5px;
+    overflow: auto;
 }
 
 .code-title {
@@ -139,14 +139,14 @@
 
 #html-code,
 #css-code,
-#js-code {
+#js-code,
+.CodeMirror{
     width: 100%;
     height: 100%;
     border-radius: 0 0 5px 5px;
     resize: none;
-    padding: 10px;
     background-color: #1E1E1E;
-    border-color: var(--static-elements-secondary-bg-color);
+    border: 2px solid var(--static-elements-secondary-bg-color);
     color: white;
     transition: none;
 }
@@ -217,6 +217,11 @@
     width: 80%;
     max-width: 600px;
     gap: 20px;
+}
+
+.popup-input-hide {
+    visibility: hidden;
+    position: absolute;
 }
 
 .popup-delete-content {
@@ -353,10 +358,18 @@
 .users-page-container {
     gap: 30px;
     width: 100%;
-    max-width: 1600px;
+    max-width: var(--max-main-container-width);
 }
 
-.users-container {
+.users-container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-items: baseline;
+}
+
+.users-container-grid {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -399,14 +412,23 @@
 /***** POSTS *****/
 /*****************/
 .posts-container {
+    width: 100%;
+    max-width: var(--max-main-container-width);
     gap: 30px;
 }
 
-.posts-cards-container {
+.posts-cards-container-flex {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    /*grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));*/
+    width: 100%;
+    justify-items: baseline;
+}
+
+.posts-cards-container-grid {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     width: 100%;
     justify-items: center;
 }
@@ -496,6 +518,7 @@
 .my-account-container {
     width: 100%;
     height: 100%;
+    max-width: var(--max-main-container-width);
     gap: 40px;
 }
 
@@ -613,6 +636,14 @@
     border: 2px solid var(--static-elements-bg-color);
 }
 
+.my-account-table-buttons {
+    gap: 5px;
+}
+
+.my-account-table-buttons .fa-trash-alt {
+    font-size: 20px;
+}
+
 #user-description {
     resize: none;
 }
@@ -634,6 +665,8 @@
 /***** FOLLOWING *****/
 /*********************/
 .following-container {
+    width: 100%;
+    max-width: var(--max-main-container-width);
     gap: 20px;
 }
 

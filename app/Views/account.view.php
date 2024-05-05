@@ -53,9 +53,9 @@
                                             <?= $post['views'] ?>
                                         </td>
                                         <td>
-                                            num
+                                            <?= $post['total_likes'] ?>
                                         </td>
-                                        <td>
+                                        <td class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
                                             <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?= $post['id_post']; ?>)" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
                                             <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?= $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
                                             <a href="/post/<?= $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?= $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
@@ -226,7 +226,7 @@
                                         <td>
                                             <?= $post['user'] ?>
                                         </td>
-                                        <td>
+                                        <td class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
                                             <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?= $post['id_post']; ?>)" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
                                             <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?= $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
                                             <a href="/post/<?= $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?= $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
@@ -261,7 +261,7 @@
                             if (isset($usersData) && !empty($usersData)) {
                                 foreach ($usersData as $user) {
                                     ?>
-                                    <tr>
+                                    <tr id="my-account-table-user-<?= $user['id_user']; ?>">
                                         <td>
                                             <?= $user['user_rol'] === CodeShred\Controllers\UsersController::MOD ? '<span class="fas fa-users-cog admin-mod-text"></span>' : ''; ?>
                                             <?= $user['user'] ?>
@@ -269,8 +269,8 @@
                                         <td>
                                             <?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
                                         </td>
-                                        <td>
-                                            <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?= $user['id_user']; ?>)" title="Borrar usuario"><span class="fas fa-trash-alt"></span></button>
+                                        <td class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
+                                            <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?= $user['id_user']; ?>, '<?= $user['user'] ?>')" title="Borrar usuario"><span class="fas fa-trash-alt"></span></button>
                                             <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?= $post['id_post']; ?>" title="Editar usuario"><span class="far fa-edit"></span></a>
                                         </td>
                                     </tr>
@@ -295,7 +295,7 @@
             <div class="popup-delete-title cs-fl cs-fl-just-c">
                 <h2>¿Seguro que quieres borrar este Shred?</h2>
             </div>
-            <div id="" class="cs-fl-col">
+            <div class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
                     <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
                     <button type="submit" class="button-warning" id="button-my-account-post-delete-popup">Borrar</button>
@@ -306,12 +306,12 @@
     <div id="popup-delete-user" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2>¿Seguro que quieres borrar al usuario?</h2>
+                <h2 id="popup-delete-user-title"></h2>
             </div>
-            <div id="" class="cs-fl-col">
+            <div class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
-                    <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
-                    <button type="submit" class="button-warning" id="button-my-account-post-delete-popup">Borrar</button>
+                    <button type="button" class="button-secondary" onclick="closeDeleteUserPopup()">Volver atrás</button>
+                    <button type="submit" class="button-warning" id="button-my-account-user-delete-popup">Borrar</button>
                 </div>
             </div>
         </div>

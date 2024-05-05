@@ -210,6 +210,13 @@ class FrontController {
                     }
                     , 'post');
 
+            Route::add('/user-delete',
+                    function () {
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->tableUserDeleteProcess();
+                    }
+                    , 'post');
+
             Route::pathNotFound(
                     function () {
                         $controller = new \CodeShred\Controllers\ErrorsController();

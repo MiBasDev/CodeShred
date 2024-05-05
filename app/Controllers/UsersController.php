@@ -269,6 +269,32 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
     }
 
+    public function tableUserDeleteProcess(): void {
+        // Decodificamos los datos enviados en la petición
+        $userData = file_get_contents("php://input");
+        $data = json_decode($userData, true);
+
+        // Guardamos las variables
+        $userId = intval($data['userId']);
+
+        // Comprobamos si es un usuario válido
+        if ($_SESSION['user']['id_user'] != $userId) {
+            // Borramos el post
+            $model = new \CodeShred\Models\UsersModel();
+            $isDeleted = $model->delete($userId);
+
+            // Creamos un log de lo ocurrido
+            $logModel = new \CodeShred\Models\LogsModel;
+            $action = $isDeleted ? 'deleted' : 'not deleted';
+            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al ususario con ID " . $userId . ".", $_SESSION['user']['id_user']);
+
+            // Enviamos el resultado al front
+            echo json_encode(['success' => $isDeleted, 'action' => $action]);
+        } else {
+            echo json_encode(['success' => false, 'action' => 'No se puede borrar a uno mismo']);
+        }
+    }
+
     function baja(string $id): void {
         if ($_SESSION['usuario']['id_usuario'] == $id) {
             $_SESSION['mensajeUsuarios'] = array(

@@ -48,11 +48,20 @@
                                         <?= $post['user'] ?>
                                     </span>
                                 </div>
-                                <div class = "post-card-tags">
-                                    <?= $post['tags_html'] == 1 ? '<span>#HTML</span>' : ''; ?>
-                                    <?= $post['tags_css'] == 1 ? '<span>#CSS</span>' : ''; ?>
-                                    <?= $post['tags_js'] == 1 ? '<span>#JS</span>' : ''; ?>
-
+                                <div class = "post-card-tags cs-fl">
+                                    <span>
+                                        <?= $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
+                                        <?= $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
+                                        <?= $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="cs-fl cs-fl-align-c post-card-stats">
+                                <div class="cs-fl post-card-stats-inner">
+                                    <span class="fa fa-eye"></span><span><?= $post['views'] ?></span>
+                                </div>
+                                <div class="cs-fl post-card-stats-inner">
+                                    <span class="fa fa-heart"></span><span><?= $post['total_likes'] ?></span>
                                 </div>
                             </div>
                         </div>

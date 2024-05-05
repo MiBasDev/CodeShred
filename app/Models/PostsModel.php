@@ -7,14 +7,15 @@ namespace CodeShred\Models;
 class PostsModel extends \CodeShred\Core\BaseDbModel {
 
     function getAll(int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC');
-        $stmt->execute(['userId' => $userId]);
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
+        $stmt->execute(['userId' => $userId, 'rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
     }
 
     function getAllNotSession(): ?array {
-        $stmt = $this->pdo->query('SELECT p.*, u.user, t.*, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
+        $stmt->execute(['rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
     }
@@ -32,13 +33,14 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
     }
 
     function getAllIndex(): ?array {
-        $stmt = $this->pdo->query('SELECT p.*, u.user, t.*, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id ORDER BY p.id_post DESC LIMIT 4');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) + (SELECT view_count FROM views WHERE view_post_id = p.id_post) DESC LIMIT 4');
+        $stmt->execute(['rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
     }
 
     function getUserPosts(int $sessionUserId, int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
         $stmt->execute(['sessionUserId' => $sessionUserId, 'userId' => $userId]);
 
         return $stmt->fetchAll();

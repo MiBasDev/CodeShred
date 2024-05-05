@@ -11,7 +11,6 @@ function openTabOption(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
 }
-// Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 
 
@@ -25,5 +24,20 @@ function openDeletePopup(id) {
 
 function closeDeletePopup() {
     var popup = document.getElementById('popup-delete');
+    popup.style.display = 'none';
+}
+
+function openDeleteUserPopup(id, name) {
+    var popup = document.getElementById('popup-delete-user');
+    var buttonDelete = document.getElementById('button-my-account-user-delete-popup');
+    var title = document.getElementById('popup-delete-user-title');
+
+    popup.style.display = 'flex';
+    buttonDelete.setAttribute('data', id);
+    title.innerHTML = '¿Seguro que quieres borrar al usuario "' + name + '"?';
+}
+
+function closeDeleteUserPopup() {
+    var popup = document.getElementById('popup-delete-user');
     popup.style.display = 'none';
 }

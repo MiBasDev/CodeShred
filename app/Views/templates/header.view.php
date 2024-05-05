@@ -5,11 +5,27 @@
         <base href="/">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="assets/css/codeShred-general.css">
-        <link rel="stylesheet" href="assets/css/codeShred.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/codeShred-general.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/codeShred.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-
+        <link rel="stylesheet" type="text/css" href="plugins/fontawesome-free/css/all.min.css">
+        <?php if (isset($section) && strpos($section, '/post') === 0) { ?>
+            <!--Codemirror-->
+            <link rel="stylesheet" type="text/css" href="plugins/codemirror/codemirror.css">
+            <script type="text/javascript" src="plugins/codemirror/codemirror.js"></script>
+            <link rel="stylesheet" type="text/css" href="plugins/codemirror/theme/dracula.css">
+            <script type="text/javascript" src="plugins/codemirror/mode/xml/xml.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/mode/css/css.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/mode/javascript/javascript.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/edit/matchbrackets.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/edit/closebrackets.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/edit/closetag.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/hint/show-hint.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/hint/anyword-hint.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/lint/lint.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/edit/matchtags.js"></script>
+            <script type="text/javascript" src="plugins/codemirror/addon/display/autorefresh.js"></script>
+        <?php } ?>
         <title><?php echo $title; ?></title>
         <link rel="icon" type="image/x-icon" href="assets/img/cs-logo-favicon.png">
     </head>

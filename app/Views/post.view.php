@@ -48,17 +48,17 @@
                     <label for="shred-title">Title:</label>
                     <input type="text" id="shred-title" name="shred-title" class="form-control">
                 </div>
-                <div class="popup-input cs-fl-col cs-fl-just-c">
+                <div class="popup-input-hide cs-fl-col cs-fl-just-c">
                     <label for="shred-html">HTML:</label>
-                    <input type="text" id="shred-html" name="shred-html" class="form-control">
+                    <textarea id="shred-html" name="shred-html" class="form-control"></textarea>
                 </div>
-                <div class="popup-input cs-fl-col cs-fl-just-c">
+                <div class="popup-input-hide cs-fl-col cs-fl-just-c">
                     <label for="shred-css">CSS:</label>
-                    <input type="text" id="shred-css" name="shred-css" class="form-control">
+                    <textarea id="shred-css" name="shred-css" class="form-control"></textarea>
                 </div>
-                <div class="popup-input cs-fl-col cs-fl-just-c">
+                <div class="popup-input-hide cs-fl-col cs-fl-just-c">
                     <label for="shred-js">JS:</label>
-                    <input type="text" id="shred-js" name="shred-js" class="form-control">
+                    <textarea id="shred-js" name="shred-js" class="form-control"></textarea>
                 </div>
                 <div class="popup-button cs-fl">
                     <button type="submit" class="button-primary">Guardar</button>

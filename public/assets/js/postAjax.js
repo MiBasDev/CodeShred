@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
             var postId = this.id.split('-')[2];
+            // Recogemos el total de lieks del post
+            var totalLikes = document.getElementById('post-total-likes-' + postId);
 
             // Empezamos la petición
             fetch('/post-like', {
@@ -28,10 +30,16 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.querySelector('span').classList.remove('far');
                                 button.querySelector('span').classList.add('fa');
                                 button.querySelector('span').classList.add('post-liked');
+                                var currentLikes = parseInt(totalLikes.innerHTML);
+                                var newLikes = currentLikes + 1;
+                                totalLikes.innerHTML = newLikes;
                             } else {
                                 button.querySelector('span').classList.remove('fa');
                                 button.querySelector('span').classList.add('far');
                                 button.querySelector('span').classList.remove('post-liked');
+                                var currentLikes = parseInt(totalLikes.innerHTML);
+                                var newLikes = currentLikes - 1;
+                                totalLikes.innerHTML = newLikes;
                             }
                         }
                     })
