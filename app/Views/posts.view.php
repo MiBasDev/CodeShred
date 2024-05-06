@@ -16,11 +16,6 @@
                             <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
                                 <h3><?= $post['post_title'] ?></h3>
                             </a>
-                            <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'] && $_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
-                                <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
-                                    <span class="<?= $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?= $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
-                                </button>
-                            <?php } ?>
                         </div>
                         <div class = "post-card-specifications cs-fl cs-fl-align-c">
                             <div class = "post-card-user cs-fl">
@@ -38,11 +33,18 @@
                             </div>
                         </div>
                         <div class="cs-fl cs-fl-align-c post-card-stats">
-                            <div class="cs-fl post-card-stats-inner">
+                            <div class="cs-fl cs-fl-just-c cs-fl-align-c post-card-stats-inner">
                                 <span class="fa fa-eye"></span><span><?= $post['views'] ?></span>
                             </div>
-                            <div class="cs-fl post-card-stats-inner">
-                                <span class="fa fa-heart"></span><span id="post-total-likes-<?= $post['id_post'] ?>"><?= $post['total_likes'] ?></span>
+                            <div class="cs-fl cs-fl-just-c cs-fl-align-c post-card-stats-inner">
+                                <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'] && $_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
+                                    <button class="post-like" id="post-like-<?= $post['id_post']; ?>">
+                                        <span class="<?= $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?= $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
+                                    </button>
+                                <?php } else { ?>
+                                    <span class="fa fa-heart"></span>
+                                <?php } ?>
+                                <span id="post-total-likes-<?= $post['id_post'] ?>"><?= $post['total_likes'] ?></span>
                             </div>
                         </div>
                     </div>

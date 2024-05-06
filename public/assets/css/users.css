@@ -1,0 +1,51 @@
+.users-page-container {
+    gap: 30px;
+    width: 100%;
+    max-width: var(--max-main-container-width);
+}
+
+.users-container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-items: baseline;
+}
+
+.users-container-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    width: 100%;
+    justify-items: center;
+}
+
+.users-card {
+    background-color: var(--static-elements-secondary-bg-color);
+    padding: 20px;
+    border-radius: 5px;
+    gap: 10px;
+    max-width: 400px;
+}
+
+.user-name-container {
+    justify-content: space-between;
+}
+
+.user-name,
+.user-content {
+    gap: 10px;
+}
+
+.user-name {
+    align-items: baseline;
+    font-weight: bold;
+}
+
+.user-img {
+    font-size: 30px;
+}
+
+.user-follow span {
+    color: var(--dark-letter-color);
+}

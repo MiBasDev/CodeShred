@@ -1,0 +1,9 @@
+.following-container {
+    width: 100%;
+    max-width: var(--max-main-container-width);
+    gap: 20px;
+}
+
+.user-following-container {
+    gap: 20px;
+}

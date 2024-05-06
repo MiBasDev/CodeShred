@@ -444,18 +444,9 @@
 }
 
 .post-like {
-    position: absolute;
-    top: -50px;
-    right: -20px;
-    padding: 10px;
-    border-radius: 50%;
     background-color: transparent;
     border: none;
     cursor: pointer;
-}
-
-.post-like span {
-    font-size: 25px;
 }
 
 .post-like span:hover {
@@ -469,8 +460,11 @@
 .post-card-stats {
     gap: 10px;
     position: absolute;
-    top: -10px;
+    top: -15px;
     right: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    background: var(--complements-color);
 }
 
 .post-card-stats-inner {
@@ -478,6 +472,10 @@
     gap: 5px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.post-card-stats-inner span {
+    font-size: 18px;
 }
 
 
@@ -677,4 +675,9 @@
 .admin-mod-text {
     margin-right: 5px;
     font-size: 18px;
+}
+
+.CodeMirror * {
+    transition: none;
+    font-family: monospace;
 }

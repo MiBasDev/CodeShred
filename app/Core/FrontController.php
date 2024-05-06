@@ -139,26 +139,12 @@ class FrontController {
                     }
                     , 'get');
 
-            Route::add('/mi-cuenta/mis-posts',
-                    function () {
-                        $controller = new \CodeShred\Controllers\PostsController();
-                        $controller->edit();
-                    }
-                    , 'post');
-
             Route::add('/siguiendo',
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
                         $controller->showFollowing();
                     }
                     , 'get');
-
-            Route::add('/siguiendo',
-                    function () {
-                        $controller = new \CodeShred\Controllers\UsersController();
-                        $controller->mostrar();
-                    }
-                    , 'post');
 
             Route::add('/usuarios',
                     function () {
@@ -167,19 +153,19 @@ class FrontController {
                     }
                     , 'get');
 
-            Route::add('/usuarios',
-                    function () {
-                        $controller = new \CodeShred\Controllers\UsersController();
-                        $controller->mostar();
-                    }
-                    , 'post');
-
             Route::add('/mi-cuenta',
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
                         $controller->myAccount();
                     }
                     , 'get');
+                    
+            Route::add('/mi-cuenta',
+                    function () {
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->myAccountDelete();
+                    }
+                    , 'post');
 
             /* AJAX */
             Route::add('/update-description',

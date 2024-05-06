@@ -8,10 +8,16 @@ namespace CodeShred\Controllers;
 
 class UsersController extends \CodeShred\Core\BaseController {
 
+    // Posibles roles de los usuarios
     const ADMIN = 1;
     const MOD = 2;
     const USER = 3;
 
+    /**
+     * Método que enseña la vista de login.
+     * 
+     * @return void Enseña la vista de login.
+     */
     public function login(): void {
         $data = [];
         $data['title'] = 'codeShred | Login';
@@ -19,6 +25,12 @@ class UsersController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
     }
 
+    /**
+     * Método que procesa los datos de login, creando una sesión de usuario si son
+     * correctos o enviando los errores al front si no lo son.
+     * 
+     * @return void Logea o no al usuario.
+     */
     public function loginProcess(): void {
         $model = new \CodeShred\Models\UsersModel;
         $data = [];
@@ -32,7 +44,6 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
             } else {
                 $_SESSION['user'] = $user;
-                $_SESSION['permisos'] = $this->getPermissions($user['user_rol']);
                 $model->updateLoginData($user['id_user']);
                 $logModel = new \CodeShred\Models\LogsModel;
                 $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.", $user['id_user']);
@@ -47,6 +58,11 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
     }
 
+    /**
+     * Método que enseña la vista de registro.
+     * 
+     * @return void Enseña la vista de registro.
+     */
     public function register(): void {
         $data = [];
         $data['title'] = 'codeShred | Registro';
@@ -54,6 +70,12 @@ class UsersController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
     }
 
+    /**
+     * Método que procesa los datos de registro, creando una sesión de usuario si 
+     * son correctos o enviando los errores al front si no lo son.
+     * 
+     * @return void Resgitra o no al usuario.
+     */
     public function registerProcess(): void {
         $model = new \CodeShred\Models\UsersModel;
         $data = [];
@@ -105,7 +127,6 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $userOk = $model->register($data);
                 if ($userOk === true) {
                     $_SESSION['user'] = $model->getUserByUser($_POST['user']);
-                    $_SESSION['permisos'] = $this->getPermissions($_SESSION['user']['user_rol']);
                     $model->updateLoginData($_SESSION['user']['id_user']);
                     $logModel = new \CodeShred\Models\LogsModel;
                     $logModel->insertLog('registro', "El usuario " . $_SESSION['user']['user'] . " se ha registrado en el sistema.", $_SESSION['user']['id_user']);
@@ -132,38 +153,23 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
     }
 
+    /**
+     * Método que destruye la sesión del usuario y lo envía al inicio.
+     * 
+     * @return void 
+     */
     public function logout(): void {
         session_destroy();
         header('location: /');
     }
 
-    private function getPermissions(int $idRol): array {
-        $permisos = array(
-            'categorias' => '',
-            'proveedores' => '',
-            'productos' => '',
-            'usuarios_sistema' => '');
-
-        if (self::ADMIN == $idRol) {
-            $permisos['categorias'] = 'rwd';
-            $permisos['proveedores'] = 'rwd';
-            $permisos['productos'] = 'rwd';
-            $permisos['usuarios_sistema'] = 'rwd';
-        } else if (self::MOD == $idRol) {
-            $permisos['categorias'] = 'r';
-            $permisos['proveedores'] = 'r';
-            $permisos['productos'] = 'r';
-            $permisos['usuarios_sistema'] = 'r';
-        } else if (self::USER == $idRol) {
-            $permisos['proveedores'] = 'rd';
-            $permisos['productos'] = 'rd';
-            $permisos['categorias'] = 'rd';
-        }
-
-        return $permisos;
-    }
-
-    function myAccount(): void {
+    /**
+     * Método que enseña la vista de mi cuenta, obteniendo diferentes datos en 
+     * función de si el usuarios de la sesión tiene el rol de admin o no.
+     * 
+     * @return void
+     */
+    public function myAccount(): void {
         $data = [];
         $data['title'] = 'codeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
@@ -185,29 +191,13 @@ class UsersController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
     }
 
-    function updateDescription(): void {
-        // Decodificamos los datos enviados en la petición
-        $postData = file_get_contents("php://input");
-        $data = json_decode($postData, true);
-
-        // Guardamos las variables
-        $userId = intval($_SESSION['user']['id_user']);
-        $userDescription = $data['userDescription'];
-
-        // Ejecutamos la query
-        $model = new \CodeShred\Models\UsersModel();
-        $descriptionUpdated = $model->updateUserDescription($userId, $userDescription);
-
-        // Creamos un log de lo ocurrido
-        $logModel = new \CodeShred\Models\LogsModel;
-        $action = $descriptionUpdated ? 'updated' : 'error upating';
-        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($descriptionUpdated ? "actualizado" : "no actualizado") . " su descripción.", $_SESSION['user']['id_user']);
-
-        // Enviamos el resultado al front
-        echo json_encode(['success' => $descriptionUpdated, 'action' => $action]);
-    }
-
-    function showAll(): void {
+    /**
+     * Método que obtiene todos los usuarios del sistema y enseña la vista de 
+     * usuarios.
+     * 
+     * @return void
+     */
+    public function showAll(): void {
         if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
             $data = [];
             $data['title'] = 'codeShred | Usuarios';
@@ -222,7 +212,13 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
     }
 
-    function showFollowing(): void {
+    /**
+     * Método que obtiene todos los usuarios seguidos por el usuarios de la sesión
+     * y enseña la vista de usuarios seguidos.
+     * 
+     * @return void
+     */
+    public function showFollowing(): void {
         if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
             $data = [];
             $data['title'] = 'codeShred | Siguiendo';
@@ -247,179 +243,26 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
     }
 
-    function delete(string $id): void {
-        if ($_SESSION['usuario']['id_usuario'] == $id) {
-            $_SESSION['mensajeUsuarios'] = array(
-                'class' => 'warning',
-                'texto' => 'No está permitido eliminarse a uno mismo.'
-            );
-            header('Location: /usuarios-sistema');
-        } else {
-            $model = new \Com\Daw2\Models\UsuarioSistemaModel();
-            $result = $model->delete($id);
-            if ($result) {
-                header('Location: /usuarios-sistema');
-            } else {
-                $_SESSION['mensajeUsuarios'] = array(
-                    'class' => 'danger',
-                    'texto' => 'No se ha logrado borrar el registro.'
-                );
-                header('Location: /usuarios-sistema');
-            }
-        }
+    /**
+     * Método que elimina al ususario de la sesión del sisitema.
+     * 
+     * @return void
+     */
+    public function myAccountDelete(): void {
+        $model = new \CodeShred\Models\UsersModel();
+
+        $this->logout();
     }
 
-    public function tableUserDeleteProcess(): void {
-        // Decodificamos los datos enviados en la petición
-        $userData = file_get_contents("php://input");
-        $data = json_decode($userData, true);
-
-        // Guardamos las variables
-        $userId = intval($data['userId']);
-
-        // Comprobamos si es un usuario válido
-        if ($_SESSION['user']['id_user'] != $userId) {
-            // Borramos el post
-            $model = new \CodeShred\Models\UsersModel();
-            $isDeleted = $model->delete($userId);
-
-            // Creamos un log de lo ocurrido
-            $logModel = new \CodeShred\Models\LogsModel;
-            $action = $isDeleted ? 'deleted' : 'not deleted';
-            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al ususario con ID " . $userId . ".", $_SESSION['user']['id_user']);
-
-            // Enviamos el resultado al front
-            echo json_encode(['success' => $isDeleted, 'action' => $action]);
-        } else {
-            echo json_encode(['success' => false, 'action' => 'No se puede borrar a uno mismo']);
-        }
-    }
-
-    function baja(string $id): void {
-        if ($_SESSION['usuario']['id_usuario'] == $id) {
-            $_SESSION['mensajeUsuarios'] = array(
-                'class' => 'warning',
-                'texto' => 'No está permitido darse de baja a uno mismo.'
-            );
-            header('Location: /usuarios-sistema');
-        } else {
-            $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-            $result = $modelo->baja($id);
-            if ($result) {
-                header('Location: /usuarios-sistema');
-            } else {
-                $_SESSION['mensajeUsuarios'] = array(
-                    'class' => 'danger',
-                    'text' => 'Error indeterminado al cambiar el estado.'
-                );
-            }
-        }
-    }
-
-    function view(string $id): void {
-        $data = [];
-        $data['titulo'] = 'Usuario del sistema ' . $id;
-        $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-        $data['usuario'] = $modelo->loadUsuario($id);
-
-        $this->view->showViews(array('templates/header.view.php', 'detail.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-    }
-
-    function mostrarAdd(): void {
-        $data = [];
-        $data['titulo'] = 'Nuevo usuario del sistema';
-        $data['tituloDiv'] = "Alta usuario";
-        $data['seccion'] = '/usuarios-sistema/add';
-        $modeloRol = new \Com\Daw2\Models\AuxRolModel();
-        $data['roles'] = $modeloRol->getAll();
-        $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-    }
-
-    public function add(): void {
-        $errores = $this->checkForm($_POST);
-        if (count($errores) == 0) {
-            $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-            if ($modelo->insert($_POST)) {
-                header('location: /usuarios-sistema');
-            } else {
-                $data = [];
-                $input = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-                $data['titulo'] = 'Alta usuario';
-                $data['tituloDiv'] = "Alta usuario";
-                $rolesModel = new \Com\Daw2\Models\AuxRolModel();
-                $data['roles'] = $rolesModel->getAll();
-                $data['seccion'] = '/usuarios-sistema/add';
-                $data['input'] = $input;
-                $data['errores'] = ['nombre' => 'Error indeterminado al guardar'];
-
-                $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-            }
-        } else {
-            $data = [];
-            $input = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            $data['titulo'] = 'Alta usuario';
-            $data['tituloDiv'] = "Alta usuario";
-            $rolesModel = new \Com\Daw2\Models\AuxRolModel();
-            $data['roles'] = $rolesModel->getAll();
-            $data['seccion'] = '/usuarios-sistema/add';
-            $data['input'] = $input;
-            $data['errores'] = $errores;
-
-            $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-        }
-    }
-
-    function mostrarEdit($id) {
-        $data = [];
-        $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-        $user = $modelo->loadUsuario($id);
-        $data['titulo'] = 'Usuario ' . $user['nombre_completo'];
-        $data['tituloDiv'] = "Editando $user[nombre_completo]";
-        $rolesModel = new \Com\Daw2\Models\AuxRolModel();
-        $data['roles'] = $rolesModel->getAll();
-        $data['seccion'] = '/usuarios-sistema/edit/' . $id;
-
-        $data['input'] = $user;
-
-        $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-    }
-
-    function edit(int $id): void {
-        $errores = $this->checkForm($_POST, false, $id);
-        if (count($errores) == 0) {
-            $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
-            if ($modelo->update($_POST, $id)) {
-                if ($_POST['pass'] != '') {
-                    $modelo->updatePass($id, $_POST['pass']);
-                }
-                header('location: /usuarios-sistema');
-            } else {
-                $data = [];
-                $input = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-                $data['titulo'] = 'Usuario ' . $input['nombre'] . ' con ID: ' . $id;
-                $rolesModel = new \Com\Daw2\Models\AuxRolModel();
-                $data['roles'] = $rolesModel->getAll();
-                $data['seccion'] = '/usuarios-sistema/edit/' . $id;
-                $data['input'] = $input;
-                $data['errores'] = ['nombre' => 'Error indeterminado al guardar'];
-
-                $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-            }
-        } else {
-            $data = [];
-            $input = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            $data['titulo'] = 'Usuario ' . $input['nombre_completo'] . ' con ID: ' . $id;
-            $rolesModel = new \Com\Daw2\Models\AuxRolModel();
-            $data['roles'] = $rolesModel->getAll();
-            $data['seccion'] = '/usuarios-sistema/edit/' . $id;
-            $data['input'] = $input;
-            $data['errores'] = $errores;
-
-            $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
-        }
-    }
-
-    function checkForm(array $post, bool $esAlta = true, int $id = 0): array {
+    /**
+     * Método que valida los inputs de un formulario, devolviendo los errores, si 
+     * los hay, de los mismos.
+     * 
+     * @param array $post Colección con los datos del formulario.
+     * @param int $id Número identificativo del usuario.
+     * @return array Colección de errores si los hay, sino devuelve una colección vacía.
+     */
+    private function checkForm(array $post, int $id = 0): array {
         $errores = [];
         $userModel = new \CodeShred\Models\UsersModel();
 
@@ -465,22 +308,56 @@ class UsersController extends \CodeShred\Core\BaseController {
         } else if (!filter_var($post['id_rol'], FILTER_VALIDATE_INT)) {
             $errores['id_rol'] = 'Inserte un rol válido';
         } else {
-            $rolModel = new \Com\Daw2\Models\AuxRolModel();
-            $rol = $rolModel->loadRol((int) $post['id_rol']);
-            if (is_null($rol)) {
-                $errores['id_rol'] = 'Seleccione un rol válido';
-            }
+            // $rolModel = new \Com\Daw2\Models\AuxRolModel();
+            // $rol = $rolModel->loadRol((int) $post['id_rol']);
+            // if (is_null($rol)) {
+            //     $errores['id_rol'] = 'Seleccione un rol válido';
+            // }
         }
 
-        if (empty($post['idioma'])) {
-            $errores['idioma'] = "Campo obligatorio";
-        } else if (array_search($post['idioma'], self::IDIOMAS) === false) {
-            $errores['idioma'] = "Idioma inválido";
-        }
+        // if (empty($post['idioma'])) {
+        //     $errores['idioma'] = "Campo obligatorio";
+        // } else if (array_search($post['idioma'], self::IDIOMAS) === false) {
+        //     $errores['idioma'] = "Idioma inválido";
+        // }
 
         return $errores;
     }
 
+    /**
+     * Método que actualiza la descripción del usuario de la sesión de manera 
+     * asíncrona.
+     * 
+     * @return void
+     */
+    public function updateDescription(): void {
+        // Decodificamos los datos enviados en la petición
+        $postData = file_get_contents("php://input");
+        $data = json_decode($postData, true);
+
+        // Guardamos las variables
+        $userId = intval($_SESSION['user']['id_user']);
+        $userDescription = $data['userDescription'];
+
+        // Ejecutamos la query
+        $model = new \CodeShred\Models\UsersModel();
+        $descriptionUpdated = $model->updateUserDescription($userId, $userDescription);
+
+        // Creamos un log de lo ocurrido
+        $logModel = new \CodeShred\Models\LogsModel;
+        $action = $descriptionUpdated ? 'updated' : 'error upating';
+        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($descriptionUpdated ? "actualizado" : "no actualizado") . " su descripción.", $_SESSION['user']['id_user']);
+
+        // Enviamos el resultado al front
+        echo json_encode(['success' => $descriptionUpdated, 'action' => $action]);
+    }
+
+    /**
+     * Método que procesa un follow del usuario de la sesión  a otro usuario de 
+     * manera asíncrona.
+     * 
+     * @return void
+     */
     public function followProcess(): void {
         // Decodificamos los datos enviados en la petición
         $postData = file_get_contents("php://input");
@@ -516,5 +393,36 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
         // Enviamos el resultado al front
         echo json_encode(['success' => $success, 'action' => $action]);
+    }
+
+    /**
+     * Método que elimina un usuario del sistema de manera asíncrona.
+     * @return void
+     */
+    public function tableUserDeleteProcess(): void {
+        // Decodificamos los datos enviados en la petición
+        $userData = file_get_contents("php://input");
+        $data = json_decode($userData, true);
+
+        // Guardamos las variables
+        $userId = intval($data['userId']);
+
+        // Comprobamos si es un usuario válido
+        if ($_SESSION['user']['id_user'] != $userId) {
+            // Borramos el post
+            $model = new \CodeShred\Models\UsersModel();
+            $isDeleted = $model->delete($userId);
+
+            // Creamos un log de lo ocurrido
+            $logModel = new \CodeShred\Models\LogsModel;
+            $action = $isDeleted ? 'deleted' : 'not deleted';
+            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al ususario con ID " . $userId . ".", $_SESSION['user']['id_user']);
+
+            // Enviamos el resultado al front
+            echo json_encode(['success' => $isDeleted, 'action' => $action]);
+        } else {
+            // Enviamos el resultado al front
+            echo json_encode(['success' => false, 'action' => 'No se puede borrar a uno mismo']);
+        }
     }
 }

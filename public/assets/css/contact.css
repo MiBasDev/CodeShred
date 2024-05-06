@@ -1,0 +1,26 @@
+.contact-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.contact-form-span {
+    grid-column: span 2;
+}
+
+.contact-form-span input {
+    width: 100%;
+}
+
+.contact-cont {
+    padding: 40px 60px;
+    gap: 30px;
+    background-color: var(--static-elements-secondary-bg-color);
+    border-radius: 5px;
+}
+
+.contact-form-textarea {
+    padding: 10px 15px;
+    background: none;
+    border-radius: 5px;
+    width: 100%;
+}

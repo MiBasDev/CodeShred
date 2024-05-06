@@ -367,3 +367,85 @@ footer a.active {
 .user-notificactions-none {
     display: none;
 }
+
+/* Shreds */
+.post-card {
+    background-color: var(--static-elements-secondary-bg-color);
+    padding: 20px;
+    border-radius: 5px;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.post-card-img-a {
+    border-radius: 5px;
+}
+
+.post-card-img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 5px;
+}
+
+.post-card-title-container,
+.post-card-user {
+    gap: 5px;
+}
+
+.post-card-title {
+    justify-content: space-between;
+    position: relative;
+}
+
+.post-card-specifications  {
+    height: 100%;
+}
+
+.post-card-user {
+    font-weight: bold;
+    width: 60%;
+}
+
+.post-card-tags {
+    width: 40%;
+    justify-content: end;
+    gap: 5px;
+    font-size: 20px;
+}
+
+.post-like {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.post-like span:hover {
+    color: #a50101;
+}
+
+.post-liked {
+    color: #a50101;
+}
+
+.post-card-stats {
+    gap: 10px;
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    background: var(--complements-color);
+}
+
+.post-card-stats-inner {
+    align-items: baseline;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.post-card-stats-inner span {
+    font-size: 18px;
+}

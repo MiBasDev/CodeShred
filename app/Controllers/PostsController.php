@@ -44,12 +44,12 @@ class PostsController extends \CodeShred\Core\BaseController {
         if ($idFromUser || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
             $data['post'] = $model->loadPost(intval($id));
             if (is_null($data['post'])) {
-                header('location: /');
+                header('location: /posts');
             } else {
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
             }
         } else {
-            header('location: /');
+            header('location: /posts');
         }
     }
 
@@ -127,7 +127,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         } else {
             
         }
-        header('location: /');
+        header('location: /posts');
     }
 
     public function likeProcess(): void {

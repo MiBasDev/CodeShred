@@ -1,0 +1,21 @@
+.posts-container {
+    width: 100%;
+    max-width: var(--max-main-container-width);
+    gap: 30px;
+}
+
+.posts-cards-container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-items: baseline;
+}
+
+.posts-cards-container-grid {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    width: 100%;
+    justify-items: center;
+}
