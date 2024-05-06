@@ -25,6 +25,14 @@
     width: 100%;
 }
 
+.my-account-settings {
+    gap: 20px;
+}
+
+.my-account-error-delete {
+    text-align: end;
+}
+
 .my-account-tab {
     width: 70%;
 }

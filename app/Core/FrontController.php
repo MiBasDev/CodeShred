@@ -159,11 +159,11 @@ class FrontController {
                         $controller->myAccount();
                     }
                     , 'get');
-                    
-            Route::add('/mi-cuenta',
-                    function () {
+
+            Route::add('/mi-cuenta/([0-9]+)',
+                    function ($id) {
                         $controller = new \CodeShred\Controllers\UsersController();
-                        $controller->myAccountDelete();
+                        $controller->myAccountDelete($id);
                     }
                     , 'post');
 
@@ -200,6 +200,13 @@ class FrontController {
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
                         $controller->tableUserDeleteProcess();
+                    }
+                    , 'post');
+
+            Route::add('/update-user-data',
+                    function () {
+                        $controller = new \CodeShred\Controllers\UsersController();
+                        $controller->updateUserData();
                     }
                     , 'post');
 

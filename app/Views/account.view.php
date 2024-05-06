@@ -167,37 +167,43 @@
                 <div id="configuracion" class="tabcontent">
                     <div class="tab-conf cs-fl-col">
                         <h3>Tu cuenta</h3>
-                        <!--Nombre de usuario-->
-                        <input type="text" name="user" id="user" placeholder="Nombre de usuario" class="form-control register-input" value="<?php echo isset($userData['user']) ? $userData['user'] : ''; ?>">
-                        <?php if (isset($loginErrorUser)) : ?>
-                            <!--Errores usuario-->
-                            <p class="login-box-message"><?php echo $loginErrorUser; ?></p>
-                        <?php endif; ?>
-                        <!--Email-->
-                        <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
-                        <?php if (isset($loginErrorEmail)) : ?>
-                            <!--Errores email-->
-                            <p class="login-box-message"><?php echo $loginErrorEmail; ?></p>
-                        <?php endif; ?>
-                        <!--Pass 1-->
-                        <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input">
-                        <?php if (isset($loginErrorPass1)) : ?>
-                            <!--Errores pass 1-->
-                            <p class="login-box-message"><?php echo $loginErrorPass1; ?></p>
-                        <?php endif; ?>
-                        <!--Pass 2-->
-                        <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input">
-                        <?php if (isset($loginErrorPass2)) : ?>
-                            <!--Errores pass 2-->
-                            <p class="login-box-message"><?php echo $loginErrorPass2; ?></p>
-                        <?php endif; ?>
-                        <?php if (isset($loginError)) : ?>
-                            <!--Errores ambas pass-->
-                            <p class="login-box-message register-input"><?php echo $loginError; ?></p>
-                        <?php endif; ?>
-                        <!--Submit-->
-                        <div class="cs-fl cs-fl-align-c register-buttons">
-                            <button type="submit" class="button-primary">Actualizar datos</button>
+                        <div class="my-account-settings cs-fl-col">
+                            <!--Nombre de usuario-->
+                            <input type="text" name="user" id="user" placeholder="Nombre de usuario" class="form-control register-input" value="<?php echo isset($userData['user']) ? $userData['user'] : ''; ?>">
+                            <?php if (isset($loginErrorUser)) : ?>
+                                <!--Errores usuario-->
+                                <p class="login-box-message"><?php echo $loginErrorUser; ?></p>
+                            <?php endif; ?>
+                            <!--Email-->
+                            <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
+                            <?php if (isset($loginErrorEmail)) : ?>
+                                <!--Errores email-->
+                                <p class="login-box-message"><?php echo $loginErrorEmail; ?></p>
+                            <?php endif; ?>
+                            <!--Pass 1-->
+                            <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input">
+                            <?php if (isset($loginErrorPass1)) : ?>
+                                <!--Errores pass 1-->
+                                <p class="login-box-message"><?php echo $loginErrorPass1; ?></p>
+                            <?php endif; ?>
+                            <!--Pass 2-->
+                            <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input">
+                            <?php if (isset($loginErrorPass2)) : ?>
+                                <!--Errores pass 2-->
+                                <p class="login-box-message"><?php echo $loginErrorPass2; ?></p>
+                            <?php endif; ?>
+                            <?php if (isset($loginError)) : ?>
+                                <!--Errores ambas pass-->
+                                <p class="login-box-message register-input"><?php echo $loginError; ?></p>
+                            <?php endif; ?>
+                            <!--Submit-->
+                            <div class="cs-fl cs-fl-align-c register-buttons">
+                                <button type="submit" class="button-primary" id="update-user-data" data="<?= $userData['id_user']; ?>">Actualizar datos</button>
+                                <button type="submit" class="button-warning" onclick="openDeleteAccountPopup()">Borrar cuenta</button>
+                            </div>
+                            <?php if (isset($errorDelete)) : ?>
+                                <p class="login-box-message register-input my-account-error-delete"><?= $errorDelete; ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -313,6 +319,19 @@
                     <button type="button" class="button-secondary" onclick="closeDeleteUserPopup()">Volver atrás</button>
                     <button type="submit" class="button-warning" id="button-my-account-user-delete-popup">Borrar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="popup-delete-account" class="popup-delete">
+        <div class="popup-delete-content cs-fl-col">
+            <div class="popup-delete-title cs-fl cs-fl-just-c">
+                <h2><?= $userData['user']; ?>, ¿seguro que quieres borrar tu cuenta?</h2>
+            </div>
+            <div class="cs-fl-col">
+                <form action="/mi-cuenta/<?= $userData['id_user']; ?>" method="post" class="popup-delete-button cs-fl">
+                    <button type="button" class="button-secondary" onclick="closeDeleteAccountPopup()">Volver atrás</button>
+                    <button type="submit" class="button-warning">Borrar cuenta</button>
+                </form>
             </div>
         </div>
     </div>

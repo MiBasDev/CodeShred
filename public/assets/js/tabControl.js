@@ -27,17 +27,13 @@ function closeDeletePopup() {
     popup.style.display = 'none';
 }
 
-function openDeleteUserPopup(id, name) {
-    var popup = document.getElementById('popup-delete-user');
-    var buttonDelete = document.getElementById('button-my-account-user-delete-popup');
-    var title = document.getElementById('popup-delete-user-title');
+function openDeleteAccountPopup(id, name) {
+    var popup = document.getElementById('popup-delete-account');
 
     popup.style.display = 'flex';
-    buttonDelete.setAttribute('data', id);
-    title.innerHTML = '¿Seguro que quieres borrar al usuario "' + name + '"?';
 }
 
-function closeDeleteUserPopup() {
-    var popup = document.getElementById('popup-delete-user');
+function closeDeleteAccountPopup() {
+    var popup = document.getElementById('popup-delete-account');
     popup.style.display = 'none';
 }
