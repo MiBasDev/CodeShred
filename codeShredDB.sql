@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 06, 2024 at 08:39 PM
+-- Generation Time: May 06, 2024 at 11:15 PM
 -- Server version: 10.6.7-MariaDB-2ubuntu1.1
 -- PHP Version: 8.1.9
 
@@ -63,7 +63,7 @@ CREATE TABLE `likes` (
 
 INSERT INTO `likes` (`id_post`, `id_user`, `id_like`) VALUES
 (58, 5, 74),
-(59, 5, 77);
+(59, 5, 83);
 
 -- --------------------------------------------------------
 
@@ -493,7 +493,24 @@ INSERT INTO `logs` (`id_log`, `action`, `detail`, `date`, `user_id`) VALUES
 (490, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 18:07:18', 5),
 (491, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 18:07:21', 5),
 (492, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 18:09:47', 5),
-(493, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 18:09:51', 5);
+(493, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 18:09:51', 5),
+(494, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-05-06 20:05:15', 5),
+(495, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 20:13:24', 5),
+(496, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 20:13:28', 5),
+(497, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 20:13:50', 5),
+(498, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 20:13:51', 5),
+(499, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 20:13:52', 5),
+(500, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 20:13:52', 5),
+(501, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 20:13:52', 5),
+(502, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 20:13:53', 5),
+(503, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 20:13:53', 5),
+(504, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 20:13:53', 5),
+(505, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 59.', '2024-05-06 20:13:54', 5),
+(506, 'like', 'El usuario Miguel ha dado like al post con ID 59.', '2024-05-06 20:13:55', 5),
+(509, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-05-06 20:40:03', 5),
+(510, 'updated', 'El usuario Miguel ha actualizado su descripción.', '2024-05-06 20:41:20', 5),
+(511, 'updated', 'El usuario Miguel ha actualizado su descripción.', '2024-05-06 20:42:47', 5),
+(512, 'updated', 'El usuario Miguel ha actualizado su descripción.', '2024-05-06 20:47:37', 5);
 
 -- --------------------------------------------------------
 
@@ -574,7 +591,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `user`, `user_pass`, `user_name`, `user_surname`, `user_email`, `user_rol`, `user_last_login`, `user_description`) VALUES
-(5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-05-06 17:59:30', 'Soy estudiante de DAW y espero que me aprueben :)'),
+(5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-05-06 20:40:03', 'Soy estudiante de DAW y espero que me aprueben :)'),
 (6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 1, '2024-05-05 21:27:28', NULL),
 (8, 'Gala', '$2y$10$BWgU1V4CUqKfwSqn.eloDe.Oea1RvJPyda4ZzKNUOVintMmnLgxia', 'Gala', 'Perez', 'galacid00@gmail.com', 3, '2024-05-05 20:46:13', NULL),
 (43, 'Jorge', '$2y$10$OmkW8UWPaK/B84FPV81Z.u8MOZcyn68zZs0aQcMqm85iyQFwKd6iy', 'Jorge', 'Pin Gil', 'jpingil@gmail.com', 3, '2024-05-02 19:48:50', NULL),
@@ -602,7 +619,7 @@ INSERT INTO `views` (`view_post_id`, `id_view`, `view_count`) VALUES
 (56, 3, 0),
 (57, 4, 4),
 (58, 5, 1),
-(59, 6, 22),
+(59, 6, 23),
 (61, 8, 0),
 (63, 10, 1);
 
@@ -674,37 +691,37 @@ ALTER TABLE `follows`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=513;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id_tags` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id_tags` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `views`
 --
 ALTER TABLE `views`
-  MODIFY `id_view` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_view` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

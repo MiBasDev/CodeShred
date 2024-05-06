@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    /* Puedes agregar más formatos de fuente aquí si lo deseas */
+}
+
 /*****************/
 /***** Index *****/
 /*****************/
@@ -687,5 +693,5 @@
 
 .CodeMirror * {
     transition: none;
-    font-family: monospace;
+    font-family: 'JetBrains Mono', monospace;
 }
