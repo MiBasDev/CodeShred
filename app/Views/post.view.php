@@ -29,12 +29,7 @@
         </div>
     </div>
     <div id="final-code-container">
-        <h2>Output</h2>
-        <div id="final-code"><iframe id="my-iframe" src="./iframe.html"></iframe></div>
-        <div>
-            <style id="final-code-style"></style>
-            <script id="final-code-script" type="text/javascript"></script>
-        </div>
+        <div id="final-code"><iframe id="my-iframe" sandbox="allow-same-origin allow-scripts"></iframe></div>
     </div>
 
     <div id="popup" class="popup">
@@ -44,6 +39,7 @@
                 <span class="close-popup" onclick="closePopup()">&times;</span>
             </div>
             <form action="<?= isset($section) && $section == '/post/add' ? '/post/add' : '/post/edit/' . $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col ">
+                <div id="popup-image-container" style="width: 100%; height: 100%"></div>
                 <div class="popup-input cs-fl-col cs-fl-just-c">
                     <label for="shred-title">Title:</label>
                     <input type="text" id="shred-title" name="shred-title" class="form-control">
@@ -66,6 +62,8 @@
             </form>
         </div>
     </div>
+    
+    
 
     <div id="popup-delete" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">

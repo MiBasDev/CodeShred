@@ -10,6 +10,8 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" type="text/css" href="plugins/fontawesome-free/css/all.min.css">
         <?php if (isset($section) && strpos($section, '/post') === 0) { ?>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.2/purify.min.js"></script>
             <!--Codemirror-->
             <link rel="stylesheet" type="text/css" href="plugins/codemirror/codemirror.css">
             <script type="text/javascript" src="plugins/codemirror/codemirror.js"></script>
@@ -48,7 +50,7 @@
                         <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
                     <?php } ?>
                     <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
-                        <button class="button-primary" id="button-post-save" onclick="openPopup()">Guardar</button>
+                        <button class="button-primary" id="button-post-save" onclick="saveAndOpenPopup()">Guardar</button>
                     <?php } ?>
                     <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post') !== 0 || $section === '/posts') { ?>
                         <input type="search" placeholder="Buscar...">

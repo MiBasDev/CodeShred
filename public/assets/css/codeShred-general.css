@@ -121,7 +121,7 @@ header {
 }
 
 #logo-cs {
-    width: 230px;
+    height: calc(var(--header-height) - 20px);
 }
 
 .header-buttons {

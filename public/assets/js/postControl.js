@@ -1,19 +1,31 @@
-function sendToIframe() {
-    var iframe = document.getElementById("my-iframe");
-    var htmlCode = document.getElementById("html-code").value;
-    var cssCode = document.getElementById("css-code").value;
-    var jsCode = document.getElementById("js-code").value;
-    var message = {
-        html: htmlCode,
-        css: cssCode,
-        js: jsCode
-    };
-    iframe.contentWindow.postMessage(message, "*");
+// Función para capturar el iframe y mostrarlo en el popup
+function saveAndOpenPopup() {
+    // Capturamos el iframe
+    captureScreenshot();
+    // Abrimos el popup
+    openPopup();
 }
 
-document.getElementById("html-code").addEventListener("input", sendToIframe);
-document.getElementById("css-code").addEventListener("input", sendToIframe);
-document.getElementById("js-code").addEventListener("input", sendToIframe);
+// Función para capturar una screenshot del contenido del iframe
+function captureScreenshot() {
+    const iframe = document.getElementById('my-iframe');
+    const screenshotContainer = document.getElementById('popup-image-container');
+
+    html2canvas(iframe.contentDocument.body).then(canvas => {
+        // Convertir la captura de pantalla a una imagen
+        const imageDataUrl = canvas.toDataURL('image/png');
+        
+        // Crear un elemento img y establecer su src con la URL de datos
+        const img = document.createElement('img');
+        img.src = imageDataUrl;
+        img.style.width = '100%';
+        img.style.aspectRatio = '16/9';
+        
+        // Limpiar el contenedor y agregar la imagen
+        screenshotContainer.innerHTML = '';
+        screenshotContainer.appendChild(img);
+    });
+}
 
 function openPopup() {
     var popup = document.getElementById('popup');

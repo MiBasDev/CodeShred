@@ -1,8 +1,4 @@
-@font-face {
-    font-family: 'JetBrains Mono';
-    src: url('fonts/JetBrainsMono-Regular.ttf') format('truetype');
-    /* Puedes agregar más formatos de fuente aquí si lo deseas */
-}
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 /*****************/
 /***** Index *****/
@@ -29,6 +25,7 @@
 
 .index-logo-and-slogan {
     padding: 10px;
+    gap: 40px;
 }
 
 .index-logo-and-slogan h1 {
@@ -36,6 +33,7 @@
 }
 
 .index-logo-and-slogan img {
+    max-width: 400px;
     width: 100%;
 }
 
@@ -119,7 +117,7 @@
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .code-background {
@@ -170,10 +168,6 @@
 #final-code-container {
     width: 100%;
     height: 100%;
-
-    & h2 {
-        color: white;
-    }
 }
 
 #final-code {
@@ -241,6 +235,17 @@
 #popup-form {
     padding: 10px;
     gap: 20px;
+}
+
+#popup-image-container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--static-elements-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .close-popup {
@@ -694,4 +699,9 @@
 .CodeMirror * {
     transition: none;
     font-family: 'JetBrains Mono', monospace;
+}
+
+#canvas-content {
+    display: none;
+    position: absolute;
 }

@@ -79,4 +79,35 @@ $(document).ready(function () {
         childList: true,
         subtree: true
     });
+    
+    // Función para actualizar el contenido del iframe
+    function updatePreview() {
+        const htmlContent = editorHtml.getValue();
+        const cssContent = `<style>${editorCss.getValue()}</style>`;
+        
+        const unsanitizedJsContent = editorJs.getValue();
+        const sanitizedJsContent = DOMPurify.sanitize(unsanitizedJsContent, { SAFE_FOR_JQUERY: true });
+        const jsContent = `<script>${sanitizedJsContent}</script>`;
+    
+        const combinedContent = `
+        <html>
+          <head>${cssContent}</head>
+          <body>${htmlContent}${jsContent}</body>
+        </html>
+      `;
+    
+        const previewFrame = document.getElementById('my-iframe');
+        const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        previewDoc.open();
+        previewDoc.write(combinedContent);
+        previewDoc.close();
+    }
+    
+    // Actualizar la vista previa al cargar la página
+    updatePreview();
+    
+    // Detectar cambios en los editores y actualizar la vista previa
+    editorHtml.on('change', updatePreview);
+    editorCss.on('change', updatePreview);
+    editorJs.on('change', updatePreview);
 });
