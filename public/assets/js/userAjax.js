@@ -117,11 +117,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             }, 2000);
 
                             // Pintamos el botón durante 2 segundos
-                            button.classList.remove('button-secondary');
+                            button.classList.remove('button-primary');
                             button.classList.add('button-success');
                             setTimeout(function () {
                                 button.classList.remove('button-success');
-                                button.classList.add('button-secondary');
+                                button.classList.add('button-primary');
                             }, 2000);
                         } else {
                             // Cambiamos el texto del botón durante 2 segundos
@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             }, 2000);
 
                             // Pintamos el botón durante 2 segundos
-                            button.classList.remove('button-secondary');
+                            button.classList.remove('button-primary');
                             button.classList.add('button-warning');
                             setTimeout(function () {
                                 button.classList.remove('button-warning');
-                                button.classList.add('button-secondary');
+                                button.classList.add('button-primary');
                             }, 2000);
                             
                             if(data.errors){
