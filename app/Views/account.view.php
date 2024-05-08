@@ -170,32 +170,22 @@
                         <div class="my-account-settings cs-fl-col">
                             <!--Nombre de usuario-->
                             <input type="text" name="user" id="user" placeholder="Nombre de usuario" class="form-control register-input" value="<?php echo isset($userData['user']) ? $userData['user'] : ''; ?>">
-                            <?php if (isset($loginErrorUser)) : ?>
                                 <!--Errores usuario-->
-                                <p class="login-box-message"><?php echo $loginErrorUser; ?></p>
-                            <?php endif; ?>
+                                <p class="login-box-message my-account-form-error" id="errorUser"></p>
                             <!--Email-->
                             <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
-                            <?php if (isset($loginErrorEmail)) : ?>
                                 <!--Errores email-->
-                                <p class="login-box-message"><?php echo $loginErrorEmail; ?></p>
-                            <?php endif; ?>
+                                <p class="login-box-message my-account-form-error" id="errorEmail"></p>
                             <!--Pass 1-->
-                            <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input">
-                            <?php if (isset($loginErrorPass1)) : ?>
+                            <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input none" disabled>
                                 <!--Errores pass 1-->
-                                <p class="login-box-message"><?php echo $loginErrorPass1; ?></p>
-                            <?php endif; ?>
+                                <p class="login-box-message my-account-form-error" id="errorPass1"></p>
                             <!--Pass 2-->
-                            <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input">
-                            <?php if (isset($loginErrorPass2)) : ?>
+                            <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input" disabled>
                                 <!--Errores pass 2-->
-                                <p class="login-box-message"><?php echo $loginErrorPass2; ?></p>
-                            <?php endif; ?>
-                            <?php if (isset($loginError)) : ?>
+                                <p class="login-box-message my-account-form-error" id="errorPass2"></p>
                                 <!--Errores ambas pass-->
-                                <p class="login-box-message register-input"><?php echo $loginError; ?></p>
-                            <?php endif; ?>
+                                <p class="login-box-message register-input my-account-form-error" id="errorGlobal"></p>
                             <!--Submit-->
                             <div class="cs-fl cs-fl-align-c register-buttons">
                                 <button type="submit" class="button-primary" id="update-user-data" data="<?= $userData['id_user']; ?>">Actualizar datos</button>

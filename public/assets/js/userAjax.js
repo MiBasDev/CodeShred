@@ -71,6 +71,19 @@ document.addEventListener('DOMContentLoaded', function () {
             var userPass1 = document.getElementById('password1').value;
             var userPass2 = document.getElementById('password1').value;
 
+            // Guardamos los posibles elementos de error
+            var userError = document.getElementById('errorUser');
+            var emailError = document.getElementById('errorEmail');
+            var pass1Error = document.getElementById('errorPass1');
+            var pass2Error = document.getElementById('errorPass2');
+            var globalError = document.getElementById('errorGlobal');
+            
+            userError.style.display = 'none';
+            emailError.style.display = 'none';
+            pass1Error.style.display = 'none';
+            pass2Error.style.display = 'none';
+            globalError.style.display = 'none';
+
             // Guardamos el texto original del botón
             var originalButtonText = button.textContent;
 
@@ -83,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     userId: userId,
                     user: user,
-                    userEmail: userEmail,
-                    userPass1: userPass1,
-                    userPass2: userPass2,
+                    email: userEmail,
+                    //password1: userPass1,
+                    //password2: userPass2,
                 }),
             })
                     .then(function (response) {
@@ -112,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }, 2000);
                         } else {
                             // Cambiamos el texto del botón durante 2 segundos
-                            button.textContent = 'Fallo al guardar los datos';
+                            button.textContent = (data.errors ? 'Error al guardar los datos' : 'Son los mismos datos');
                             setTimeout(function () {
                                 button.textContent = originalButtonText;
                             }, 2000);
@@ -124,6 +137,29 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.classList.remove('button-warning');
                                 button.classList.add('button-secondary');
                             }, 2000);
+                            
+                            if(data.errors){
+                                if(data.errors.user) {
+                                    userError.innerHTML = data.errors.user;
+                                    userError.style.display = 'block';
+                                }
+                                if(data.errors.email) {
+                                    emailError.innerHTML = data.errors.email;
+                                    emailError.style.display = 'block';
+                                }
+                                if(data.errors.password1) {
+                                    pass1Error.innerHTML = data.errors.password1;
+                                    pass1Error.style.display = 'block';
+                                }
+                                if(data.errors.password2) {
+                                    pass2Error.innerHTML = data.errors.password2;
+                                    pass2Error.style.display = 'block';
+                                }
+                                if(data.errors.globalError) {
+                                    globalError.innerHTML = data.errors.globalError;
+                                    globalError.style.display = 'block';
+                                }
+                            } 
                         }
                     })
                     .catch(function (error) {

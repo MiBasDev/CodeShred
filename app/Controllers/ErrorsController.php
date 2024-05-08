@@ -6,6 +6,11 @@ namespace CodeShred\Controllers;
 
 class ErrorsController extends \CodeShred\Core\BaseController {
 
+    /**
+     * Método que controla el error 404.
+     * 
+     * @return void
+     */
     function error404(): void {
         http_response_code(404);
         $data = [];
@@ -15,6 +20,11 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.php', 'templates/footer.view.php'), $data);
     }
 
+    /**
+     * Método que controla el error 405.
+     * 
+     * @return void
+     */
     function error405(): void {
         http_response_code(405);
         $data = [];

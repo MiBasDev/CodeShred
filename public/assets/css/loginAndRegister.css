@@ -4,6 +4,7 @@
     gap: 30px;
     background-color: var(--static-elements-secondary-bg-color);
     border-radius: 5px;
+    max-width: 500px;
 }
 
 .login-form,
