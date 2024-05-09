@@ -118,14 +118,14 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     }
 
     /**
-     * Método que obtiene todos los usuarios del sistema que no tengan el rol de 
-     * ADMIN.
+     * Método que obtiene todos los usuarios del sistema que tenga un rol menor
+     * que el rol del usuario de la sesión.
      * 
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
     function getAllAdmin(): ?array {
-        $stmt = $this->pdo->prepare('SELECT id_user, user, user_description, user_rol FROM users WHERE user_rol != :user_rol ORDER BY user_rol');
-        $stmt->execute(['user_rol' => \CodeShred\Controllers\UsersController::ADMIN]);
+        $stmt = $this->pdo->prepare('SELECT id_user, user, user_description, user_rol FROM users WHERE user_rol > :user_rol ORDER BY user_rol');
+        $stmt->execute(['user_rol' => $_SESSION['user']['user_rol']]);
 
         return $stmt->fetchAll();
     }

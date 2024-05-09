@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Asincronismo para el botón de actualizar descripción
+    // Asincronismo para el botón de actualizar datos del ususario
     document.querySelectorAll('#update-user-data').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos el valor de los inputs
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var pass1Error = document.getElementById('errorPass1');
             var pass2Error = document.getElementById('errorPass2');
             var globalError = document.getElementById('errorGlobal');
-            
+
             userError.style.display = 'none';
             emailError.style.display = 'none';
             pass1Error.style.display = 'none';
@@ -137,29 +137,29 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.classList.remove('button-warning');
                                 button.classList.add('button-primary');
                             }, 2000);
-                            
-                            if(data.errors){
-                                if(data.errors.user) {
+
+                            if (data.errors) {
+                                if (data.errors.user) {
                                     userError.innerHTML = data.errors.user;
                                     userError.style.display = 'block';
                                 }
-                                if(data.errors.email) {
+                                if (data.errors.email) {
                                     emailError.innerHTML = data.errors.email;
                                     emailError.style.display = 'block';
                                 }
-                                if(data.errors.password1) {
+                                if (data.errors.password1) {
                                     pass1Error.innerHTML = data.errors.password1;
                                     pass1Error.style.display = 'block';
                                 }
-                                if(data.errors.password2) {
+                                if (data.errors.password2) {
                                     pass2Error.innerHTML = data.errors.password2;
                                     pass2Error.style.display = 'block';
                                 }
-                                if(data.errors.globalError) {
+                                if (data.errors.globalError) {
                                     globalError.innerHTML = data.errors.globalError;
                                     globalError.style.display = 'block';
                                 }
-                            } 
+                            }
                         }
                     })
                     .catch(function (error) {
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Asincronismo para los botones de follow
+    // Asincronismo para los botones de borrado de usuarios en el admin
     document.querySelectorAll('#button-my-account-user-delete-popup').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (trElement) {
                                     trElement.style.opacity = 0;
                                     setTimeout(function () {
-                                        trElement.style.display = 'none';
+                                        trElement.remove();
                                     }, 1000);
                                 }
                             }
@@ -262,4 +262,4 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
         });
     });
-}); 
+});

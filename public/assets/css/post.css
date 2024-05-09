@@ -1,8 +1,4 @@
-@font-face {
-    font-family: 'JetBrains Mono';
-    src: url('fonts/JetBrainsMono-Regular.ttf') format('truetype');
-    /* Puedes agregar más formatos de fuente aquí si lo deseas */
-}
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 .container-code {
     width: 100%;
@@ -29,6 +25,7 @@
     color: white;
     border-radius: 5px;
     overflow: auto;
+    position: relative;
 }
 
 .code-title {
@@ -176,4 +173,21 @@
 .CodeMirror * {
     transition: none;
     font-family: 'JetBrains Mono', monospace;
+}
+
+.post-code-copy {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: none;
+    border: none;
+    font-size: 20px;
+    z-index: 999;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--button-secondary--bg-color);
+}
+
+.post-code-copy:hover span {
+    color: var(--button-secondary--hover-bg-color);
 }

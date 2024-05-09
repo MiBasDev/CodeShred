@@ -1,33 +1,37 @@
-// Función para capturar el iframe y mostrarlo en el popup
+// Función para hacer una captura del iframe y mostrarlo en el popup
 function saveAndOpenPopup() {
-    // Capturamos el iframe
+    // Hacemos una captura del iframe
     captureScreenshot();
     // Abrimos el popup
     openPopup();
 }
 
-// Función para capturar una screenshot del contenido del iframe
+// Función para hacer una captura del contenido del iframe
 function captureScreenshot() {
+    // Obtenemos el iframe
     const iframe = document.getElementById('my-iframe');
     const screenshotContainer = document.getElementById('popup-image-container');
 
+    // Usamos la librería para capturar el contenido
     html2canvas(iframe.contentDocument.body).then(canvas => {
-        // Convertir la captura de pantalla a una imagen
+        // Convertimos la captura de pantalla a una imagen
         const imageDataUrl = canvas.toDataURL('image/png');
-        
-        // Crear un elemento img y establecer su src con la URL de datos
+
+        // Creamos un elemento img y establecemos su src con la URL de datos
         const img = document.createElement('img');
         img.src = imageDataUrl;
         img.style.width = '100%';
         img.style.aspectRatio = '16/9';
-        
-        // Limpiar el contenedor y agregar la imagen
+
+        // Limpiamos el contenedor y añadimos la imagen
         screenshotContainer.innerHTML = '';
         screenshotContainer.appendChild(img);
     });
 }
 
+// Función para abrir el popup de guardado
 function openPopup() {
+    // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup');
     popup.style.display = 'flex';
 
@@ -72,18 +76,23 @@ function openPopup() {
     document.getElementById('shred-js').value = formatCode(jsCode);
 }
 
-
+// Función para cerrar el popup de guardado
 function closePopup() {
+    // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup');
     popup.style.display = 'none';
 }
 
+// Función para abrir el popup de borrado
 function openDeletePopup() {
+    // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup-delete');
     popup.style.display = 'flex';
 }
 
+// Función para cerrar el popup de borrado
 function closeDeletePopup() {
+    // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup-delete');
     popup.style.display = 'none';
 }

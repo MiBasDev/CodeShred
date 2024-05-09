@@ -12,6 +12,9 @@
                 <p>HTML</p>
             </label>
             <textarea name="html-code" id="html-code" <?= isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?= isset($post_code) && !empty($post_code->html) ? $post_code->html : ''; ?></textarea>
+            <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
+                <button id="copy-html-button" class="post-code-copy" title="Copiar código HTML"><span class="fas fa-copy"></span></button>
+            <?php } ?>
         </div>
         <div class="code-background">
             <label for="css-code" class="code-title cs-fl cs-fl-align-c">
@@ -19,6 +22,9 @@
                 <p>CSS</p>
             </label>
             <textarea name="css-code" id="css-code" <?= isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?= isset($post_code) && !empty($post_code->css) ? $post_code->css : ''; ?></textarea>
+            <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
+                <button id="copy-css-button" class="post-code-copy" title="Copiar código CSS"><span class="fas fa-copy"></span></button>
+            <?php } ?>
         </div>
         <div class="code-background">
             <label for="js-code" class="code-title cs-fl cs-fl-align-c">
@@ -26,6 +32,9 @@
                 <p>JS</p>
             </label>
             <textarea name="js-code" id="js-code" <?= isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?= isset($post_code) && !empty($post_code->js) ? $post_code->js : ''; ?></textarea>
+            <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
+                <button id="copy-js-button" class="post-code-copy" title="Copiar código JS"><span class="fas fa-copy"></span></button>
+            <?php } ?>
         </div>
     </div>
     <div id="final-code-container">
@@ -62,8 +71,8 @@
             </form>
         </div>
     </div>
-    
-    
+
+
 
     <div id="popup-delete" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">

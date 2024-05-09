@@ -1,9 +1,9 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : '';?>">
-<div>  
-    <div>
+<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+    <div>  
         <div>
-            <?php echo $text; ?>
+            <div>
+                <?php echo $text; ?>
+            </div>
         </div>
     </div>
-</div>

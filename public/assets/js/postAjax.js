@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (trElement) {
                                     trElement.style.opacity = 0;
                                     setTimeout(function () {
-                                        trElement.style.display = 'none';
+                                        trElement.remove();
                                     }, 1000);
                                 }
                             }
@@ -96,4 +96,4 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
         });
     });
-}); 
+});

@@ -45,6 +45,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
+    gap: 2px;
 }
 
 .tab.admin {
@@ -52,14 +53,13 @@
 }
 
 .tab button {
-    background-color: inherit;
+    background-color: #2b253075;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
     padding: 20px;
     font-size: 16px;
-    font-weight: bold;
     border-radius: 5px 5px 0 0;
 }
 
@@ -70,6 +70,7 @@
 .tab button.active {
     background-color: var(--static-elements-secondary-bg-color);
     color: var(--light-letter-color);
+    font-weight: bold;
 }
 
 .tabcontent {
@@ -119,6 +120,10 @@
     transition: opacity 1s ease;
 }
 
+.my-account-table tbody tr:hover {
+    background-color: var(--static-elements-bg-color);
+}
+
 .my-account-table td {
     border-radius: 5px;
 }
@@ -149,6 +154,7 @@
 
 .post-like-tab {
     position: unset;
+    font-size: 25px;
 }
 
 .admin-mod-text {

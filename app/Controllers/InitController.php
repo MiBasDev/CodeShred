@@ -14,7 +14,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de inicio de la página
         $data['title'] = 'codeShred | Inicio';
         $data['section'] = '/';
-        
+
         $model = new \CodeShred\Models\PostsModel();
         $data['posts'] = $model->getAllIndex();
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'index.view.php', 'templates/footer.view.php'), $data);
@@ -45,7 +45,7 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['title'] = 'codeShred | Contacto';
         $data['section'] = '/contacto';
 
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contacto.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
     }
 
     /**

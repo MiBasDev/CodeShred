@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : '';?>">
+<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="login cs-fl-col cs-fl-align-c cs-fl-just-c">
 
         <h1>Log IN codeShred</h1>
