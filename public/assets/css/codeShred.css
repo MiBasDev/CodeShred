@@ -672,6 +672,10 @@
     font-size: 20px;
 }
 
+.button-my-account-user-edit span {
+    color: var(--dark-letter-color);
+}
+
 #user-description {
     resize: none;
 }

@@ -2,7 +2,7 @@
 <aside class="cs-fl <?= isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside">
     <div class="aside-content cs-fl-col cs-fl-align-c">
         <a href="/<?= isset($_SESSION['user']) ? 'post/add' : 'login'; ?>">
-            <button class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear</span><span>Shred</span></button>
+            <button class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></span></button>
         </a>
 
         <!-- Sidebar Menu -->

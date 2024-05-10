@@ -25,6 +25,10 @@
     width: 100%;
 }
 
+.button-my-account-user-edit span {
+    color: var(--dark-letter-color);
+}
+
 .my-account-settings {
     gap: 20px;
 }

@@ -3,7 +3,7 @@
     <div class="my-account-container cs-fl">
         <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER) { ?>
             <div class="my-account-data cs-fl-col cs-fl-just-c cs-fl-align-c">
-                <h1>Hola, <?= $userData['user']; ?> <i class="fab fa-accessible-icon"></i></h1>
+                <h1>Hola, <?= $userData['user']; ?> <i class="fas fa-smile-beam"></i></h1>
                 <span class="fa fa-user my-account-data-logo"></span>
                 <div class="my-account-data-description cs-fl-col">
                     <label for="user-description">Sobre mí:</label>
@@ -147,7 +147,7 @@
                                         </td>
                                         <td>
                                             <button class="user-follow button-success" id="user-<?= $user['id_user']; ?>" data="<?= $user['user']; ?>">
-                                                <span class="fas fa-check"></span>
+                                                <span class="fas fa-user-check"></span>
                                             </button>
                                         </td>
                                     </tr>
@@ -271,8 +271,8 @@
                                         </td>
                                         <td>
                                             <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?= $user['id_user']; ?>, '<?= $user['user'] ?>')" title="Borrar usuario"><span class="fas fa-trash-alt"></span></button>
-                                                <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?= $post['id_post']; ?>" title="Editar usuario"><span class="far fa-edit"></span></a>
+                                                <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?= $user['id_user']; ?>, '<?= $user['user'] ?>')" title="Borrar usuario"><span class="fas fa-user-times"></span></button>
+                                                <a href="/post/edit/<?= $post['id_post']; ?>" class="button-secondary button-my-account-user-edit" id="button-my-account-user-edit-<?= $post['id_post']; ?>" title="Editar usuario"><span class="fas fa-user-edit"></span></a>
                                             </div>
                                         </td>
                                     </tr>

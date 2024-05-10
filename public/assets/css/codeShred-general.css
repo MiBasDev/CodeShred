@@ -249,8 +249,16 @@ aside {
     color: var(--dark-letter-color);
 }
 
+#button-create-shred span:last-child {
+    display: none;
+}
+
 aside.folded-aside #button-create-shred span:first-child {
     display: none;
+}
+
+aside.folded-aside #button-create-shred span:last-child {
+    display: flex;
 }
 
 aside.folded-aside #button-create-shred {

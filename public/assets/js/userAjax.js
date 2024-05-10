@@ -199,11 +199,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.classList.remove('button-secondary');
                                 button.classList.add('button-success');
                                 button.querySelector('span').classList.remove('fa-user-plus');
-                                button.querySelector('span').classList.add('fa-check');
+                                button.querySelector('span').classList.add('fa-user-check');
                             } else {
                                 button.classList.remove('button-success');
                                 button.classList.add('button-secondary');
-                                button.querySelector('span').classList.remove('fa-check');
+                                button.querySelector('span').classList.remove('fa-user-check');
                                 button.querySelector('span').classList.add('fa-user-plus');
                             }
                         }
