@@ -58,7 +58,7 @@
 }
 
 .tab.admin {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .tab button {
@@ -176,27 +176,51 @@
         flex-direction: column;
         align-items: center;
     }
-    
+
     .my-account-data,
     .my-account-tab {
         width: 100%
     }
-    
+
     .my-account-data {
         max-width: 500px;
     }
-    
+
     .my-account-tab {
         margin-bottom: 40px;
     }
-    
+
     .tabcontent {
         margin-bottom: 40px;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 847px) {
     .tab {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .my-account-data-logo {
+        font-size: 100px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tablinks:not(:last-child){
+        display: none;
+    }
+
+    .tab button {
+        grid-column: span 2;
+    }
+    
+    .tab.admin button {
+        grid-column: span 3;
+    }
+
+    .register-buttons {
+        grid-column: span 2;
+        justify-content: space-between;
+        gap: 20px;
     }
 }

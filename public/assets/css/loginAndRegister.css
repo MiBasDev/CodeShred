@@ -74,3 +74,20 @@
     grid-column: span 2;
     justify-content: space-between;
 }
+
+@media (max-width: 600px) {
+    .login, .register {
+        padding: 20px 30px;
+    }
+
+    .register-form input {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 20px;
+        grid-column: span 2;
+    }
+
+    .register-buttons {
+        gap: 20px;
+    }
+}

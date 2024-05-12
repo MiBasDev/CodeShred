@@ -47,7 +47,7 @@
                         <input type="text" name="title" id="post-title" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
                     <?php } ?>
                 </div>
-                <div>
+                <div class="screen-buttons">
                     <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
                         <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
                     <?php } ?>
@@ -55,7 +55,7 @@
                         <button class="button-primary" id="button-post-save" onclick="saveAndOpenPopup()">Guardar</button>
                     <?php } ?>
                     <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post') !== 0 || $section === '/posts') { ?>
-                        <input type="search" placeholder="Buscar...">
+                        <!--<input type="search" placeholder="Buscar...">-->
                     <?php } ?>
                     <?php if (!isset($_SESSION['user'])) {
                         ?>
@@ -73,6 +73,9 @@
                             <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>
                         </a>   
                     <?php } ?>
+                </div>
+                <div class="hamburger-menu-buttons">
+                     <button id="toggle-menu">&#9776;</button>
                 </div>
             </div>
         </header>

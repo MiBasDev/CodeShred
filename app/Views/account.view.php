@@ -17,14 +17,14 @@
         <div class="my-account-tab <?php echo $_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER ? '' : 'admin'; ?>">
             <div class="tab <?php echo $_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER ? '' : 'admin'; ?>">
                 <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER) { ?>
-                    <button class="tablinks" onclick="openTabOption(event, 'mis-shreds')" id="defaultOpen">Mis Shreds</button>
+                    <button class="tablinks" onclick="openTabOption(event, 'mis-shreds')">Mis Shreds</button>
                     <button class="tablinks" onclick="openTabOption(event, 'likes')">Likes</button>
                     <button class="tablinks" onclick="openTabOption(event, 'cuentas-seguidas')">Cuentas seguidas</button>
-                    <button class="tablinks" onclick="openTabOption(event, 'configuracion')">Configuración</button>
                 <?php } else { ?>
-                    <button class="tablinks" onclick="openTabOption(event, 'todos-los-shreds')" id="defaultOpen">Shreds</button>
+                    <button class="tablinks" onclick="openTabOption(event, 'todos-los-shreds')">Shreds</button>
                     <button class="tablinks" onclick="openTabOption(event, 'todos-los-usuarios')">Usuarios</button>
                 <?php } ?>
+                <button class="tablinks" onclick="openTabOption(event, 'configuracion')" id="defaultOpen">Configuración</button>
             </div>
             <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER) { ?>
                 <!--Mis Shreds-->
@@ -57,7 +57,7 @@
                                         </td>
                                         <td>
                                             <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
+                                                <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Eliminar shred"><span class="fas fa-trash-alt"></span></button>
                                                 <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
                                                 <a href="/post/<?php echo $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
                                             </div>
@@ -143,7 +143,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <?php echo !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
+                                            <?php echo!empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
                                         </td>
                                         <td>
                                             <button class="user-follow button-success" id="user-<?php echo $user['id_user']; ?>" data="<?php echo $user['user']; ?>">
@@ -163,41 +163,6 @@
                             ?>
                         <tbody>
                     </table>
-                </div>
-
-                <!--Configuración-->
-                <div id="configuracion" class="tabcontent">
-                    <div class="tab-conf cs-fl-col">
-                        <h3>Tu cuenta</h3>
-                        <div class="my-account-settings cs-fl-col">
-                            <!--Nombre de usuario-->
-                            <input type="text" name="user" id="user" placeholder="Nombre de usuario" class="form-control register-input" value="<?php echo isset($userData['user']) ? $userData['user'] : ''; ?>">
-                            <!--Errores usuario-->
-                            <p class="login-box-message my-account-form-error" id="errorUser"></p>
-                            <!--Email-->
-                            <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
-                            <!--Errores email-->
-                            <p class="login-box-message my-account-form-error" id="errorEmail"></p>
-                            <!--Pass 1-->
-                            <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input none" disabled>
-                            <!--Errores pass 1-->
-                            <p class="login-box-message my-account-form-error" id="errorPass1"></p>
-                            <!--Pass 2-->
-                            <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input" disabled>
-                            <!--Errores pass 2-->
-                            <p class="login-box-message my-account-form-error" id="errorPass2"></p>
-                            <!--Errores ambas pass-->
-                            <p class="login-box-message register-input my-account-form-error" id="errorGlobal"></p>
-                            <!--Submit-->
-                            <div class="cs-fl cs-fl-align-c register-buttons">
-                                <button type="submit" class="button-primary" id="update-user-data" data="<?php echo $userData['id_user']; ?>">Actualizar datos</button>
-                                <button type="submit" class="button-warning" onclick="openDeleteAccountPopup()">Borrar cuenta</button>
-                            </div>
-                            <?php if (isset($errorDelete)) : ?>
-                                <p class="login-box-message register-input my-account-error-delete"><?php echo $errorDelete; ?></p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
                 </div>
             <?php } else { ?>
                 <!--Mis Shreds-->
@@ -226,7 +191,7 @@
                                         </td>
                                         <td>
                                             <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Borrar shred"><span class="fas fa-trash-alt"></span></button>
+                                                <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Eliminar shred"><span class="fas fa-trash-alt"></span></button>
                                                 <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
                                                 <a href="/post/<?php echo $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
                                             </div>
@@ -246,7 +211,7 @@
                     </table>
                 </div>
 
-                <!--Cuentas seguidas-->
+                <!--Todos los ususarios-->
                 <div id="todos-los-usuarios" class="tabcontent">
                     <table class="my-account-table">
                         <thead>
@@ -267,11 +232,11 @@
                                             <?php echo $user['user'] ?>
                                         </td>
                                         <td>
-                                            <?php echo !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
+                                            <?php echo!empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
                                         </td>
                                         <td>
                                             <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?php echo $user['id_user']; ?>, '<?php echo $user['user'] ?>')" title="Borrar usuario"><span class="fas fa-user-times"></span></button>
+                                                <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?php echo $user['id_user']; ?>, '<?php echo $user['user'] ?>')" title="Eliminar usuario"><span class="fas fa-user-times"></span></button>
                                                 <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-user-edit" id="button-my-account-user-edit-<?php echo $post['id_post']; ?>" title="Editar usuario"><span class="fas fa-user-edit"></span></a>
                                             </div>
                                         </td>
@@ -290,17 +255,53 @@
                     </table>
                 </div>
             <?php } ?>
+
+
+            <!--Configuración-->
+            <div id="configuracion" class="tabcontent">
+                <div class="tab-conf cs-fl-col">
+                    <h3>Tu cuenta</h3>
+                    <div class="my-account-settings cs-fl-col">
+                        <!--Nombre de usuario-->
+                        <input type="text" name="user" id="user" placeholder="Nombre de usuario" class="form-control register-input" value="<?php echo isset($userData['user']) ? $userData['user'] : ''; ?>">
+                        <!--Errores usuario-->
+                        <p class="login-box-message my-account-form-error" id="errorUser"></p>
+                        <!--Email-->
+                        <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
+                        <!--Errores email-->
+                        <p class="login-box-message my-account-form-error" id="errorEmail"></p>
+                        <!--Pass 1-->
+                        <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input none" disabled>
+                        <!--Errores pass 1-->
+                        <p class="login-box-message my-account-form-error" id="errorPass1"></p>
+                        <!--Pass 2-->
+                        <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input" disabled>
+                        <!--Errores pass 2-->
+                        <p class="login-box-message my-account-form-error" id="errorPass2"></p>
+                        <!--Errores ambas pass-->
+                        <p class="login-box-message register-input my-account-form-error" id="errorGlobal"></p>
+                        <!--Submit-->
+                        <div class="cs-fl cs-fl-align-c register-buttons">
+                            <button type="submit" class="button-primary" id="update-user-data" data="<?php echo $userData['id_user']; ?>">Actualizar datos</button>
+                            <button type="submit" class="button-warning" onclick="openDeleteAccountPopup()">Eliminar cuenta</button>
+                        </div>
+                        <?php if (isset($errorDelete)) : ?>
+                            <p class="login-box-message register-input my-account-error-delete"><?php echo $errorDelete; ?></p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="popup-delete" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2>¿Seguro que quieres borrar este Shred?</h2>
+                <h2>¿Seguro que quieres eliminar este Shred?</h2>
             </div>
             <div class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
                     <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
-                    <button type="submit" class="button-warning" id="button-my-account-post-delete-popup">Borrar</button>
+                    <button type="submit" class="button-warning" id="button-my-account-post-delete-popup">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -313,7 +314,7 @@
             <div class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
                     <button type="button" class="button-secondary" onclick="closeDeleteUserPopup()">Volver atrás</button>
-                    <button type="submit" class="button-warning" id="button-my-account-user-delete-popup">Borrar</button>
+                    <button type="submit" class="button-warning" id="button-my-account-user-delete-popup">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -321,12 +322,12 @@
     <div id="popup-delete-account" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2><?php echo $userData['user']; ?>, ¿seguro que quieres borrar tu cuenta?</h2>
+                <h2><?php echo $userData['user']; ?>, ¿seguro que quieres eliminar tu cuenta?</h2>
             </div>
             <div class="cs-fl-col">
                 <form action="/mi-cuenta/<?php echo $userData['id_user']; ?>" method="post" class="popup-delete-button cs-fl">
                     <button type="button" class="button-secondary" onclick="closeDeleteAccountPopup()">Volver atrás</button>
-                    <button type="submit" class="button-warning">Borrar cuenta</button>
+                    <button type="submit" class="button-warning">Eliminar cuenta</button>
                 </form>
             </div>
         </div>

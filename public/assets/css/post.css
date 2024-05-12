@@ -116,9 +116,64 @@
     color: var(--button-secondary--hover-bg-color);
 }
 
+.post-action-buttons{
+    display: none;
+}
+
 @media (max-width: 1200px) {
     .container-code {
         flex-direction: column;
         height: 60%;
     }
+}
+
+@media (max-width: 847px) {
+    .post-action-buttons {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .post-action-buttons div {
+        width: 100%;
+        height: 100%;
+    }
+
+    #post-title {
+        display: none;
+    }
+
+    #post-title-two{
+        display: flex;
+        height: 100%;
+    }
+
+    .post-action-buttons div:last-child {
+        justify-content: end;
+        gap: 10px;
+    }
+
+    #button-post-save {
+        margin: unset;
+    }
+
+    .container-code {
+        height: 100%;
+    }
+    
+    #my-iframe {
+        min-height: 800px;
+    }
+}
+
+@media (max-width: 500px) {
+    .post-action-buttons {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+    
+    #post-title-two{
+        width: 100%;
+    }
+    
 }

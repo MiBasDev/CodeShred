@@ -49,3 +49,9 @@
 .user-follow span {
     color: var(--dark-letter-color);
 }
+
+@media (max-width: 600px) {
+    .users-container-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}

@@ -131,7 +131,9 @@ header {
 }
 
 #post-title {
-    width: 150px;
+    width: 100%;
+    max-width: 150px;
+    padding: 10px;
     background-color: #f5f5f50f;
 }
 
@@ -510,6 +512,7 @@ footer a.active {
     width: 80%;
     max-width: 600px;
     gap: 20px;
+    margin: auto 10%;
 }
 
 .popup-input-hide {
@@ -561,6 +564,7 @@ footer a.active {
 
 .popup-delete-button {
     justify-content: space-evenly;
+    gap: 20px;
 }
 
 .form-control {
@@ -601,16 +605,21 @@ footer a.active {
     justify-items: center;
 }
 
+.hamburger-menu-buttons {
+    display: none;
+    gap: 10px;
+}
+
+.screen-buttons {
+    display: block;
+}
+
 @media (max-width: 1300px) {
     aside {
         width: var(--aside-folded-width);
     }
 
-    main {
-        margin-left: var(--aside-folded-width);
-        width: var(--other-elements-width-folded);
-    }
-
+    main,
     footer {
         margin-left: var(--aside-folded-width);
         width: var(--other-elements-width-folded);
@@ -642,5 +651,151 @@ footer a.active {
         position: relative;
         left: 0;
         transition: none;
+    }
+}
+
+@media (max-width: 847px) {
+    :root {
+        --aside-folded-width: 250px;
+        --other-elements-width: 100vw;
+        --other-elements-width-folded:100vw;
+    }
+
+    aside {
+        width: var(--aside-width);
+        z-index: 999;
+        left: calc(var(--aside-folded-width) * -1);
+    }
+
+    main,
+    footer {
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .folded-others {
+        margin-left: 0px;
+    }
+
+    aside .nav-link p {
+        position: absolute;
+        left: -9999px;
+        transition: none;
+    }
+
+    .aside-hider {
+        display: none;
+    }
+
+    .aside-content {
+        margin-top: var(--header-height);
+    }
+
+    #button-create-shred,
+    aside.folded-aside #button-create-shred {
+        width: 150px;
+        transition: none;
+    }
+
+    #button-create-shred span:first-child,
+    aside.folded-aside #button-create-shred span:first-child,
+    aside.folded-aside .nav-link p,
+    aside .nav-link p {
+        position: relative;
+        left: 0px;
+        opacity: 1;
+    }
+
+    #button-create-shred span:last-child {
+        display: none;
+    }
+
+    .hamburger-menu-buttons {
+        display: flex;
+    }
+
+    .screen-buttons {
+        display: none;
+    }
+
+    #toggle-menu {
+        background: transparent;
+        border: transparent;
+        cursor: pointer;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    #toggle-menu.open{
+        background: var(--static-elements-bg-color);
+        border-radius: 5px;
+    }
+
+    aside.open {
+        left: 0px;
+    }
+}
+
+@media (max-width: 600px) {
+    .post-card-stats-inner span {
+        font-size: 16px;
+    }
+
+    aside {
+        margin-top: unset;
+    }
+
+    main {
+        height: 100%;
+        min-height: var(--main-height);
+    }
+
+    .header-logo {
+        width: unset;
+    }
+
+    footer {
+        height: 120px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    footer div:last-child {
+        position: relative;
+    }
+
+    .posts-cards-container-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media handheld and (max-width: 600px) {
+
+    * {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 19px;
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+
+    h5 {
+        font-size: 16px;
+    }
+
+    h6 {
+        font-size: 14px;
     }
 }

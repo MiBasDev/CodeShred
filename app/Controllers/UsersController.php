@@ -286,22 +286,23 @@ class UsersController extends \CodeShred\Core\BaseController {
         $data = [];
         // Comprobamos que el rol del usuario de la sesión sea USER
         if ($_SESSION['user']['user_rol'] == UsersController::USER) {
-            // Obtenemos los datos del usuario y los usuarios que sigue
-            $model = new \CodeShred\Models\UsersModel();
-            $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
-            $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);
             // Obtenemos los posts del usuario y los posts que les ha dado like
             $model = new \CodeShred\Models\PostsModel();
             $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
             $data['userLikedPosts'] = $model->getUserLikedPosts($_SESSION['user']['id_user']);
-        } else { // Si no lo es
-            // Obtenemos todos los usuarios del sistema
+            // Obtenemos los datos del usuario y los usuarios que sigue
             $model = new \CodeShred\Models\UsersModel();
-            $data['usersData'] = $model->getAllAdmin();
+            $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);
+        } else { // Si no lo es
             // Obtenemos todos los posts del sistema
             $model = new \CodeShred\Models\PostsModel();
             $data['usersPosts'] = $model->getAllAdmin();
+            // Obtenemos todos los usuarios del sistema
+            $model = new \CodeShred\Models\UsersModel();
+            $data['usersData'] = $model->getAllAdmin();
         }
+        // Obtenemos los datos del ususario siempre
+        $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
         return $data;
     }
 

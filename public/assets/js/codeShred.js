@@ -38,3 +38,20 @@ function setCookie(cname, cvalue, exdays) {
 function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var aside = document.querySelector('aside');
+    var toggleAside = document.getElementById('toggle-menu');
+
+    toggleAside.addEventListener('click', function () {
+        aside.classList.toggle('open');
+        toggleAside.classList.toggle('open');
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!aside.contains(event.target) && event.target !== toggleAside) {
+            aside.classList.remove('open');
+            toggleAside.classList.remove('open');
+        }
+    });
+});

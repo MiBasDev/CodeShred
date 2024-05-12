@@ -1,5 +1,20 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+    <div class="cs-fl cs-fl-align-c post-action-buttons">
+        <div class="cs-fl cs-fl-align-c">
+            <?php if (isset($section) && strpos($section, '/post') === 0 && $section !== '/posts') { ?>
+                <input type="text" name="title" id="post-title-two" class="form-control" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
+            <?php } ?>
+        </div>
+        <div class="cs-fl cs-fl-align-c">
+            <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
+                <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
+            <?php } ?>
+            <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
+                <button class="button-primary" id="button-post-save" onclick="saveAndOpenPopup()">Guardar</button>
+            <?php } ?>
+        </div>
+    </div>
     <div class="container-code">
         <?php
         if (isset($post)) {
@@ -77,12 +92,12 @@
     <div id="popup-delete" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2>¿Seguro que quieres borrar este Shred?</h2>
+                <h2>¿Seguro que quieres eliminar este Shred?</h2>
             </div>
             <form action="/post/delete/<?php echo $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
                     <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
-                    <button type="submit" class="button-warning">Borrar</button>
+                    <button type="submit" class="button-warning">Eliminar</button>
                 </div>
             </form>
         </div>

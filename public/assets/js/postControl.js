@@ -1,3 +1,17 @@
+// Obtenemos los títulos de los shreds
+var postTitle = document.getElementById('post-title');
+var postTitleTwo = document.getElementById('post-title-two');
+
+// Actualizamos el otro título a la vez
+postTitle.addEventListener('input', function () {
+    postTitleTwo.value = postTitle.value;
+});
+
+// Actualizamos el otro título a la vez
+postTitleTwo.addEventListener('input', function () {
+    postTitle.value = postTitleTwo.value;
+});
+
 // Función para hacer una captura del iframe y mostrarlo en el popup
 function saveAndOpenPopup() {
     // Hacemos una captura del iframe
@@ -35,7 +49,7 @@ function openPopup() {
     var popup = document.getElementById('popup');
     popup.style.display = 'flex';
 
-    var postTitle = document.getElementById('post-title').value;
+    postTitle = postTitle.value;
     var htmlCode = document.getElementById('html-code').value;
     var cssCode = document.getElementById('css-code').value;
     var jsCode = document.getElementById('js-code').value;
@@ -47,25 +61,25 @@ function openPopup() {
             return code;
         }
 
-        // Separa el código en líneas
+        // Separamos el código en líneas
         var lines = code.split('\n');
 
-        // Encuentra la longitud del espacio de sangría en la primera línea
+        // Encontramos la longitud del espacio de sangría en la primera línea
         var indentation = 0;
         var firstLine = lines[0];
         while (firstLine[indentation] === ' ') {
             indentation++;
         }
 
-        // Elimina la sangría de la primera línea
+        // Eliminamos la sangría de la primera línea
         lines[0] = firstLine.trim();
 
-        // Aplica la misma sangría al resto de las líneas
+        // Aplicamos la misma sangría al resto de las líneas
         for (var i = 1; i < lines.length; i++) {
             lines[i] = lines[i].substring(indentation);
         }
 
-        // Une las líneas formateadas nuevamente
+        // Unimos las líneas formateadas nuevamente
         return lines.join('\n');
     }
 
