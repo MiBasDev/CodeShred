@@ -14,6 +14,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de inicio de la página
         $data['title'] = 'codeShred | Inicio';
         $data['section'] = '/';
+        $data['css'] = 'index';
 
         $model = new \CodeShred\Models\PostsModel();
         $data['posts'] = $model->getAllIndex();
@@ -30,6 +31,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de contacto
         $data['title'] = 'codeShred | Contacto';
         $data['section'] = '/contacto';
+        $data['css'] = 'contact';
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
     }
@@ -44,6 +46,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de contacto
         $data['title'] = 'codeShred | Contacto';
         $data['section'] = '/contacto';
+        $data['css'] = 'contact';
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
     }
@@ -58,6 +61,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de política de privacidad
         $data['title'] = 'codeShred | Política de privacidad';
         $data['section'] = '/politica-de-privacidad';
+        $data['css'] = 'privacity';
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'privacity.view.php', 'templates/footer.view.php'), $data);
     }
@@ -72,6 +76,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de política de cookies
         $data['title'] = 'codeShred | Política de cookies';
         $data['section'] = '/politica-de-cookies';
+        $data['css'] = 'cookies';
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'cookies.view.php', 'templates/footer.view.php'), $data);
     }

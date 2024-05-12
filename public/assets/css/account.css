@@ -29,6 +29,11 @@
     color: var(--dark-letter-color);
 }
 
+.register-buttons {
+    grid-column: span 2;
+    justify-content: space-between;
+}
+
 .my-account-settings {
     gap: 20px;
 }
@@ -164,4 +169,34 @@
 .admin-mod-text {
     margin-right: 5px;
     font-size: 18px;
+}
+
+@media (max-width: 1500px) {
+    .my-account-container{
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .my-account-data,
+    .my-account-tab {
+        width: 100%
+    }
+    
+    .my-account-data {
+        max-width: 500px;
+    }
+    
+    .my-account-tab {
+        margin-bottom: 40px;
+    }
+    
+    .tabcontent {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    .tab {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

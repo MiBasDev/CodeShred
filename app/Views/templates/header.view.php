@@ -6,7 +6,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="assets/css/codeShred-general.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/codeShred.css">
+        <?php if (isset($css)) { ?>
+            <link rel="stylesheet" type="text/css" href="assets/css/<?php echo $css; ?>.css">
+        <?php } ?>
         <!-- Font Awesome -->
         <link rel="stylesheet" type="text/css" href="plugins/fontawesome-free/css/all.min.css">
         <?php if (isset($section) && strpos($section, '/post') === 0) { ?>
@@ -65,7 +67,7 @@
                         </a>        
                     <?php } else { ?>
                         <a href="/mi-cuenta">
-                            <button class="button-secondary" id="button-my-account" title="<?= $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></button>
+                            <button class="button-secondary" id="button-my-account" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></button>
                         </a> 
                         <a href="/logout" class="logout">
                             <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>
@@ -76,7 +78,7 @@
         </header>
 
         <!--Notificaciones???-->
-        <div class="<?= isset($notification) ? 'cs-fl-col' : 'user-notificactions-none'; ?> cs-fl-just-c user-notificactions" id="user-notificactions">
+        <div class="<?php echo isset($notification) ? 'cs-fl-col' : 'user-notificactions-none'; ?> cs-fl-just-c user-notificactions" id="user-notificactions">
             <h3>Nueva notifiación</h3>
-            <p><?= $notification['message']; ?></p>
+            <p><?php echo $notification['message']; ?></p>
         </div>

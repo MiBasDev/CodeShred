@@ -1,7 +1,7 @@
 <!--Aside-->
-<aside class="cs-fl <?= isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside">
+<aside class="cs-fl <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside">
     <div class="aside-content cs-fl-col cs-fl-align-c">
-        <a href="/<?= isset($_SESSION['user']) ? 'post/add' : 'login'; ?>">
+        <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>">
             <button class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></span></button>
         </a>
 
@@ -10,7 +10,7 @@
             <ul class="nav">
                 <?php if (isset($_SESSION['user'])) : ?>
                     <li class="nav-item" title="Mis Shreds">
-                        <a href="/mi-cuenta/mis-posts" class="nav-link cs-fl cs-fl-just-c <?= $section === '/mi-cuenta/mis-posts' ? 'active' : ''; ?>">
+                        <a href="/mi-cuenta/mis-posts" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/mi-cuenta/mis-posts' ? 'active' : ''; ?>">
                             <i class="far fa-file-code"></i>
                             <p>
                                 Mis Shreds
@@ -19,7 +19,7 @@
                     </li>
                     <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                         <li class="nav-item" title="Siguiendo">
-                            <a href="/siguiendo" class="nav-link cs-fl cs-fl-just-c <?= $section === '/siguiendo' ? 'active' : ''; ?>">
+                            <a href="/siguiendo" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/siguiendo' ? 'active' : ''; ?>">
                                 <i class="fas fa-user-friends"></i>
                                 <p>
                                     Siguiendo
@@ -29,7 +29,7 @@
                     <?php } ?>
                 <?php endif; ?>
                 <li class="nav-item" title="Ver Shreds">
-                    <a href="/posts" class="nav-link cs-fl cs-fl-just-c <?= $section === '/posts' ? 'active' : ''; ?>">
+                    <a href="/posts" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/posts' ? 'active' : ''; ?>">
                         <i class="fas fa-laptop-code"></i>
                         <p>
                             Ver Shreds
@@ -39,7 +39,7 @@
                 <?php if (isset($_SESSION['user'])) : ?>
                     <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                         <li class="nav-item" title="Usuarios">
-                            <a href="/usuarios" class="nav-link cs-fl cs-fl-just-c <?= $section === '/usuarios' ? 'active' : ''; ?>">
+                            <a href="/usuarios" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/usuarios' ? 'active' : ''; ?>">
                                 <i class="fas fa-users"></i>
                                 <p>
                                     Usuarios
@@ -51,7 +51,7 @@
             </ul>
         </nav>
     </div>
-    <div class="aside-hider cs-fl cs-fl-just-c cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'aside-hider-folded' : ''; ?>" id="aside-hider">
+    <div class="aside-hider cs-fl cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'aside-hider-folded' : ''; ?>" id="aside-hider">
         <i class="fas fa-angle-left"></i>
         <i class="fas fa-angle-right"></i>
     </div>

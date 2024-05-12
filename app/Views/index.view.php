@@ -1,4 +1,4 @@
-<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="index-main-container main-content cs-fl cs-fl-align-c">
         <div class="index-main-container-left cs-fl-col cs-fl-just-c">
             <!-- Logo y slogan -->
@@ -35,33 +35,33 @@
                     foreach ($posts as $post) {
                         ?>
                         <div class = "post-card cs-fl-col">
-                            <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
+                            <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                                 <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
                             </a>
-                            <a href = "/post/<?= isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
-                                <h3><?= $post['post_title'] ?></h3>
+                            <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
+                                <h3><?php echo $post['post_title'] ?></h3>
                             </a>
                             <div class = "post-card-specifications cs-fl cs-fl-align-c">
                                 <div class = "post-card-user cs-fl">
                                     <i class = "fas fa-user"></i>
                                     <span>
-                                        <?= $post['user'] ?>
+                                        <?php echo $post['user'] ?>
                                     </span>
                                 </div>
                                 <div class = "post-card-tags cs-fl">
                                     <span>
-                                        <?= $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
-                                        <?= $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
-                                        <?= $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
+                                        <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
+                                        <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
+                                        <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
                                     </span>
                                 </div>
                             </div>
                             <div class="cs-fl cs-fl-align-c post-card-stats">
                                 <div class="cs-fl post-card-stats-inner">
-                                    <span class="fa fa-eye"></span><span><?= $post['views'] ?></span>
+                                    <span class="fa fa-eye"></span><span><?php echo $post['views'] ?></span>
                                 </div>
                                 <div class="cs-fl post-card-stats-inner">
-                                    <span class="fa fa-heart"></span><span><?= $post['total_likes'] ?></span>
+                                    <span class="fa fa-heart"></span><span><?php echo $post['total_likes'] ?></span>
                                 </div>
                             </div>
                         </div>

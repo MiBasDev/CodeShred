@@ -1,8 +1,8 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl-col cs-fl-just-c users-page-container">
         <h1>Usuarios en codeShred</h1>
-        <div class="users-container-<?= isset($users) && !empty($users) && count($users) > 3 ? 'grid' : 'flex'; ?>">
+        <div class="users-container-<?php echo isset($users) && !empty($users) && count($users) > 3 ? 'grid' : 'flex'; ?>">
             <?php
             if (isset($users) && !empty($users)) {
                 foreach ($users as $user) {
@@ -12,14 +12,14 @@
                             <div class="user-name-container cs-fl">
                                 <div class="user-name cs-fl">
                                     <span class="fas fa-user user-img"></span>
-                                    <span><?= $user['user']; ?></span>
+                                    <span><?php echo $user['user']; ?></span>
                                 </div>
-                                <button class="user-follow <?= $user['user_id_following'] != null ? 'button-success' : 'button-secondary'; ?>" id="user-<?= $user['id_user']; ?>" data="<?= $user['user']; ?>">
-                                    <span class="fas <?= $user['user_id_following'] != null ? 'fa-user-check' : 'fa-user-plus'; ?>"></span>
+                                <button class="user-follow <?php echo $user['user_id_following'] != null ? 'button-success' : 'button-secondary'; ?>" id="user-<?php echo $user['id_user']; ?>" data="<?php echo $user['user']; ?>">
+                                    <span class="fas <?php echo $user['user_id_following'] != null ? 'fa-user-check' : 'fa-user-plus'; ?>"></span>
                                 </button>
                             </div>
                             <div class="user-content cs-fl">
-                                <div><?= !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
+                                <div><?php echo !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
                             </div>
                         </div>
                     <?php } ?>

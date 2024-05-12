@@ -15,7 +15,7 @@ asideHider.addEventListener('click', () => {
     asideHider.classList.toggle('aside-hider-folded');
 
     navLinkPs.forEach(p => {
-        p.style.display = aside.classList.contains('folded-aside') ? 'none' : 'block';
+        p.classList.toggle('folded-nav-link');
     });
 
     if (aside.classList.contains('folded-aside')) {

@@ -35,21 +35,6 @@
     font-size: 20px;
 }
 
-.form-control {
-    padding: 10px 15px;
-    background: none;
-    border: none;
-    border-bottom: 1px solid #b2b2b2;
-    border-radius: 5px 5px 0px 0px;
-}
-
-.form-control:hover,
-.form-control:focus-visible {
-    outline-offset: none;
-    outline: none;
-    background-color: #f5f5f50f;
-}
-
 .login-box-message {
     font-size: smaller;
     color: red;

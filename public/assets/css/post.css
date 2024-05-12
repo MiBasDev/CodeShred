@@ -94,82 +94,6 @@
     color: #f0db4f;
 }
 
-.popup,
-.popup-delete {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content,
-.popup-delete-content {
-    background-color: var(--static-elements-secondary-bg-color);
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 600px;
-    gap: 20px;
-}
-
-.popup-input-hide {
-    visibility: hidden;
-    position: absolute;
-}
-
-.popup-delete-content {
-    width: auto;
-}
-
-.popup-title {
-    justify-content: space-between
-}
-
-#popup-form {
-    padding: 10px;
-    gap: 20px;
-}
-
-#popup-image-container {
-    width: 100%;
-    height: 100%;
-    background-color: var(--static-elements-bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.close-popup {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    align-self: baseline;
-}
-
-.close-popup:hover,
-.close-popup:focus {
-    color: #930000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.popup-button {
-    justify-content: end;
-}
-
-.popup-delete-button {
-    justify-content: space-evenly;
-}
-
 .CodeMirror * {
     transition: none;
     font-family: 'JetBrains Mono', monospace;
@@ -190,4 +114,11 @@
 
 .post-code-copy:hover span {
     color: var(--button-secondary--hover-bg-color);
+}
+
+@media (max-width: 1200px) {
+    .container-code {
+        flex-direction: column;
+        height: 60%;
+    }
 }

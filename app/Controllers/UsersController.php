@@ -23,6 +23,8 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de login
         $data['title'] = 'codeShred | Login';
         $data['section'] = '/login';
+        $data['css'] = 'loginAndRegister';
+
         // Enseñamos la vista de login los datos necesarios
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
     }
@@ -39,6 +41,8 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de login
         $data['title'] = 'codeShred | Login';
         $data['section'] = '/login';
+        $data['css'] = 'loginAndRegister';
+
         // Comprobamos que existen los datos y no están vacíos
         if (isset($_POST['user']) && isset($_POST['pass']) && !empty($_POST['user']) && !empty($_POST['pass'])) {
             // Intentamos logear
@@ -82,6 +86,8 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de registro
         $data['title'] = 'codeShred | Registro';
         $data['section'] = '/registro';
+        $data['css'] = 'loginAndRegister';
+
         // Enseñamos la vista de registro los datos necesarios
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
     }
@@ -98,6 +104,8 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de registro
         $data['title'] = 'codeShred | Registro';
         $data['section'] = '/registro';
+        $data['css'] = 'loginAndRegister';
+
         // Checkeamos los datos del formulario
         $data['errors'] = $this->checkForm($_POST);
         // Si los datos son correctos
@@ -163,6 +171,8 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de mi cuenta
         $data['title'] = 'codeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
+        $data['css'] = 'account';
+
         //$data['notification']['message'] = 'Hemos vuelto chavales';
         $dataUser = $this->myAccountData();
         $data = array_merge($data, $dataUser);
@@ -183,6 +193,8 @@ class UsersController extends \CodeShred\Core\BaseController {
             // Declaramos los datos necesarios de la vista de usuarios
             $data['title'] = 'codeShred | Usuarios';
             $data['section'] = '/usuarios';
+            $data['css'] = 'users';
+
             // Obtenemos todos los usuarios del sistema
             $model = new \CodeShred\Models\UsersModel();
             $data['users'] = $model->getAll(intval($_SESSION['user']['id_user']));
@@ -207,6 +219,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             // Declaramos los datos necesarios de la vista de usuarios seguidos
             $data['title'] = 'codeShred | Siguiendo';
             $data['section'] = '/siguiendo';
+            $data['css'] = 'following';
 
             // Obtenemos los ususario seguidos
             $model = new \CodeShred\Models\UsersModel();
@@ -238,6 +251,8 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de mi cuenta
         $data['title'] = 'codeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
+        $data['css'] = 'account';
+
         $model = new \CodeShred\Models\UsersModel();
         if ($_SESSION['user']['id_user'] == $id) {
             $isDeleted = $model->delete(intval($_SESSION['user']['id_user']));

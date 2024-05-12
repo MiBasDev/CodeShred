@@ -17,6 +17,8 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         $data['title'] = 'Error 404';
         $data['section'] = '/error404';
         $data['text'] = '404. File not found';
+        $data['css'] = 'error';
+
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.php', 'templates/footer.view.php'), $data);
     }
 
@@ -31,6 +33,7 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         $data['title'] = 'Error 404';
         $data['section'] = '/error404';
         $data['text'] = '405. Method not allowed';
+        $data['css'] = 'error';
 
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.php', 'templates/footer.view.php'), $data);
     }

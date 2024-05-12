@@ -16,6 +16,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de post
         $data['title'] = 'codeShred | Shred';
         $data['section'] = '/post';
+        $data['css'] = 'post';
 
         // Creamos el modelo
         $model = new \CodeShred\Models\PostsModel();
@@ -36,6 +37,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de añadir post
         $data['title'] = 'codeShred | Crear Shred';
         $data['section'] = '/post/add';
+        $data['css'] = 'post';
 
         // Enseñamos la vista de añadir un post
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -51,6 +53,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de editar post
         $data['title'] = 'codeShred | Editar Shred';
         $data['section'] = '/post/edit';
+        $data['css'] = 'post';
 
         // Creamos el modelo
         $model = new \CodeShred\Models\PostsModel();
@@ -91,6 +94,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de posts
         $data['title'] = 'codeShred | Shreds';
         $data['section'] = '/posts';
+        $data['css'] = 'posts';
 
         // Creamos el modelo
         $model = new \CodeShred\Models\PostsModel();
@@ -117,6 +121,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos los datos necesarios de la vista de los posts del usuario de la sesión.
         $data['title'] = 'codeShred | Mis Shreds';
         $data['section'] = '/mi-cuenta/mis-posts';
+        $data['css'] = 'posts';
 
         // Creamos el modelo
         $model = new \CodeShred\Models\PostsModel();
@@ -148,6 +153,8 @@ class PostsController extends \CodeShred\Core\BaseController {
             // Declaramos los datos necesarios de la vista de añadir un post
             $data['title'] = 'codeShred | Shred';
             $data['section'] = '/post';
+            $data['css'] = 'post';
+
             // Declaramos los errores
             $data['errors']['title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
             $data['errors']['html'] = $_POST['shred-html'];
@@ -180,6 +187,8 @@ class PostsController extends \CodeShred\Core\BaseController {
             // Declaramos los datos necesarios de la vista de editar un post
             $data['title'] = 'codeShred | Editar Shred';
             $data['section'] = '/post';
+            $data['css'] = 'post';
+
             // Declaramos los errores
             $data['errors']['title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
             $data['errors']['html'] = $_POST['shred-html'];
@@ -207,6 +216,8 @@ class PostsController extends \CodeShred\Core\BaseController {
             // Declaramos los datos necesarios de la vista de editar un post
             $data['title'] = 'codeShred | Editar Shred';
             $data['section'] = '/post';
+            $data['css'] = 'post';
+
             // Declaramos los errores
             $data['errors']['title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
             $data['errors']['html'] = $_POST['shred-html'];

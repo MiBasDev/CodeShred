@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?= isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="contact-cont cs-fl-col cs-fl-align-c cs-fl-just-c">
         <h1 class="">CONTACTO</h1>
         <form action="/contacto" method="post" class="contact-form">
