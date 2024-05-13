@@ -62,7 +62,7 @@
 }
 
 .tab.mod {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .tab button {
@@ -245,7 +245,7 @@
     }
     
     .tab.mod button {
-        grid-column: span 5;
+        grid-column: span 4;
     }
 
     .register-buttons {

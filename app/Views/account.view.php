@@ -24,7 +24,9 @@
             ?>">
                      <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                     <button class="tablinks" onclick="openTabOption(event, 'mis-shreds')">Mis Shreds</button>
-                    <button class="tablinks" onclick="openTabOption(event, 'likes')">Likes</button>
+                    <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER) { ?>
+                        <button class="tablinks" onclick="openTabOption(event, 'likes')">Likes</button>
+                    <?php } ?>
                     <button class="tablinks" onclick="openTabOption(event, 'cuentas-seguidas')">Cuentas seguidas</button>
                     <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::MOD) { ?>
                         <button class="tablinks" onclick="openTabOption(event, 'todos-los-shreds')">Shreds</button>
@@ -82,7 +84,7 @@
                                 <?php
                             }
                             ?>
-                        <tbody>
+                        </tbody>
                     </table>
                     <?php if (count($userPosts) > 8) { ?>
                         <div class="pagination-buttons cs-fl cs-fl-align-c">
@@ -96,59 +98,61 @@
                     <?php } ?>
                 </div>
 
-                <!--Likes-->
-                <div id="likes" class="tabcontent">
-                    <table class="my-account-table">
-                        <thead>
-                            <tr>
-                                <td>SHRED</td>                           
-                                <td>USUARIO</td>
-                                <td>CONTROL</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (isset($userLikedPosts) && !empty($userLikedPosts)) {
-                                foreach ($userLikedPosts as $post) {
+                <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER) { ?>
+                    <!--Likes-->
+                    <div id="likes" class="tabcontent">
+                        <table class="my-account-table">
+                            <thead>
+                                <tr>
+                                    <td>SHRED</td>                           
+                                    <td>USUARIO</td>
+                                    <td>CONTROL</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (isset($userLikedPosts) && !empty($userLikedPosts)) {
+                                    foreach ($userLikedPosts as $post) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <a href = "/post/<?php echo $post['id_post']; ?>" title="Ir al Shred '<?php echo $post['post_title'] ?>'">
+                                                    <?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <?php echo $post['user'] ?>
+                                            </td>
+                                            <td>
+                                                <button class="post-like post-like-tab" id="post-like-<?php echo $post['id_post']; ?>">
+                                                    <span class="fa fa-heart post-liked"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
                                     <tr>
-                                        <td>
-                                            <a href = "/post/<?php echo $post['id_post']; ?>" title="Ir al Shred '<?php echo $post['post_title'] ?>'">
-                                                <?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?php echo $post['user'] ?>
-                                        </td>
-                                        <td>
-                                            <button class="post-like post-like-tab" id="post-like-<?php echo $post['id_post']; ?>">
-                                                <span class="fa fa-heart post-liked"></span>
-                                            </button>
-                                        </td>
+                                        <td colspan="3">No le has dado like a ningún Shred.</td>
                                     </tr>
                                     <?php
                                 }
-                            } else {
                                 ?>
-                                <tr>
-                                    <td colspan="3">No le has dado like a ningún Shred.</td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                        <tbody>
-                    </table>
-                    <?php if (count($userLikedPosts) > 8) { ?>
-                        <div class="pagination-buttons cs-fl cs-fl-align-c">
-                            <div>
-                                <button onclick="previousPage(1)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
+                            </tbody>
+                        </table>
+                        <?php if (count($userLikedPosts) > 8) { ?>
+                            <div class="pagination-buttons cs-fl cs-fl-align-c">
+                                <div>
+                                    <button onclick="previousPage(1)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
+                                </div>
+                                <div>
+                                    <button onclick="nextPage(1)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
+                                </div>
                             </div>
-                            <div>
-                                <button onclick="nextPage(1)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
 
                 <!--Cuentas seguidas-->
                 <div id="cuentas-seguidas" class="tabcontent">
@@ -190,15 +194,15 @@
                                 <?php
                             }
                             ?>
-                        <tbody>
+                        </tbody>
                     </table>
                     <?php if (count($userFollowing) > 8) { ?>
                         <div class="pagination-buttons cs-fl cs-fl-align-c">
                             <div>
-                                <button onclick="previousPage(2)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
+                                <button onclick="previousPage(<?php echo $_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER ? 2 : 1; ?>)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
                             </div>
                             <div>
-                                <button onclick="nextPage(2)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
+                                <button onclick="nextPage(<?php echo $_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::USER ? 2 : 1; ?>)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
                             </div>
                         </div>
                     <?php } ?>
@@ -246,15 +250,15 @@
                                     <?php
                                 }
                                 ?>
-                            <tbody>
+                            </tbody>
                         </table>
                         <?php if (count($usersPosts) > 8) { ?>
                             <div class="pagination-buttons cs-fl cs-fl-align-c">
                                 <div>
-                                    <button onclick="previousPage(3)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
+                                    <button onclick="previousPage(1)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
                                 </div>
                                 <div>
-                                    <button onclick="nextPage(3)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
+                                    <button onclick="nextPage(1)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
                                 </div>
                             </div>
                         <?php } ?>
@@ -303,7 +307,7 @@
                                 <?php
                             }
                             ?>
-                        <tbody>
+                        </tbody>
                     </table>
                     <?php if (count($usersPosts) > 8) { ?>
                         <div class="pagination-buttons cs-fl cs-fl-align-c">
@@ -357,7 +361,7 @@
                                 <?php
                             }
                             ?>
-                        <tbody>
+                        </tbody>
                     </table>
                     <?php if (count($usersData) > 8) { ?>
                         <div class="pagination-buttons cs-fl cs-fl-align-c">
