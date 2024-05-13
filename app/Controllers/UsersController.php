@@ -285,11 +285,14 @@ class UsersController extends \CodeShred\Core\BaseController {
     private function myAccountData(): array {
         $data = [];
         // Comprobamos que el rol del usuario de la sesión sea USER
-        if ($_SESSION['user']['user_rol'] == UsersController::USER) {
+        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
             // Obtenemos los posts del usuario y los posts que les ha dado like
             $model = new \CodeShred\Models\PostsModel();
             $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
             $data['userLikedPosts'] = $model->getUserLikedPosts($_SESSION['user']['id_user']);
+            if ($_SESSION['user']['user_rol'] == UsersController::MOD) {
+                $data['usersPosts'] = $model->getAllAdmin();
+            }
             // Obtenemos los datos del usuario y los usuarios que sigue
             $model = new \CodeShred\Models\UsersModel();
             $data['userFollowing'] = $model->getFollowing($_SESSION['user']['id_user']);

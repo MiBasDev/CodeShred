@@ -223,7 +223,7 @@ class PostsController extends \CodeShred\Core\BaseController {
             $data['errors']['html'] = $_POST['shred-html'];
             $data['errors']['css'] = $_POST['shred-css'];
             $data['errors']['js'] = $_POST['shred-js'];
-            $data['errors']['error'] = 'Error indeterminado al realizar el guardado.';
+            $data['errors']['error'] = 'Error indeterminado al realizar el borrado.';
 
             // Enseñamos la vista de editar un post
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -292,7 +292,7 @@ class PostsController extends \CodeShred\Core\BaseController {
             }
         }
 
-        if ($idFromUser || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+        if ($idFromUser || $_SESSION['user']['user_rol'] != UsersController::USER) {
             // Borramos el post
             $isDeleted = $model->deletePost($postId);
 

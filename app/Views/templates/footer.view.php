@@ -3,32 +3,20 @@
 <!--Footer position relative si o si-->
 <footer class="cs-fl cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl">
-        <p>
-            <a href="/politica-de-privacidad" class="<?php echo $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>
-        </p>
-        <p>
-            <a href="/politica-de-cookies" class="<?php echo $section === '/politica-de-cookies' ? 'active' : ''; ?>">Cookies</a>
-        </p>
-        <p>
-            <a href="/contacto" class="<?php echo $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
-        </p>
+        <a href="/politica-de-privacidad" class="<?php echo $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>
+        <a href="/politica-de-cookies" class="<?php echo $section === '/politica-de-cookies' ? 'active' : ''; ?>">Cookies</a>
+        <a href="/contacto" class="<?php echo $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
     </div>
     <div class="cs-fl">
-        <p>
-            <a href="#">
-                <i class="fab fa-instagram"></i>
-            </a>
-        </p>
-        <p>
-            <a href="#">
-                <i class="fab fa-github"></i>
-            </a>
-        </p>
-        <p>
-            <a href="#">
-                <i class="fab fa-twitter"></i>
-            </a>
-        </p>
+        <a href="#">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="#">
+            <i class="fab fa-twitter"></i>
+        </a>
     </div>
 </footer>
 </body>

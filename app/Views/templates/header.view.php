@@ -59,19 +59,11 @@
                     <?php } ?>
                     <?php if (!isset($_SESSION['user'])) {
                         ?>
-                        <a href="/registro">
-                            <button class="button-primary" id="button-register">Registrarse</button>
-                        </a>
-                        <a href="/login">
-                            <button class="button-secondary" id="button-login">Login</button>
-                        </a>        
+                        <a href="/registro" class="button-primary" id="button-register">Registrarse</a>
+                        <a href="/login" class="button-secondary" id="button-login">Login</a>        
                     <?php } else { ?>
-                        <a href="/mi-cuenta">
-                            <button class="button-secondary" id="button-my-account" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></button>
-                        </a> 
-                        <a href="/logout" class="logout">
-                            <button class="button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></button>
-                        </a>   
+                        <a href="/mi-cuenta" class="button-secondary" id="button-my-account" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></a> 
+                        <a href="/logout" class="logout button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></a>   
                     <?php } ?>
                 </div>
                 <div class="hamburger-menu-buttons">

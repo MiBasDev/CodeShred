@@ -107,6 +107,10 @@
     background-color: #00ac2b;
 }
 
+.button-success:hover span {
+    color: var(--static-elements-bg-color);
+}
+
 /* Header */
 header {
     background-color: var(--static-elements-secondary-bg-color);
@@ -154,7 +158,7 @@ header input {
 
 header input:hover,
 header input:focus-visible {
-    outline-offset: none;
+    outline-offset: unset;
     outline: none;
     background-color: #f5f5f50f;
 }
@@ -577,7 +581,7 @@ footer a.active {
 
 .form-control:hover,
 .form-control:focus-visible {
-    outline-offset: none;
+    outline-offset: unset;
     outline: none;
     background-color: #f5f5f50f;
 }
@@ -638,7 +642,6 @@ footer a.active {
 
     #button-create-shred {
         width: 80px;
-        transition: none;
     }
 
     #button-create-shred span:first-child {
@@ -694,7 +697,6 @@ footer a.active {
     #button-create-shred,
     aside.folded-aside #button-create-shred {
         width: 150px;
-        transition: none;
     }
 
     #button-create-shred span:first-child,
@@ -737,6 +739,34 @@ footer a.active {
 }
 
 @media (max-width: 600px) {
+    * {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 19px;
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+
+    h5 {
+        font-size: 16px;
+    }
+
+    h6 {
+        font-size: 14px;
+    }
+
     .post-card-stats-inner span {
         font-size: 16px;
     }
@@ -766,36 +796,5 @@ footer a.active {
 
     .posts-cards-container-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-}
-
-@media handheld and (max-width: 600px) {
-
-    * {
-        font-size: 14px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    h3 {
-        font-size: 19px;
-    }
-
-    h4 {
-        font-size: 18px;
-    }
-
-    h5 {
-        font-size: 16px;
-    }
-
-    h6 {
-        font-size: 14px;
     }
 }

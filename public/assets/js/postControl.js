@@ -49,7 +49,11 @@ function openPopup() {
     var popup = document.getElementById('popup');
     popup.style.display = 'flex';
 
-    postTitle = postTitle.value;
+    if(postTitle !== undefined) {
+        postTitle = postTitle.value;
+    } else {
+        postTitle = postTitleTwo.value;
+    }
     var htmlCode = document.getElementById('html-code').value;
     var cssCode = document.getElementById('css-code').value;
     var jsCode = document.getElementById('js-code').value;

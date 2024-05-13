@@ -111,8 +111,8 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
     function getAll(int $id): ?array {
-        $stmt = $this->pdo->prepare('SELECT u.*, f.user_id_following FROM users u LEFT JOIN follows f ON u.id_user = f.user_id_following AND f.user_id = :follows_user_id WHERE u.id_user != :user_user_id AND u.user_rol = :user_rol');
-        $stmt->execute(['follows_user_id' => $id, 'user_user_id' => $id, 'user_rol' => \CodeShred\Controllers\UsersController::USER]);
+        $stmt = $this->pdo->prepare('SELECT u.*, f.user_id_following FROM users u LEFT JOIN follows f ON u.id_user = f.user_id_following AND f.user_id = :follows_user_id WHERE u.id_user != :user_user_id AND u.user_rol != :user_rol');
+        $stmt->execute(['follows_user_id' => $id, 'user_user_id' => $id, 'user_rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
     }

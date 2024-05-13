@@ -3,7 +3,7 @@
         <div class="index-main-container-left cs-fl-col cs-fl-just-c">
             <!-- Logo y slogan -->
             <div class="index-logo-and-slogan cs-fl-col cs-fl-align-c">
-                <img src="assets/img/cs-logo.png">
+                <img src="assets/img/cs-logo.png" alt="Logo codeShred">
                 <h1>La red social de los programadores web</h1>
             </div>
             <?php if (!isset($_SESSION['user'])) { ?>
@@ -36,16 +36,16 @@
                         ?>
                         <div class = "post-card cs-fl-col">
                             <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                                <img src = "assets/img/cs-logo-color.png" class = "post-card-img">
+                                <img src = "assets/img/cs-logo-color.png" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
                             </a>
                             <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
-                                <h3><?php echo $post['post_title'] ?></h3>
+                                <h3><?php echo $post['post_title']; ?></h3>
                             </a>
                             <div class = "post-card-specifications cs-fl cs-fl-align-c">
                                 <div class = "post-card-user cs-fl">
                                     <i class = "fas fa-user"></i>
                                     <span>
-                                        <?php echo $post['user'] ?>
+                                        <?php echo $post['user']; ?>
                                     </span>
                                 </div>
                                 <div class = "post-card-tags cs-fl">
