@@ -1,19 +1,20 @@
+<div class="overlay" id="overlay"></div>
 <!--Aside-->
 <aside class="cs-fl <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside">
     <div class="aside-content cs-fl-col cs-fl-align-c">
         <?php if (!isset($_SESSION['user'])) {
             ?>
             <div class="cs-fl hamburger-menu-buttons">
-                <a href="/registro" class="button-primary" id="button-register">Registrarse</a>
-                <a href="/login" class="button-secondary" id="button-login">Login</a>        
+                <a href="/registro" class="button-primary">Registrarse</a>
+                <a href="/login" class="button-secondary">Login</a>        
             </div>
         <?php } else { ?>
             <div class="cs-fl hamburger-menu-buttons">
-                <a href="/mi-cuenta" class="button-secondary" id="button-my-account" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></a> 
-                <a href="/logout" class="logout button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></a>   
+                <a href="/mi-cuenta" class="button-secondary" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></a> 
+                <a href="/logout" class="logout button-primary"><i class="fas fa-sign-out-alt"></i></a>
             </div>
         <?php } ?>
-        <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></a>
+        <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></span></a>
 
         <!-- Sidebar Menu -->
         <nav>

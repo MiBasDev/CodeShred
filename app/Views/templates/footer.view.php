@@ -19,7 +19,6 @@
         </a>
     </div>
 </footer>
-</body>
 <script src="assets/js/codeShred.js"></script>
 <?php if (isset($section) && strpos($section, '/post/') === 0) : ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js"></script>
@@ -32,7 +31,8 @@
 <script src="assets/js/postAjax.js"></script>
 <?php if (isset($section) && strpos($section, '/post') === 0 && $section != '/posts') { ?>
     <!--Codemirror-->
-    <script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/textareaCode.js"></script>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="assets/js/textareaCode.js"></script>
 <?php } ?>
+</body>
 </html>

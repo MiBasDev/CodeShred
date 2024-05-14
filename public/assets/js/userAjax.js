@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#update-user-data').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos el valor de los inputs
-            var userId = this.getAttribute('data');
+            var userId = this.getAttribute('data-id');
             var user = document.getElementById('user').value;
             var userEmail = document.getElementById('email').value;
             var userPass1 = document.getElementById('password1').value;
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
             var userId = this.id.split('-')[1];
-            var userName = this.getAttribute('data');
+            var userName = this.getAttribute('data-user');
 
             // Empezamos la petición
             fetch('/user-follow', {

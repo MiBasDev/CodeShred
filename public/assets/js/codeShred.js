@@ -39,20 +39,22 @@ function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
-// Función para el menú hamburguesa
 document.addEventListener('DOMContentLoaded', function () {
-    var aside = document.querySelector('aside');
+    var aside = document.getElementById('aside');
     var toggleAside = document.getElementById('toggle-menu');
+    var overlay = document.getElementById('overlay');
 
     toggleAside.addEventListener('click', function () {
         aside.classList.toggle('open');
         toggleAside.classList.toggle('open');
+        overlay.classList.toggle('active');
     });
 
     document.addEventListener('click', function (event) {
         if (!aside.contains(event.target) && event.target !== toggleAside) {
             aside.classList.remove('open');
             toggleAside.classList.remove('open');
+            overlay.classList.remove('active');
         }
     });
 });
@@ -123,9 +125,21 @@ function updatePaginationButtons(tableIndex, currentPage) {
 }
 
 // Función para mostrar las filas de la primera página para todas las tablas 
-// de priemras
+// de primeras
 tables.forEach(function (table, index) {
     showRows(index, 0);
-    paginationButtons[index].setAttribute('data-page', 0);
-    updatePaginationButtons(index, 0);
+    if (paginationButtons[index]) {
+        paginationButtons[index].setAttribute('data-page', 0);
+        updatePaginationButtons(index, 0);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var textarea = document.getElementById('message');
+    var charCount = document.getElementById('charCount');
+
+    textarea.addEventListener('input', function () {
+        var currentLength = textarea.value.length;
+        charCount.textContent = `${currentLength}/255`;
+    });
 });

@@ -1,7 +1,7 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="contact-cont cs-fl-col cs-fl-align-c cs-fl-just-c">
-        <h1 class="">CONTACTO</h1>
+        <h1>Contacto codeShred</h1>
         <form action="/contacto" method="post" class="contact-form">
             <?php if (!isset($_SESSION['user'])) { ?>
                 <div class="cs-fl contact-form-span">
@@ -58,7 +58,7 @@
             <?php endif; ?>
             <div class="login-input contact-form-span">
                 <label for="message"><i class=""></i></label>
-                <textarea name="message" id="message" rows="10" class="contact-form-textarea" length="255" placeholder="Comentarios..."></textarea>
+                <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Comentarios..."></textarea>
             </div>
             <?php if (isset($loginError)) : ?>
                 <!--Errores ambas pass-->
@@ -67,7 +67,8 @@
                 </p>
             <?php endif; ?>
 
-            <div class="contact-form-span">
+            <div class="contact-form-span cs-fl cs-fl-align-c">
+                <p id="charCount">0/255</p>
                 <button class="button button-primary" type="submit"><i class=""></i>Enviar</button>
             </div>
         </form>

@@ -1,10 +1,17 @@
 .contact-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 10px;
 }
 
 .contact-form-span {
     grid-column: span 2;
+}
+
+.contact-form-span:last-child {
+    justify-content: end;
+    position: relative;
 }
 
 .contact-form-span input {
@@ -16,11 +23,36 @@
     gap: 30px;
     background-color: var(--static-elements-secondary-bg-color);
     border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
 }
 
 .contact-form-textarea {
     padding: 10px 15px;
-    background: none;
+    background: var(--static-elements-bg-color);
     border-radius: 5px;
+    border: none;
     width: 100%;
+    resize: none;
+}
+
+.contact-form-textarea:focus-visible {
+    outline-offset: unset;
+    outline: none;
+}
+
+#charCount {
+    z-index: 10;
+    font-size: 14px;
+    color: #555;
+    position: absolute;
+    top: -30px;
+    right: 2px;
+}
+
+@media (max-width: 600px) {
+    .contact-cont {
+        padding: 30px;
+        gap: 20px;
+    }
 }

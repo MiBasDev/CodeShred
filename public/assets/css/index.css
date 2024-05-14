@@ -6,16 +6,17 @@
 
 .index-main-container-right,
 .index-main-container-left {
-    width: 50%;
     padding: 10px;
 }
 
 .index-main-container-left {
     gap: 80px;
+    width: 40%;
 }
 
 .index-main-container-right {
     gap: 15px;
+    width: 60%;
 }
 
 .index-logo-and-slogan {
@@ -25,6 +26,7 @@
 
 .index-logo-and-slogan h1 {
     padding: 0px 15px;
+    text-align: center;
 }
 
 .index-logo-and-slogan img {
@@ -45,12 +47,6 @@
     background-color: var(--static-elements-secondary-bg-color);
 }
 
-.index-crea a button,
-.index-comparte a button {
-    background-color: var(--button-secondary--bg-color);
-    color: var(--dark-letter-color);
-}
-
 .index-posts-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -64,7 +60,7 @@
     .index-main-container {
         flex-direction: column;
     }
-    
+
     .index-main-container-left,
     .index-main-container-right {
         width: 100%;
@@ -82,8 +78,14 @@
     .index-logo-and-slogan h1 {
         text-align: center;
     }
-    
+
     .index-crea-y-comparte {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .index-main-container-right {
+        padding: 0px;
     }
 }

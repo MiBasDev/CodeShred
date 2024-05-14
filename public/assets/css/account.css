@@ -62,7 +62,7 @@
 }
 
 .tab.mod {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .tab button {
@@ -100,6 +100,10 @@
 
 .pagination-buttons {
     justify-content: space-between;
+}
+
+.pagination-buttons.none {
+    display: none;
 }
 
 .next span,
@@ -229,6 +233,15 @@
     .my-account-data-logo {
         font-size: 100px;
     }
+
+    .tabcontent,
+    .my-account-tab {
+        margin-bottom: 0px;
+    }
+
+    .my-account-container {
+        height: unset;
+    }
 }
 
 @media (max-width: 600px) {
@@ -239,18 +252,22 @@
     .tab button {
         grid-column: span 2;
     }
-    
+
     .tab.admin button {
         grid-column: span 3;
     }
-    
+
     .tab.mod button {
-        grid-column: span 4;
+        grid-column: span 5;
     }
 
     .register-buttons {
         grid-column: span 2;
         justify-content: space-between;
         gap: 20px;
+    }
+
+    .my-account-data h1 i {
+        font-size: 22px;
     }
 }

@@ -134,35 +134,6 @@ header {
     justify-content: space-between;
 }
 
-#post-title {
-    width: 100%;
-    max-width: 150px;
-    padding: 10px;
-    background-color: #f5f5f50f;
-}
-
-#post-title:hover {
-    width: 150px;
-    background-color: #f5f5f51a;
-}
-
-header input {
-    width: 300px;
-    padding: 10px 15px;
-    background: none;
-    border: none;
-    border-bottom: 1px solid #b2b2b2;
-    border-radius: 5px 5px 0px 0px;
-    font-weight: bold;
-}
-
-header input:hover,
-header input:focus-visible {
-    outline-offset: unset;
-    outline: none;
-    background-color: #f5f5f50f;
-}
-
 #button-post-save {
     margin-right: 20px;
 }
@@ -176,7 +147,8 @@ header input:focus-visible {
     font-size: 16px;
 }
 
-#button-my-account>i {
+#button-my-account>i,
+.button-secondary>i {
     color: var(--dark-letter-color);
 }
 
@@ -399,9 +371,9 @@ footer a.active {
 /* Shreds */
 .post-card {
     background-color: var(--static-elements-secondary-bg-color);
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 5px;
-    gap: 10px;
+    /* gap: 10px; */
     position: relative;
     width: 100%;
     max-width: 500px;
@@ -413,8 +385,18 @@ footer a.active {
 
 .post-card-img {
     width: 100%;
-    max-width: 450px;
-    border-radius: 5px;
+    /* max-width: 450px; */
+    border-radius: 5px 5px 0px 0px;
+}
+
+.post-card:hover .post-card-img {
+    filter: brightness(1.3);
+}
+
+.post-card-text-content {
+    height: 100%;
+    padding: 20px;
+    gap: 10px;
 }
 
 .post-card-title-container,
@@ -429,6 +411,7 @@ footer a.active {
 
 .post-card-specifications  {
     height: 100%;
+    align-items: end;
 }
 
 .post-card-user {
@@ -501,7 +484,7 @@ footer a.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #00000080;
     z-index: 999;
     justify-content: center;
     align-items: center;
@@ -666,6 +649,7 @@ footer a.active {
 
     aside {
         width: var(--aside-width);
+        margin-top: unset;
         z-index: 999;
         left: calc(var(--aside-folded-width) * -1);
     }
@@ -714,6 +698,7 @@ footer a.active {
 
     .hamburger-menu-buttons {
         display: flex;
+        z-index: 999;
     }
 
     .screen-buttons {
@@ -729,12 +714,28 @@ footer a.active {
     }
 
     #toggle-menu.open{
-        background: var(--static-elements-bg-color);
+        background: var(--static-elements-secondary-bg-color);
         border-radius: 5px;
     }
 
     aside.open {
         left: 0px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #00000080;
+        z-index: 998;
+        display: none;
+        pointer-events: none;
+    }
+
+    .overlay.active {
+        display: block;
     }
 }
 
@@ -767,17 +768,19 @@ footer a.active {
         font-size: 14px;
     }
 
-    .post-card-stats-inner span {
-        font-size: 16px;
+    body {
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
-    aside {
-        margin-top: unset;
+    .post-card-stats-inner span {
+        font-size: 16px;
     }
 
     main {
         height: 100%;
         min-height: var(--main-height);
+        padding: 40px 20px;
     }
 
     .header-logo {

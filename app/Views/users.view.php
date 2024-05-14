@@ -14,12 +14,12 @@
                                     <span class="fas fa-user user-img"></span>
                                     <span><?php echo $user['user']; ?></span>
                                 </div>
-                                <button class="user-follow <?php echo $user['user_id_following'] != null ? 'button-success' : 'button-secondary'; ?>" id="user-<?php echo $user['id_user']; ?>" data="<?php echo $user['user']; ?>">
+                                <button class="user-follow <?php echo $user['user_id_following'] != null ? 'button-success' : 'button-secondary'; ?>" id="user-<?php echo $user['id_user']; ?>" data-name="<?php echo $user['user']; ?>">
                                     <span class="fas <?php echo $user['user_id_following'] != null ? 'fa-user-check' : 'fa-user-plus'; ?>"></span>
                                 </button>
                             </div>
                             <div class="user-content cs-fl">
-                                <div><?php echo !empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
+                                <div><?php echo!empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?></div>
                             </div>
                         </div>
                     <?php } ?>

@@ -12,16 +12,16 @@
                     <div class="index-crea cs-fl-col">
                         <h2>Crea contenido</h2>
                         <p>Empieza a crear contenido... ¡Hazte una cuenta ahora!</p>
-                        <a href="/login">
-                            <button class="button-secondary">Crear Shred</button>
-                        </a>
+                        <div class="cs-fl">
+                            <a href="/login" class="button-secondary">Crear Shred</a>
+                        </div>
                     </div>
                     <div class="index-comparte cs-fl-col">
                         <h2>Explora contenido</h2>
                         <p>Explora todos los shreds creados por nuestra comunidad.</p>
-                        <a href="/posts">
-                            <button class="button-secondary">Explorar Shreds</button>
-                        </a>
+                        <div class="cs-fl">
+                            <a href="/posts" class="button-secondary">Explorar Shreds</a>
+                        </div>
                     </div>
                 </div>
             <?php } ?>
@@ -38,22 +38,24 @@
                             <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                                 <img src = "assets/img/cs-logo-color.png" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
                             </a>
-                            <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
-                                <h3><?php echo $post['post_title']; ?></h3>
-                            </a>
-                            <div class = "post-card-specifications cs-fl cs-fl-align-c">
-                                <div class = "post-card-user cs-fl">
-                                    <i class = "fas fa-user"></i>
-                                    <span>
-                                        <?php echo $post['user']; ?>
-                                    </span>
-                                </div>
-                                <div class = "post-card-tags cs-fl">
-                                    <span>
-                                        <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
-                                        <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
-                                        <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
-                                    </span>
+                            <div class="post-card-text-content cs-fl-col cs-fl-just-c">
+                                <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
+                                    <h3><?php echo $post['post_title']; ?></h3>
+                                </a>
+                                <div class = "post-card-specifications cs-fl cs-fl-align-c">
+                                    <div class = "post-card-user cs-fl">
+                                        <i class = "fas fa-user"></i>
+                                        <span>
+                                            <?php echo $post['user']; ?>
+                                        </span>
+                                    </div>
+                                    <div class = "post-card-tags cs-fl">
+                                        <span>
+                                            <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
+                                            <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
+                                            <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="cs-fl cs-fl-align-c post-card-stats">

@@ -18,24 +18,26 @@
                                     <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
                                         <img src = "assets/img/cs-logo-color.png" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
                                     </a>
-                                    <div class="cs-fl cs-fl-align-c post-card-title">
-                                        <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
-                                            <h3><?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?></h3>
-                                        </a>
-                                    </div>
-                                    <div class = "post-card-specifications cs-fl cs-fl-align-c">
-                                        <div class = "post-card-user cs-fl">
-                                            <i class = "fas fa-user"></i>
-                                            <span>
-                                                <?php echo $post['user']; ?>
-                                            </span>
+                                    <div class="post-card-text-content cs-fl-col cs-fl-just-c">
+                                        <div class="cs-fl cs-fl-align-c post-card-title">
+                                            <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
+                                                <h3><?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?></h3>
+                                            </a>
                                         </div>
-                                        <div class = "post-card-tags cs-fl">
-                                            <span>
-                                                <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
-                                                <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
-                                                <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
-                                            </span>
+                                        <div class = "post-card-specifications cs-fl cs-fl-align-c">
+                                            <div class = "post-card-user cs-fl">
+                                                <i class = "fas fa-user"></i>
+                                                <span>
+                                                    <?php echo $post['user']; ?>
+                                                </span>
+                                            </div>
+                                            <div class = "post-card-tags cs-fl">
+                                                <span>
+                                                    <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
+                                                    <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
+                                                    <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="cs-fl cs-fl-align-c post-card-stats">

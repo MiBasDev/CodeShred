@@ -16,19 +16,19 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.2/purify.min.js"></script>
             <!--Codemirror-->
             <link rel="stylesheet" type="text/css" href="plugins/codemirror/codemirror.css">
-            <script type="text/javascript" src="plugins/codemirror/codemirror.js"></script>
+            <script src="plugins/codemirror/codemirror.js"></script>
             <link rel="stylesheet" type="text/css" href="plugins/codemirror/theme/dracula.css">
-            <script type="text/javascript" src="plugins/codemirror/mode/xml/xml.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/mode/css/css.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/mode/javascript/javascript.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/edit/matchbrackets.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/edit/closebrackets.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/edit/closetag.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/hint/show-hint.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/hint/anyword-hint.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/lint/lint.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/edit/matchtags.js"></script>
-            <script type="text/javascript" src="plugins/codemirror/addon/display/autorefresh.js"></script>
+            <script src="plugins/codemirror/mode/xml/xml.js"></script>
+            <script src="plugins/codemirror/mode/css/css.js"></script>
+            <script src="plugins/codemirror/mode/javascript/javascript.js"></script>
+            <script src="plugins/codemirror/addon/edit/matchbrackets.js"></script>
+            <script src="plugins/codemirror/addon/edit/closebrackets.js"></script>
+            <script src="plugins/codemirror/addon/edit/closetag.js"></script>
+            <script src="plugins/codemirror/addon/hint/show-hint.js"></script>
+            <script src="plugins/codemirror/addon/hint/anyword-hint.js"></script>
+            <script src="plugins/codemirror/addon/lint/lint.js"></script>
+            <script src="plugins/codemirror/addon/edit/matchtags.js"></script>
+            <script src="plugins/codemirror/addon/display/autorefresh.js"></script>
         <?php } ?>
         <title><?php echo $title; ?></title>
         <link rel="icon" type="image/x-icon" href="assets/img/cs-logo-favicon.png">
@@ -67,7 +67,7 @@
                     <?php } ?>
                 </div>
                 <div class="hamburger-menu-buttons">
-                     <button id="toggle-menu">&#9776;</button>
+                    <button id="toggle-menu">&#9776;</button>
                 </div>
             </div>
         </header>
@@ -75,5 +75,5 @@
         <!--Notificaciones???-->
         <div class="<?php echo isset($notification) ? 'cs-fl-col' : 'user-notificactions-none'; ?> cs-fl-just-c user-notificactions" id="user-notificactions">
             <h3>Nueva notifiación</h3>
-            <p><?php echo $notification['message']; ?></p>
+            <p><?php //echo $notification['message'];   ?></p>
         </div>

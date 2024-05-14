@@ -8,10 +8,10 @@
         </div>
         <div class="cs-fl cs-fl-align-c">
             <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
-                <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
+                <button class="button-warning" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
             <?php } ?>
             <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
-                <button class="button-primary" id="button-post-save" onclick="saveAndOpenPopup()">Guardar</button>
+                <button class="button-primary" onclick="saveAndOpenPopup()">Guardar</button>
             <?php } ?>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="code-background">
             <label for="html-code" class="code-title cs-fl cs-fl-align-c">
                 <i class="fab fa-html5"></i>
-                <p>HTML</p>
+                <span>HTML</span>
             </label>
             <textarea name="html-code" id="html-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->html) ? $post_code->html : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
@@ -34,7 +34,7 @@
         <div class="code-background">
             <label for="css-code" class="code-title cs-fl cs-fl-align-c">
                 <i class="fab fa-css3-alt"></i>
-                <p>CSS</p>
+                <span>CSS</span>
             </label>
             <textarea name="css-code" id="css-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->css) ? $post_code->css : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
@@ -44,7 +44,7 @@
         <div class="code-background">
             <label for="js-code" class="code-title cs-fl cs-fl-align-c">
                 <i class="fab fa-js-square"></i>
-                <p>JS</p>
+                <span>JS</span>
             </label>
             <textarea name="js-code" id="js-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->js) ? $post_code->js : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
@@ -88,17 +88,18 @@
     </div>
 
 
-
-    <div id="popup-delete" class="popup-delete">
-        <div class="popup-delete-content cs-fl-col">
-            <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2>¿Seguro que quieres eliminar este Shred?</h2>
-            </div>
-            <form action="/post/delete/<?php echo $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col">
-                <div class="popup-delete-button cs-fl">
-                    <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
-                    <button type="submit" class="button-warning">Eliminar</button>
+    <?php if (isset($section) && strpos($section, '/post/edit') === 0) { ?>
+        <div id="popup-delete" class="popup-delete">
+            <div class="popup-delete-content cs-fl-col">
+                <div class="popup-delete-title cs-fl cs-fl-just-c">
+                    <h2>¿Seguro que quieres eliminar este Shred?</h2>
                 </div>
-            </form>
+                <form action="/post/delete/<?php echo $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col">
+                    <div class="popup-delete-button cs-fl">
+                        <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
+                        <button type="submit" class="button-warning">Eliminar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <?php } ?>
