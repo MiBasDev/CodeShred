@@ -1,0 +1,14 @@
+main {
+
+}
+
+main>div {
+    gap: 40px;
+}
+
+.contact-posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    justify-items: center;
+    gap: 20px;
+}

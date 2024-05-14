@@ -8,7 +8,7 @@ abstract class BaseController {
     protected $view;
 
     /**
-     * Constructor de la clase BaseController
+     * Constructor de la clase BaseController.
      */
     function __construct() {
         $this->view = new View(get_class($this));

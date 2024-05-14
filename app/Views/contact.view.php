@@ -4,7 +4,7 @@
         <h1>Contacto codeShred</h1>
         <form action="/contacto" method="post" class="contact-form">
             <?php if (!isset($_SESSION['user'])) { ?>
-                <div class="cs-fl contact-form-span">
+                <div class="cs-fl contact-form-span space">
                     <div class="login-input">
                         <label for="name"><i class=""></i></label>
                         <input type="text" name="name" placeholder="Nombre" class="form-control">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <?php if (isset($loginErrorName) || isset($loginErrorSurname)) : ?>
-                    <div class="cs-fl register-div-errs">
+                    <div class="cs-fl register-div-errs space">
                         <!--Errores nombre-->
                         <p class="login-box-message">
                             <?php

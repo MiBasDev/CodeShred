@@ -16,8 +16,11 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['section'] = '/';
         $data['css'] = 'index';
 
+        // Obtenemos los posts
         $model = new \CodeShred\Models\PostsModel();
         $data['posts'] = $model->getAllIndex();
+        
+        // Enseñamos la vista del index
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'index.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -33,6 +36,7 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['section'] = '/contacto';
         $data['css'] = 'contact';
 
+        // Enseñamos la vista de contacto
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -48,6 +52,7 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['section'] = '/contacto';
         $data['css'] = 'contact';
 
+        // Enseñamos la vista de contacto
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -63,6 +68,7 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['section'] = '/politica-de-privacidad';
         $data['css'] = 'privacity';
 
+        // Enseñamos la vista de política de privacidad
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'privacity.view.php', 'templates/footer.view.php'), $data);
     }
 
@@ -78,6 +84,7 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['section'] = '/politica-de-cookies';
         $data['css'] = 'cookies';
 
+        // Enseñamos la vista de política de cookies
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'cookies.view.php', 'templates/footer.view.php'), $data);
     }
 }

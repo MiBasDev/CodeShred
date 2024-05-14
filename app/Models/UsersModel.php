@@ -240,6 +240,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     /**
      * Método que elimina un follow en la base de datos de un usuario a otro, ambos 
      * ids de usuario pasados como parámetro.
+     * 
      * @param int $userId  Número identificativo del usuario.
      * @param int $userIdToFollow Número identificativo del usuario al que quiere dejar de seguir.
      * @return bool  True si lo elimina, false si no.

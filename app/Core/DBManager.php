@@ -12,14 +12,20 @@ class DBManager {
     private static $instance;
     private $db;
 
-    //Previene creacion de objetos via new
-
+    /**
+     * Contructor vacío de la clase DBManager.
+     * 
+     * Previene la creación de una instancia de la clase con new.
+     */
     private function __construct() {
         
     }
 
-    // Única forma para obtener el objeto singleton
-
+    /**
+     * Método que devuelve el singleton de la clase DBManager.
+     * 
+     * @return type Instancia de la clase DBManager.
+     */
     public static function getInstance() {
         if (is_null(self::$instance)) {
             self::$instance = new self();
@@ -27,6 +33,13 @@ class DBManager {
         return self::$instance;
     }
 
+    /**
+     * Método para crear un singleton.
+     * 
+     * @param type $emulatePrepares Indica si se deben emular las sentencias preparadas (por defecto es falso).
+     * @return type instancia de la DB.
+     * @throws \PDOException Excepción que lanza si no se crea una instancia de la DB.
+     */
     public function getConnection($emulatePrepares = false) {
         if (is_null($this->db)) {
             $host = $_ENV['db.host'];

@@ -39,6 +39,7 @@ function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
+// Función para enseñar y ocultar el menú hamburguesa
 document.addEventListener('DOMContentLoaded', function () {
     var aside = document.getElementById('aside');
     var toggleAside = document.getElementById('toggle-menu');
@@ -134,6 +135,7 @@ tables.forEach(function (table, index) {
     }
 });
 
+// Función para el contador de caracteres del textarea de contacto
 document.addEventListener('DOMContentLoaded', function () {
     var textarea = document.getElementById('message');
     var charCount = document.getElementById('charCount');

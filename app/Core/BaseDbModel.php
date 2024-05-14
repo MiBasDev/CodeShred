@@ -10,6 +10,9 @@ abstract class BaseDbModel {
 
     protected $pdo;
 
+    /**
+     * Constructor de la clase BaseDbModel.
+     */
     function __construct() {
         $this->pdo = DBManager::getInstance()->getConnection();
     }

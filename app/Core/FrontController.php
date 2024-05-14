@@ -6,7 +6,11 @@ use Steampixel\Route;
 
 class FrontController {
 
+    /**
+     * Método que controla los endpoints de las rutas.
+     */
     static function main() {
+        // Iniciamos la sesión
         session_start();
 
         Route::add('/',
@@ -57,6 +61,7 @@ class FrontController {
                 }
                 , 'get');
 
+        // Si no existe un usuario de sesión
         if (!isset($_SESSION['user'])) {
             Route::add('/login',
                     function () {
@@ -89,7 +94,7 @@ class FrontController {
                         header('location: /');
                     }
             );
-        } else {
+        } else { // Si existe un usuario de sesión
             Route::add('/logout',
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
@@ -167,7 +172,7 @@ class FrontController {
                     }
                     , 'post');
 
-            /* AJAX */
+            // Rutas de AJAX
             Route::add('/update-description',
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
@@ -225,6 +230,7 @@ class FrontController {
             );
         }
 
+        // Runemaos la ruta
         Route::run();
     }
 }

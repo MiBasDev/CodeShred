@@ -37,6 +37,7 @@ class LikesModel extends \CodeShred\Core\BaseDbModel {
 
     /**
      * Método que elimina un me gusta en un post hecho por un usuario.
+     * 
      * @param int $userId Número identificativo del usuario.
      * @param int $postId Número identificativo del post.
      * @return bool True si lo elimina, false si no.
