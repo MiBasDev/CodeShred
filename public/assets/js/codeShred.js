@@ -140,8 +140,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var textarea = document.getElementById('message');
     var charCount = document.getElementById('charCount');
 
-    textarea.addEventListener('input', function () {
-        var currentLength = textarea.value.length;
-        charCount.textContent = `${currentLength}/255`;
-    });
+    if (textarea) {
+        textarea.addEventListener('input', function () {
+            var currentLength = textarea.value.length;
+            charCount.textContent = `${currentLength}/255`;
+        });
+    }
 });

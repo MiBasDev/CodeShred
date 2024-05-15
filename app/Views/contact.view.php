@@ -15,21 +15,21 @@
                         <input type="text" name="surname" placeholder="Apellidos" class="form-control">
                     </div>
                 </div>
-                <?php if (isset($loginErrorName) || isset($loginErrorSurname)) : ?>
+                <?php if (isset($errors['name']) || isset($errors['surname'])) : ?>
                     <div class="cs-fl register-div-errs space">
                         <!--Errores nombre-->
-                        <p class="login-box-message">
+                        <p class="contact-box-message">
                             <?php
-                            if (isset($loginErrorName)) {
-                                echo $loginErrorName;
+                            if (isset($errors['name'])) {
+                                echo $errors['name'];
                             }
                             ?>
                         </p>
                         <!--Errores apellidos-->
-                        <p class="login-box-message">
+                        <p class="contact-box-message">
                             <?php
-                            if (isset($loginErrorSurname)) {
-                                echo $loginErrorSurname;
+                            if (isset($errors['surname'])) {
+                                echo $errors['surname'];
                             }
                             ?>
                         </p>
@@ -39,10 +39,10 @@
                     <label for="email"><i class=""></i></label>
                     <input type="email" name="email" placeholder="Email" class="form-control">
                 </div>
-                <?php if (isset($loginErrorEmail)) : ?>
+                <?php if (isset($errors['email'])) : ?>
                     <!--Errores email-->
-                    <p class="login-box-message">
-                        <?php echo $loginErrorEmail; ?>
+                    <p class="contact-box-message">
+                        <?php echo $errors['email']; ?>
                     </p>
                 <?php endif; ?>
             <?php } ?>
@@ -50,20 +50,20 @@
                 <label for="subject"><i class=""></i></label>
                 <input type="text" name="subject" id="subject" placeholder="Asunto" class="form-control"></input>
             </div>
-            <?php if (isset($loginErrorEmail)) : ?>
+            <?php if (isset($errors['subject'])) : ?>
                 <!--Errores asunto-->
-                <p class="login-box-message">
-                    <?php echo $loginErrorEmail; ?>
+                <p class="contact-box-message">
+                    <?php echo $errors['subject']; ?>
                 </p>
             <?php endif; ?>
             <div class="login-input contact-form-span">
                 <label for="message"><i class=""></i></label>
                 <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Comentarios..."></textarea>
             </div>
-            <?php if (isset($loginError)) : ?>
+            <?php if (isset($errors['message'])) : ?>
                 <!--Errores ambas pass-->
-                <p class="login-box-message register-input">
-                    <?php echo $loginError; ?>
+                <p class="contact-box-message register-input">
+                    <?php echo $errors['message']; ?>
                 </p>
             <?php endif; ?>
 

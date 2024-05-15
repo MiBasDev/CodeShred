@@ -148,7 +148,9 @@ header {
 }
 
 #button-my-account>i,
-.button-secondary>i {
+.button-secondary>i,
+#button-my-account>span,
+.button-secondary>span {
     color: var(--dark-letter-color);
 }
 

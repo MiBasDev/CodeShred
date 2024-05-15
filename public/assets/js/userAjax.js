@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#button-my-account-user-delete-popup').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var userId = this.getAttribute('data');
+            var userId = this.getAttribute('data-id');
 
             // Empezamos la petición
             fetch('/user-delete', {

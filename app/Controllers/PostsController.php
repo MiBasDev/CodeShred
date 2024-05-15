@@ -10,8 +10,9 @@ class PostsController extends \CodeShred\Core\BaseController {
      * Método que enseña la vista de un post con un id pasado como parámetro.
      * 
      * @param string $id Número identificativo del post a enseñar.
+     * @return void
      */
-    public function show(string $id) {
+    public function show(string $id): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de post
         $data['title'] = 'codeShred | Shred';
@@ -31,8 +32,10 @@ class PostsController extends \CodeShred\Core\BaseController {
 
     /**
      * Método que enseña la vista para añadir un post.
+     * 
+     * @return void
      */
-    public function showAdd() {
+    public function showAdd(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de añadir post
         $data['title'] = 'codeShred | Crear Shred';
@@ -47,8 +50,9 @@ class PostsController extends \CodeShred\Core\BaseController {
      * Método que enseña la vista para editar un post.
      * 
      * @param string $id Número identificativo del post a editar.
+     * @return void
      */
-    public function showEdit(string $id) {
+    public function showEdit(string $id): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de editar post
         $data['title'] = 'codeShred | Editar Shred';
@@ -88,8 +92,10 @@ class PostsController extends \CodeShred\Core\BaseController {
 
     /**
      * Método que enseña la vista de todos los posts.
+     * 
+     * @return void
      */
-    public function showAll() {
+    public function showAll(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de posts
         $data['title'] = 'codeShred | Shreds';
@@ -175,7 +181,7 @@ class PostsController extends \CodeShred\Core\BaseController {
      */
     public function processEdit(string $id): void {
         // Creamos el modelo
-        $model = new \CodeShred\Models\PostsModel;
+        $model = new \CodeShred\Models\PostsModel();
         // Declaramos el id de usuario del post
         $_POST['user_id'] = $_SESSION['user']['id_user'];
         // Si se edita el post
@@ -260,7 +266,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         }
 
         // Creamos un log de lo ocurrido
-        $logModel = new \CodeShred\Models\LogsModel;
+        $logModel = new \CodeShred\Models\LogsModel();
         $action = $isLiked ? 'unlike' : 'like';
         $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isLiked ? "quitado el like" : "dado like") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
 
@@ -297,7 +303,7 @@ class PostsController extends \CodeShred\Core\BaseController {
             $isDeleted = $model->deletePost($postId);
 
             // Creamos un log de lo ocurrido
-            $logModel = new \CodeShred\Models\LogsModel;
+            $logModel = new \CodeShred\Models\LogsModel();
             $action = $isDeleted ? 'deleted' : 'not deleted';
             $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
 

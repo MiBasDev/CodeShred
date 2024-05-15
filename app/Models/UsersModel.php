@@ -166,6 +166,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     function delete(int $id): bool {
         $stmt = $this->pdo->prepare('DELETE FROM users WHERE id_user = :id');
         $stmt->execute(['id' => $id]);
+        
         return ($stmt->rowCount() == 1);
     }
 
@@ -178,6 +179,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      */
     function updateUserDescription(int $idUser, string $description): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_description = :user_description WHERE id_user = :id_user');
+        
         return $stmt->execute(['user_description' => $description, 'id_user' => $idUser]);
     }
 
@@ -191,6 +193,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      */
     function updateUserUser(int $idUser, string $user): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user = :user WHERE id_user = :id_user');
+        
         return $stmt->execute(['user' => $user, 'id_user' => $idUser]);
     }
 
@@ -203,6 +206,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      */
     function updateUserEmail(int $idUser, string $email): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_email = :user_email WHERE id_user = :id_user');
+        
         return $stmt->execute(['user_email' => $email, 'id_user' => $idUser]);
     }
 

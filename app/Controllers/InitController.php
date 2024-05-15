@@ -19,7 +19,7 @@ class InitController extends \CodeShred\Core\BaseController {
         // Obtenemos los posts
         $model = new \CodeShred\Models\PostsModel();
         $data['posts'] = $model->getAllIndex();
-        
+
         // Enseñamos la vista del index
         $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'index.view.php', 'templates/footer.view.php'), $data);
     }
@@ -52,8 +52,77 @@ class InitController extends \CodeShred\Core\BaseController {
         $data['section'] = '/contacto';
         $data['css'] = 'contact';
 
-        // Enseñamos la vista de contacto
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
+        $errors = [];
+        if (!isset($_SESSION['user'])) {
+            // Input email
+            if (isset($_POST['email']) && !empty($_POST['email'])) {
+                if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                    $errors['email'] = 'El email es incorrecto';
+                }
+            } else {
+                $errors['email'] = 'Campo obligatorio';
+            }
+
+            // Input name
+            if (isset($_POST['name'])) {
+                if (!empty($_POST['name'])) {
+                    if (!preg_match('/^[a-zA-Z ]{2,20}$/', $_POST['name'])) {
+                        $errors['name'] = 'El nombre sólo permite letras y espacios. Longitud entre 2 y 20 caracteres';
+                    }
+                } else {
+                    $errors['name'] = 'Campo obligatorio';
+                }
+            }
+
+            // Input surname
+            if (isset($_POST['surname'])) {
+                if (!empty($_POST['surname'])) {
+                    if (!preg_match('/^[a-zA-Z ]{2,80}$/', $_POST['surname'])) {
+                        $errors['surname'] = 'Los apellidos sólo permiten letras y espacios. Longitud entre 2 y 80 caracteres';
+                    }
+                } else {
+                    $errors['surname'] = 'Campo obligatorio';
+                }
+            }
+        }
+
+        // Input subject
+        if (isset($_POST['subject']) && !empty($_POST['subject'])) {
+            if (!preg_match('/^[a-zA-Z0-9 ]{5,50}$/', $_POST['subject'])) {
+                $errors['subject'] = 'El asunto sólo permite letras, números y espacios. Longitud entre 5 y 50 caracteres';
+            }
+        } else {
+            $errors['subject'] = 'Campo obligatorio';
+        }
+
+        // Input message
+        if (isset($_POST['message']) && !empty($_POST['message'])) {
+            if (!preg_match('/^[a-zA-Z0-9 ]{5,255}$/', $_POST['message'])) {
+                $errors['message'] = 'El asunto sólo permite letras, números y espacios. Longitud entre 5 y 255 caracteres';
+            }
+        } else {
+            $errors['message'] = 'Campo obligatorio';
+        }
+
+        if (count($errors) == 0) {
+            if (isset($_SESSION['user'])) {
+                $_POST['email'] = $_SESSION['user']['user_email'];
+            }
+            // Obtenemos los posts
+            $model = new \CodeShred\Models\TicketsModel();
+            if ($model->createTicket($_POST)) {
+                // Enviamos al inicio
+                header('location: /');
+            } else {
+                $data['errors']['message'] = 'Error indeterminado al enviar el formulario.';
+                // Enseñamos la vista de contacto
+                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
+            }
+        } else {
+            $data['errors'] = $errors;
+            // Enseñamos la vista de contacto
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
+        }
     }
 
     /**

@@ -1,20 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Asincronismo para los botones de like
-    document.querySelectorAll('.post-like').forEach(function (button) {
+    // Asincronismo para los botones de marcar los tickets como resueltos
+    document.querySelectorAll('.ticket-resolve').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var postId = this.id.split('-')[2];
-            // Recogemos el total de lieks del post
-            var totalLikes = document.getElementById('post-total-likes-' + postId);
+            var ticketId = this.id.split('-')[1];
 
             // Empezamos la petición
-            fetch('/post-like', {
+            fetch('/ticket-resolve', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    postId: postId,
+                    ticketId: ticketId
                 }),
             })
                     .then(function (response) {
@@ -26,24 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(function (data) {
                         // Procesamos la respuesta en el front
                         if (data.success) {
-                            if (data.action === 'like') {
-                                button.querySelector('span').classList.remove('far');
-                                button.querySelector('span').classList.add('fa');
-                                button.querySelector('span').classList.add('post-liked');
-                                if (totalLikes) {
-                                    var currentLikes = parseInt(totalLikes.innerHTML);
-                                    var newLikes = currentLikes + 1;
-                                    totalLikes.innerHTML = newLikes;
-                                }
-                            } else {
-                                button.querySelector('span').classList.remove('fa');
-                                button.querySelector('span').classList.add('far');
-                                button.querySelector('span').classList.remove('post-liked');
-                                if (totalLikes) {
-                                    var currentLikes = parseInt(totalLikes.innerHTML);
-                                    var newLikes = currentLikes - 1;
-                                    totalLikes.innerHTML = newLikes;
-                                }
+                            if (data.action === 'resolved') {
+                                button.classList.remove('button-secondary');
+                                button.classList.add('button-success');
+                                button.querySelector('span').classList.remove('fa-cog');
+                                button.querySelector('span').classList.add('fa-check');
+                                button.title = 'Ticket resuelto';
                             }
                         }
                     })
@@ -53,20 +39,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Asincronismo para el botón de borrar post de mi cuenta
-    document.querySelectorAll('#button-my-account-post-delete-popup').forEach(function (button) {
+    // Asincronismo para los botones de borrado de tickets
+    document.querySelectorAll('#popup-button-ticket-delete').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var postId = this.getAttribute('data-id');
+            var ticketId = this.getAttribute('data-id');
 
             // Empezamos la petición
-            fetch('/post-delete', {
+            fetch('/ticket-delete', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    postId: postId,
+                    ticketId: ticketId
                 }),
             })
                     .then(function (response) {
@@ -80,19 +66,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (data.success) {
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
-                                var trElement = document.getElementById('my-account-table-post-' + postId);
+                                var ticket = document.getElementById('tickets-card-' + ticketId);
                                 // Lo quitamos de la tabla con una animación
-                                if (trElement) {
-                                    trElement.style.opacity = 0;
+                                if (ticket) {
+                                    ticket.style.opacity = 0;
                                     setTimeout(function () {
-                                        trElement.remove();
+                                        ticket.remove();
                                     }, 1000);
                                 }
                             }
-
                         }
                         // Pase lo que pase, cerramos el popup
-                        var popup = document.getElementById('popup-delete');
+                        var popup = document.getElementById('popup-delete-ticket');
                         popup.style.display = 'none';
                     })
                     .catch(function (error) {
@@ -101,3 +86,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Función para abrir el popup de borrado de tickets
+function openDeletePopup(id) {
+    // Obtenemos el popup y lo ponemos a flex
+    var popup = document.getElementById('popup-delete-ticket');
+    var buttonDelete = document.getElementById('popup-button-ticket-delete');
+
+    buttonDelete.setAttribute('data-id', id);
+
+    popup.style.display = 'flex';
+}
+
+// Función para cerrar el popup de borrado de tickets
+function closeDeletePopup() {
+    // Obtenemos el popup y lo ponemos a none
+    var popup = document.getElementById('popup-delete-ticket');
+    popup.style.display = 'none';
+}

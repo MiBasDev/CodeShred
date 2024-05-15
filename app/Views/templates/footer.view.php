@@ -34,5 +34,8 @@
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="assets/js/textareaCode.js"></script>
 <?php } ?>
+<?php if (isset($section) && $section == '/tickets') : ?>
+    <script src="assets/js/ticketAjax.js"></script>
+<?php endif; ?>
 </body>
 </html>

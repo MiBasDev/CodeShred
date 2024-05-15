@@ -473,6 +473,7 @@ class UsersController extends \CodeShred\Core\BaseController {
 
     /**
      * Método que elimina un usuario del sistema de manera asíncrona.
+     * 
      * @return void
      */
     public function tableUserDeleteProcess(): void {

@@ -1,0 +1,61 @@
+.tickets-page-container {
+    width: 100%;
+    max-width: var(--max-main-container-width);
+    gap: 50px;
+}
+
+.tickets-container {
+    gap: 50px;
+}
+
+.ticket-subject-container {
+    justify-content: space-between;
+}
+
+.tickets-card {
+    background-color: var(--static-elements-secondary-bg-color);
+    padding: 40px;
+    border-radius: 5px;
+    gap: 10px;
+    position: relative;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.ticket-email {
+    text-align: end;
+    font-size: smaller;
+}
+
+.ticket-subject {
+    gap: 10px;
+    position: absolute;
+    top: -15px;
+    left: 20px;
+}
+
+.ticket-buttons {
+    gap: 10px;
+    position: absolute;
+    top: -20px;
+    right: 20px;
+}
+
+.ticket-email {
+    gap: 10px;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
+.ticket-icon {
+    font-size: 25px;
+}
+
+.ticket-resolve span {
+    color: var(--dark-letter-color);
+}
+
+.button-ticket-delete {
+    font-size: 15px;
+}

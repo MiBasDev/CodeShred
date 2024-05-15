@@ -54,6 +54,12 @@
     justify-content: space-between;
 }
 
+.contact-box-message {
+    font-size: smaller;
+    color: red;
+    padding-bottom: 5px;
+}
+
 @media (max-width: 600px) {
     .contact-cont {
         padding: 30px;

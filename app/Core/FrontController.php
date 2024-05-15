@@ -172,6 +172,13 @@ class FrontController {
                     }
                     , 'post');
 
+            Route::add('/tickets',
+                    function () {
+                        $controller = new \CodeShred\Controllers\TicketsController();
+                        $controller->showTickets();
+                    }
+                    , 'get');
+
             // Rutas de AJAX
             Route::add('/update-description',
                     function () {
@@ -212,6 +219,20 @@ class FrontController {
                     function () {
                         $controller = new \CodeShred\Controllers\UsersController();
                         $controller->updateUserData();
+                    }
+                    , 'post');
+
+            Route::add('/ticket-delete',
+                    function () {
+                        $controller = new \CodeShred\Controllers\TicketsController();
+                        $controller->deleteTicket();
+                    }
+                    , 'post');
+
+            Route::add('/ticket-resolve',
+                    function () {
+                        $controller = new \CodeShred\Controllers\TicketsController();
+                        $controller->resolveTicket();
                     }
                     , 'post');
 

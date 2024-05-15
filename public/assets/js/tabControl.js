@@ -24,7 +24,7 @@ function openDeletePopup(id) {
     var buttonDelete = document.getElementById('button-my-account-post-delete-popup');
 
     popup.style.display = 'flex';
-    buttonDelete.setAttribute('data', id);
+    buttonDelete.setAttribute('data-id', id);
 }
 
 // Función que oculta el popup de borrado de posts
@@ -55,7 +55,7 @@ function openDeleteUserPopup(id, name) {
     var title = document.getElementById('popup-delete-user-title');
 
     popup.style.display = 'flex';
-    buttonDelete.setAttribute('data', id);
+    buttonDelete.setAttribute('data-id', id);
     title.innerHTML = '¿Seguro que quieres borrar al usuario "' + name + '"?';
 }
 

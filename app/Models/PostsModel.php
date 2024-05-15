@@ -218,6 +218,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         $stmtTags->execute(['tags_html' => $tagHtml, 'tags_css' => $tagCss, 'tags_js' => $tagJs, 'tags_post_id' => $idPost]);
 
         $this->pdo->commit();
+        
         return true;
     }
 
@@ -229,6 +230,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      */
     function deletePost(int $id_post): bool {
         $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id_post = :id_post');
+        
         return $stmt->execute(['id_post' => $id_post]);
     }
 }

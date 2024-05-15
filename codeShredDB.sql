@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 15, 2024 at 01:02 AM
+-- Generation Time: May 16, 2024 at 01:12 AM
 -- Server version: 10.6.7-MariaDB-2ubuntu1.1
 -- PHP Version: 8.1.9
 
@@ -47,7 +47,8 @@ INSERT INTO `follows` (`user_id`, `user_id_following`, `id_follow`) VALUES
 (5, 49, 113),
 (5, 50, 114),
 (5, 8, 115),
-(44, 50, 119);
+(44, 50, 119),
+(51, 8, 133);
 
 -- --------------------------------------------------------
 
@@ -684,7 +685,55 @@ INSERT INTO `logs` (`id_log`, `action`, `detail`, `date`, `user_id`) VALUES
 (676, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 66.', '2024-05-14 21:27:54', 5),
 (677, 'like', 'El usuario Miguel ha dado like al post con ID 66.', '2024-05-14 21:27:57', 5),
 (678, 'unlike', 'El usuario Miguel ha quitado el like al post con ID 66.', '2024-05-14 21:27:58', 5),
-(679, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-05-14 22:12:20', 5);
+(679, 'login', 'El usuario \'Miguel\' accede al sistema.', '2024-05-14 22:12:20', 5),
+(680, 'login', 'El usuario \'Admin\' accede al sistema.', '2024-05-15 19:42:37', 6),
+(681, 'login', 'El usuario \'Admin\' accede al sistema.', '2024-05-15 20:10:25', 6),
+(682, 'deleted', 'El usuario Admin ha borrado al post con ID 0.', '2024-05-15 21:49:44', 6),
+(683, 'not deleted', 'El usuario Admin ha intentado borrar al ususario con ID 0.', '2024-05-15 22:09:53', 6),
+(684, 'not deleted', 'El usuario Admin ha intentado borrar al ususario con ID 0.', '2024-05-15 22:20:45', 6),
+(685, 'not deleted', 'El usuario Admin ha intentado borrar al ususario con ID 0.', '2024-05-15 22:22:02', 6),
+(686, 'deleted', 'El usuario Admin ha borrado al ticket con ID .', '2024-05-15 22:24:03', 6),
+(687, 'deleted', 'El usuario Admin ha borrado al ticket con ID .', '2024-05-15 22:28:32', 6),
+(688, 'deleted', 'El usuario Admin ha borrado al ticket con ID .', '2024-05-15 22:30:34', 6),
+(689, 'deleted', 'El usuario Admin ha borrado al ticket con ID .', '2024-05-15 22:32:09', 6),
+(690, 'deleted', 'El usuario Admin ha borrado al ticket con ID 5.', '2024-05-15 22:36:19', 6),
+(691, 'deleted', 'El usuario Admin ha borrado al ticket con ID 6.', '2024-05-15 22:36:52', 6),
+(692, 'deleted', 'El usuario Admin ha borrado al ticket con ID 7.', '2024-05-15 22:37:44', 6),
+(693, 'resolved', 'El usuario Admin ha marcado como resuelto al ticket con ID 8.', '2024-05-15 22:44:43', 6),
+(694, 'resolved', 'El usuario Admin ha marcado como resuelto al ticket con ID 8.', '2024-05-15 22:44:45', 6),
+(695, 'resolved', 'El usuario Admin ha marcado como resuelto al ticket con ID 9.', '2024-05-15 22:46:19', 6),
+(696, 'deleted', 'El usuario Admin ha borrado al ticket con ID 8.', '2024-05-15 22:47:08', 6),
+(697, 'deleted', 'El usuario Admin ha borrado al ticket con ID 9.', '2024-05-15 22:47:10', 6),
+(698, 'resolved', 'El usuario Admin ha marcado como resuelto al ticket con ID 10.', '2024-05-15 22:47:36', 6),
+(699, 'deleted', 'El usuario Admin ha borrado al ticket con ID 10.', '2024-05-15 22:48:17', 6),
+(700, 'resolved', 'El usuario Admin ha marcado como resuelto al ticket con ID 11.', '2024-05-15 22:48:20', 6),
+(701, 'registro', 'El usuario qewqweqweqwe se ha registrado en el sistema.', '2024-05-15 22:54:44', 51),
+(702, 'follow', 'El usuario qewqweqweqwe ha seguido a .', '2024-05-15 22:54:51', 51),
+(703, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a .', '2024-05-15 22:54:51', 51),
+(704, 'insert', 'Nuevo post de qewqweqweqwe añadido: eqweqe', '2024-05-15 22:55:00', 51),
+(705, 'deleted', 'El usuario qewqweqweqwe ha borrado al post con ID 86.', '2024-05-15 22:59:11', 51),
+(706, 'insert', 'Nuevo post de qewqweqweqwe añadido: qeq', '2024-05-15 22:59:22', 51),
+(707, 'deleted', 'El usuario qewqweqweqwe ha borrado al post con ID 87.', '2024-05-15 22:59:25', 51),
+(708, 'insert', 'Nuevo post de qewqweqweqwe añadido: qweqe', '2024-05-15 22:59:50', 51),
+(709, 'deleted', 'El usuario qewqweqweqwe ha borrado al post con ID 88.', '2024-05-15 22:59:54', 51),
+(710, 'follow', 'El usuario qewqweqweqwe ha seguido a .', '2024-05-15 23:00:07', 51),
+(711, 'like', 'El usuario qewqweqweqwe ha dado like al post con ID 85.', '2024-05-15 23:00:10', 51),
+(712, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a Gala.', '2024-05-15 23:00:14', 51),
+(713, 'follow', 'El usuario qewqweqweqwe ha seguido a Gala.', '2024-05-15 23:00:15', 51),
+(714, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a Gala.', '2024-05-15 23:00:16', 51),
+(715, 'follow', 'El usuario qewqweqweqwe ha seguido a Gala.', '2024-05-15 23:00:19', 51),
+(716, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a Gala.', '2024-05-15 23:00:25', 51),
+(717, 'unlike', 'El usuario qewqweqweqwe ha quitado el like al post con ID 85.', '2024-05-15 23:00:29', 51),
+(718, 'follow', 'El usuario qewqweqweqwe ha seguido a .', '2024-05-15 23:02:23', 51),
+(719, 'like', 'El usuario qewqweqweqwe ha dado like al post con ID 85.', '2024-05-15 23:02:25', 51),
+(720, 'unlike', 'El usuario qewqweqweqwe ha quitado el like al post con ID 85.', '2024-05-15 23:02:27', 51),
+(721, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a Gala.', '2024-05-15 23:02:29', 51),
+(722, 'follow', 'El usuario qewqweqweqwe ha seguido a .', '2024-05-15 23:03:40', 51),
+(723, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a Gala.', '2024-05-15 23:03:45', 51),
+(724, 'follow', 'El usuario qewqweqweqwe ha seguido a Gala.', '2024-05-15 23:03:46', 51),
+(725, 'unfollow', 'El usuario qewqweqweqwe ha dejado de seguir a Gala.', '2024-05-15 23:03:50', 51),
+(726, 'follow', 'El usuario qewqweqweqwe ha seguido a Gala.', '2024-05-15 23:03:52', 51),
+(727, 'login', 'El usuario \'Admin\' accede al sistema.', '2024-05-15 23:06:08', 6);
 
 -- --------------------------------------------------------
 
@@ -793,12 +842,13 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `user`, `user_pass`, `user_name`, `user_surname`, `user_email`, `user_rol`, `user_last_login`, `user_description`) VALUES
 (5, 'Miguel', '$2y$10$ytd.B210fUaoaoAxSM1gcuOBuQwI6M3irzZ9SrxpZMVG1NOmp8uF6', 'Miguel', 'Bastos', 'miguelbastosgandara11@gmail.com', 3, '2024-05-14 22:12:20', 'Soy estudiante de DAW y espero que me aprueben :)'),
-(6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 1, '2024-05-13 21:52:03', NULL),
+(6, 'Admin', '$2y$10$9QYWYUb.3c.eK.yfVd5Fo.jigfWs4XpCwDRJOp4sAOAjm/aubQZny', 'admin', 'admin', 'miguelbastosgandara11+admin@gmail.com', 1, '2024-05-15 23:06:08', NULL),
 (8, 'Gala', '$2y$10$BWgU1V4CUqKfwSqn.eloDe.Oea1RvJPyda4ZzKNUOVintMmnLgxia', 'Gala', 'Perez', 'galacid00@gmail.com', 3, '2024-05-05 20:46:13', NULL),
 (43, 'Jorge', '$2y$10$OmkW8UWPaK/B84FPV81Z.u8MOZcyn68zZs0aQcMqm85iyQFwKd6iy', 'Jorge', 'Pin Gil', 'jpingil@gmail.com', 3, '2024-05-07 20:40:04', NULL),
 (44, 'Mod', '$2y$10$P1K7iB4NWUc64cnXhZ5zyeqL4dtKVqxvDVUSSgl/VgiW5/M7FSxUu', 'Mod', 'Mod', 'mod@codeshred.com', 2, '2024-05-14 17:59:52', ''),
 (49, 'aalema', '$2y$10$O62OjHGzRryqif4z0C/4SugQeQZr41EhRWSGtHx9IgXL4ueiQyMuu', 'Antonio', 'De Andres Lema', 'aalema@edu.xunta.gal', 3, '2024-05-12 10:20:49', NULL),
-(50, 'rgcenteno', '$2y$10$7PpX1xcyor8e9hNxr8/pI.qRVueG71kyL6HByRcs91TL2drN4b1uK', 'Rafael', 'Gonzalez Centeno', 'rgcenteno@edu.xunta.gal', 3, '2024-05-12 10:21:36', NULL);
+(50, 'rgcenteno', '$2y$10$7PpX1xcyor8e9hNxr8/pI.qRVueG71kyL6HByRcs91TL2drN4b1uK', 'Rafael', 'Gonzalez Centeno', 'rgcenteno@edu.xunta.gal', 3, '2024-05-12 10:21:36', NULL),
+(51, 'qewqweqweqwe', '$2y$10$iLboFFYo4aOsymr0aNVFhuuXbqtgYlDPgXACtOMYF5fUv1MPTeEqS', 'qweqweqw', 'eqeqwewq', 'eqweq@gmail.com', 3, '2024-05-15 22:54:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -836,7 +886,7 @@ INSERT INTO `views` (`view_post_id`, `id_view`, `view_count`) VALUES
 (82, 29, 0),
 (83, 30, 0),
 (84, 31, 0),
-(85, 32, 0);
+(85, 32, 1);
 
 --
 -- Indexes for dumped tables
@@ -900,43 +950,43 @@ ALTER TABLE `views`
 -- AUTO_INCREMENT for table `follows`
 --
 ALTER TABLE `follows`
-  MODIFY `id_follow` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id_follow` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=680;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=728;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id_tags` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_tags` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `views`
 --
 ALTER TABLE `views`
-  MODIFY `id_view` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_view` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables

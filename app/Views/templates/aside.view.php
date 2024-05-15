@@ -59,6 +59,18 @@
                         </li>
                     <?php } ?>
                 <?php endif; ?>
+                <?php if (isset($_SESSION['user'])) : ?>
+                    <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::ADMIN) { ?>
+                        <li class="nav-item" title="Tickets">
+                            <a href="/tickets" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/tickets' ? 'active' : ''; ?>">
+                                <i class="fas fa-cogs"></i>
+                                <p>
+                                    Admin | Tickets
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                <?php endif; ?>
             </ul>
         </nav>
     </div>
