@@ -15,8 +15,13 @@ function openTabOption(evt, sectionName) {
     document.getElementById(sectionName).style.display = "block";
     evt.currentTarget.className += " active";
 }
-// Abrimos un tab siempre por defecto
-document.getElementById("defaultOpen").click();
+// Obtenemos el botón de abrir por defecto
+const defaultButton = document.getElementById("defaultOpen");
+
+// Verificamos si el botón existe
+if (defaultButton) {
+    defaultButton.click();
+}
 
 // Función que enseña un popup para el borrado de posts
 function openDeletePopup(id) {
@@ -62,6 +67,24 @@ function openDeleteUserPopup(id, name) {
 // Función que oculta el popup de borrado de un ususario por un ADMIN
 function closeDeleteUserPopup() {
     var popup = document.getElementById('popup-delete-user');
+
+    popup.style.display = 'none';
+}
+
+// Función que enseña un popup para el borrado de la cuenta de un usuario por un ADMIN
+function openUpdateUserPopup(id, name) {
+    var popup = document.getElementById('popup-update-user');
+    var buttonUpdate = document.getElementById('button-admin-user-update-popup');
+    var title = document.getElementById('popup-admin-user-update-title');
+
+    popup.style.display = 'flex';
+    buttonUpdate.setAttribute('data-id', id);
+    title.innerHTML = 'Datos de "' + name + '"';
+}
+
+// Función que oculta el popup de borrado de un ususario por un ADMIN
+function closeUpdateUserPopup() {
+    var popup = document.getElementById('popup-update-user');
 
     popup.style.display = 'none';
 }

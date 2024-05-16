@@ -10,8 +10,8 @@
             </div>
         <?php } else { ?>
             <div class="cs-fl hamburger-menu-buttons">
-                <a href="/mi-cuenta" class="button-secondary" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></a> 
-                <a href="/logout" class="logout button-primary"><i class="fas fa-sign-out-alt"></i></a>
+                <a href="/mi-cuenta" class="button-secondary" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i><span class="hidden-element">Mi cuenta</span></a> 
+                <a href="/logout" class="logout button-primary"><i class="fas fa-sign-out-alt"></i><span class="hidden-element">Logout</span></a>
             </div>
         <?php } ?>
         <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></span></a>
@@ -58,17 +58,35 @@
                             </a>
                         </li>
                     <?php } ?>
-                <?php endif; ?>
-                <?php if (isset($_SESSION['user'])) : ?>
-                    <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::ADMIN) { ?>
-                        <li class="nav-item" title="Tickets">
-                            <a href="/tickets" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/tickets' ? 'active' : ''; ?>">
-                                <i class="fas fa-cogs"></i>
+                <?php endif; ?><?php if (isset($_SESSION['user'])) : ?>
+                    <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::USER) { ?>
+                        <hr class="aside-separator"/>
+                        <li class="nav-item" title="Admin | Shreds">
+                            <a href="/admin/posts" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/admin/posts' ? 'active' : ''; ?>">
+                                <i class="far fa-folder-open"></i>
                                 <p>
-                                    Admin | Tickets
+                                    Admin | Shreds
                                 </p>
                             </a>
                         </li>
+                        <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::ADMIN) { ?>
+                            <li class="nav-item" title="Admin | Users">
+                                <a href="/admin/users" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/admin/users' ? 'active' : ''; ?>">
+                                    <i class="fas fa-users-cog"></i>
+                                    <p>
+                                        Admin | Users
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" title="Tickets">
+                                <a href="/tickets" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/tickets' ? 'active' : ''; ?>">
+                                    <i class="far fa-clipboard"></i>
+                                    <p>
+                                        Admin | Tickets
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
                     <?php } ?>
                 <?php endif; ?>
             </ul>
@@ -78,5 +96,4 @@
         <i class="fas fa-angle-left"></i>
         <i class="fas fa-angle-right"></i>
     </div>
-
 </aside>

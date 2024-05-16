@@ -8,14 +8,14 @@
         <a href="/contacto" class="<?php echo $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
     </div>
     <div class="cs-fl">
-        <a href="#">
-            <i class="fab fa-instagram"></i>
+        <a href="https://twitter.com/codeShred">
+            <i class="fab fa-instagram"></i><span class="hidden-element">Instagram</span>
         </a>
-        <a href="#">
-            <i class="fab fa-github"></i>
+        <a href="https://github.com/MiBasDev/codeShred">
+            <i class="fab fa-github"></i><span class="hidden-element">GitHub</span>
         </a>
-        <a href="#">
-            <i class="fab fa-twitter"></i>
+        <a href="https://www.instagram.com/codeShred">
+            <i class="fab fa-twitter"></i><span class="hidden-element">Twitter</span>
         </a>
     </div>
 </footer>
@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js"></script>
     <script src="assets/js/postControl.js"></script>
 <?php endif; ?>
-<?php if (isset($section) && $section == '/mi-cuenta') : ?>
+<?php if (isset($section) && $section == '/mi-cuenta' || $section == '/admin/users' || $section == '/admin/posts') : ?>
     <script src="assets/js/tabControl.js"></script>
 <?php endif; ?>
 <script src="assets/js/userAjax.js"></script>

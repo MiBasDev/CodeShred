@@ -34,6 +34,7 @@ function captureScreenshot() {
         // Creamos un elemento img y establecemos su src con la URL de datos
         const img = document.createElement('img');
         img.src = imageDataUrl;
+        img.alt = 'Preview Shred';
         img.style.width = '100%';
         img.style.aspectRatio = '16/9';
 
@@ -49,7 +50,7 @@ function openPopup() {
     var popup = document.getElementById('popup');
     popup.style.display = 'flex';
 
-    if(postTitle !== undefined) {
+    if (postTitle !== undefined) {
         postTitle = postTitle.value;
     } else {
         postTitle = postTitleTwo.value;

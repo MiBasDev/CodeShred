@@ -299,6 +299,11 @@ aside.folded-aside .nav-link p {
     opacity: 0;
 }
 
+.aside-separator {
+    margin: 20px 0px;
+    border: 1px solid var(--static-elements-bg-color);
+}
+
 /* Main */
 main {
     margin-left: var(--aside-width);
@@ -533,15 +538,15 @@ footer a.active {
     border-radius: 5px;
 }
 
-.close-popup {
+.close-popup span {
     color: #aaa;
     font-size: 28px;
     font-weight: bold;
     align-self: baseline;
 }
 
-.close-popup:hover,
-.close-popup:focus {
+.close-popup:hover span,
+.close-popup:focus span {
     color: #930000;
     text-decoration: none;
     cursor: pointer;
@@ -560,7 +565,7 @@ footer a.active {
     padding: 10px 15px;
     background: none;
     border: none;
-    border-bottom: 1px solid #b2b2b2;
+    border-bottom: 1px solid var(--static-elements-bg-color);
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -601,6 +606,11 @@ footer a.active {
 
 .screen-buttons {
     display: block;
+}
+
+.hidden-element {
+    position: absolute;
+    left: -99999px;
 }
 
 @media (max-width: 1300px) {

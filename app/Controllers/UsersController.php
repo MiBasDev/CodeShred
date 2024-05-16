@@ -310,6 +310,31 @@ class UsersController extends \CodeShred\Core\BaseController {
     }
 
     /**
+     * Método que enseña la view de admin de usuarios.
+     * 
+     * @return void 
+     */
+    public function adminUsers(): void {
+        // Comprobamos que el rol del usuario de la sesión no sea USER
+        if ($_SESSION['user']['user_rol'] != UsersController::USER) {
+            $data = [];
+            // Declaramos los datos necesarios de la vista de usuarios
+            $data['title'] = 'codeShred - Admin | Usuarios';
+            $data['section'] = '/admin/users';
+            $data['css'] = 'account';
+
+            // Obtenemos todos los usuarios del sistema
+            $model = new \CodeShred\Models\UsersModel();
+            $data['usersData'] = $model->getAllAdmin();
+            // Enseñamos la vista de usuarios con los datos obtenidos
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'admin/users.view.php', 'templates/footer.view.php'), $data);
+        } else { // Si es USER
+            // Enviamos al inicio
+            header('location: /');
+        }
+    }
+
+    /**
      * Método que valida los inputs de un formulario, devolviendo los errores, si 
      * los hay, de los mismos.
      * 

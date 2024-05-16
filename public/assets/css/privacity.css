@@ -1,0 +1,12 @@
+.main-content {
+    gap: 20px;
+}
+
+.main-content > div {
+    gap: 10px;
+}
+
+main ul {
+    padding-left: 20px;
+    list-style-type: square;
+}

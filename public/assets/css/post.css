@@ -95,6 +95,10 @@
     font-family: 'JetBrains Mono', monospace;
 }
 
+.CodeMirror-linenumber {
+    color: var(--light-letter-color) !important;
+}
+
 .post-code-copy {
     position: absolute;
     right: 0;

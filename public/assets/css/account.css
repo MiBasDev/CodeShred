@@ -58,11 +58,11 @@
 }
 
 .tab.admin {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .tab.mod {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .tab button {
@@ -92,10 +92,27 @@
     border-top: none;
     background-color: var(--static-elements-secondary-bg-color);
     border-radius: 0 0 5px 5px;
+    animation: fadeEffect 0.6s;
 }
 
-.tabcontent {
-    animation: fadeEffect 0.6s;
+.tabcontent.admin {
+    display: block;
+    width: 100%;
+}
+
+.admin-users-content,
+.admin-posts-content {
+    width: 100%;
+    max-width: var(--max-main-container-width);
+}
+
+.admin-users-content > h1,
+.admin-posts-content > h1 {
+    width: fit-content;
+    padding: 20px 40px;
+    border-radius: 5px 5px 0 0;
+    background-color: var(--static-elements-secondary-bg-color);
+    color: var(--light-letter-color);
 }
 
 .pagination-buttons {
@@ -181,6 +198,14 @@
 
 #user-description {
     resize: none;
+    border: 2px solid var(--static-elements-secondary-bg-color);
+}
+
+#user-description:hover,
+#user-description:focus-visible {
+    outline-offset: unset;
+    outline: none;
+    background-color: #2b253040;
 }
 
 .button-my-account-post-delete span {
@@ -241,6 +266,23 @@
 
     .my-account-container {
         height: unset;
+    }
+
+    #todos-los-usuarios thead tr td:nth-child(2),
+    #todos-los-usuarios tbody tr td:nth-child(2) {
+        display: none;
+    }
+
+    .tabcontent.admin thead tr td:nth-child(2),
+    .tabcontent.admin tbody tr td:nth-child(2) {
+        display: none;
+    }
+
+    .admin-users-content > h1,
+    .admin-posts-content > h1 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }
 

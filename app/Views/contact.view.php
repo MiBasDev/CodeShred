@@ -6,12 +6,12 @@
             <?php if (!isset($_SESSION['user'])) { ?>
                 <div class="cs-fl contact-form-span space">
                     <div class="login-input">
-                        <label for="name"><i class=""></i></label>
+                        <label for="name"><span class="hidden-element">Nombre</span></label>
                         <input type="text" name="name" placeholder="Nombre" class="form-control">
                     </div>
 
                     <div class="login-input">
-                        <label for="surname"><i class=""></i></label>
+                        <label for="surname"><span class="hidden-element">Apellidos</span></label>
                         <input type="text" name="surname" placeholder="Apellidos" class="form-control">
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     </div>
                 <?php endif; ?>
                 <div class="login-input contact-form-span">
-                    <label for="email"><i class=""></i></label>
+                    <label for="email"><span class="hidden-element">Email</span></label>
                     <input type="email" name="email" placeholder="Email" class="form-control">
                 </div>
                 <?php if (isset($errors['email'])) : ?>
@@ -47,7 +47,7 @@
                 <?php endif; ?>
             <?php } ?>
             <div class="login-input contact-form-span">
-                <label for="subject"><i class=""></i></label>
+                <label for="subject"><span class="hidden-element">Asunto</span></label>
                 <input type="text" name="subject" id="subject" placeholder="Asunto" class="form-control"></input>
             </div>
             <?php if (isset($errors['subject'])) : ?>
@@ -57,7 +57,7 @@
                 </p>
             <?php endif; ?>
             <div class="login-input contact-form-span">
-                <label for="message"><i class=""></i></label>
+                <label for="message"><span class="hidden-element">Mensaje</span></label>
                 <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Comentarios..."></textarea>
             </div>
             <?php if (isset($errors['message'])) : ?>

@@ -1,14 +1,16 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl cs-fl-align-c post-action-buttons">
+        <h1 class="hidden-element">Post</h1>
         <div class="cs-fl cs-fl-align-c">
             <?php if (isset($section) && strpos($section, '/post') === 0 && $section !== '/posts') { ?>
+                <label for="post-title-two" class="hidden-element">Usuario</label>
                 <input type="text" name="title" id="post-title-two" class="form-control" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
             <?php } ?>
         </div>
         <div class="cs-fl cs-fl-align-c">
             <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
-                <button class="button-warning" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
+                <button class="button-warning" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i><span class="hidden-element">Borrar Shred</span></button>
             <?php } ?>
             <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
                 <button class="button-primary" onclick="saveAndOpenPopup()">Guardar</button>
@@ -28,7 +30,7 @@
             </label>
             <textarea name="html-code" id="html-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->html) ? $post_code->html : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
-                <button id="copy-html-button" class="post-code-copy" title="Copiar código HTML"><span class="fas fa-copy"></span></button>
+                <button id="copy-html-button" class="post-code-copy" title="Copiar código HTML"><span class="fas fa-copy"></span><span class="hidden-element">Copiar código HTML</span></button>
             <?php } ?>
         </div>
         <div class="code-background">
@@ -38,7 +40,7 @@
             </label>
             <textarea name="css-code" id="css-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->css) ? $post_code->css : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
-                <button id="copy-css-button" class="post-code-copy" title="Copiar código CSS"><span class="fas fa-copy"></span></button>
+                <button id="copy-css-button" class="post-code-copy" title="Copiar código CSS"><span class="fas fa-copy"></span><span class="hidden-element">Copiar código CSS</span></button>
             <?php } ?>
         </div>
         <div class="code-background">
@@ -48,7 +50,7 @@
             </label>
             <textarea name="js-code" id="js-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->js) ? $post_code->js : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
-                <button id="copy-js-button" class="post-code-copy" title="Copiar código JS"><span class="fas fa-copy"></span></button>
+                <button id="copy-js-button" class="post-code-copy" title="Copiar código JS"><span class="fas fa-copy"></span><span class="hidden-element">Copiar código JS</span></button>
             <?php } ?>
         </div>
     </div>
@@ -60,7 +62,7 @@
         <div class="popup-content cs-fl-col">
             <div class="popup-title cs-fl">
                 <h2>¿Quieres guardar este Shred?</h2>
-                <span class="close-popup" onclick="closePopup()">&times;</span>
+                <span class="close-popup" onclick="closePopup()"><span class="fas fa-times"></span><span class="hidden-element">Cerrar popup</span></span>
             </div>
             <form action="<?php echo isset($section) && $section == '/post/add' ? '/post/add' : '/post/edit/' . $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col ">
                 <div id="popup-image-container" style="width: 100%; height: 100%"></div>

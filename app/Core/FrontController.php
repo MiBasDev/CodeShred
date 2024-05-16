@@ -172,12 +172,29 @@ class FrontController {
                     }
                     , 'post');
 
-            Route::add('/tickets',
-                    function () {
-                        $controller = new \CodeShred\Controllers\TicketsController();
-                        $controller->showTickets();
-                    }
-                    , 'get');
+            if ($_SESSION['user']['user_rol'] != \CodeShred\Controllers\UsersController::USER) {
+                Route::add('/admin/posts',
+                        function () {
+                            $controller = new \CodeShred\Controllers\PostsController();
+                            $controller->adminPosts();
+                        }
+                        , 'get');
+                if ($_SESSION['user']['user_rol'] == \CodeShred\Controllers\UsersController::ADMIN) {
+                    Route::add('/admin/users',
+                            function () {
+                                $controller = new \CodeShred\Controllers\UsersController();
+                                $controller->adminUsers();
+                            }
+                            , 'get');
+
+                    Route::add('/tickets',
+                            function () {
+                                $controller = new \CodeShred\Controllers\TicketsController();
+                                $controller->showTickets();
+                            }
+                            , 'get');
+                }
+            }
 
             // Rutas de AJAX
             Route::add('/update-description',

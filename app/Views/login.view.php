@@ -7,12 +7,12 @@
         <form action="/login" method="post" class="login-form cs-fl-col cs-fl-just-c">
             <!--User-->
             <div class="login-input cs-fl">
-                <label for="login-user" class="cs-fl"><span class="fas fa-user"></span></label>
+                <label for="login-user" class="cs-fl"><span class="fas fa-user"></span><span class="hidden-element">Usuario</span></label>
                 <input type="text" name="user" id="login-user" class="form-control" placeholder="Usuario" value="<?php echo isset($user) ? $user : ''; ?>">
             </div>
             <!--Pass-->
             <div class="login-input cs-fl">
-                <label for="login-pass" class="cs-fl"><span class="fas fa-lock"></span></label>
+                <label for="login-pass" class="cs-fl"><span class="fas fa-lock"></span><span class="hidden-element">Contraseña</span></label>
                 <input type="password" name="pass" id="login-pass" class="form-control" placeholder="Contraseña">
             </div>
             <?php if (isset($loginError)) : ?>
@@ -26,5 +26,3 @@
             </div>
         </form>
     </div>
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>

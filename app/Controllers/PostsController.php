@@ -237,6 +237,31 @@ class PostsController extends \CodeShred\Core\BaseController {
     }
 
     /**
+     * Método que enseña la view de admin de usuarios.
+     * 
+     * @return void 
+     */
+    public function adminPosts(): void {
+        // Comprobamos que el rol del usuario de la sesión no sea USER
+        if ($_SESSION['user']['user_rol'] != UsersController::USER) {
+            $data = [];
+            // Declaramos los datos necesarios de la vista de usuarios
+            $data['title'] = 'codeShred - Admin | Shreds';
+            $data['section'] = '/admin/posts';
+            $data['css'] = 'account';
+
+            // Obtenemos todos los posts del sistema
+            $model = new \CodeShred\Models\PostsModel();
+            $data['usersPosts'] = $model->getAllAdmin();
+            // Enseñamos la vista de usuarios con los datos obtenidos
+            $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'admin/posts.view.php', 'templates/footer.view.php'), $data);
+        } else { // Si es USER
+            // Enviamos al inicio
+            header('location: /');
+        }
+    }
+
+    /**
      * Método que procesa un me gusta de manera asíncrona.
      * 
      * @return void

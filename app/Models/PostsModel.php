@@ -38,7 +38,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     function getAllAdmin(): ?array {
-        $stmt = $this->pdo->query('SELECT p.*, u.user FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->query('SELECT p.*, u.user, u.user_rol FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user ORDER BY p.id_post DESC');
 
         return $stmt->fetchAll();
     }

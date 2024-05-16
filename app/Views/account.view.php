@@ -7,7 +7,7 @@
                 <span class="fa fa-user my-account-data-logo"></span>
                 <div class="my-account-data-description cs-fl-col">
                     <label for="user-description">Sobre mí:</label>
-                    <textarea name="user-description" id="user-description" rows="6" class="contact-form-textarea" placeholder="Pequeña descripción sobre ti..."><?php echo isset($userData) && !empty($userData['user_description']) ? $userData['user_description'] : ''; ?></textarea>
+                    <textarea name="user-description" id="user-description" rows="6" class="contact-form-textarea" placeholder="Pequeña descripción sobre ti..." maxlength="200"><?php echo isset($userData) && !empty($userData['user_description']) ? $userData['user_description'] : ''; ?></textarea>
                 </div>
                 <div class="my-account-data-buttons cs-fl">
                     <button class="button-secondary" id="update-description">Guardar descripción</button>
@@ -22,78 +22,72 @@
                 echo 'mod';
             }
             ?>">
-                     <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
-                    <button class="tablinks" onclick="openTabOption(event, 'mis-shreds')">Mis Shreds</button>
+                <button class="tablinks" onclick="openTabOption(event, 'mis-shreds')">Mis Shreds</button>
+                <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                     <button class="tablinks" onclick="openTabOption(event, 'likes')">Likes</button>
                     <button class="tablinks" onclick="openTabOption(event, 'cuentas-seguidas')">Cuentas seguidas</button>
-                    <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::MOD) { ?>
-                        <button class="tablinks" onclick="openTabOption(event, 'todos-los-shreds')">Shreds</button>
-                    <?php } ?>
-                <?php } else { ?>
-                    <button class="tablinks" onclick="openTabOption(event, 'todos-los-shreds')">Shreds</button>
-                    <button class="tablinks" onclick="openTabOption(event, 'todos-los-usuarios')">Usuarios</button>
                 <?php } ?>
                 <button class="tablinks" onclick="openTabOption(event, 'configuracion')" id="defaultOpen">Configuración</button>
             </div>
-            <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
-                <!--Mis Shreds-->
-                <div id="mis-shreds" class="tabcontent">
-                    <table class="my-account-table">
-                        <thead>
-                            <tr>
-                                <td>TÍTULO</td>                           
-                                <td><span class="fa fa-eye"></span></td>                            
-                                <td><span class="fa fa-heart"></span></td>
-                                <td>CONTROL</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (isset($userPosts) && !empty($userPosts)) {
-                                foreach ($userPosts as $post) {
-                                    ?>
-                                    <tr id="my-account-table-post-<?php echo $post['id_post']; ?>">
-                                        <td>
-                                            <a href = "/post/<?php echo $post['id_post']; ?>">
-                                                <?php echo $post['post_title'] ?><?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?php echo $post['views'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $post['total_likes'] ?>
-                                        </td>
-                                        <td>
-                                            <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Eliminar shred"><span class="fas fa-trash-alt"></span></button>
-                                                <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
-                                                <a href="/post/<?php echo $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
+            <!--Mis Shreds-->
+            <div id="mis-shreds" class="tabcontent">
+                <table class="my-account-table">
+                    <thead>
+                        <tr>
+                            <td>TÍTULO</td>                           
+                            <td><span class="fa fa-eye"></span><span class="hidden-element">Visualizaciones</span></td>                            
+                            <td><span class="fa fa-heart"></span><span class="hidden-element">Me gusta</span></td>
+                            <td>CONTROL</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (isset($userPosts) && !empty($userPosts)) {
+                            foreach ($userPosts as $post) {
                                 ?>
-                                <tr>
-                                    <td colspan="4">Todavía no has creado ningún Shred.</td>
+                                <tr id="my-account-table-post-<?php echo $post['id_post']; ?>">
+                                    <td>
+                                        <a href = "/post/<?php echo $post['id_post']; ?>">
+                                            <?php echo $post['post_title'] ?><?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <?php echo $post['views'] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $post['total_likes'] ?>
+                                    </td>
+                                    <td>
+                                        <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
+                                            <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Eliminar shred"><span class="fas fa-trash-alt"></span><span class="hidden-element">Eliminar Shred</span></button>
+                                            <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span><span class="hidden-element">Editar Shred</span></a>
+                                            <a href="/post/<?php echo $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?php echo $post['id_post']; ?>" title="Ver shred"><span class="fa fa-eye"></span><span class="hidden-element">Ver Shred</span></a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <?php
                             }
+                        } else {
                             ?>
-                        </tbody>
-                    </table>
-                    <div class="pagination-buttons <?php echo count($userPosts) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
-                        <div>
-                            <button onclick="previousPage(0)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
-                        </div>
-                        <div>
-                            <button onclick="nextPage(0)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
-                        </div>
+                            <tr>
+                                <td colspan="4">Todavía no has creado ningún Shred.</td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <div class="pagination-buttons <?php echo isset($userPosts) && count($userPosts) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
+                    <div>
+                        <button onclick="previousPage(0)" class="button-secondary prev"><span class="fas fa-angle-left"></span><span class="hidden-element">Anterior</span></button>
+                    </div>
+                    <div>
+                        <button onclick="nextPage(0)" class="button-secondary next"><span class="fas fa-angle-right"></span><span class="hidden-element">Siguiente</span></button>
                     </div>
                 </div>
+            </div>
 
+            <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                 <!--Likes-->
                 <div id="likes" class="tabcontent">
                     <table class="my-account-table">
@@ -120,7 +114,7 @@
                                         </td>
                                         <td>
                                             <button class="post-like post-like-tab" id="post-like-<?php echo $post['id_post']; ?>">
-                                                <span class="fa fa-heart post-liked"></span>
+                                                <span class="fa fa-heart post-liked"></span><span class="hidden-element">Dar/quitar me gusta</span>
                                             </button>
                                         </td>
                                     </tr>
@@ -136,12 +130,12 @@
                             ?>
                         </tbody>
                     </table>
-                    <div class="pagination-buttons <?php echo count($userLikedPosts) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
+                    <div class="pagination-buttons <?php echo isset($userLikedPosts) && count($userLikedPosts) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
                         <div>
-                            <button onclick="previousPage(1)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
+                            <button onclick="previousPage(1)" class="button-secondary prev"><span class="fas fa-angle-left"></span><span class="hidden-element">Anterior</span></button>
                         </div>
                         <div>
-                            <button onclick="nextPage(1)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
+                            <button onclick="nextPage(1)" class="button-secondary next"><span class="fas fa-angle-right"></span><span class="hidden-element">Siguiente</span></button>
                         </div>
                     </div>
                 </div>
@@ -172,7 +166,7 @@
                                         </td>
                                         <td>
                                             <button class="user-follow button-success" id="user-<?php echo $user['id_user']; ?>" data-user="<?php echo $user['user']; ?>">
-                                                <span class="fas fa-user-check"></span>
+                                                <span class="fas fa-user-check"></span><span class="hidden-element">Seguir/dejar de seguir al usuario</span>
                                             </button>
                                         </td>
                                     </tr>
@@ -188,198 +182,39 @@
                             ?>
                         </tbody>
                     </table>
-                    <div class="pagination-buttons <?php echo count($userFollowing) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
+                    <div class="pagination-buttons <?php echo isset($userFollowing) && count($userFollowing) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
                         <div>
-                            <button onclick="previousPage(2)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
+                            <button onclick="previousPage(2)" class="button-secondary prev"><span class="fas fa-angle-left"></span><span class="hidden-element">Anterior</span></button>
                         </div>
                         <div>
-                            <button onclick="nextPage(2)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
-                        </div>
-                    </div>
-                </div>
-
-                <?php if ($_SESSION['user']['user_rol'] == CodeShred\Controllers\UsersController::MOD) { ?>
-                    <!--Todos los Shreds-->
-                    <div id="todos-los-shreds" class="tabcontent">
-                        <table class="my-account-table">
-                            <thead>
-                                <tr>
-                                    <td>TÍTULO</td>                           
-                                    <td>USUARIO</td>
-                                    <td>CONTROL</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if (isset($usersPosts) && !empty($usersPosts)) {
-                                    foreach ($usersPosts as $post) {
-                                        ?>
-                                        <tr id="my-account-table-post-<?php echo $post['id_post']; ?>">
-                                            <td>
-                                                <a href = "/post/<?php echo $post['id_post']; ?>">
-                                                    <?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <?php echo $post['user'] ?>
-                                            </td>
-                                            <td>
-                                                <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                    <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Eliminar shred"><span class="fas fa-trash-alt"></span></button>
-                                                    <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
-                                                    <a href="/post/<?php echo $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    }
-                                } else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="4">Todavía no hay ningún shred.</td>
-                                    </tr>
-                                    <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                        <div class="pagination-buttons <?php echo count($usersPosts) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
-                            <div>
-                                <button onclick="previousPage(3)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
-                            </div>
-                            <div>
-                                <button onclick="nextPage(3)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            <?php } else { ?>
-                <!--Todos los Shreds-->
-                <div id="todos-los-shreds" class="tabcontent">
-                    <table class="my-account-table">
-                        <thead>
-                            <tr>
-                                <td>TÍTULO</td>                           
-                                <td>USUARIO</td>
-                                <td>CONTROL</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (isset($usersPosts) && !empty($usersPosts)) {
-                                foreach ($usersPosts as $post) {
-                                    ?>
-                                    <tr id="my-account-table-post-<?php echo $post['id_post']; ?>">
-                                        <td>
-                                            <a href = "/post/<?php echo $post['id_post']; ?>">
-                                                <?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?php echo $post['user'] ?>
-                                        </td>
-                                        <td>
-                                            <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeletePopup(<?php echo $post['id_post']; ?>)" title="Eliminar shred"><span class="fas fa-trash-alt"></span></button>
-                                                <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-post-edit" id="button-my-account-post-edit-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="far fa-edit"></span></a>
-                                                <a href="/post/<?php echo $post['id_post']; ?>" class="button-primary button-my-account-post-view" id="button-my-account-post-view-<?php echo $post['id_post']; ?>" title="Editar shred"><span class="fa fa-eye"></span></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
-                                ?>
-                                <tr>
-                                    <td colspan="4">Todavía no hay ningún shred.</td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                    <div class="pagination-buttons <?php echo count($usersPosts) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
-                        <div>
-                            <button onclick="previousPage(0)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
-                        </div>
-                        <div>
-                            <button onclick="nextPage(0)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Todos los usuarios-->
-                <div id="todos-los-usuarios" class="tabcontent">
-                    <table class="my-account-table">
-                        <thead>
-                            <tr>
-                                <td>USUARIO</td>                           
-                                <td>DESCRIPCIÓN</td>
-                                <td>CONTROL</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (isset($usersData) && !empty($usersData)) {
-                                foreach ($usersData as $user) {
-                                    ?>
-                                    <tr id="my-account-table-user-<?php echo $user['id_user']; ?>">
-                                        <td>
-                                            <?php echo $user['user_rol'] === CodeShred\Controllers\UsersController::MOD ? '<span class="fas fa-users-cog admin-mod-text"></span>' : ''; ?>
-                                            <?php echo $user['user'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo!empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
-                                        </td>
-                                        <td>
-                                            <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                                <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?php echo $user['id_user']; ?>, '<?php echo $user['user'] ?>')" title="Eliminar usuario"><span class="fas fa-user-times"></span></button>
-                                                <a href="/post/edit/<?php echo $post['id_post']; ?>" class="button-secondary button-my-account-user-edit" id="button-my-account-user-edit-<?php echo $post['id_post']; ?>" title="Editar usuario"><span class="fas fa-user-edit"></span></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
-                                ?>
-                                <tr>
-                                    <td colspan="3">Parece que no hemos encontrado ningún usuario.</td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                    <div class="pagination-buttons <?php echo count($usersData) > 8 ? '' : 'none' ?> cs-fl cs-fl-align-c">
-                        <div>
-                            <button onclick="previousPage(1)" class="button-secondary prev"><span class="fas fa-angle-left"></span></button>
-                        </div>
-                        <div>
-                            <button onclick="nextPage(1)" class="button-secondary next"><span class="fas fa-angle-right"></span></button>
+                            <button onclick="nextPage(2)" class="button-secondary next"><span class="fas fa-angle-right"></span><span class="hidden-element">Siguiente</span></button>
                         </div>
                     </div>
                 </div>
             <?php } ?>
 
-
             <!--Configuración-->
             <div id="configuracion" class="tabcontent">
                 <div class="tab-conf cs-fl-col">
-                    <h3>Tu cuenta</h3>
+                    <h2>Tu cuenta</h2>
                     <div class="my-account-settings cs-fl-col">
                         <!--Nombre de usuario-->
+                        <label for="user" class="hidden-element">Usuario</label>
                         <input type="text" name="user" id="user" placeholder="Nombre de usuario" class="form-control register-input" value="<?php echo isset($userData['user']) ? $userData['user'] : ''; ?>">
                         <!--Errores usuario-->
                         <p class="login-box-message my-account-form-error" id="errorUser"></p>
                         <!--Email-->
+                        <label for="email" class="hidden-element">Email</label>
                         <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
                         <!--Errores email-->
                         <p class="login-box-message my-account-form-error" id="errorEmail"></p>
                         <!--Pass 1-->
+                        <label for="password1" class="hidden-element">Contraseña</label>
                         <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input none" disabled>
                         <!--Errores pass 1-->
                         <p class="login-box-message my-account-form-error" id="errorPass1"></p>
                         <!--Pass 2-->
+                        <label for="password2" class="hidden-element">Repetir contraseña</label>
                         <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input" disabled>
                         <!--Errores pass 2-->
                         <p class="login-box-message my-account-form-error" id="errorPass2"></p>
@@ -401,7 +236,7 @@
     <div id="popup-delete" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2>¿Seguro que quieres eliminar este Shred?</h2>
+                <h3>¿Seguro que quieres eliminar este Shred?</h3>
             </div>
             <div class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
@@ -414,7 +249,7 @@
     <div id="popup-delete-user" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2 id="popup-delete-user-title">Se rellena solo</h2>
+                <h3 id="popup-delete-user-title">Se rellena solo</h3>
             </div>
             <div class="cs-fl-col">
                 <div class="popup-delete-button cs-fl">
@@ -427,7 +262,7 @@
     <div id="popup-delete-account" class="popup-delete">
         <div class="popup-delete-content cs-fl-col">
             <div class="popup-delete-title cs-fl cs-fl-just-c">
-                <h2><?php echo $userData['user']; ?>, ¿seguro que quieres eliminar tu cuenta?</h2>
+                <h3><?php echo $userData['user']; ?>, ¿seguro que quieres eliminar tu cuenta?</h3>
             </div>
             <div class="cs-fl-col">
                 <form action="/mi-cuenta/<?php echo $userData['id_user']; ?>" method="post" class="popup-delete-button cs-fl">

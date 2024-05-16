@@ -2,11 +2,11 @@
 <main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="posts-container cs-fl-col">
         <h1><?php echo isset($section) && $section == '/mi-cuenta/mis-posts' ? 'Mis Shreds' : 'Shreds'; ?></h1>
+        <h2 class="hidden-element">Todos los Shreds del sistema</h2>
         <div class="posts-cards-container-<?php echo isset($posts) && !empty($posts) && count($posts) > 2 ? 'grid' : 'flex'; ?>">
             <?php
             if (isset($posts) && !is_null($posts) && !empty($posts)) {
                 foreach ($posts as $post) {
-                    //var_dump($post);
                     ?>
                     <div class = "post-card cs-fl-col">
                         <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
@@ -41,7 +41,7 @@
                             <div class="cs-fl cs-fl-just-c cs-fl-align-c post-card-stats-inner">
                                 <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'] && $_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                                     <button class="post-like" id="post-like-<?php echo $post['id_post']; ?>">
-                                        <span class="<?php echo $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?php echo $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
+                                        <span class="<?php echo $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?php echo $post['liked'] !== null ? 'post-liked' : ''; ?>"></span><span class="hidden-element">Dar/quitar me gusta</span>
                                     </button>
                                 <?php } else { ?>
                                     <span class="fa fa-heart"></span>

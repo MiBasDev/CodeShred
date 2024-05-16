@@ -44,12 +44,13 @@
             <div class="header-buttons cs-fl cs-fl-align-c">
                 <div>
                     <?php if (isset($section) && strpos($section, '/post') === 0 && $section !== '/posts') { ?>
+                        <label for="post-title" class="hidden-element">Título</label>
                         <input type="text" name="title" id="post-title" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
                     <?php } ?>
                 </div>
                 <div class="screen-buttons">
                     <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
-                        <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i></button>
+                        <button class="button-warning" id="button-post-delete" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i><span class="hidden-element">Borrar shred</span></button>
                     <?php } ?>
                     <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
                         <button class="button-primary" id="button-post-save" onclick="saveAndOpenPopup()">Guardar</button>
@@ -62,8 +63,8 @@
                         <a href="/registro" class="button-primary" id="button-register">Registrarse</a>
                         <a href="/login" class="button-secondary" id="button-login">Login</a>        
                     <?php } else { ?>
-                        <a href="/mi-cuenta" class="button-secondary" id="button-my-account" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i></a> 
-                        <a href="/logout" class="logout button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i></a>   
+                        <a href="/mi-cuenta" class="button-secondary" id="button-my-account" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i><span class="hidden-element">Mi cuenta</span></a> 
+                        <a href="/logout" class="logout button-primary" id="button-logout"><i class="fas fa-sign-out-alt"></i><span class="hidden-element">Logout</span></a>   
                     <?php } ?>
                 </div>
                 <div class="hamburger-menu-buttons">
@@ -75,5 +76,5 @@
         <!--Notificaciones???-->
         <div class="<?php echo isset($notification) ? 'cs-fl-col' : 'user-notificactions-none'; ?> cs-fl-just-c user-notificactions" id="user-notificactions">
             <h3>Nueva notifiación</h3>
-            <p><?php //echo $notification['message'];   ?></p>
+            <p><?php //echo $notification['message'];  ?></p>
         </div>

@@ -47,7 +47,7 @@
                                         <div class="cs-fl cs-fl-just-c cs-fl-align-c post-card-stats-inner">
                                             <?php if (isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'] && $_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
                                                 <button class="post-like" id="post-like-<?php echo $post['id_post']; ?>">
-                                                    <span class="<?php echo $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?php echo $post['liked'] !== null ? 'post-liked' : ''; ?>"></span>
+                                                    <span class="<?php echo $post['liked'] !== null ? 'fa' : 'far'; ?> fa-heart <?php echo $post['liked'] !== null ? 'post-liked' : ''; ?>"></span><span class="hidden-element">Dar/quitar me gusta</span>
                                                 </button>
                                             <?php } else { ?>
                                                 <span class="fa fa-heart"></span>

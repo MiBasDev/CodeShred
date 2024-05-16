@@ -15,7 +15,7 @@
                                     <span><?php echo $user['user']; ?></span>
                                 </div>
                                 <button class="user-follow <?php echo $user['user_id_following'] != null ? 'button-success' : 'button-secondary'; ?>" id="user-<?php echo $user['id_user']; ?>" data-name="<?php echo $user['user']; ?>">
-                                    <span class="fas <?php echo $user['user_id_following'] != null ? 'fa-user-check' : 'fa-user-plus'; ?>"></span>
+                                    <span class="fas <?php echo $user['user_id_following'] != null ? 'fa-user-check' : 'fa-user-plus'; ?>"></span><span class="hidden-element">Seguir/dejar de seguir al usuario</span>
                                 </button>
                             </div>
                             <div class="user-content cs-fl">
