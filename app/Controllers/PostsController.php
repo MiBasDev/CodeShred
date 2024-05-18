@@ -73,20 +73,20 @@ class PostsController extends \CodeShred\Core\BaseController {
         }
 
         // Si el post pertenece al usuario o el usuario de la sesión es un ADMIN
-        if ($idFromUser || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+        if ($idFromUser || $_SESSION['user']['user_rol'] != UsersController::USER) {
             // Obtenemos los datos del post
             $data['post'] = $model->loadPost(intval($id));
             // Si no se Obtienen
             if (is_null($data['post'])) {
-                // Redirigimos a la vista de posts
-                header('location: /posts');
+                // Enviamos a la vista de mis posts
+                header('location: /mi-cuenta/mis-posts');
             } else { // si se obtienen
                 // Enseñamos la vista de editar un post
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
             }
         } else {
-            // Redirigimos a la vista de posts
-            header('location: /posts');
+            // Enviamos a la vista de mis posts
+            header('location: /mi-cuenta/mis-posts');
         }
     }
 
@@ -183,6 +183,12 @@ class PostsController extends \CodeShred\Core\BaseController {
 
             // Añadir tags al post
             $model->addTags($_POST);
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Shred "' . $_POST['shred-title'] . '" creado.');
+
+            // Enviamos a la vista de mis posts
             header('location: /mi-cuenta/mis-posts');
         } else { // Si no se añade
             $data = [];
@@ -197,6 +203,10 @@ class PostsController extends \CodeShred\Core\BaseController {
             $data['errors']['css'] = $_POST['shred-css'];
             $data['errors']['js'] = $_POST['shred-js'];
             $data['errors']['error'] = 'Error indeterminado al realizar el guardado.';
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Error indeterminado al realizar el guardado.');
 
             // Enseñamos la vista de añadir un post
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -246,6 +256,11 @@ class PostsController extends \CodeShred\Core\BaseController {
                 }
             }
 
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Shred "' . $_POST['shred-title'] . '" modificado.');
+
+            // Enviamos a la vista de mis posts
             header('location: /mi-cuenta/mis-posts');
         } else { // Si no se edita
             $data = [];
@@ -260,6 +275,10 @@ class PostsController extends \CodeShred\Core\BaseController {
             $data['errors']['css'] = $_POST['shred-css'];
             $data['errors']['js'] = $_POST['shred-js'];
             $data['errors']['error'] = 'Error indeterminado al realizar el guardado.';
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Error indeterminado al realizar el guardado.');
 
             // Enseñamos la vista de editar un post
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -329,6 +348,12 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function deletePost(string $id): void {
         $model = new \CodeShred\Models\PostsModel();
         if ($model->deletePost(intval($id))) {
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'delete', 'Shred #' . $id . ' eliminado.');
+
+            // Enviamos a la vista de mis posts
             header('location: /mi-cuenta/mis-posts');
         } else {
             $data = [];
@@ -343,6 +368,10 @@ class PostsController extends \CodeShred\Core\BaseController {
             $data['errors']['css'] = $_POST['shred-css'];
             $data['errors']['js'] = $_POST['shred-js'];
             $data['errors']['error'] = 'Error indeterminado al realizar el borrado.';
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Error indeterminado al realizar el borrado.');
 
             // Enseñamos la vista de editar un post
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -399,8 +428,14 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Ejecutamos un método u otro en función del follow
         if ($isLiked) {
             $success = $model->unlike($userId, $postId);
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'delete', 'Le has quitado el like a un Shred.');
         } else {
             $success = $model->like($userId, $postId);
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Le has dado like a un Shred.');
         }
 
         // Creamos un log de lo ocurrido
@@ -444,6 +479,10 @@ class PostsController extends \CodeShred\Core\BaseController {
             $logModel = new \CodeShred\Models\LogsModel();
             $action = $isDeleted ? 'deleted' : 'not deleted';
             $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al post con ID " . $postId . ".", $_SESSION['user']['id_user']);
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'delete', 'Shred #' . $postId . ' eliminado.');
 
             // Enviamos el resultado al front
             echo json_encode(['success' => $isDeleted, 'action' => $action]);

@@ -58,12 +58,18 @@ class UsersController extends \CodeShred\Core\BaseController {
             } else { // Si logea
                 // Creamos un usuario de sesión
                 $_SESSION['user'] = $user;
-
                 // Actualizamos los datos del login
                 $model->updateLoginData($user['id_user']);
+                // Creamos una cookie con el id
+                setcookie('userId', strval($_SESSION['user']['id_user']), time() + (86400 * 30), "/");
                 // Creamos un log de lo ocurrido
                 $logModel = new \CodeShred\Models\LogsModel;
                 $logModel->insertLog('login', "El usuario '$user[user]' accede al sistema.", $user['id_user']);
+
+                // Creamos una notificación
+                $notificationModel = new \CodeShred\Models\NotificationsModel();
+                $notificationModel->addNotification($_SESSION['user']['id_user'], 'unset', 'Hola, ' . $_SESSION['user']['user'] . '... ¡Bienvenido de nuevo!');
+
                 // Enviamos al inicio
                 header('location: /');
             }
@@ -77,7 +83,15 @@ class UsersController extends \CodeShred\Core\BaseController {
         }
     }
 
-    private function gravatarExists($url): bool {
+    /**
+     * Método que verifica la existencia de un avatar de Gravatar en una URL específica
+     * pasada como parámetro.
+     * 
+     * @param string $url URL de Gravatar a verificar.
+     * @return bool True si el avatar existe, false si no.
+     */
+    private function gravatarExists(string $url): bool {
+        // Obtenemos los encabezados HTTP de la URL.
         $headers = @get_headers($url);
 
         return strpos($headers[0], '200') !== false;
@@ -114,7 +128,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         $data['css'] = 'loginAndRegister';
 
         // Checkeamos los datos del formulario
-        $data['errors'] = $this->checkForm($_POST);
+        $data['errors'] = $this->checkForm($_POST, true);
         // Si los datos son correctos
         if (count($data['errors']) == 0) {
             $user = $model->registerCheck($_POST['user']);
@@ -137,9 +151,16 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $_SESSION['user'] = $model->getUserByUser($_POST['user']);
                 // Actualizamos los datos del login
                 $model->updateLoginData($_SESSION['user']['id_user']);
+                // Creamos una cookie con el id
+                setcookie('userId', strval($_SESSION['user']['id_user']), time() + (86400 * 30), "/");
                 // Creamos un log de lo ocurrido
                 $logModel = new \CodeShred\Models\LogsModel;
                 $logModel->insertLog('registro', "El usuario " . $_SESSION['user']['user'] . " se ha registrado en el sistema.", $_SESSION['user']['id_user']);
+
+                // Creamos una notificación
+                $notificationModel = new \CodeShred\Models\NotificationsModel();
+                $notificationModel->addNotification($_SESSION['user']['id_user'], 'unset', 'Hola, ' . $_SESSION['user']['user'] . '... ¡Bienvenido a codeShred!');
+
                 // Enviamos al inicio
                 header('location: /');
             } else { // Si no hay registro
@@ -150,6 +171,7 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
                 $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
                 $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['privacity'] = isset($_POST['privacity']) ? 1 : 0;
                 // Enseñamos la vista de registro con los datos necesarios y recibidos
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
             }
@@ -159,6 +181,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
             $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $data['user'] = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['privacity'] = isset($_POST['privacity']) ? 1 : 0;
             // Enseñamos la vista de registro con los datos necesarios y recibidos
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'register.view.php', 'templates/footer.view.php'), $data);
         }
@@ -172,6 +195,8 @@ class UsersController extends \CodeShred\Core\BaseController {
     public function logout(): void {
         // Destruímos la sesión
         session_destroy();
+        // Borramos la cookie de id
+        setcookie('userId', '', time() - 3600, "/");
         // Enviamos al inicio
         header('location: /');
     }
@@ -296,7 +321,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     /**
      * Método que obtiene y devuelve los datos referentes al usuario de la sesión.
      * 
-     * @return array Datos referentes al usuario de la sesión.
+     * @return array Colección con datos referentes al usuario de la sesión.
      */
     private function myAccountData(): array {
         $data = [];
@@ -356,10 +381,10 @@ class UsersController extends \CodeShred\Core\BaseController {
      * los hay, de los mismos.
      * 
      * @param array $post Colección con los datos del formulario.
-     * @param bool $isAjax Es una llamada de AJAX o no.
+     * @param bool $isRegister Llamada desde el registro o no.
      * @return array Colección de errores si los hay, sino colección vacía.
      */
-    private function checkForm(array $post, bool $isAjax = false): array {
+    private function checkForm(array $post, bool $isRegister = false): array {
         $errors = [];
         $userModel = new \CodeShred\Models\UsersModel();
 
@@ -450,6 +475,12 @@ class UsersController extends \CodeShred\Core\BaseController {
             }
         }
 
+        // Input privacity
+        if ($isRegister && !isset($post['privacity'])) {
+            // Si no existe, no ha aceptado la política de privacidad
+            $errors['privacity'] = 'Campo obligatorio';
+        }
+
         return $errors;
     }
 
@@ -511,8 +542,14 @@ class UsersController extends \CodeShred\Core\BaseController {
             // Ejecutamos un método u otro en función del follow
             if ($isFollowing) {
                 $success = $model->unfollow($userId, $userIdToFollow);
+                // Creamos una notificación
+                $notificationModel = new \CodeShred\Models\NotificationsModel();
+                $notificationModel->addNotification($userId, 'delete', 'Has dejado de seguir a ' . $userName . '.');
             } else {
                 $success = $model->follow($userId, $userIdToFollow);
+                // Creamos una notificación
+                $notificationModel = new \CodeShred\Models\NotificationsModel();
+                $notificationModel->addNotification($userId, 'create', 'Has seguido a ' . $userName . '.');
             }
 
             // Creamos un log de lo ocurrido
@@ -547,6 +584,10 @@ class UsersController extends \CodeShred\Core\BaseController {
             $logModel = new \CodeShred\Models\LogsModel();
             $action = $isDeleted ? 'deleted' : 'not deleted';
             $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al ususario con ID " . $userId . ".", $_SESSION['user']['id_user']);
+
+            // Creamos una notificación
+            $notificationModel = new \CodeShred\Models\NotificationsModel();
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'delete', 'Usuario #' . $userId . ' eliminado.');
 
             // Enviamos el resultado al front
             echo json_encode(['success' => $isDeleted, 'action' => $action]);
@@ -629,6 +670,7 @@ class UsersController extends \CodeShred\Core\BaseController {
                 echo json_encode(['success' => $userUpdated, 'action' => 'error upating', 'errors' => $errors]);
             }
         } else {
+            // Enviamos el resultado al front
             echo json_encode(['success' => $userUpdated, 'action' => 'intento de hackeo']);
         }
     }

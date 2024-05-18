@@ -196,6 +196,19 @@ class FrontController {
                 }
             }
 
+            // Rutas del Worker
+            Route::add('/check-notifications',
+                    function () {
+                        $controller = new \CodeShred\Controllers\NotificationsController();
+                        $controller->checkNotifications();
+                    }, 'get');
+
+            Route::add('/notification-read',
+                    function () {
+                        $controller = new \CodeShred\Controllers\NotificationsController();
+                        $controller->setNotificationToRead();
+                    }, 'post');
+
             // Rutas de AJAX
             Route::add('/update-description',
                     function () {

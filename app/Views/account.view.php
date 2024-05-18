@@ -171,7 +171,7 @@
                                         <td>
                                             <?php echo!empty($user['user_description']) ? $user['user_description'] : '<i>Este usuario todavía no ha puesto una descripción D:</i>'; ?>
                                         </td>
-                                        <td>
+                                        <td class="cs-fl cs-fl-just-c">
                                             <button class="user-follow button-success" id="user-<?php echo $user['id_user']; ?>" data-user="<?php echo $user['user']; ?>">
                                                 <span class="fas fa-user-check"></span><span class="hidden-element">Seguir/dejar de seguir al usuario</span>
                                             </button>

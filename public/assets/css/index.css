@@ -47,10 +47,19 @@
     background-color: var(--static-elements-secondary-bg-color);
 }
 
+.index-crea > h2,
+.index-crea > p {
+    height: 100%;
+}
+
 .index-posts-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+}
+
+.post-card-img {
+    height: 200px;
 }
 
 @media (max-width: 1500px) {
@@ -64,6 +73,10 @@
     .index-main-container-left,
     .index-main-container-right {
         width: 100%;
+    }
+
+    .post-card-img {
+        height: 240px;
     }
 }
 

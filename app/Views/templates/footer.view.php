@@ -37,5 +37,12 @@
 <?php if (isset($section) && $section == '/tickets') : ?>
     <script src="assets/js/ticketAjax.js"></script>
 <?php endif; ?>
+<?php if (isset($_SESSION['user'])) { ?>
+    <script>
+        // Pasar el userId desde PHP a una variable JavaScript
+        //const userId = <?php //echo json_encode($_SESSION['user']['id_user']); ?>;
+    </script>
+    <script src="assets/js/notificationWorker.js"></script>
+<?php } ?>
 </body>
 </html>

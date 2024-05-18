@@ -380,25 +380,51 @@ footer a.active {
 
 /* Notifications */
 .user-notificactions {
-    position: absolute;
-    top: calc(var(--header-height) + 5px);
-    right: 0;
-    max-width: 350px;
+    position: fixed;
+    top: calc(var(--header-height) + 15px);
+    right: -300px;
+    width: 300px;
+    z-index: 40;
     padding: 20px;
-    border-left: 3px solid var(--button-secondary--bg-color);
     background-color: var(--static-elements-secondary-bg-color);
+    gap: 10px;
+    border-radius: 5px 0px 0px 5px;
 }
 
-.user-notificactions-none {
-    display: none;
+.user-notificactions > h3 {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+
+.user-notificactions.show {
+    right: 0px;
+}
+
+.user-notificactions.warning {
+    border-left: 5px solid #bfa427;
+}
+
+.user-notificactions.delete {
+    border-left: 5px solid #920000;
+}
+
+.user-notificactions.create {
+    border-left: 5px solid #008a22;
+}
+
+.user-notificactions.unset {
+    border-left: 5px solid var(--button-secondary--bg-color);
+}
+
+.user-notificactions > p {
+    overflow: hidden;
 }
 
 /* Shreds */
 .post-card {
     background-color: var(--static-elements-secondary-bg-color);
-    /* padding: 20px; */
     border-radius: 5px;
-    /* gap: 10px; */
     position: relative;
     width: 100%;
     max-width: 500px;
@@ -520,7 +546,7 @@ footer a.active {
 .popup-delete-content {
     background-color: var(--static-elements-secondary-bg-color);
     margin: 10% auto;
-    padding: 20px;
+    padding: 40px;
     border-radius: 5px;
     width: 80%;
     max-width: 600px;

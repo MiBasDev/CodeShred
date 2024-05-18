@@ -4,7 +4,7 @@
             <!-- Logo y slogan -->
             <div class="index-logo-and-slogan cs-fl-col cs-fl-align-c">
                 <img src="assets/img/cs-logo.png" alt="Logo codeShred">
-                <h1>La red social de los programadores web</h1>
+                <h1>La red social de los desarrolladores web</h1>
             </div>
             <?php if (!isset($_SESSION['user'])) { ?>
                 <!-- Crea y comparte -->

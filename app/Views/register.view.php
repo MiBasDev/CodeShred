@@ -63,6 +63,15 @@
                 <!--Errores ambas pass-->
                 <p class="login-box-message register-input"><?php echo $errors['globalError']; ?></p>
             <?php endif; ?>
+            <!--Política de privacidad-->
+            <div class="register-input cs-fl cs-fl-align-c register-privacity">
+                <input type="checkbox" name="privacity" id="privacity" class="form-control register-input" <?php echo isset($data['privacity']) && $data['privacity'] ? 'checked' : ''; ?>>
+                <label for="privacity">He leído y acepto la <a href="/politica-de-privacidad">Política de Privacidad</a></label>
+            </div>
+            <?php if (isset($errors['privacity'])) : ?>
+                <!--Errores política de privacidad-->
+                <p class="login-box-message register-input"><?php echo $errors['privacity']; ?></p>
+            <?php endif; ?>
             <!--Submit-->
             <div class="cs-fl cs-fl-align-c register-buttons">
                 <p>¿Ya tienes cuenta? <a href="/login" class="login-resgister-anchor">Logeate</a></p>

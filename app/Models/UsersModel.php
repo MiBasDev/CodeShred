@@ -83,7 +83,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param string $user Nombre de la cuenta del usuario a buscar.
      * @return array|null Datos del usuario si los obtiene, null si no.
      */
-    function getUserByUser(string $user): ?array {
+    public function getUserByUser(string $user): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE user = :user');
         $stmt->execute(['user' => $user]);
 
@@ -110,7 +110,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param int $id Número identificativo del usuario a buscar.
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
-    function getAll(int $id): ?array {
+    public function getAll(int $id): ?array {
         $stmt = $this->pdo->prepare('SELECT u.*, f.user_id_following FROM users u LEFT JOIN follows f ON u.id_user = f.user_id_following AND f.user_id = :follows_user_id WHERE u.id_user != :user_user_id AND u.user_rol != :user_rol');
         $stmt->execute(['follows_user_id' => $id, 'user_user_id' => $id, 'user_rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
@@ -123,7 +123,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * 
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
-    function getAllAdmin(): ?array {
+    public function getAllAdmin(): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE user_rol > :user_rol ORDER BY user_rol');
         $stmt->execute(['user_rol' => $_SESSION['user']['user_rol']]);
 
@@ -136,7 +136,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param int $id Número identificativo del usuario a buscar.
      * @return array|null Datos del usuario si los obtiene, null si no.
      */
-    function getUser(int $id): ?array {
+    public function getUser(int $id): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE id_user = :id');
         $stmt->execute(['id' => $id]);
 
@@ -150,7 +150,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param int $id Número identificativo del usuario.
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
-    function getFollowing(int $id): ?array {
+    public function getFollowing(int $id): ?array {
         $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description, u.user_gravatar FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
         $stmt->execute(['id' => $id]);
 
@@ -163,7 +163,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param int $id Número identificativo del usuario a borrar.
      * @return bool True si lo elimina, false si no.
      */
-    function delete(int $id): bool {
+    public function delete(int $id): bool {
         $stmt = $this->pdo->prepare('DELETE FROM users WHERE id_user = :id');
         $stmt->execute(['id' => $id]);
 
@@ -177,7 +177,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param string $description Descripción del ususario para actualizar.
      * @return bool True si la actualiza, false si no.
      */
-    function updateUserDescription(int $idUser, string $description): bool {
+    public function updateUserDescription(int $idUser, string $description): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_description = :user_description WHERE id_user = :id_user');
 
         return $stmt->execute(['user_description' => $description, 'id_user' => $idUser]);
@@ -191,7 +191,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param string $user Nombre de cuenta del usuario para actualizar.
      * @return bool True si lo actualiza, false si no.
      */
-    function updateUserUser(int $idUser, string $user): bool {
+    public function updateUserUser(int $idUser, string $user): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user = :user WHERE id_user = :id_user');
 
         return $stmt->execute(['user' => $user, 'id_user' => $idUser]);
@@ -204,7 +204,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param string $email Email del usuario para actualizar.
      * @return bool  True si lo actualiza, false si no.
      */
-    function updateUserEmail(int $idUser, string $email): bool {
+    public function updateUserEmail(int $idUser, string $email): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_email = :user_email WHERE id_user = :id_user');
 
         return $stmt->execute(['user_email' => $email, 'id_user' => $idUser]);
@@ -217,7 +217,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @param string $rol Rol del usuario para actualizar.
      * @return bool  True si lo actualiza, false si no.
      */
-    function updateUserRol(int $idUser, int $rol): bool {
+    public function updateUserRol(int $idUser, int $rol): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_rol = :user_rol WHERE id_user = :id_user');
 
         return $stmt->execute(['user_rol' => $rol, 'id_user' => $idUser]);

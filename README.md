@@ -1,7 +1,7 @@
 # codeShred
 - **Proyecto presentado por**: *Miguel Bastos Gándara*
 - **Tutor**: *Rafael González Centeno*
-- **Fecha**: *???*
+- **Fecha**: *18/06/2024*
 
 ## Resumen
 Red social de elementos web para programadores.

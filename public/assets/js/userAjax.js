@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }, 2000);
                         }
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });
@@ -167,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });
@@ -178,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
             var userId = this.id.split('-')[1];
-            var userName = this.getAttribute('data-user');
+            var userName = this.getAttribute('data-name');
 
             // Empezamos la petición
             fetch('/user-follow', {
@@ -213,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });
@@ -262,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var popup = document.getElementById('popup-delete-user');
                         popup.style.display = 'none';
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });

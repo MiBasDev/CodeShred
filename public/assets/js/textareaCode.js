@@ -90,6 +90,7 @@ $(document).ready(function () {
         const htmlContent = editorHtml.getValue();
         const cssContent = `<style>${editorCss.getValue()}</style>`;
         const unsanitizedJsContent = editorJs.getValue();
+        // Sanitizamos el código JS
         //const sanitizedJsContent = DOMPurify.sanitize(unsanitizedJsContent, {SAFE_FOR_JQUERY: true});
         const jsContent = `<script>${unsanitizedJsContent}</script>`;
 
@@ -108,10 +109,10 @@ $(document).ready(function () {
         innerIframe.close();
     }
 
-    // Actualizar la vista previa al cargar la página
+    // Actualizamos la vista previa al cargar la página
     updatePreview();
 
-    // Detectar cambios en los editores y actualizar la vista previa
+    // Detectamos los cambios en los editores y actualizamos la vista previa
     editorHtml.on('change', updatePreview);
     editorCss.on('change', updatePreview);
     editorJs.on('change', updatePreview);
@@ -151,7 +152,7 @@ $(document).ready(function () {
         iconSpan.classList.remove("fa-copy");
         iconSpan.classList.add("fa-check");
 
-        // Volvemos al estado original tras 2 segundos
+        // Volvemos al estado original tras 1 segundo
         setTimeout(function () {
             iconSpan.style.color = "";
             iconSpan.classList.remove("fa-check");

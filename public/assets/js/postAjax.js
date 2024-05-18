@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(function (data) {
                         // Procesamos la respuesta en el front
                         if (data.success) {
+                            // Cambiamos los estilos del botón de like
                             if (data.action === 'like') {
                                 button.querySelector('span').classList.remove('far');
                                 button.querySelector('span').classList.add('fa');
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });
@@ -78,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(function (data) {
                         // Procesamos la respuesta en el front
                         if (data.success) {
+                            // Borramos la fila de la tabla
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
                                 var trElement = document.getElementById('my-account-table-post-' + postId);
@@ -95,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var popup = document.getElementById('popup-delete');
                         popup.style.display = 'none';
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });

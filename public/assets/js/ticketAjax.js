@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(function (data) {
                         // Procesamos la respuesta en el front
                         if (data.success) {
+                            // Cambiamos los estilos del botón
                             if (data.action === 'resolved') {
                                 button.classList.remove('button-secondary');
                                 button.classList.add('button-success');
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
                                 var ticket = document.getElementById('tickets-card-' + ticketId);
-                                // Lo quitamos de la tabla con una animación
+                                // Lo quitamos de la vista con una animación
                                 if (ticket) {
                                     ticket.style.opacity = 0;
                                     setTimeout(function () {
@@ -80,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var popup = document.getElementById('popup-delete-ticket');
                         popup.style.display = 'none';
                     })
+                    // Sacamos los errores
                     .catch(function (error) {
                         console.error('Error:', error);
                     });
@@ -91,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function openDeletePopup(id) {
     // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup-delete-ticket');
+    // Agregamos el id al botón en un atributo data
     var buttonDelete = document.getElementById('popup-button-ticket-delete');
 
     buttonDelete.setAttribute('data-id', id);
-
     popup.style.display = 'flex';
 }
 
@@ -102,5 +105,6 @@ function openDeletePopup(id) {
 function closeDeletePopup() {
     // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup-delete-ticket');
+
     popup.style.display = 'none';
 }

@@ -80,10 +80,10 @@
                     <button id="toggle-menu">&#9776;</button>
                 </div>
             </div>
+            <!--Notificaciones-->
+            <div class="cs-fl-col cs-fl-just-c user-notificactions" id="user-notificactions">
+                <h3>Nueva notifiación</h3>
+                <p id="notification-message"></p>
+            </div>
         </header>
 
-        <!--Notificaciones???-->
-        <div class="<?php echo isset($notification) ? 'cs-fl-col' : 'user-notificactions-none'; ?> cs-fl-just-c user-notificactions" id="user-notificactions">
-            <h3>Nueva notifiación</h3>
-            <p><?php //echo $notification['message'];           ?></p>
-        </div>

@@ -58,7 +58,7 @@
             <?php endif; ?>
             <div class="login-input contact-form-span">
                 <label for="message"><span class="hidden-element">Mensaje</span></label>
-                <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Comentarios..."></textarea>
+                <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Mensaje..."></textarea>
             </div>
             <?php if (isset($errors['message'])) : ?>
                 <!--Errores ambas pass-->

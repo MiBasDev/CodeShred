@@ -102,6 +102,7 @@ function openPopup() {
 function closePopup() {
     // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup');
+    
     popup.style.display = 'none';
 }
 
@@ -109,6 +110,7 @@ function closePopup() {
 function openDeletePopup() {
     // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup-delete');
+    
     popup.style.display = 'flex';
 }
 
@@ -116,5 +118,6 @@ function openDeletePopup() {
 function closeDeletePopup() {
     // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup-delete');
+    
     popup.style.display = 'none';
 }

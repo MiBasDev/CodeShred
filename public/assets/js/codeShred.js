@@ -20,7 +20,6 @@ asideHider.addEventListener('click', () => {
 
     if (aside.classList.contains('folded-aside')) {
         setCookie("foldedCookie", "1", 30);
-        console.log();
     } else {
         deleteCookie("foldedCookie");
     }
@@ -112,7 +111,7 @@ function updatePaginationButtons(tableIndex, currentPage) {
     var totalPages = Math.ceil(tableRows.length / rowsPerPage);
     var prevButton = paginationButtons[tableIndex].querySelector('.prev');
     var nextButton = paginationButtons[tableIndex].querySelector('.next');
-
+    // Enseñamos o escondemos los botones en función de la página
     if (currentPage === 0) {
         prevButton.style.display = 'none';
         nextButton.style.display = 'inline-block';
@@ -135,7 +134,7 @@ tables.forEach(function (table, index) {
     }
 });
 
-// Función para el contador de caracteres del textarea de contacto
+// Función para el contador de caracteres del textarea de contacto (sof)
 document.addEventListener('DOMContentLoaded', function () {
     var textarea = document.getElementById('message');
     var charCount = document.getElementById('charCount');
@@ -147,3 +146,67 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// Función para obtener el valor de una cookie por su nombre (sof)
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return parts.pop().split(';').shift();
+    } else {
+        return null;
+    }
+}
+
+// Obtenemos el userId desde la cookie
+const userId = getCookie('userId');
+
+// Hablamos con el worker para que trabaje (si hay sesión)
+if (typeof (Worker) !== "undefined" && userId !== null) {
+    const worker = new Worker('assets/js/notificationWorker.js');
+    // Enviamos el trabajo al worker
+    worker.postMessage({userId: userId});
+
+    // Tratamos el mensaje recibido
+    worker.onmessage = function (event) {
+        const notification = event.data;
+        // Obtenemos el div de notificaciones
+        const notificationElement = document.getElementById('user-notificactions');
+        // Obtenemos el elemento de mensaje de la notificación
+        const notificationMessage = document.getElementById('notification-message');
+
+        // Rellenamos el párrafo con el mensaje
+        notificationMessage.innerText = notification[0].notification_message;
+        // Enseñamos la notificación
+        notificationElement.classList.add('show');
+
+        // Quitamos la clase de estilos
+        if (notification[0].notification_type === 'warning') {
+            notificationElement.classList.add('warning');
+        } else if (notification[0].notification_type === 'create') {
+            notificationElement.classList.add('create');
+        } else if (notification[0].notification_type === 'delete') {
+            notificationElement.classList.add('delete');
+        } else {
+            notificationElement.classList.add('unset');
+        }
+
+        // A los 3 segundos, la enscondemos
+        setTimeout(() => {
+            notificationElement.classList.remove('show');
+
+            // Quitamos la clase de estilos
+            if (notification[0].notification_type === 'warning') {
+                notificationElement.classList.remove('warning');
+            } else if (notification[0].notification_type === 'create') {
+                notificationElement.classList.remove('create');
+            } else if (notification[0].notification_type === 'delete') {
+                notificationElement.classList.remove('delete');
+            } else {
+                notificationElement.classList.remove('unset');
+            }
+        }, 3000);
+    };
+} else {
+    console.error('Web Workers no soportados o el id no existe');
+}

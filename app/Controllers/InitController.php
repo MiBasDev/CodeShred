@@ -111,6 +111,11 @@ class InitController extends \CodeShred\Core\BaseController {
             // Obtenemos los posts
             $model = new \CodeShred\Models\TicketsModel();
             if ($model->createTicket($_POST)) {
+                if ($_SESSION['user']) {
+                    // Creamos una notificación
+                    $notificationModel = new \CodeShred\Models\NotificationsModel();
+                    $notificationModel->addNotification(intval($_SESSION['user']['id_user']), 'ticket', 'Has enviado un ticket.');
+                }
                 // Enviamos al inicio
                 header('location: /');
             } else {
