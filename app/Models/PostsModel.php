@@ -14,7 +14,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     function getAll(int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
         $stmt->execute(['userId' => $userId, 'rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
@@ -26,7 +26,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     function getAllNotSession(): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
         $stmt->execute(['rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
@@ -60,7 +60,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     function getAllIndex(): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) + (SELECT view_count FROM views WHERE view_post_id = p.id_post) DESC LIMIT 4');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) + (SELECT view_count FROM views WHERE view_post_id = p.id_post) DESC LIMIT 4');
         $stmt->execute(['rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
@@ -74,7 +74,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts del usuario si los obtiene, null si no.
      */
     function getUserPosts(int $sessionUserId, int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
         $stmt->execute(['sessionUserId' => $sessionUserId, 'userId' => $userId]);
 
         return $stmt->fetchAll();
@@ -87,7 +87,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts a los que ha dado like usuario si los obtiene, null si no.
      */
     function getUserLikedPosts(int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.id_post, p.post_title, u.user FROM posts p JOIN likes l ON p.id_post = l.id_post JOIN users u ON p.post_user_id = u.id_user WHERE l.id_user = :userId ORDER BY l.id_like DESC');
+        $stmt = $this->pdo->prepare('SELECT p.id_post, p.post_title, u.user, u.user_gravatar FROM posts p JOIN likes l ON p.id_post = l.id_post JOIN users u ON p.post_user_id = u.id_user WHERE l.id_user = :userId ORDER BY l.id_like DESC');
         $stmt->execute(['userId' => $userId]);
 
         return $stmt->fetchAll();
@@ -99,7 +99,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @param array $data Colección de datos del post
      * @return bool True si lo añade, false si no.
      */
-    function add(array $data): bool {
+    function add(array $data): ?int {
         // Codificamos a JSON los datos
         $code = array('html' => $data['shred-html'], 'css' => $data['shred-css'], 'js' => $data['shred-js']);
         $jsonCode = json_encode($code);
@@ -108,7 +108,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
 
         // Intentamos añadir el post al sistema
         $stmt = $this->pdo->prepare('INSERT INTO posts(post_code,post_img,post_user_id,post_title) VALUES (:post_code, :post_img, :post_user_id, :post_title)');
-        $stmt->execute(['post_code' => $jsonCode, 'post_img' => '-', 'post_user_id' => $data['user_id'], 'post_title' => $data['shred-title']]);
+        $stmt->execute(['post_code' => $jsonCode, 'post_img' => $data['post_img'], 'post_user_id' => $data['user_id'], 'post_title' => $data['shred-title']]);
         // Recuperamos el id del post
         $postId = $this->pdo->lastInsertId();
 
@@ -125,9 +125,9 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
             $stmtLog = $this->pdo->prepare('INSERT INTO logs (action, detail, user_id) VALUES (:action, :detail, :user_id)');
             $stmtLog->execute(['action' => 'insert', 'detail' => 'Nuevo post de ' . $_SESSION["user"]["user"] . ' añadido: ' . $data['shred-title'], 'user_id' => $data['user_id']]);
 
-            return true;
+            return intval($postId);
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -162,6 +162,19 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
             $this->pdo->rollBack();
             return false;
         }
+    }
+
+    /**
+     * Método que actualiza la imagen del post con el id pasado como parámetro.
+     * 
+     * @param string $filePath Ruta de la imagen a actualizar.
+     * @param int $postId Número identificativo del post a actualizar.
+     * @return bool
+     */
+    function updateImg(string $filePath, int $postId):bool {
+        $stmt = $this->pdo->prepare('UPDATE posts SET post_img = :post_img WHERE id_post = :post_id');
+        
+        return $stmt->execute(['post_img' => $filePath, 'post_id' => $postId]);
     }
 
     /**
@@ -202,10 +215,9 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
     function editPost(int $idPost, array $data): bool {
         $code = array('html' => $data['shred-html'], 'css' => $data['shred-css'], 'js' => $data['shred-js']);
         $jsonCode = json_encode($code);
-        $this->pdo->beginTransaction();
 
         $stmt = $this->pdo->prepare('UPDATE posts SET post_code = :post_code, post_img = :post_img, post_title = :post_title WHERE id_post = :id_post');
-        $stmt->execute(['post_code' => $jsonCode, 'post_img' => '-', 'post_title' => $data['shred-title'], 'id_post' => $idPost]);
+        $stmt->execute(['post_code' => $jsonCode, 'post_img' => $data['post_img'], 'post_title' => $data['shred-title'], 'id_post' => $idPost]);
 
         $stmtLog = $this->pdo->prepare('INSERT INTO logs (action, detail, user_id) VALUES (:action, :detail, :user_id)');
         $stmtLog->execute(['action' => 'update', 'detail' => 'Post de ' . $_SESSION["user"]["user"] . ' actualizado: ' . $data['shred-title'], 'user_id' => $data['user_id']]);
@@ -217,8 +229,6 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
         $stmtTags = $this->pdo->prepare('UPDATE tags SET tags_html = :tags_html, tags_css = :tags_css, tags_js = :tags_js WHERE tags_post_id = :tags_post_id');
         $stmtTags->execute(['tags_html' => $tagHtml, 'tags_css' => $tagCss, 'tags_js' => $tagJs, 'tags_post_id' => $idPost]);
 
-        $this->pdo->commit();
-        
         return true;
     }
 
@@ -230,7 +240,7 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      */
     function deletePost(int $id_post): bool {
         $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id_post = :id_post');
-        
+
         return $stmt->execute(['id_post' => $id_post]);
     }
 }

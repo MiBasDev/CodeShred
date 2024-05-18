@@ -183,7 +183,7 @@
 }
 
 .my-account-table-buttons .fa-trash-alt {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .my-account-form-error {
@@ -206,10 +206,6 @@
     outline-offset: unset;
     outline: none;
     background-color: #2b253040;
-}
-
-.button-my-account-post-delete span {
-    font-size: 18px;
 }
 
 .button-my-account-post-edit span {

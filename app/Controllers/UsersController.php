@@ -58,6 +58,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             } else { // Si logea
                 // Creamos un usuario de sesión
                 $_SESSION['user'] = $user;
+
                 // Actualizamos los datos del login
                 $model->updateLoginData($user['id_user']);
                 // Creamos un log de lo ocurrido
@@ -74,6 +75,12 @@ class UsersController extends \CodeShred\Core\BaseController {
             // Enseñamos la vista de login de nuevo con los datos recogidos
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'login.view.php', 'templates/footer.view.php'), $data);
         }
+    }
+
+    private function gravatarExists($url): bool {
+        $headers = @get_headers($url);
+
+        return strpos($headers[0], '200') !== false;
     }
 
     /**
@@ -111,8 +118,17 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Si los datos son correctos
         if (count($data['errors']) == 0) {
             $user = $model->registerCheck($_POST['user']);
+            // Generamos la URL de la imagen de Gravatar
+            $hash = md5(strtolower(trim($_POST['email'])));
+            $gravatarUrl = "https://www.gravatar.com/avatar/$hash?s=200&d=identicon";
+            // Comprobamos si existe
+            $hasGravatar = $this->gravatarExists($gravatarUrl);
+            // Si existe, la agregamos al usuario de la sesión
+            if ($hasGravatar) {
+                $_POST['gravatar'] = $gravatarUrl;
+            }
             // Creamos un array con los datos necesarios para el registro
-            $data = ['user' => $_POST['user'], 'pass' => $_POST['password1'], 'name' => $_POST['name'], 'surname' => $_POST['surname'], 'email' => $_POST['email'], 'rol' => self::USER];
+            $data = ['user' => $_POST['user'], 'pass' => $_POST['password1'], 'name' => $_POST['name'], 'surname' => $_POST['surname'], 'email' => $_POST['email'], 'gravatar' => $_POST['gravatar'], 'rol' => self::USER];
             // Intentamos registrar al usuario con esos datos
             $userOk = $model->register($data);
             // Si hay registro
@@ -322,6 +338,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             $data['title'] = 'codeShred - Admin | Usuarios';
             $data['section'] = '/admin/users';
             $data['css'] = 'account';
+            $data['auxiliarCss'] = 'admin/users';
 
             // Obtenemos todos los usuarios del sistema
             $model = new \CodeShred\Models\UsersModel();
@@ -348,12 +365,17 @@ class UsersController extends \CodeShred\Core\BaseController {
 
         // Input user
         if (isset($post['user']) && !empty($post['user'])) {
-            if (!preg_match('/^[a-zA-Z0-9]{5,20}$/', $post['user'])) {
-                $errors['user'] = 'El nombre de usuario sólo permite letras y números. Longitud entre 5 y 20 caracteres';
+            if (!preg_match('/^[a-zA-Z0-9]{3,20}$/', $post['user'])) {
+                $errors['user'] = 'El nombre de usuario sólo permite letras y números. Longitud entre 3 y 20 caracteres';
             } else {
                 $user = $userModel->registerCheck($post['user']);
                 if (!is_null($user)) {
-                    if ((isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user']) || !isset($_SESSION['user'])) {
+                    if (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+                        if ((isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'])) {
+                            $errors['user'] = 'Ya existe un usuario con el nombre ' . $post['user'];
+                        }
+                    }
+                    if (!isset($_SESSION['user'])) {
                         $errors['user'] = 'Ya existe un usuario con el nombre ' . $post['user'];
                     }
                 }
@@ -369,8 +391,13 @@ class UsersController extends \CodeShred\Core\BaseController {
             } else {
                 $user = $userModel->emailCheck($post['email']);
                 if (!is_null($user)) {
-                    if ((isset($_SESSION['user']) && $_SESSION['user']['user_email'] != $post['email']) || !isset($_SESSION['user'])) {
-                        $errors['user'] = 'Ya existe un usuario con este email';
+                    if (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+                        if ($_SESSION['user']['user_email'] != $post['email'] || !isset($_SESSION['user'])) {
+                            $errors['email'] = 'Ya existe un usuario con este email';
+                        }
+                    }
+                    if (!isset($_SESSION['user'])) {
+                        $errors['email'] = 'Ya existe un usuario con este email';
                     }
                 }
             }
@@ -422,6 +449,7 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $errors['surname'] = 'Campo obligatorio';
             }
         }
+
         return $errors;
     }
 
@@ -544,34 +572,54 @@ class UsersController extends \CodeShred\Core\BaseController {
         $userUpdated = false;
         $action = [];
         // Miramos que sea el usuario de la sesión
-        if ($sessionUserId == $userId) {
+        if ($sessionUserId == $userId || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
             // Checkeamos los inputs
             $errors = $this->checkForm($data);
             // Si los datos son correctos
             if (count($errors) == 0) {
+                if ($_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+                    $model = new \CodeShred\Models\UsersModel();
+                    $user = $model->registerCheck($data['user']);
+                }
                 // Si quiere cambiar el nombre de usuario
-                if (isset($data['user']) && $_SESSION['user']['user'] != $data['user']) {
+                if ((isset($data['user']) && $_SESSION['user']['user'] != $data['user']) || ($_SESSION['user']['user_rol'] == UsersController::ADMIN && !is_null($user))) {
                     // Actualizamos el nombre de usuario
                     $model = new \CodeShred\Models\UsersModel();
-                    $userUpdated = $model->updateUserUser($sessionUserId, $data['user']);
+                    $userUpdated = $model->updateUserUser($userId, $data['user']);
                     // Creamos un log de lo ocurrido
                     $logModel = new \CodeShred\Models\LogsModel();
-                    $action = $userUpdated ? 'updated' : 'error upating';
+                    $action = $userUpdated ? 'updated' : 'error updating';
                     $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " su nombre de usuario.", $_SESSION['user']['id_user']);
-                    // Actualizamos la sesión
-                    $_SESSION['user']['user'] = $data['user'];
+                    // Si no es un admin, actualizamos la sesión
+                    if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+                        $_SESSION['user']['user'] = $data['user'];
+                    }
                 }
-                // Si quiere cambiar el email
-                if (isset($data['email']) && $_SESSION['user']['email'] != $data['email']) {
-                    // Actualizamos el email
+                if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+                    // Si quiere cambiar el email
+                    if (isset($data['email']) && $_SESSION['user']['email'] != $data['email']) {
+                        // Actualizamos el email
+                        $model = new \CodeShred\Models\UsersModel();
+                        $userUpdated = $model->updateUserEmail($userId, $data['email']);
+                        // Creamos un log de lo ocurrido
+                        $logModel = new \CodeShred\Models\LogsModel();
+                        $action = $userUpdated ? 'updated' : 'error updating';
+                        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " su email.", $_SESSION['user']['id_user']);
+                        // Si no es un admin, actualizamos la sesión
+                        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+                            $_SESSION['user']['email'] = $data['email'];
+                        }
+                    }
+                }
+                // Si quiere cambiar el rol
+                if (isset($data['rol']) && $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+                    // Actualizamos el rol
                     $model = new \CodeShred\Models\UsersModel();
-                    $userUpdated = $model->updateUserEmail($sessionUserId, $data['email']);
+                    $userUpdated = $model->updateUserRol($userId, intval($data['rol']));
                     // Creamos un log de lo ocurrido
                     $logModel = new \CodeShred\Models\LogsModel();
-                    $action = $userUpdated ? 'updated' : 'error upating';
-                    $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " su email.", $_SESSION['user']['id_user']);
-                    // Actualizamos la sesión
-                    $_SESSION['user']['email'] = $data['email'];
+                    $action = $userUpdated ? 'updated' : 'error updating';
+                    $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " el rol de " . $data['user'] . " a " . $data['rol'] . ".", $_SESSION['user']['id_user']);
                 }
 
                 // Enviamos el resultado al front

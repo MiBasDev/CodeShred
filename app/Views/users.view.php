@@ -11,7 +11,7 @@
                         <div class="users-card cs-fl-col cs-fl-just-c">
                             <div class="user-name-container cs-fl">
                                 <div class="user-name cs-fl">
-                                    <span class="fas fa-user user-img"></span>
+                                    <img class="profile-pic" src="<?php echo htmlspecialchars($user['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $user['user']; ?>">
                                     <span><?php echo $user['user']; ?></span>
                                 </div>
                                 <button class="user-follow <?php echo $user['user_id_following'] != null ? 'button-success' : 'button-secondary'; ?>" id="user-<?php echo $user['id_user']; ?>" data-name="<?php echo $user['user']; ?>">

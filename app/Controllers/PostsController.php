@@ -148,12 +148,42 @@ class PostsController extends \CodeShred\Core\BaseController {
         $model = new \CodeShred\Models\PostsModel();
         // Declaramos el id de usuario del post
         $_POST['user_id'] = $_SESSION['user']['id_user'];
-        // Si se añade el post
-        if ($model->add($_POST)) {
-            // Añadimos los tags del post
+
+        // Ponemos la imagen por defecto
+        $_POST['post_img'] = 'assets/img/cs-logo-color.png';
+
+        // Declaramos el post y obtenemos su id
+        $postId = $model->add($_POST);
+        if (!is_null($postId)) {
+            // Comprobamos si quiere incluir la imagen
+            $includeImg = isset($_POST['include-img']) && $_POST['include-img'] == 'on';
+            // Procesamos la imagen si existe
+            if (!empty($_POST['post-img-data'] && $includeImg)) {
+                $imageData = $_POST['post-img-data'];
+                $imageData = str_replace('data:image/png;base64,', '', $imageData);
+                $imageData = str_replace(' ', '+', $imageData);
+                $imageData = base64_decode($imageData);
+
+                // Redimensionamos la imagen
+                $resizedImageData = $this->resizeImage($imageData, 500, 282);
+
+                $directory = 'assets/img/' . $_POST['user_id'];
+                if (!is_dir($directory)) {
+                    mkdir($directory, 0777, true);
+                }
+
+                // Nombrar el archivo basado en el ID del post
+                $filePath = $directory . '/' . $postId . '.png';
+
+                if (file_put_contents($filePath, $resizedImageData)) {
+                    // Actualiza el post con el nombre de la imagen
+                    $model->updateImg($filePath, $postId);
+                }
+            }
+
+            // Añadir tags al post
             $model->addTags($_POST);
-            // Redirigimos a la vista de posts
-            header('location: /posts');
+            header('location: /mi-cuenta/mis-posts');
         } else { // Si no se añade
             $data = [];
             // Declaramos los datos necesarios de la vista de añadir un post
@@ -184,10 +214,39 @@ class PostsController extends \CodeShred\Core\BaseController {
         $model = new \CodeShred\Models\PostsModel();
         // Declaramos el id de usuario del post
         $_POST['user_id'] = $_SESSION['user']['id_user'];
-        // Si se edita el post
+
+        // Declaramos la imagen por defecto
+        $_POST['post_img'] = 'assets/img/cs-logo-color.png';
+
+        // Almacenamos el post y obtenemos su id
         if ($model->editPost(intval($id), $_POST)) {
-            // Redirigimos a la vista de posts
-            header('location: /posts');
+            // Comprobamos si quiere incluir la imagen
+            $includeImg = isset($_POST['include-img']) && $_POST['include-img'] == 'on';
+            // Procesamos la imagen si existe
+            if (!empty($_POST['post-img-data'] && $includeImg)) {
+                $imageData = $_POST['post-img-data'];
+                $imageData = str_replace('data:image/png;base64,', '', $imageData);
+                $imageData = str_replace(' ', '+', $imageData);
+                $imageData = base64_decode($imageData);
+
+                // Redimensionamos la imagen
+                $resizedImageData = $this->resizeImage($imageData, 500, 282);
+
+                $directory = 'assets/img/' . $_POST['user_id'];
+                if (!is_dir($directory)) {
+                    mkdir($directory, 0777, true);
+                }
+
+                // Nombrar el archivo basado en el ID del post
+                $filePath = $directory . '/' . $id . '.png';
+
+                if (file_put_contents($filePath, $resizedImageData)) {
+                    // Actualiza el post con el nombre de la imagen
+                    $model->updateImg($filePath, intval($id));
+                }
+            }
+
+            header('location: /mi-cuenta/mis-posts');
         } else { // Si no se edita
             $data = [];
             // Declaramos los datos necesarios de la vista de editar un post
@@ -208,6 +267,60 @@ class PostsController extends \CodeShred\Core\BaseController {
     }
 
     /**
+     * Método para ajustar el tamaño de la imagen pasada como parámetro.
+     * 
+     * @param string $imageData Datos de la imagen.
+     * @param int $width Anchura deseada de la imagen.
+     * @param int $height Altura deseada de la imagen.
+     * @return string Datos de la imagen reajustada.
+     */
+    private function resizeImage(string $imageData, int $width, int $height): string {
+        // Crear imagen desde los datos de la imagen
+        $src = imagecreatefromstring($imageData);
+        if (!$src) {
+            throw new Exception('No se pudo crear la imagen desde los datos proporcionados.');
+        }
+
+        // Obtener dimensiones de la imagen original
+        $srcWidth = imagesx($src);
+        $srcHeight = imagesy($src);
+
+        // Calcula el aspect ratio de la imagen original
+        $aspectRatio = $srcWidth / $srcHeight;
+
+        // Calcular las nuevas dimensiones para mantener el aspect ratio deseado
+        if ($width / $height > $aspectRatio) {
+            $newWidth = intval(round($height * $aspectRatio));
+            $newHeight = intval($height);
+        } else {
+            $newWidth = intval($width);
+            $newHeight = intval(round($width / $aspectRatio));
+        }
+
+        // Crear una nueva imagen con las dimensiones calculadas
+        $dst = imagecreatetruecolor($newWidth, $newHeight);
+        if (!$dst) {
+            throw new Exception('No se pudo crear la nueva imagen.');
+        }
+
+        // Redimensionar la imagen original a la nueva imagen
+        if (!imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $srcWidth, $srcHeight)) {
+            throw new Exception('Error al redimensionar la imagen.');
+        }
+
+        // Obtener los datos de la imagen redimensionada como una cadena
+        ob_start();
+        imagepng($dst);
+        $resizedImageData = ob_get_clean();
+
+        // Liberar memoria
+        imagedestroy($src);
+        imagedestroy($dst);
+
+        return $resizedImageData;
+    }
+
+    /**
      * Método que procesa el borrado del post con el id pasado como parámetro.
      * 
      * @param string $id Número identificativo del post a editar.
@@ -216,7 +329,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function deletePost(string $id): void {
         $model = new \CodeShred\Models\PostsModel();
         if ($model->deletePost(intval($id))) {
-            header('location: /posts');
+            header('location: /mi-cuenta/mis-posts');
         } else {
             $data = [];
             // Declaramos los datos necesarios de la vista de editar un post

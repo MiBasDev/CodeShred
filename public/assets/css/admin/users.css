@@ -1,0 +1,40 @@
+.popup-delete-content {
+    width: 100%;
+}
+
+.popup-admin-pass {
+    gap: 20px;
+}
+
+.popup-admin-pass,
+.popup-admin-roles {
+    width: 100%;
+}
+
+.popup-admin-roles {
+    padding: 20px;
+}
+
+#roles {
+    width: 80%;
+    background-color: var(--static-elements-bg-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: unset;
+    cursor: pointer;
+}
+
+#roles:focus-visible {
+    outline-offset: unset;
+    outline: none;
+}
+
+@media (max-width: 600px) {
+    .popup-admin-pass {
+        width: 50%;
+    }
+
+    .popup-admin-roles {
+        padding: unset;
+    }
+}

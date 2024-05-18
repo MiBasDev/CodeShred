@@ -10,7 +10,7 @@
                     ?>
                     <div class = "post-card cs-fl-col">
                         <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                            <img src = "assets/img/cs-logo-color.png" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
+                            <img src = "<?php echo!empty($post['post_img']) && $post['post_img'] != '-' ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
                         </a>
                         <div class="post-card-text-content cs-fl-col cs-fl-just-c">
                             <div class="cs-fl cs-fl-align-c post-card-title">
@@ -20,7 +20,7 @@
                             </div>
                             <div class = "post-card-specifications cs-fl cs-fl-align-c">
                                 <div class = "post-card-user cs-fl">
-                                    <i class = "fas fa-user"></i>
+                                    <img class="profile-pic" src="<?php echo htmlspecialchars($post['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $post['user']; ?>">
                                     <span>
                                         <?php echo $post['user']; ?>
                                     </span>

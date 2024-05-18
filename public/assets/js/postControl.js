@@ -41,6 +41,9 @@ function captureScreenshot() {
         // Limpiamos el contenedor y añadimos la imagen
         screenshotContainer.innerHTML = '';
         screenshotContainer.appendChild(img);
+        
+        // Guardamos la imagen en el input hidden
+        document.getElementById('post-img-data').value = imageDataUrl;
     });
 }
 

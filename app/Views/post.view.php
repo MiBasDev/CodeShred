@@ -65,7 +65,14 @@
                 <span class="close-popup" onclick="closePopup()"><span class="fas fa-times"></span><span class="hidden-element">Cerrar popup</span></span>
             </div>
             <form action="<?php echo isset($section) && $section == '/post/add' ? '/post/add' : '/post/edit/' . $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col ">
-                <div id="popup-image-container" style="width: 100%; height: 100%"></div>
+                <div class="popup-img-container-all">
+                    <div id="popup-image-container" style="width: 100%; height: 100%"></div>
+                    <div class="include-img cs-fl cs-fl-just-c">
+                        <label for="include-img">Incluir imagen</label>
+                        <input type="checkbox" id="include-img" name="include-img" checked>
+                    </div>
+                </div>
+                <input type="hidden" id="post-img-data" name="post-img-data">
                 <div class="popup-input cs-fl-col cs-fl-just-c">
                     <label for="shred-title">Title:</label>
                     <input type="text" id="shred-title" name="shred-title" class="form-control">

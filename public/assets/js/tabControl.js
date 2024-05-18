@@ -72,19 +72,23 @@ function closeDeleteUserPopup() {
 }
 
 // Función que enseña un popup para el borrado de la cuenta de un usuario por un ADMIN
-function openUpdateUserPopup(id, name) {
+function openUpdateUserPopup(id, name, email, rol) {
     var popup = document.getElementById('popup-update-user');
-    var buttonUpdate = document.getElementById('button-admin-user-update-popup');
+    var buttonUpdate = document.getElementById('update-user-data');
     var title = document.getElementById('popup-admin-user-update-title');
+    var inputUser = document.getElementById('user');
+    var inputEmail = document.getElementById('email');
+    var selectRole = document.getElementById('roles');
 
     popup.style.display = 'flex';
     buttonUpdate.setAttribute('data-id', id);
     title.innerHTML = 'Datos de "' + name + '"';
+    inputUser.value = name;
+    inputEmail.value = email;
+    selectRole.value = rol;
 }
 
 // Función que oculta el popup de borrado de un ususario por un ADMIN
 function closeUpdateUserPopup() {
-    var popup = document.getElementById('popup-update-user');
-
-    popup.style.display = 'none';
+    location.reload();
 }

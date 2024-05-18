@@ -23,7 +23,7 @@ class TicketsController extends \CodeShred\Core\BaseController {
         $data['tickets'] = $model->getTickets();
 
         // Enseñamos la vista de tickets
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'tickets.view.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'admin/tickets.view.php', 'templates/footer.view.php'), $data);
     }
 
     /**

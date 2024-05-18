@@ -1,10 +1,17 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="my-account-container cs-fl">
+        <h1 class="hidden-element">Mi cuenta</span></h1>
         <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
             <div class="my-account-data cs-fl-col cs-fl-just-c cs-fl-align-c">
-                <h1>Hola, <?php echo $userData['user']; ?> <i class="fas fa-smile-beam"></i></h1>
-                <span class="fa fa-user my-account-data-logo"></span>
+                <h2>Hola, <?php echo $userData['user']; ?> <i class="fas fa-smile-beam"></i></h2>
+                <?php if (isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar'])) { ?>
+                    <div class="my-account-profile-img cs-fl cs-fl-just-c cs-fl-align-c">
+                        <img id="profile-pic" src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
+                    </div>
+                <?php } else { ?>
+                    <span class="fa fa-user my-account-data-logo"></span>
+                <?php } ?>
                 <div class="my-account-data-description cs-fl-col">
                     <label for="user-description">Sobre mí:</label>
                     <textarea name="user-description" id="user-description" rows="6" class="contact-form-textarea" placeholder="Pequeña descripción sobre ti..." maxlength="200"><?php echo isset($userData) && !empty($userData['user_description']) ? $userData['user_description'] : ''; ?></textarea>

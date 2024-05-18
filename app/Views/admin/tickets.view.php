@@ -12,7 +12,7 @@
                             <span class="fas fa-ticket-alt ticket-icon"></span>
                             <span class="cs-fl cs-fl-just-c cs-fl-align-c"><?php echo $ticket['ticket_subject']; ?></span>
                         </h2>
-                        <div class="ticket-buttons">
+                        <div class="ticket-buttons cs-fl">
                             <button class="ticket-resolve <?php echo $ticket['ticket_resolved'] == 1 ? 'button-success' : 'button-secondary'; ?>" id="ticket-<?php echo $ticket['id_ticket']; ?>" title="<?php echo $ticket['ticket_resolved'] == 1 ? 'Ticket resuelto' : 'Ticket sin resolver'; ?>">
                                 <span class="fas <?php echo $ticket['ticket_resolved'] == 0 ? 'fa-cog' : 'fa-check'; ?>"></span>
                             </button>

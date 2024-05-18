@@ -67,9 +67,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Recogemos el valor de los inputs
             var userId = this.getAttribute('data-id');
             var user = document.getElementById('user').value;
-            var userEmail = document.getElementById('email').value;
+            var email = document.getElementById('email').value;
             var userPass1 = document.getElementById('password1').value;
             var userPass2 = document.getElementById('password1').value;
+            var select = document.getElementById('roles');
+            if (select) {
+                var rol = select.value;
+            }
 
             // Guardamos los posibles elementos de error
             var userError = document.getElementById('errorUser');
@@ -96,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     userId: userId,
                     user: user,
-                    email: userEmail,
+                    email: email,
+                    rol: rol,
                     //password1: userPass1,
                     //password2: userPass2,
                 }),

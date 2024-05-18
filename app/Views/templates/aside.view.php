@@ -10,8 +10,14 @@
             </div>
         <?php } else { ?>
             <div class="cs-fl hamburger-menu-buttons">
-                <a href="/mi-cuenta" class="button-secondary" title="<?php echo $_SESSION['user']['user'] ?>"><i class="fas fa-user"></i><span class="hidden-element">Mi cuenta</span></a> 
-                <a href="/logout" class="logout button-primary"><i class="fas fa-sign-out-alt"></i><span class="hidden-element">Logout</span></a>
+                <a href="/mi-cuenta" class="button-secondary <?php echo isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar']) ? 'gravatar' : ''; ?>" title="<?php echo $_SESSION['user']['user'] ?>">
+                    <?php if (isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar'])) { ?>
+                        <img id="profile-pic" src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
+                    <?php } else { ?>
+                        <i class="fas fa-user"></i><span class="hidden-element">Mi cuenta</span>
+                    <?php } ?>
+                </a> 
+                <a href="/logout" class="logout button-primary" id="hamburger-logout"><i class="fas fa-sign-out-alt"></i><span class="hidden-element">Logout</span></a>
             </div>
         <?php } ?>
         <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></span></a>

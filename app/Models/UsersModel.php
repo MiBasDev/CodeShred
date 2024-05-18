@@ -17,8 +17,8 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Datos del usuario si los obtiene, null si no.
      */
     public function login(string $user, string $password): ?array {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_name = :user_name");
-        $stmt->execute(['user_name' => $user]);
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user = :user");
+        $stmt->execute(['user' => $user]);
         if ($stmt->rowCount() == 1) {
             $userData = $stmt->fetch();
             // Comprobamos que las contraseñas sean iguales
@@ -71,10 +71,10 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return bool True si inserta los datos, false si no.
      */
     public function register(array $data): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO users(user, user_pass, user_name, user_surname, user_email, user_rol) values (:user, :pass, :name, :surname, :email, :rol)');
+        $stmt = $this->pdo->prepare('INSERT INTO users(user, user_pass, user_name, user_surname, user_email, user_rol, user_gravatar) values (:user, :pass, :name, :surname, :email, :rol, :gravatar)');
         $pass = password_hash($data['pass'], PASSWORD_DEFAULT);
 
-        return $stmt->execute(['user' => $data['user'], 'pass' => $pass, 'name' => $data['name'], 'surname' => $data['surname'], 'email' => $data['email'], 'rol' => $data['rol']]);
+        return $stmt->execute(['user' => $data['user'], 'pass' => $pass, 'name' => $data['name'], 'surname' => $data['surname'], 'email' => $data['email'], 'rol' => $data['rol'], 'gravatar' => $data['gravatar']]);
     }
 
     /**
@@ -124,7 +124,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
     function getAllAdmin(): ?array {
-        $stmt = $this->pdo->prepare('SELECT id_user, user, user_description, user_rol FROM users WHERE user_rol > :user_rol ORDER BY user_rol');
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE user_rol > :user_rol ORDER BY user_rol');
         $stmt->execute(['user_rol' => $_SESSION['user']['user_rol']]);
 
         return $stmt->fetchAll();
@@ -151,7 +151,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Datos de los usuarios si los obtiene, null si no.
      */
     function getFollowing(int $id): ?array {
-        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
+        $stmt = $this->pdo->prepare('SELECT u.id_user, u.user, u.user_description, u.user_gravatar FROM users u JOIN follows f ON u.id_user = f.user_id_following WHERE f.user_id = :id');
         $stmt->execute(['id' => $id]);
 
         return $stmt->fetchAll();
@@ -166,7 +166,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     function delete(int $id): bool {
         $stmt = $this->pdo->prepare('DELETE FROM users WHERE id_user = :id');
         $stmt->execute(['id' => $id]);
-        
+
         return ($stmt->rowCount() == 1);
     }
 
@@ -179,7 +179,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      */
     function updateUserDescription(int $idUser, string $description): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_description = :user_description WHERE id_user = :id_user');
-        
+
         return $stmt->execute(['user_description' => $description, 'id_user' => $idUser]);
     }
 
@@ -193,7 +193,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      */
     function updateUserUser(int $idUser, string $user): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user = :user WHERE id_user = :id_user');
-        
+
         return $stmt->execute(['user' => $user, 'id_user' => $idUser]);
     }
 
@@ -206,8 +206,21 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      */
     function updateUserEmail(int $idUser, string $email): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_email = :user_email WHERE id_user = :id_user');
-        
+
         return $stmt->execute(['user_email' => $email, 'id_user' => $idUser]);
+    }
+
+    /**
+     * Método que actualiza el rol del usuario con el id pasado como parámetro.
+     * 
+     * @param int $idUser Número identificativo del usuario a actualizar.
+     * @param string $rol Rol del usuario para actualizar.
+     * @return bool  True si lo actualiza, false si no.
+     */
+    function updateUserRol(int $idUser, int $rol): bool {
+        $stmt = $this->pdo->prepare('UPDATE users SET user_rol = :user_rol WHERE id_user = :id_user');
+
+        return $stmt->execute(['user_rol' => $rol, 'id_user' => $idUser]);
     }
 
     /**

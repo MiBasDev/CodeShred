@@ -143,6 +143,34 @@
     outline: none;
 }
 
+.popup-img-container-all {
+    position: relative;
+}
+
+.include-img {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--static-elements-secondary-bg-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.include-img label {
+    cursor: pointer;
+}
+
+#include-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    accent-color: var(--button-primary--bg-color);
+}
+
 @media (max-width: 1200px) {
     .container-code {
         flex-direction: column;
