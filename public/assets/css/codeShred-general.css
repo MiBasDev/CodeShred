@@ -391,12 +391,6 @@ footer a.active {
     border-radius: 5px 0px 0px 5px;
 }
 
-.user-notificactions > h3 {
-    position: absolute;
-    top: -10px;
-    left: 10px;
-}
-
 .user-notificactions.show {
     right: 0px;
 }

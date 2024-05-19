@@ -268,7 +268,7 @@ class UsersController extends \CodeShred\Core\BaseController {
 
             // Obtenemos los posts de cada susuario y los metemos en su array
             $postModel = new \CodeShred\Models\PostsModel();
-            foreach ($followingUsers as &$user) {
+            foreach ($followingUsers as &$user) { // sof
                 $userId = $user['id_user'];
                 $user['posts'] = $postModel->getUserPosts($_SESSION['user']['id_user'], $userId);
             }
@@ -283,8 +283,9 @@ class UsersController extends \CodeShred\Core\BaseController {
     }
 
     /**
-     * Método que elimina al ususario de la sesión del sisitema.
+     * Método que elimina al usuario de la sesión del sisitema.
      * 
+     * @param string $id Número identificativo del usuario a actualizar.
      * @return void
      */
     public function myAccountDelete(string $id): void {

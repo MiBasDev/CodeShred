@@ -55,7 +55,7 @@
                                 <tr id="my-account-table-post-<?php echo $post['id_post']; ?>">
                                     <td>
                                         <a href = "/post/<?php echo $post['id_post']; ?>">
-                                            <?php echo $post['post_title'] ?><?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
+                                            <?php echo isset($post['post_title']) && !empty($post['post_title']) ? $post['post_title'] : '<i>Shred de ' . $post['user'] . '</i>'; ?>
                                         </a>
                                     </td>
                                     <td>

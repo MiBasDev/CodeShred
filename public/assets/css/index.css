@@ -85,6 +85,10 @@
         grid-template-columns: 1fr;
         justify-items: center;
     }
+
+    .index-main-container-left {
+        gap: 20px;
+    }
 }
 
 @media (max-width: 900px) {

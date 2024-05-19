@@ -53,7 +53,7 @@ class TicketsController extends \CodeShred\Core\BaseController {
 
             // Creamos una notificación
             $notificationModel = new \CodeShred\Models\NotificationsModel();
-            $notificationModel->addNotification($_SESSION['user']['id_user'], 'ticket', 'Has marcado el ticket #' . $ticketId . ' como resuelto.');
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Has marcado el ticket #' . $ticketId . ' como resuelto.');
 
             // Enviamos el resultado al front
             echo json_encode(['success' => $isDeleted, 'action' => $action]);
@@ -90,7 +90,7 @@ class TicketsController extends \CodeShred\Core\BaseController {
 
             // Creamos una notificación
             $notificationModel = new \CodeShred\Models\NotificationsModel();
-            $notificationModel->addNotification($_SESSION['user']['id_user'], 'ticket', 'Has eliminado el ticket #' . $ticketId . '.');
+            $notificationModel->addNotification($_SESSION['user']['id_user'], 'delete', 'Has eliminado el ticket #' . $ticketId . '.');
 
             // Enviamos el resultado al front
             echo json_encode(['success' => $isDeleted, 'action' => $action]);
