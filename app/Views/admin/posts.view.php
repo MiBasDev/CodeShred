@@ -4,12 +4,13 @@
         <h1>Shreds del sistema</h1>
         <!--Todos los Shreds-->
         <div id="todos-los-shreds" class="tabcontent admin">
+            <h2 class="hidden-element">Tabla de Shreds</h2>
             <table class="my-account-table">
                 <thead>
                     <tr>
-                        <td>TÍTULO</td>                           
-                        <td>USUARIO</td>
-                        <td>CONTROL</td>
+                        <th>TÍTULO</th>                           
+                        <th>USUARIO</th>
+                        <th>CONTROL</th>
                     </tr>
                 </thead>
                 <tbody>

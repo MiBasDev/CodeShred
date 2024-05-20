@@ -8,15 +8,13 @@
                 ?>    
                 <div class = "cs-fl-col user-following-container">
                     <h2 class="cs-fl cs-fl-align-c"><img class="profile-pic" src="<?php echo htmlspecialchars($user['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $user['user']; ?>">Shreds de <?php echo $user['user'] ?></h2>
-                    <div class="posts-cards-container-<?php echo isset($user['posts']) && !empty($user['posts']) && count($user['posts']) > 3 ? 'grid' : 'flex'; ?>">
+                    <div class="posts-cards-container-<?php echo isset($user['posts']) && !empty($user['posts']) && count($user['posts']) > 2 ? 'grid' : 'flex'; ?>">
                         <?php
                         if (isset($user['posts']) && !is_null($user['posts']) && !empty($user['posts'])) {
                             foreach ($user['posts'] as $post) {
                                 ?>
                                 <div class = "post-card cs-fl-col">
-                                    <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                                        <img src = "<?php echo!empty($post['post_img']) && $post['post_img'] != '-' ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
-                                    </a>
+                                    <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a" style="background: url(<?php echo!empty($post['post_img']) ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>) no-repeat scroll 50% 50% / cover;" aria-label="Ver post: <?php echo $post['post_title']; ?>"></a>
                                     <div class="post-card-text-content cs-fl-col cs-fl-just-c">
                                         <div class="cs-fl cs-fl-align-c post-card-title">
                                             <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">

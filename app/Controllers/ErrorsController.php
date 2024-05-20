@@ -26,7 +26,7 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         $data['posts'] = $model->getAllIndex();
 
         // Enseñamos la vista de error
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.view.php', 'templates/footer.view.php'), $data);
     }
 
     /**
@@ -45,6 +45,6 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         $data['css'] = 'error';
 
         // Enseñamos la vista de error
-        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.php', 'templates/footer.view.php'), $data);
+        $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'error.view.php', 'templates/footer.view.php'), $data);
     }
 }

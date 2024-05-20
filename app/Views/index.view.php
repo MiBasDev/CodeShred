@@ -1,4 +1,4 @@
-<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
     <div class="index-main-container main-content cs-fl cs-fl-align-c">
         <div class="index-main-container-left cs-fl-col cs-fl-just-c">
             <!-- Logo y slogan -->
@@ -35,9 +35,7 @@
                     foreach ($posts as $post) {
                         ?>
                         <div class = "post-card cs-fl-col">
-                            <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a cs-fl cs-fl-just-c cs-fl-align-c">
-                                <img src = "<?php echo!empty($post['post_img']) && $post['post_img'] != '-' ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>" alt="<?php echo $post['post_title']; ?>-<?php echo $post['user']; ?>" class = "post-card-img">
-                            </a>
+                            <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a" style="background: url(<?php echo!empty($post['post_img']) ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>) no-repeat scroll 50% 50% / cover;" aria-label="Ver post: <?php echo $post['post_title']; ?>"></span></a>
                             <div class="post-card-text-content cs-fl-col cs-fl-just-c">
                                 <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
                                     <h3><?php echo $post['post_title']; ?></h3>
@@ -51,9 +49,9 @@
                                     </div>
                                     <div class = "post-card-tags cs-fl">
                                         <span>
-                                            <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"></i>' : ''; ?>
-                                            <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"></i>' : ''; ?>
-                                            <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"></i>' : ''; ?>
+                                            <?php echo $post['tags_html'] == 1 ? '<i class="fab fa-html5"><span class="hidden-element">HMTL</span></i>' : ''; ?>
+                                            <?php echo $post['tags_css'] == 1 ? '<i class="fab fa-css3-alt"><span class="hidden-element">CSS</span></i>' : ''; ?>
+                                            <?php echo $post['tags_js'] == 1 ? '<i class="fab fa-js-square"><span class="hidden-element">JavaScript</span></i>' : ''; ?>
                                         </span>
                                     </div>
                                 </div>

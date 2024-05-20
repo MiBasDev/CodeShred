@@ -4,12 +4,13 @@
         <h1>Usuarios del sistema</h1>
         <!--Todos los usuarios-->
         <div id="todos-los-usuarios" class="tabcontent admin">
+            <h2 class="hidden-element">Tabla de usuarios</h2>
             <table class="my-account-table">
                 <thead>
                     <tr>
-                        <td>USUARIO</td>                           
-                        <td>DESCRIPCIÓN</td>
-                        <td>CONTROL</td>
+                        <th>USUARIO</th>                           
+                        <th>DESCRIPCIÓN</th>
+                        <th>CONTROL</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,7 +28,7 @@
                                 </td>
                                 <td>
                                     <div class="cs-fl cs-fl-just-c cs-fl-align-c my-account-table-buttons">
-                                        <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?php echo $user['id_user']; ?>, '<?php echo $user['user'] ?>')" title="Eliminar usuario"><span class="fas fa-user-times"></span><span class="hidden-element">Eliminar usuario</span></button>
+                                        <button class="button-warning button-my-account-post-delete" onclick="openDeleteUserPopup(<?php echo $user['id_user']; ?>, '<?php echo $user['user'] ?>')" title="Eliminar al usuario <?php echo $user['user'] ?>"><span class="fas fa-user-times"></span><span class="hidden-element">Eliminar usuario</span></button>
                                         <button class="button-secondary button-my-account-user-edit" onclick="openUpdateUserPopup(<?php echo $user['id_user']; ?>, '<?php echo $user['user'] ?>', '<?php echo $user['user_email'] ?>', '<?php echo $user['user_rol'] ?>')" ><span class="fas fa-user-edit"></span><span class="hidden-element">Editar usuario</span></button>
                                     </div>
                                 </td>

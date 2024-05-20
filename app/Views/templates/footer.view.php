@@ -1,3 +1,8 @@
+<!--Notificaciones-->
+<div class="cs-fl-col cs-fl-just-c user-notificactions" id="user-notificactions">
+    <h3>Nueva notifiación</h3>
+    <p id="notification-message"></p>
+</div>
 </main>
 
 <!--Footer position relative si o si-->
@@ -8,13 +13,13 @@
         <a href="/contacto" class="<?php echo $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
     </div>
     <div class="cs-fl">
-        <a href="https://twitter.com/codeShred">
+        <a href="https://twitter.com/codeShred" target="_blank">
             <i class="fab fa-instagram"></i><span class="hidden-element">Instagram</span>
         </a>
-        <a href="https://github.com/MiBasDev/codeShred">
+        <a href="https://github.com/MiBasDev/codeShred" target="_blank">
             <i class="fab fa-github"></i><span class="hidden-element">GitHub</span>
         </a>
-        <a href="https://www.instagram.com/codeShred">
+        <a href="https://www.instagram.com/codeShred" target="_blank">
             <i class="fab fa-twitter"></i><span class="hidden-element">Twitter</span>
         </a>
     </div>
@@ -40,7 +45,7 @@
 <?php if (isset($_SESSION['user'])) { ?>
     <script>
         // Pasar el userId desde PHP a una variable JavaScript
-        //const userId = <?php //echo json_encode($_SESSION['user']['id_user']); ?>;
+        //const userId = <?php //echo json_encode($_SESSION['user']['id_user']);   ?>;
     </script>
     <script src="assets/js/notificationWorker.js"></script>
 <?php } ?>

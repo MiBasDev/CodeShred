@@ -4,6 +4,7 @@
 
         <h1>Log IN codeShred</h1>
 
+        <h2 class="hidden-element">Formulario de login</h2>
         <form action="/login" method="post" class="login-form cs-fl-col cs-fl-just-c">
             <!--User-->
             <div class="login-input cs-fl">

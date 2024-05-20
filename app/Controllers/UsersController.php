@@ -299,6 +299,12 @@ class UsersController extends \CodeShred\Core\BaseController {
         if ($_SESSION['user']['id_user'] == $id) {
             $isDeleted = $model->delete(intval($_SESSION['user']['id_user']));
             if ($isDeleted) {
+                // Eliminamos la carpeta del usuario en donde se guardan las imágenes
+                // de sus posts y las imágenes
+                $folderPath = "assets/img/" . $_SESSION['user']['id_user'];
+                if (file_exists($folderPath)) {
+                    $this->deleteUserLocalFolder($folderPath);
+                }
                 // Desconectamos al usuario de la sesión
                 $this->logout();
             } else {
@@ -316,6 +322,28 @@ class UsersController extends \CodeShred\Core\BaseController {
             $data = array_merge($data, $dataUser);
             // Enseñamos la vista de mi cuenta con los datos obtenidos
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'account.view.php', 'templates/footer.view.php'), $data);
+        }
+    }
+
+    /**
+     * Método que elimina una carpeta y todo lo que tiene en su interior (sof).
+     * 
+     * @param string $folderPath Ruta de la carpeta.
+     * @return void
+     */
+    private function deleteUserLocalFolder(string $folderPath): void {
+        if (is_dir($folderPath)) {
+            $files = scandir($folderPath);
+            foreach ($files as $file) {
+                if ($file != "." && $file != "..") {
+                    if (is_dir("$folderPath/$file")) {
+                        $this->deleteUserLocalFolder("$folderPath/$file");
+                    } else {
+                        unlink("$folderPath/$file");
+                    }
+                }
+            }
+            rmdir($folderPath);
         }
     }
 

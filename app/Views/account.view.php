@@ -41,10 +41,10 @@
                 <table class="my-account-table">
                     <thead>
                         <tr>
-                            <td>TÍTULO</td>                           
-                            <td><span class="fa fa-eye"></span><span class="hidden-element">Visualizaciones</span></td>                            
-                            <td><span class="fa fa-heart"></span><span class="hidden-element">Me gusta</span></td>
-                            <td>CONTROL</td>
+                            <th>TÍTULO</th>                           
+                            <th><span class="fa fa-eye"></span><span class="hidden-element">Visualizaciones</span></th>                            
+                            <th><span class="fa fa-heart"></span><span class="hidden-element">Me gusta</span></th>
+                            <th>CONTROL</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,9 +100,9 @@
                     <table class="my-account-table">
                         <thead>
                             <tr>
-                                <td>SHRED</td>                           
-                                <td>USUARIO</td>
-                                <td>CONTROL</td>
+                                <th>SHRED</th>                           
+                                <th>USUARIO</th>
+                                <th>CONTROL</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -152,9 +152,9 @@
                     <table class="my-account-table">
                         <thead>
                             <tr>
-                                <td>USUARIO</td>                           
-                                <td>DESCRIPCIÓN</td>
-                                <td>CONTROL</td>
+                                <th>USUARIO</th>                           
+                                <th>DESCRIPCIÓN</th>
+                                <th>CONTROL</th>
                             </tr>
                         </thead>
                         <tbody>

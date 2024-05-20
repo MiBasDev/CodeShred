@@ -38,10 +38,10 @@
     </head>
     <body>
         <!--Header-->
-        <header class="cs-fl cs-fl-align-c">
+        <header class="cs-fl cs-fl-align-c" role="banner">
             <div class="header-logo cs-fl cs-fl-just-c cs-fl-align-c">
-                <a href="/">
-                    <img src="assets/img/cs-logo.png" alt="Logo codeShred" id="logo-cs">
+                <a href="/" aria-label="Logo de codeShred">
+                    <img src="assets/img/cs-logo.png" alt="Logo de codeShred" id="logo-cs">
                 </a>
             </div>
             <div class="header-buttons cs-fl cs-fl-align-c">
@@ -77,13 +77,7 @@
                     <?php } ?>
                 </div>
                 <div class="hamburger-menu-buttons">
-                    <button id="toggle-menu">&#9776;</button>
+                    <button id="toggle-menu" aria-label="Abrir menú de navegación">&#9776;</button>
                 </div>
             </div>
-            <!--Notificaciones-->
-            <div class="cs-fl-col cs-fl-just-c user-notificactions" id="user-notificactions">
-                <h3>Nueva notifiación</h3>
-                <p id="notification-message"></p>
-            </div>
         </header>
-

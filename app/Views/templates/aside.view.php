@@ -1,6 +1,6 @@
-<div class="overlay" id="overlay"></div>
+<div class="overlay" id="overlay" aria-hidden="true"></div>
 <!--Aside-->
-<aside class="cs-fl <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside">
+<aside class="cs-fl <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside" role="complementary">
     <div class="aside-content cs-fl-col cs-fl-align-c">
         <?php if (!isset($_SESSION['user'])) {
             ?>
@@ -12,7 +12,7 @@
             <div class="cs-fl hamburger-menu-buttons">
                 <a href="/mi-cuenta" class="button-secondary <?php echo isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar']) ? 'gravatar' : ''; ?>" title="<?php echo $_SESSION['user']['user'] ?>">
                     <?php if (isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar'])) { ?>
-                        <img id="profile-pic" src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
+                        <img id="profile-pic-hamburger" src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
                     <?php } else { ?>
                         <i class="fas fa-user"></i><span class="hidden-element">Mi cuenta</span>
                     <?php } ?>
@@ -20,10 +20,10 @@
                 <a href="/logout" class="logout button-primary" id="hamburger-logout"><i class="fas fa-sign-out-alt"></i><span class="hidden-element">Logout</span></a>
             </div>
         <?php } ?>
-        <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred"><span>Crear Shred</span><span class="fas fa-code"></span></a>
+        <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred" aria-label="Crear nuevo shred"><span>Crear Shred</span><span class="fas fa-code"></span></a>
 
         <!-- Sidebar Menu -->
-        <nav>
+        <nav role="navigation" aria-label="Menú de navegación principal">
             <ul class="nav">
                 <?php if (isset($_SESSION['user'])) : ?>
                     <li class="nav-item" title="Mis Shreds">
@@ -66,7 +66,9 @@
                     <?php } ?>
                 <?php endif; ?><?php if (isset($_SESSION['user'])) : ?>
                     <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::USER) { ?>
-                        <hr class="aside-separator"/>
+                        <li>
+                            <hr class="aside-separator"/>
+                        <li>
                         <li class="nav-item" title="Admin | Shreds">
                             <a href="/admin/posts" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/admin/posts' ? 'active' : ''; ?>">
                                 <i class="far fa-folder-open"></i>

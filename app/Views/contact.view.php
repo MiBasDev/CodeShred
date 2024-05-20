@@ -2,17 +2,18 @@
 <main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="contact-cont cs-fl-col cs-fl-align-c cs-fl-just-c">
         <h1>Contacto codeShred</h1>
+        <h2 class="hidden-element">Formulario de contacto</h2>
         <form action="/contacto" method="post" class="contact-form">
             <?php if (!isset($_SESSION['user'])) { ?>
                 <div class="cs-fl contact-form-span space">
                     <div class="login-input">
                         <label for="name"><span class="hidden-element">Nombre</span></label>
-                        <input type="text" name="name" placeholder="Nombre" class="form-control">
+                        <input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
                     </div>
 
                     <div class="login-input">
                         <label for="surname"><span class="hidden-element">Apellidos</span></label>
-                        <input type="text" name="surname" placeholder="Apellidos" class="form-control">
+                        <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control">
                     </div>
                 </div>
                 <?php if (isset($errors['name']) || isset($errors['surname'])) : ?>
@@ -37,7 +38,7 @@
                 <?php endif; ?>
                 <div class="login-input contact-form-span">
                     <label for="email"><span class="hidden-element">Email</span></label>
-                    <input type="email" name="email" placeholder="Email" class="form-control">
+                    <input type="email" name="email" id="email" placeholder="Email" class="form-control">
                 </div>
                 <?php if (isset($errors['email'])) : ?>
                     <!--Errores email-->

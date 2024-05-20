@@ -10,6 +10,8 @@ $(document).ready(function () {
         autoCloseTags: true,
         autoRefresh: true
     });
+    // Añadimos un aria-label al textarea de HTML generado por CodeMirror para accesibilidad (sof)
+    $(editorHtml.getWrapperElement()).find('textarea').attr('aria-label', 'Editor de código HTML');
 
     // Configuración de CodeMirror para CSS
     const codeCss = $("#css-code").get(0);
@@ -22,6 +24,8 @@ $(document).ready(function () {
         autoCloseBrackets: true,
         autoRefresh: true
     });
+    // Añadimos un aria-label al textarea de CSS generado por CodeMirror para accesibilidad (sof)
+    $(editorCss.getWrapperElement()).find('textarea').attr('aria-label', 'Editor de código CSS');
 
     // Configuración de CodeMirror para JavaScript
     const codeJs = $("#js-code").get(0);
@@ -35,6 +39,8 @@ $(document).ready(function () {
         lint: true,
         autoRefresh: true
     });
+    // Añadimos un aria-label al textarea de JS generado por CodeMirror para accesibilidad (sof)
+    $(editorJs.getWrapperElement()).find('textarea').attr('aria-label', 'Editor de código JavaScript');
 
     // Evento para actualizar el textarea de HTML
     editorHtml.on('change', function () {

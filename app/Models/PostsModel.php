@@ -171,9 +171,9 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @param int $postId Número identificativo del post a actualizar.
      * @return bool
      */
-    public function updateImg(string $filePath, int $postId):bool {
+    public function updateImg(string $filePath, int $postId): bool {
         $stmt = $this->pdo->prepare('UPDATE posts SET post_img = :post_img WHERE id_post = :post_id');
-        
+
         return $stmt->execute(['post_img' => $filePath, 'post_id' => $postId]);
     }
 
@@ -186,6 +186,23 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
     public function loadPost(int $idPost): ?array {
         $stmt = $this->pdo->prepare('SELECT * FROM posts WHERE id_post = :id_post');
         $stmt->execute(['id_post' => $idPost]);
+        if ($row = $stmt->fetch()) {
+            return $row;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Método que obtiene los datos de un post de un usuario por su nombre.
+     * 
+     * @param string $title Título del post a buscar.
+     * @param int $userId Número identificativo del usuario.
+     * @return array|null Colección con los datos del post si los obtiene, null si no.
+     */
+    public function getUserPostByName(string $title, int $userId): ?array {
+        $stmt = $this->pdo->prepare('SELECT * FROM posts WHERE post_title = :post_title AND post_user_id = :post_user_id');
+        $stmt->execute(['post_title' => $title, 'post_user_id' => $userId]);
         if ($row = $stmt->fetch()) {
             return $row;
         } else {

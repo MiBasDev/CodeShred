@@ -106,7 +106,7 @@
     background: none;
     border: none;
     font-size: 20px;
-    z-index: 999;
+    z-index: 30;
     padding: 10px;
     cursor: pointer;
     color: var(--button-secondary--bg-color);

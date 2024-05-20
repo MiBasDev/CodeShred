@@ -144,21 +144,22 @@
     gap: 20px;
 }
 
-.my-account-table{
+.my-account-table {
     width: 100%;
     margin-bottom: 5px;
 }
 
-.my-account-table thead td{
+.my-account-table thead th {
     font-weight: bold;
 }
 
-.my-account-table td {
+.my-account-table td,
+.my-account-table th {
     padding: 20px;
     text-align: center;
 }
 
-.my-account-table thead tr {
+.my-account-table thead th {
     background-color: var(--button-primary--bg-color);
 }
 
@@ -170,11 +171,9 @@
     background-color: var(--static-elements-bg-color);
 }
 
-.my-account-table td {
+.my-account-table td,
+.my-account-table th {
     border-radius: 5px;
-}
-
-.my-account-table td{
     border: 2px solid var(--static-elements-bg-color);
 }
 
