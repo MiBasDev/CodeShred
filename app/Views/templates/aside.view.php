@@ -67,7 +67,7 @@
                 <?php endif; ?><?php if (isset($_SESSION['user'])) : ?>
                     <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::USER) { ?>
                         <li>
-                            <hr class="aside-separator"/>
+                            <hr class="aside-separator">
                         <li>
                         <li class="nav-item" title="Admin | Shreds">
                             <a href="/admin/posts" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/admin/posts' ? 'active' : ''; ?>">

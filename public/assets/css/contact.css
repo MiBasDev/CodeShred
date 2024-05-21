@@ -24,7 +24,7 @@
     background-color: var(--static-elements-secondary-bg-color);
     border-radius: 5px;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
 }
 
 .contact-form-textarea {
@@ -58,6 +58,13 @@
     font-size: smaller;
     color: red;
     padding-bottom: 5px;
+}
+
+@media (max-width: 847px) {
+    .space {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 @media (max-width: 600px) {

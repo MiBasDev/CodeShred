@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
     <div class="my-account-container cs-fl">
         <h1 class="hidden-element">Mi cuenta</span></h1>
         <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
@@ -7,7 +7,7 @@
                 <h2>Hola, <?php echo $userData['user']; ?> <i class="fas fa-smile-beam"></i></h2>
                 <?php if (isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar'])) { ?>
                     <div class="my-account-profile-img cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img id="profile-pic" src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
+                        <img src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
                     </div>
                 <?php } else { ?>
                     <span class="fa fa-user my-account-data-logo"></span>

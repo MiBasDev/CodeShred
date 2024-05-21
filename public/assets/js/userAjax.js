@@ -75,6 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (select) {
                 var rol = select.value;
             }
+            console.log(userId);
+            console.log(user);
+            console.log(email);
+            console.log(userPass1);
+            console.log(userPass2);
+            console.log(rol);
+
 
             // Guardamos los posibles elementos de error
             var userError = document.getElementById('errorUser');

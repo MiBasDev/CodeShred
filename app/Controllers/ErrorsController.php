@@ -15,7 +15,7 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         http_response_code(404);
         // Declaramos los datos necesarios de la vista de inicio de la página
         $data = [];
-        $data['title'] = 'Error 404';
+        $data['title'] = 'codeShred | Error 404';
         $data['section'] = '/error404';
         $data['text'] = '¡Oups! Hemos buscado en 404 Shreds pero no hemos encontrado lo que estabas buscando...';
         $data['text2'] = 'Quizás te interese alguno de estos Shreds:';
@@ -38,8 +38,8 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         http_response_code(405);
         // Declaramos los datos necesarios de la vista de inicio de la página
         $data = [];
-        $data['title'] = 'Error 404';
-        $data['section'] = '/error404';
+        $data['title'] = 'codeShred | Error 405';
+        $data['section'] = '/error405';
         $data['text'] = '405. Method not allowed';
         $data['text2'] = 'Quizás te interese alguno de estos Shreds:';
         $data['css'] = 'error';

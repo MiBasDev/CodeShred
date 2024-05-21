@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
     <div class="contact-cont cs-fl-col cs-fl-align-c cs-fl-just-c">
         <h1>Contacto codeShred</h1>
         <h2 class="hidden-element">Formulario de contacto</h2>
@@ -49,7 +49,7 @@
             <?php } ?>
             <div class="login-input contact-form-span">
                 <label for="subject"><span class="hidden-element">Asunto</span></label>
-                <input type="text" name="subject" id="subject" placeholder="Asunto" class="form-control"></input>
+                <input type="text" name="subject" id="subject" placeholder="Asunto" class="form-control">
             </div>
             <?php if (isset($errors['subject'])) : ?>
                 <!--Errores asunto-->

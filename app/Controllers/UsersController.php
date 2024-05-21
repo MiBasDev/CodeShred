@@ -300,7 +300,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             $isDeleted = $model->delete(intval($_SESSION['user']['id_user']));
             if ($isDeleted) {
                 // Eliminamos la carpeta del usuario en donde se guardan las imágenes
-                // de sus posts y las imágenes
+                // de sus posts y las imágenes que tiene dentro
                 $folderPath = "assets/img/" . $_SESSION['user']['id_user'];
                 if (file_exists($folderPath)) {
                     $this->deleteUserLocalFolder($folderPath);
@@ -608,6 +608,15 @@ class UsersController extends \CodeShred\Core\BaseController {
             // Borramos el post
             $model = new \CodeShred\Models\UsersModel();
             $isDeleted = $model->delete($userId);
+
+            if ($isDeleted) {
+                // Eliminamos la carpeta del usuario en donde se guardan las imágenes
+                // de sus posts y las imágenes que tiene dentro
+                $folderPath = "assets/img/" . $userId;
+                if (file_exists($folderPath)) {
+                    $this->deleteUserLocalFolder($folderPath);
+                }
+            }
 
             // Creamos un log de lo ocurrido
             $logModel = new \CodeShred\Models\LogsModel();

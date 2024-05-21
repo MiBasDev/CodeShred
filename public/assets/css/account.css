@@ -263,12 +263,12 @@
         height: unset;
     }
 
-    #todos-los-usuarios thead tr td:nth-child(2),
+    #todos-los-usuarios thead tr th:nth-child(2),
     #todos-los-usuarios tbody tr td:nth-child(2) {
         display: none;
     }
 
-    .tabcontent.admin thead tr td:nth-child(2),
+    .tabcontent.admin thead tr th:nth-child(2),
     .tabcontent.admin tbody tr td:nth-child(2) {
         display: none;
     }
@@ -298,6 +298,11 @@
         grid-column: span 5;
     }
 
+    .my-account-table td, .my-account-table th {
+        padding: 10px;
+        text-align: center;
+    }
+
     .register-buttons {
         grid-column: span 2;
         justify-content: space-between;
@@ -306,5 +311,10 @@
 
     .my-account-data h1 i {
         font-size: 22px;
+    }
+
+    .admin-mod-text {
+        margin-right: 5px;
+        font-size: 14px;
     }
 }

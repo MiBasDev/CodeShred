@@ -372,7 +372,7 @@ class PostsController extends \CodeShred\Core\BaseController {
 
         if ($post) {
             // Intentamos borrar la imagen
-            if (file_exists($post['post_img'])) {
+            if (file_exists($post['post_img']) && $post['post_img'] != 'assets/img/cs-logo-color.png') {
                 unlink($post['post_img']);
             }
 
@@ -500,16 +500,22 @@ class PostsController extends \CodeShred\Core\BaseController {
         $model = new \CodeShred\Models\PostsModel();
         $userPosts = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
         $idFromUser = false;
-
+        $postImg = '';
         foreach ($userPosts as $userPost) {
             if ($userPost['id_post'] === $postId) {
                 $idFromUser = true;
+                $postImg = $userPost['post_img'];
             }
         }
 
         if ($idFromUser || $_SESSION['user']['user_rol'] != UsersController::USER) {
             // Borramos el post
             $isDeleted = $model->deletePost($postId);
+
+            // Intentamos borrar la imagen
+            if (file_exists($postImg) && $postImg != 'assets/img/cs-logo-color.png') {
+                unlink($postImg);
+            }
 
             // Creamos un log de lo ocurrido
             $logModel = new \CodeShred\Models\LogsModel();

@@ -1,8 +1,8 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
+<main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
     <div class="login cs-fl-col cs-fl-align-c cs-fl-just-c">
 
-        <h1>Log IN codeShred</h1>
+        <h1>Login codeShred</h1>
 
         <h2 class="hidden-element">Formulario de login</h2>
         <form action="/login" method="post" class="login-form cs-fl-col cs-fl-just-c">
