@@ -39,7 +39,7 @@
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="assets/js/textareaCode.js"></script>
 <?php } ?>
-<?php if (isset($section) && $section == '/tickets') : ?>
+<?php if (isset($section) && $section == '/admin/tickets') : ?>
     <script src="assets/js/ticketAjax.js"></script>
 <?php endif; ?>
 <?php if (isset($_SESSION['user'])) { ?>

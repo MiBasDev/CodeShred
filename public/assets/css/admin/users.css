@@ -37,4 +37,8 @@
     .popup-admin-roles {
         padding: unset;
     }
+    
+    #roles {
+        width: 90%;
+    }
 }

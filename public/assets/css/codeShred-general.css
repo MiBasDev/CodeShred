@@ -152,6 +152,7 @@ h6 {
     background-color: var(--button-success-hover-bg-color);
 }
 
+.button-success,
 .button-success span {
     color: var(--dark-letter-color);
 }
@@ -853,6 +854,10 @@ footer a.active {
     .overlay.active {
         display: block;
     }
+
+    .popup-delete-content h3 {
+        text-align: center;
+    }
 }
 
 @media (max-width: 600px) {
@@ -912,5 +917,12 @@ footer a.active {
     .posts-cards-container-grid,
     .posts-cards-container-flex {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .popup-content,
+    .popup-delete-content {
+        width: 100%;
+        padding: 20px;
+        margin: auto 5%;
     }
 }

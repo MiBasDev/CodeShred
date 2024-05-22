@@ -82,12 +82,12 @@
                                 <a href="/admin/users" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/admin/users' ? 'active' : ''; ?>">
                                     <i class="fas fa-users-cog"></i>
                                     <p>
-                                        Admin | Users
+                                        Admin | Usuarios
                                     </p>
                                 </a>
                             </li>
                             <li class="nav-item" title="Tickets">
-                                <a href="/tickets" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/tickets' ? 'active' : ''; ?>">
+                                <a href="/tickets" class="nav-link cs-fl cs-fl-just-c <?php echo $section === '/admin/tickets' ? 'active' : ''; ?>">
                                     <i class="far fa-clipboard"></i>
                                     <p>
                                         Admin | Tickets
