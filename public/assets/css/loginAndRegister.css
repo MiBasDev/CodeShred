@@ -71,6 +71,10 @@
     grid-column: span 2;
 }
 
+.register-input.space {
+    gap: 10px;
+}
+
 .register-div-errs {
     grid-column: span 2;
     display: grid;
@@ -103,14 +107,24 @@
     color: var(--button-primary--bg-color);
 }
 
-@media (max-width: 600px) {
-    .login,
-    .register {
-        padding: 20px 30px;
+.error-fl {
+    margin-top: 10px;
+}
+
+@media (max-width: 847px) {
+    .register-input.space {
+        flex-direction: column;
     }
 
     .register-form {
         width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .login,
+    .register {
+        padding: 20px 30px;
     }
 
     .register-form input {

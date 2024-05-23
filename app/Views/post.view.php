@@ -23,37 +23,65 @@
             $post_code = json_decode($post['post_code']);
         }
         ?>
-        <div class="code-background">
-            <label for="html-code" class="code-title cs-fl cs-fl-align-c">
-                <i class="fab fa-html5"></i>
-                <span>HTML</span>
-            </label>
+        <!-- HTML -->
+        <div id="html" class="tabcontent code-background active">
+            <div class="code-title cs-fl cs-fl-align-c">
+                <div class="cs-fl code-textarea-title">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML</span>
+                </div>
+                <div class="tabs">
+                    <button class="tablinks active" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i> HTML</button>
+                    <button class="tablinks" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i> CSS</button>
+                    <button class="tablinks" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i> JS</button>
+                </div>
+            </div>
+            <label for="html-code" class="hidden-element">Código HTML</label>
             <textarea name="html-code" id="html-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->html) ? $post_code->html : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
                 <button id="copy-html-button" class="post-code-copy" title="Copiar código HTML"><span class="fas fa-copy"></span></button>
             <?php } ?>
         </div>
-        <div class="code-background">
-            <label for="css-code" class="code-title cs-fl cs-fl-align-c">
-                <i class="fab fa-css3-alt"></i>
-                <span>CSS</span>
-            </label>
+        <!-- CSS -->
+        <div id="css" class="tabcontent code-background">
+            <div class="code-title cs-fl cs-fl-align-c">
+                <div class="cs-fl code-textarea-title">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS</span>
+                </div>
+                <div class="tabs">
+                    <button class="tablinks" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i> HTML</button>
+                    <button class="tablinks active" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i> CSS</button>
+                    <button class="tablinks" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i> JS</button>
+                </div>
+            </div>
+            <label for="css-code" class="hidden-element">Código CSS</label>
             <textarea name="css-code" id="css-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->css) ? $post_code->css : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
                 <button id="copy-css-button" class="post-code-copy" title="Copiar código CSS"><span class="fas fa-copy"></span></button>
             <?php } ?>
         </div>
-        <div class="code-background">
-            <label for="js-code" class="code-title cs-fl cs-fl-align-c">
-                <i class="fab fa-js-square"></i>
-                <span>JS</span>
-            </label>
+        <!-- JS -->
+        <div id="js" class="tabcontent code-background">
+            <div class="code-title cs-fl cs-fl-align-c">
+                <div class="cs-fl code-textarea-title">
+                    <i class="fab fa-js-square"></i>
+                    <span>JS</span>
+                </div>
+                <div class="tabs">
+                    <button class="tablinks" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i> HTML</button>
+                    <button class="tablinks" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i> CSS</button>
+                    <button class="tablinks active" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i> JS</button>
+                </div>
+            </div>
+            <label for="js-code" class="hidden-element">Código JavaScript</label>
             <textarea name="js-code" id="js-code" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>><?php echo isset($post_code) && !empty($post_code->js) ? $post_code->js : ''; ?></textarea>
             <?php if (isset($section) && strpos($section, '/post/add') !== 0) { ?>
                 <button id="copy-js-button" class="post-code-copy" title="Copiar código JS"><span class="fas fa-copy"></span></button>
             <?php } ?>
         </div>
     </div>
+    <!-- IFRAME PREVIEW -->
     <div id="final-code-container">
         <div id="final-code"><iframe id="my-iframe" sandbox="allow-same-origin allow-scripts" aria-label="Preview del código"></iframe></div>
     </div>
@@ -97,7 +125,6 @@
             </form>
         </div>
     </div>
-
 
     <?php if (isset($section) && strpos($section, '/post/edit') === 0) { ?>
         <div id="popup-delete" class="popup-delete">

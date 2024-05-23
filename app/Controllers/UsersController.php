@@ -487,10 +487,12 @@ class UsersController extends \CodeShred\Core\BaseController {
 
         // Input password2
         if (isset($post['password2']) && empty($post['password2'])) {
-            if ($post['userId'] == $_SESSION['user']['id_user']) {
+            if (isset($post['userId']) && $post['userId'] == $_SESSION['user']['id_user']) {
                 $errors['password2'] = "Campo obligatorio";
-            } elseif ($_SESSION['user']['user_rol'] == self::ADMIN && isset($post['password1']) && !empty($post['password1'])) {
+            } elseif (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] == self::ADMIN && isset($post['password1']) && !empty($post['password1'])) {
                 $errors['password2'] = "Campo obligatorio";
+            } else {
+                
             }
         }
 
@@ -524,7 +526,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Input privacity
         if ($isRegister && !isset($post['privacity'])) {
             // Si no existe, no ha aceptado la política de privacidad
-            $errors['privacity'] = 'Campo obligatorio';
+            $errors['privacity'] = 'Debes aceptar la Política de Privacidad para poder resgistrarte';
         }
 
         return $errors;

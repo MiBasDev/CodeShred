@@ -210,3 +210,33 @@ if (typeof (Worker) !== "undefined" && userId !== null) {
 } else {
     console.error('Web Workers no soportados o el id no existe');
 }
+
+// Función para enseñar los tabs de la vista de post en responsive
+function showCodeEditor(tabName) {
+    const html = document.getElementById('html');
+    const css = document.getElementById('css');
+    const js = document.getElementById('js');
+    if (tabName === 'css') {
+        if (html.classList.contains('active')) {
+            html.classList.remove('active');
+        }
+        if (js.classList.contains('active')) {
+            js.classList.remove('active');
+        }
+    } else if (tabName === 'html') {
+        if (css.classList.contains('active')) {
+            css.classList.remove('active');
+        }
+        if (js.classList.contains('active')) {
+            js.classList.remove('active');
+        }
+    } else {
+        if (html.classList.contains('active')) {
+            html.classList.remove('active');
+        }
+        if (css.classList.contains('active')) {
+            css.classList.remove('active');
+        }
+    }
+    document.getElementById(tabName).classList.add('active');
+}

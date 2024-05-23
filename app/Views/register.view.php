@@ -3,35 +3,29 @@
     <div class="register cs-fl-col cs-fl-align-c cs-fl-just-c">
 
         <h1 class="cs-fl"><span><i class="fas fa-clipboard-list"></i></span>Registro codeShred</h1>
-        
+
         <h2 class="hidden-element">Formulario de registro</h2>
         <form action="/registro" method="post" class="register-form">
-            <!--Nombre-->
-            <label for="name" class="hidden-element">Nombre</label>
-            <input type="text" name="name" id="name" placeholder="Nombre" class="form-control" value="<?php echo isset($name) ? $name : ''; ?>">
-            <!--Apellidos-->
-            <label for="surname" class="hidden-element">Apellidos</label>
-            <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control" value="<?php echo isset($surname) ? $surname : ''; ?>">
-            <?php if (isset($errors['name']) || isset($errors['surname'])) : ?>
-                <div class="cs-fl register-div-errs">
-                    <!--Errores nombre-->
-                    <p class="login-box-message">
-                        <?php
-                        if (isset($errors['name'])) {
-                            echo $errors['name'];
-                        }
-                        ?>
-                    </p>
-                    <!--Errores apellidos-->
-                    <p class="login-box-message">
-                        <?php
-                        if (isset($errors['surname'])) {
-                            echo $errors['surname'];
-                        }
-                        ?>
-                    </p>
+            <div class="cs-fl register-input space">
+                <!--Nombre-->
+                <div class="cs-fl-col">
+                    <label for="name"><span class="hidden-element">Nombre</span></label>
+                    <input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
+                    <?php if (isset($errors['name'])) : ?>
+                        <!--Errores nombre-->
+                        <p class="login-box-message error-fl"><?php echo $errors['name']; ?></p>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
+                <!--Nombre-->
+                <div class="cs-fl-col">
+                    <label for="surname"><span class="hidden-element">Apellidos</span></label>
+                    <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control">
+                    <?php if (isset($errors['surname'])) : ?>
+                        <!--Errores apellidos-->
+                        <p class="login-box-message error-fl"><?php echo $errors['surname']; ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
             <!--Email-->
             <label for="email" class="hidden-element">Email</label>
             <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($email) ? $email : ''; ?>">

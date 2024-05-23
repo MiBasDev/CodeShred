@@ -124,22 +124,28 @@ $(document).ready(function () {
     editorJs.on('change', updatePreview);
 
     // Evento para copiar el contenido del editor HTML
-    document.getElementById("copy-html-button").addEventListener("click", function () {
-        const htmlCode = editorHtml.getValue();
-        copyCode(htmlCode, this);
-    });
+    if (document.getElementById("copy-html-button")) {
+        document.getElementById("copy-html-button").addEventListener("click", function () {
+            const htmlCode = editorHtml.getValue();
+            copyCode(htmlCode, this);
+        });
+    }
 
     // Evento para copiar el contenido del editor CSS
-    document.getElementById("copy-css-button").addEventListener("click", function () {
-        const cssCode = editorCss.getValue();
-        copyCode(cssCode, this);
-    });
+    if (document.getElementById("copy-css-button")) {
+        document.getElementById("copy-css-button").addEventListener("click", function () {
+            const cssCode = editorCss.getValue();
+            copyCode(cssCode, this);
+        });
+    }
 
     // Evento para copiar el contenido del editor JS
-    document.getElementById("copy-js-button").addEventListener("click", function () {
-        const jsCode = editorJs.getValue();
-        copyCode(jsCode, this);
-    });
+    if (document.getElementById("copy-js-button")) {
+        document.getElementById("copy-js-button").addEventListener("click", function () {
+            const jsCode = editorJs.getValue();
+            copyCode(jsCode, this);
+        });
+    }
 
     // Función para copiar el texto al portapapeles
     function copyCode(text, button) {

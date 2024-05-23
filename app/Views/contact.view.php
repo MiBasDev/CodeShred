@@ -6,36 +6,24 @@
         <form action="/contacto" method="post" class="contact-form">
             <?php if (!isset($_SESSION['user'])) { ?>
                 <div class="cs-fl contact-form-span space">
-                    <div class="login-input">
+                    <div class="login-input cs-fl-col">
                         <label for="name"><span class="hidden-element">Nombre</span></label>
                         <input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
+                        <?php if (isset($errors['name'])) : ?>
+                            <!--Errores nombre-->
+                            <p class="contact-box-message error-fl"><?php echo $errors['name']; ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <div class="login-input">
                         <label for="surname"><span class="hidden-element">Apellidos</span></label>
                         <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control">
+                        <?php if (isset($errors['surname'])) : ?>
+                            <!--Errores apellidos-->
+                            <p class="contact-box-message error-fl"><?php echo $errors['surname']; ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <?php if (isset($errors['name']) || isset($errors['surname'])) : ?>
-                    <div class="cs-fl register-div-errs space">
-                        <!--Errores nombre-->
-                        <p class="contact-box-message">
-                            <?php
-                            if (isset($errors['name'])) {
-                                echo $errors['name'];
-                            }
-                            ?>
-                        </p>
-                        <!--Errores apellidos-->
-                        <p class="contact-box-message">
-                            <?php
-                            if (isset($errors['surname'])) {
-                                echo $errors['surname'];
-                            }
-                            ?>
-                        </p>
-                    </div>
-                <?php endif; ?>
                 <div class="login-input contact-form-span">
                     <label for="email"><span class="hidden-element">Email</span></label>
                     <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control">
