@@ -38,7 +38,7 @@
                 <?php endif; ?>
                 <div class="login-input contact-form-span">
                     <label for="email"><span class="hidden-element">Email</span></label>
-                    <input type="email" name="email" id="email" placeholder="Email" class="form-control">
+                    <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control">
                 </div>
                 <?php if (isset($errors['email'])) : ?>
                     <!--Errores email-->

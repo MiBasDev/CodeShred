@@ -1,13 +1,13 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
     <div class="my-account-container cs-fl">
-        <h1 class="hidden-element">Mi cuenta</span></h1>
+        <h1 class="hidden-element">Mi cuenta</h1>
         <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>
             <div class="my-account-data cs-fl-col cs-fl-just-c cs-fl-align-c">
                 <h2>Hola, <?php echo $userData['user']; ?> <i class="fas fa-smile-beam"></i></h2>
                 <?php if (isset($_SESSION['user']) && isset($_SESSION['user']['user_gravatar'])) { ?>
                     <div class="my-account-profile-img cs-fl cs-fl-just-c cs-fl-align-c">
-                        <img src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>">
+                        <img src="<?php echo htmlspecialchars($_SESSION['user']['user_gravatar']); ?>" alt="Imagen de perfil de <?php echo $_SESSION['user']['user']; ?>" id="profile-pic-account">
                     </div>
                 <?php } else { ?>
                     <span class="fa fa-user my-account-data-logo"></span>
@@ -215,14 +215,20 @@
                         <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control register-input" value="<?php echo isset($userData['user_email']) ? $userData['user_email'] : ''; ?>">
                         <!--Errores email-->
                         <p class="login-box-message my-account-form-error" id="errorEmail"></p>
+                        <p class="my-account-form-pass-management">Cambiar contraseña:</p>
+                        <!--Current pass-->
+                        <label for="current-password" class="hidden-element">Contraseña actual</label>
+                        <input type="password" name="current-password" id="current-password" placeholder="Contraseña actual" class="form-control register-input none">
+                        <!--Errores current pass-->
+                        <p class="login-box-message my-account-form-error" id="errorCurrentPass"></p>
                         <!--Pass 1-->
-                        <label for="password1" class="hidden-element">Contraseña</label>
-                        <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input none" disabled>
+                        <label for="password1" class="hidden-element">Nueva contraseña</label>
+                        <input type="password" name="password1" id="password1" placeholder="Nueva contraseña" class="form-control register-input none">
                         <!--Errores pass 1-->
                         <p class="login-box-message my-account-form-error" id="errorPass1"></p>
                         <!--Pass 2-->
-                        <label for="password2" class="hidden-element">Repetir contraseña</label>
-                        <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input" disabled>
+                        <label for="password2" class="hidden-element">Repetir nueva contraseña</label>
+                        <input type="password" name="password2" id="password2" placeholder="Repetir nueva contraseña" class="form-control register-input">
                         <!--Errores pass 2-->
                         <p class="login-box-message my-account-form-error" id="errorPass2"></p>
                         <!--Errores ambas pass-->

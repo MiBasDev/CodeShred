@@ -41,6 +41,7 @@
 
 .index-crea,
 .index-comparte {
+    width: 100%;
     padding: 20px;
     gap: 20px;
     border-radius: 5px;

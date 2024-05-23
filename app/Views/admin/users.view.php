@@ -90,13 +90,13 @@
                     <div class="cs-fl">
                         <div class="popup-admin-pass cs-fl-col">
                             <!--Pass 1-->
-                            <label for="password1" class="hidden-element">Contraseña</label>
-                            <input type="password" name="password1" id="password1" placeholder="Contraseña" class="form-control register-input none" disabled>
+                            <label for="password1" class="hidden-element">Nueva contraseña</label>
+                            <input type="password" name="password1" id="password1" placeholder="Nueva contraseña" class="form-control register-input none">
                             <!--Errores pass 1-->
                             <p class="login-box-message my-account-form-error" id="errorPass1"></p>
                             <!--Pass 2-->
                             <label for="password2" class="hidden-element">Repetir contraseña</label>
-                            <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input" disabled>
+                            <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" class="form-control register-input">
                             <!--Errores pass 2-->
                             <p class="login-box-message my-account-form-error" id="errorPass2"></p>
                             <!--Errores ambas pass-->

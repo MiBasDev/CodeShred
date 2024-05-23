@@ -69,29 +69,30 @@ document.addEventListener('DOMContentLoaded', function () {
             var userId = this.getAttribute('data-id');
             var user = document.getElementById('user').value;
             var email = document.getElementById('email').value;
+            var currentPassword = '';
+            if (document.getElementById('current-password')) {
+                currentPassword = document.getElementById('current-password').value;
+            }
             var userPass1 = document.getElementById('password1').value;
-            var userPass2 = document.getElementById('password1').value;
+            var userPass2 = document.getElementById('password2').value;
             var select = document.getElementById('roles');
             if (select) {
                 var rol = select.value;
             }
-            console.log(userId);
-            console.log(user);
-            console.log(email);
-            console.log(userPass1);
-            console.log(userPass2);
-            console.log(rol);
-
 
             // Guardamos los posibles elementos de error
             var userError = document.getElementById('errorUser');
             var emailError = document.getElementById('errorEmail');
+            var currentPassError = document.getElementById('errorCurrentPass');
             var pass1Error = document.getElementById('errorPass1');
             var pass2Error = document.getElementById('errorPass2');
             var globalError = document.getElementById('errorGlobal');
 
             userError.style.display = 'none';
             emailError.style.display = 'none';
+            if (currentPassError) {
+                currentPassError.style.display = 'none';
+            }
             pass1Error.style.display = 'none';
             pass2Error.style.display = 'none';
             globalError.style.display = 'none';
@@ -110,8 +111,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     user: user,
                     email: email,
                     rol: rol,
-                    //password1: userPass1,
-                    //password2: userPass2,
+                    currentPassword: currentPassword,
+                    password1: userPass1,
+                    password2: userPass2,
                 }),
             })
                     .then(function (response) {
@@ -136,6 +138,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.classList.remove('button-success');
                                 button.classList.add('button-primary');
                             }, 2000);
+
+                            if (document.getElementById('current-password')) {
+                                document.getElementById('current-password').value = '';
+                            }
+                            document.getElementById('password1').value = '';
+                            document.getElementById('password2').value = '';
+
                         } else {
                             // Cambiamos el texto del botón durante 2 segundos
                             button.textContent = (data.errors ? 'Error al guardar los datos' : 'Son los mismos datos');
@@ -159,6 +168,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (data.errors.email) {
                                     emailError.innerHTML = data.errors.email;
                                     emailError.style.display = 'block';
+                                }
+                                if (currentPassError && data.errors.currentPassword) {
+                                    currentPassError.innerHTML = data.errors.currentPassword;
+                                    currentPassError.style.display = 'block';
                                 }
                                 if (data.errors.password1) {
                                     pass1Error.innerHTML = data.errors.password1;

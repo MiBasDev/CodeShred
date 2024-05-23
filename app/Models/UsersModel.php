@@ -209,6 +209,20 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
 
         return $stmt->execute(['user_email' => $email, 'id_user' => $idUser]);
     }
+    
+    /**
+     * Método que actualiza la contraseña del usuario con el id pasado como parámetro.
+     * 
+     * @param int $userId Número identificativo del usuario a actualizar.
+     * @param string $pass Contraseña del usuario para actualizar.
+     * @return bool  True si lo actualiza, false si no.
+     */
+    public function updateUserPassword(int $userId, string $pass): bool {
+        $stmt = $this->pdo->prepare('UPDATE users SET user_pass = :pass WHERE id_user = :id');
+        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+        
+        return $stmt->execute(['pass' => $hashedPassword, 'id' => $userId]);
+    }
 
     /**
      * Método que actualiza el rol del usuario con el id pasado como parámetro.

@@ -229,7 +229,7 @@ class UsersController extends \CodeShred\Core\BaseController {
      */
     public function showAll(): void {
         // Comprobamos que el rol del usuario sea diferente de ADMIN
-        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+        if ($_SESSION['user']['user_rol'] != self::ADMIN) {
             $data = [];
             // Declaramos los datos necesarios de la vista de usuarios
             $data['title'] = 'codeShred | Usuarios';
@@ -255,7 +255,7 @@ class UsersController extends \CodeShred\Core\BaseController {
      */
     public function showFollowing(): void {
         // Comprobamos que el rol del usuario sea diferente de ADMIN
-        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+        if ($_SESSION['user']['user_rol'] != self::ADMIN) {
             $data = [];
             // Declaramos los datos necesarios de la vista de usuarios seguidos
             $data['title'] = 'codeShred | Siguiendo';
@@ -355,7 +355,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     private function myAccountData(): array {
         $data = [];
         // Comprobamos que el rol del usuario de la sesión sea USER
-        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+        if ($_SESSION['user']['user_rol'] != self::ADMIN) {
             // Obtenemos los posts del usuario y los posts que les ha dado like
             $model = new \CodeShred\Models\PostsModel();
             $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
@@ -424,8 +424,8 @@ class UsersController extends \CodeShred\Core\BaseController {
             } else {
                 $user = $userModel->registerCheck($post['user']);
                 if (!is_null($user)) {
-                    if (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] != UsersController::ADMIN) {
-                        if ((isset($_SESSION['user']) && $_SESSION['user']['user'] != $post['user'])) {
+                    if (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] != self::ADMIN) {
+                        if ($_SESSION['user']['user'] != $post['user']) {
                             $errors['user'] = 'Ya existe un usuario con el nombre ' . $post['user'];
                         }
                     }
@@ -445,7 +445,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             } else {
                 $user = $userModel->emailCheck($post['email']);
                 if (!is_null($user)) {
-                    if (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] != UsersController::ADMIN) {
+                    if (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] != self::ADMIN) {
                         if ($_SESSION['user']['user_email'] != $post['email'] || !isset($_SESSION['user'])) {
                             $errors['email'] = 'Ya existe un usuario con este email';
                         }
@@ -457,6 +457,21 @@ class UsersController extends \CodeShred\Core\BaseController {
             }
         } else {
             $errors['email'] = 'Campo obligatorio';
+        }
+
+        // Input current-password
+        if (isset($post['currentPassword']) && !empty($post['currentPassword'])) {
+            $user = $userModel->getUser(intval($_SESSION['user']['id_user']));
+            if (!password_verify($post['currentPassword'], $user['user_pass'])) {
+                $errors['currentPassword'] = 'La contraseña actual es incorrecta';
+            }
+
+            if (empty($post['password1'])) {
+                $errors['password1'] = "Campo obligatorio";
+            }
+            if (empty($post['password2'])) {
+                $errors['password2'] = "Campo obligatorio";
+            }
         }
 
         // Input password1
@@ -472,9 +487,11 @@ class UsersController extends \CodeShred\Core\BaseController {
 
         // Input password2
         if (isset($post['password2']) && empty($post['password2'])) {
-            // if(!isset($_SESSION['user'])) {
-            $errors['password2'] = "Campo obligatorio";
-            // }
+            if ($post['userId'] == $_SESSION['user']['id_user']) {
+                $errors['password2'] = "Campo obligatorio";
+            } elseif ($_SESSION['user']['user_rol'] == self::ADMIN && isset($post['password1']) && !empty($post['password1'])) {
+                $errors['password2'] = "Campo obligatorio";
+            }
         }
 
         // Inputs password1 y password2
@@ -650,62 +667,65 @@ class UsersController extends \CodeShred\Core\BaseController {
         $userId = intval($data['userId']);
         $userUpdated = false;
         $action = [];
-        // Miramos que sea el usuario de la sesión
-        if ($sessionUserId == $userId || $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
+        $isAdmin = $_SESSION['user']['user_rol'] == self::ADMIN;
+        $isSelfUpdate = $sessionUserId == $userId;
+
+        // Miramos que sea el usuario de la sesión o un admin
+        if ($isSelfUpdate || $isAdmin) {
+            if ($isAdmin && !$isSelfUpdate) {
+                unset($data['currentPassword']);
+            }
             // Checkeamos los inputs
             $errors = $this->checkForm($data);
             // Si los datos son correctos
             if (count($errors) == 0) {
-                if ($_SESSION['user']['user_rol'] == UsersController::ADMIN) {
-                    $model = new \CodeShred\Models\UsersModel();
-                    $user = $model->registerCheck($data['user']);
-                }
+                $model = new \CodeShred\Models\UsersModel();
+                $logModel = new \CodeShred\Models\LogsModel();
                 // Si quiere cambiar el nombre de usuario
-                if ((isset($data['user']) && $_SESSION['user']['user'] != $data['user']) || ($_SESSION['user']['user_rol'] == UsersController::ADMIN && !is_null($user))) {
-                    // Actualizamos el nombre de usuario
-                    $model = new \CodeShred\Models\UsersModel();
-                    $userUpdated = $model->updateUserUser($userId, $data['user']);
-                    // Creamos un log de lo ocurrido
-                    $logModel = new \CodeShred\Models\LogsModel();
-                    $action = $userUpdated ? 'updated' : 'error updating';
-                    $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " su nombre de usuario.", $_SESSION['user']['id_user']);
-                    // Si no es un admin, actualizamos la sesión
-                    if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
-                        $_SESSION['user']['user'] = $data['user'];
-                    }
-                }
-                if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
-                    // Si quiere cambiar el email
-                    if (isset($data['email']) && $_SESSION['user']['email'] != $data['email']) {
-                        // Actualizamos el email
-                        $model = new \CodeShred\Models\UsersModel();
-                        $userUpdated = $model->updateUserEmail($userId, $data['email']);
-                        // Creamos un log de lo ocurrido
-                        $logModel = new \CodeShred\Models\LogsModel();
+                if (isset($data['user']) && ($_SESSION['user']['user'] != $data['user'] || $isAdmin)) {
+                    $user = $model->registerCheck($data['user']);
+                    if ($user === null || $isAdmin) {
+                        $userUpdated = $model->updateUserUser($userId, $data['user']);
                         $action = $userUpdated ? 'updated' : 'error updating';
-                        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " su email.", $_SESSION['user']['id_user']);
-                        // Si no es un admin, actualizamos la sesión
-                        if ($_SESSION['user']['user_rol'] != UsersController::ADMIN) {
-                            $_SESSION['user']['email'] = $data['email'];
+                        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " el nombre de usuario.", $_SESSION['user']['id_user']);
+                        // Actualizamos la sesión si es una actualización propia
+                        if ($isSelfUpdate) {
+                            $_SESSION['user']['user'] = $data['user'];
                         }
                     }
                 }
-                // Si quiere cambiar el rol
-                if (isset($data['rol']) && $_SESSION['user']['user_rol'] == UsersController::ADMIN) {
-                    // Actualizamos el rol
-                    $model = new \CodeShred\Models\UsersModel();
+                // Si quiere cambiar el email
+                if (isset($data['email']) && ($_SESSION['user']['user_email'] != $data['email'] || $isAdmin)) {
+                    $user = $model->emailCheck($data['email']);
+                    if ($user === null || $isAdmin) {
+                        $userUpdated = $model->updateUserEmail($userId, $data['email']);
+                        $action = $userUpdated ? 'updated' : 'error updating';
+                        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " el email.", $_SESSION['user']['id_user']);
+                        // Actualizamos la sesión si es una actualización propia
+                        if ($isSelfUpdate) {
+                            $_SESSION['user']['user_email'] = $data['email'];
+                        }
+                    }
+                }
+                // Si quiere cambiar la contraseña
+                if (isset($data['password1']) && isset($data['password2']) && !empty($data['password1']) && !empty($data['password2'])) {
+                    if ($data['password1'] === $data['password2']) {
+                        $userUpdated = $model->updateUserPassword($userId, $data['password1']);
+                        $action = $userUpdated ? 'updated' : 'error updating';
+                        $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "intentado actualizar") . " la contraseña.", $_SESSION['user']['id_user']);
+                    }
+                }
+                // Si quiere cambiar el rol y es un admin
+                if (isset($data['rol']) && $isAdmin) {
                     $userUpdated = $model->updateUserRol($userId, intval($data['rol']));
-                    // Creamos un log de lo ocurrido
-                    $logModel = new \CodeShred\Models\LogsModel();
                     $action = $userUpdated ? 'updated' : 'error updating';
                     $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " el rol de " . $data['user'] . " a " . $data['rol'] . ".", $_SESSION['user']['id_user']);
                 }
-
                 // Enviamos el resultado al front
                 echo json_encode(['success' => $userUpdated, 'action' => $action]);
             } else {
                 // Enviamos el resultado al front
-                echo json_encode(['success' => $userUpdated, 'action' => 'error upating', 'errors' => $errors]);
+                echo json_encode(['success' => $userUpdated, 'action' => 'error updating', 'errors' => $errors]);
             }
         } else {
             // Enviamos el resultado al front

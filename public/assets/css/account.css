@@ -221,6 +221,11 @@
     font-size: 18px;
 }
 
+.my-account-form-pass-management {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 @media (max-width: 1500px) {
     .my-account-container{
         flex-direction: column;

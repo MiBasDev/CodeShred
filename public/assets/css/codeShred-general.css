@@ -182,7 +182,8 @@ header {
 }
 
 #profile-pic,
-#profile-pic-hamburger {
+#profile-pic-hamburger,
+#profile-pic-account {
     height: 100%;
     border-radius: 5px;
 }
