@@ -32,16 +32,18 @@ function captureScreenshot() {
         const imageDataUrl = canvas.toDataURL('image/png');
 
         // Creamos un elemento img y establecemos su src con la URL de datos
-        const img = document.createElement('img');
-        img.src = imageDataUrl;
-        img.alt = 'Preview Shred';
-        img.style.width = '100%';
-        img.style.aspectRatio = '16/9';
+        // const img = document.createElement('img');
+        // img.src = imageDataUrl;
+        // img.alt = 'Preview Shred';
+        // img.style.width = '100%';
+        // img.style.aspectRatio = '16/9';
+        // Establecemos la captura de pantalla como fondo del contenedor
+        screenshotContainer.style.background = `url(${imageDataUrl}) no-repeat 50% 50% / cover`;
 
-        // Limpiamos el contenedor y añadimos la imagen
+        // Limpiamos el contenido del contenedor
         screenshotContainer.innerHTML = '';
-        screenshotContainer.appendChild(img);
-        
+        // screenshotContainer.appendChild(img);
+
         // Guardamos la imagen en el input hidden
         document.getElementById('post-img-data').value = imageDataUrl;
     });
@@ -102,7 +104,7 @@ function openPopup() {
 function closePopup() {
     // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup');
-    
+
     popup.style.display = 'none';
 }
 
@@ -110,7 +112,7 @@ function closePopup() {
 function openDeletePopup() {
     // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup-delete');
-    
+
     popup.style.display = 'flex';
 }
 
@@ -118,6 +120,6 @@ function openDeletePopup() {
 function closeDeletePopup() {
     // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup-delete');
-    
+
     popup.style.display = 'none';
 }

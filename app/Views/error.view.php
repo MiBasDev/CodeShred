@@ -10,7 +10,7 @@
                 foreach ($posts as $post) {
                     ?>
                     <div class = "post-card cs-fl-col">
-                        <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a" style="background: url(<?php echo!empty($post['post_img']) ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>) no-repeat scroll 50% 50% / cover;" aria-label="Ver post: <?php echo $post['post_title']; ?>"></a>
+                        <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-img-a" style="background: url(<?php echo!empty($post['post_img']) ? $post['post_img'] : 'assets/img/cs-logo-color.png'; ?>) no-repeat 50% 50% / cover black;" aria-label="Ver post: <?php echo $post['post_title']; ?>"></a>
                         <div class="post-card-text-content cs-fl-col cs-fl-just-c">
                             <a href = "/post/<?php echo isset($_SESSION['user']) && $post['user'] == $_SESSION['user']['user'] ? 'edit/' . $post['id_post'] : $post['id_post']; ?>" class = "post-card-title-container">
                                 <h3><?php echo $post['post_title']; ?></h3>

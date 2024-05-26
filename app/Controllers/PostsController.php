@@ -168,7 +168,7 @@ class PostsController extends \CodeShred\Core\BaseController {
                     $imageData = str_replace(' ', '+', $imageData);
                     $imageData = base64_decode($imageData);
 
-                    // Redimensionamos la imagen
+                    // Redimensionamos la imagen (no usar por ahora)
                     $resizedImageData = $this->resizeImage($imageData, 500, 282);
 
                     $directory = 'assets/img/' . $_POST['user_id'];
@@ -179,7 +179,7 @@ class PostsController extends \CodeShred\Core\BaseController {
                     // Nombrar el archivo basado en el ID del post
                     $filePath = $directory . '/' . $postId . '.png';
 
-                    if (file_put_contents($filePath, $resizedImageData)) {
+                    if (file_put_contents($filePath, $imageData)) {
                         // Actualiza el post con el nombre de la imagen
                         $model->updateImg($filePath, $postId);
                     }
@@ -260,7 +260,7 @@ class PostsController extends \CodeShred\Core\BaseController {
                 $imageData = str_replace(' ', '+', $imageData);
                 $imageData = base64_decode($imageData);
 
-                // Redimensionamos la imagen
+                // Redimensionamos la imagen (no usar por ahora)
                 $resizedImageData = $this->resizeImage($imageData, 500, 282);
 
                 $directory = 'assets/img/' . $_POST['user_id'];
@@ -271,7 +271,7 @@ class PostsController extends \CodeShred\Core\BaseController {
                 // Nombrar el archivo basado en el ID del post
                 $filePath = $directory . '/' . $id . '.png';
 
-                if (file_put_contents($filePath, $resizedImageData)) {
+                if (file_put_contents($filePath, $imageData)) {
                     // Actualiza el post con el nombre de la imagen
                     $model->updateImg($filePath, intval($id));
                 }

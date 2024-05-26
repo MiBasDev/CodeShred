@@ -96,10 +96,10 @@
             </div>
             <form action="<?php echo isset($section) && $section == '/post/add' ? '/post/add' : '/post/edit/' . $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col ">
                 <div class="popup-img-container-all">
-                    <div id="popup-image-container" style="width: 100%; height: 100%"></div>
+                    <div id="popup-image-container"></div>
                     <div class="include-img cs-fl cs-fl-just-c">
                         <label for="include-img">Incluir imagen</label>
-                        <input type="checkbox" id="include-img" name="include-img" checked>
+                        <input type="checkbox" id="include-img" name="include-img" <?php echo isset($post['post_img']) && $post['post_img'] != 'assets/img/cs-logo-color.png' ? 'checked' : ''; ?> <?php echo!isset($post['post_img']) ? 'checked' : ''; ?> >
                     </div>
                 </div>
                 <input type="hidden" id="post-img-data" name="post-img-data">
