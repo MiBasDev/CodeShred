@@ -15,7 +15,7 @@ Red social de elementos web para programadores.
 ***************************************************
 **_TODO_:**
 - [x] Portada
-- [ ] Resumen
+- [x] Resumen
 - [ ] Abstract
 - [ ] Introducción
 - [ ] Objetivos
