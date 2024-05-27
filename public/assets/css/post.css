@@ -122,7 +122,8 @@
 
 #post-title,
 #post-title-two {
-    width: 300px;
+    width: 100%;
+    max-width: 400px;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -195,13 +196,16 @@
     gap: 5px;
     border: none;
     background-color: transparent;
-    font-weight: bold;
     border-radius: 5px 5px 0px 0px;
     cursor: pointer;
 }
 
 .code-textarea-title {
     gap: 5px;
+}
+
+#label-shred-title {
+    font-weight: bold;
 }
 
 @media (max-width: 1200px) {
@@ -225,14 +229,13 @@
         display: none;
     }
 
-    .tabcontent.active,
-    .tabcontent.active,
     .tabcontent.active {
         display: flex;
     }
 
     .tablinks.active {
         background-color: #282a36;
+        font-weight: bold;
     }
 
     .tablinks:hover {
@@ -273,9 +276,15 @@
         display: none;
     }
 
+    .post-title-container {
+        width: 100%;
+    }
+
     #post-title-two {
         display: flex;
         height: 100%;
+        width: 100%;
+        max-width: unset;
     }
 
     .post-action-buttons div:last-child {
@@ -295,13 +304,12 @@
         min-height: 600px;
     }
 
-    #post-title,
-    #post-title-two {
-        width: 100%;
+    .button-warning {
+        height: 100%;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .post-action-buttons {
         flex-direction: column-reverse;
         gap: 10px;

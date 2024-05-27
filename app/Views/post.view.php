@@ -2,20 +2,22 @@
 <main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
     <div class="cs-fl cs-fl-align-c post-action-buttons">
         <h1 class="hidden-element">Post</h1>
-        <div class="cs-fl cs-fl-align-c">
+        <div class="post-title-container cs-fl cs-fl-align-c">
             <?php if (isset($section) && strpos($section, '/post') === 0 && $section !== '/posts') { ?>
                 <label for="post-title-two" class="hidden-element">Usuario</label>
                 <input type="text" name="title" id="post-title-two" class="form-control" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>
             <?php } ?>
         </div>
-        <div class="cs-fl cs-fl-align-c">
-            <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
-                <button class="button-warning" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i><span class="hidden-element">Borrar Shred</span></button>
-            <?php } ?>
-            <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
-                <button class="button-primary" onclick="saveAndOpenPopup()">Guardar</button>
-            <?php } ?>
-        </div>
+        <?php if (isset($_SESSION['user']) && isset($section) && ($section == '/post/edit' || $section == '/post/add')) { ?>
+            <div class="cs-fl cs-fl-align-c">
+                <?php if (isset($_SESSION['user']) && isset($section) && $section == '/post/edit') { ?>
+                    <button class="button-warning" onclick="openDeletePopup()"><i class="fas fa-trash-alt"></i><span class="hidden-element">Borrar Shred</span></button>
+                <?php } ?>
+                <?php if (isset($_SESSION['user']) && isset($section) && strpos($section, '/post/') === 0) { ?>
+                    <button class="button-primary" onclick="saveAndOpenPopup()">Guardar</button>
+                <?php } ?>
+            </div>
+        <?php } ?>
     </div>
     <div class="container-code">
         <?php
@@ -31,9 +33,9 @@
                     <span>HTML</span>
                 </div>
                 <div class="tabs">
-                    <button class="tablinks active" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i> HTML</button>
-                    <button class="tablinks" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i> CSS</button>
-                    <button class="tablinks" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i> JS</button>
+                    <button class="tablinks active" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i>HTML</button>
+                    <button class="tablinks" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i>CSS</button>
+                    <button class="tablinks" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i>JS</button>
                 </div>
             </div>
             <label for="html-code" class="hidden-element">Código HTML</label>
@@ -50,9 +52,9 @@
                     <span>CSS</span>
                 </div>
                 <div class="tabs">
-                    <button class="tablinks" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i> HTML</button>
-                    <button class="tablinks active" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i> CSS</button>
-                    <button class="tablinks" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i> JS</button>
+                    <button class="tablinks" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i>HTML</button>
+                    <button class="tablinks active" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i>CSS</button>
+                    <button class="tablinks" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i>JS</button>
                 </div>
             </div>
             <label for="css-code" class="hidden-element">Código CSS</label>
@@ -69,9 +71,9 @@
                     <span>JS</span>
                 </div>
                 <div class="tabs">
-                    <button class="tablinks" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i> HTML</button>
-                    <button class="tablinks" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i> CSS</button>
-                    <button class="tablinks active" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i> JS</button>
+                    <button class="tablinks" onclick="showCodeEditor('html')"><i class="fab fa-html5"></i>HTML</button>
+                    <button class="tablinks" onclick="showCodeEditor('css')"><i class="fab fa-css3-alt"></i>CSS</button>
+                    <button class="tablinks active" onclick="showCodeEditor('js')"><i class="fab fa-js-square"></i>JS</button>
                 </div>
             </div>
             <label for="js-code" class="hidden-element">Código JavaScript</label>
@@ -104,7 +106,7 @@
                 </div>
                 <input type="hidden" id="post-img-data" name="post-img-data">
                 <div class="popup-input cs-fl-col cs-fl-just-c">
-                    <label for="shred-title">Title:</label>
+                    <label for="shred-title" id="label-shred-title">Título:</label>
                     <input type="text" id="shred-title" name="shred-title" class="form-control">
                 </div>
                 <div class="popup-input-hide cs-fl-col cs-fl-just-c">

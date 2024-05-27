@@ -262,7 +262,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             $data['section'] = '/siguiendo';
             $data['css'] = 'following';
 
-            // Obtenemos los ususario seguidos
+            // Obtenemos los usuario seguidos
             $model = new \CodeShred\Models\UsersModel();
             $followingUsers = $model->getFollowing($_SESSION['user']['id_user']);
 
@@ -272,7 +272,7 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $userId = $user['id_user'];
                 $user['posts'] = $postModel->getUserPosts($_SESSION['user']['id_user'], $userId);
             }
-            // Guardamos los ususarios en el array de la vista
+            // Guardamos los usuarios en el array de la vista
             $data['users'] = $followingUsers;
             // Enseñamos la vista de usuarios seguidos con los datos obtenidos
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'following.view.php', 'templates/footer.view.php'), $data);
@@ -374,7 +374,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             $model = new \CodeShred\Models\UsersModel();
             $data['usersData'] = $model->getAllAdmin();
         }
-        // Obtenemos los datos del ususario siempre
+        // Obtenemos los datos del usuario siempre
         $data['userData'] = $model->getUser($_SESSION['user']['id_user']);
         return $data;
     }
@@ -479,20 +479,13 @@ class UsersController extends \CodeShred\Core\BaseController {
             if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $post['password1'])) {
                 $errors['password1'] = "La contraseña debe contener una mayúscula, una minúscula, un número y tener una longitud mínima de 8 caracteres.";
             }
+            // Input password2
+            if (isset($post['password2']) && empty($post['password2'])) {
+                $errors['password2'] = "Campo obligatorio";
+            }
         } else {
             if (!isset($_SESSION['user'])) {
                 $errors['password1'] = "Campo obligatorio";
-            }
-        }
-
-        // Input password2
-        if (isset($post['password2']) && empty($post['password2'])) {
-            if (isset($post['userId']) && $post['userId'] == $_SESSION['user']['id_user']) {
-                $errors['password2'] = "Campo obligatorio";
-            } elseif (isset($_SESSION['user']) && $_SESSION['user']['user_rol'] == self::ADMIN && isset($post['password1']) && !empty($post['password1'])) {
-                $errors['password2'] = "Campo obligatorio";
-            } else {
-                
             }
         }
 
@@ -640,7 +633,7 @@ class UsersController extends \CodeShred\Core\BaseController {
             // Creamos un log de lo ocurrido
             $logModel = new \CodeShred\Models\LogsModel();
             $action = $isDeleted ? 'deleted' : 'not deleted';
-            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al ususario con ID " . $userId . ".", $_SESSION['user']['id_user']);
+            $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($isDeleted ? "borrado" : "intentado borrar") . " al usuario con ID " . $userId . ".", $_SESSION['user']['id_user']);
 
             // Creamos una notificación
             $notificationModel = new \CodeShred\Models\NotificationsModel();

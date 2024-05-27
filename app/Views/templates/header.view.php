@@ -38,14 +38,14 @@
     </head>
     <body>
         <!--Header-->
-        <header class="cs-fl cs-fl-align-c" role="banner">
+        <header class="cs-fl cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded' : ''; ?>" role="banner">
             <div class="header-logo cs-fl cs-fl-just-c cs-fl-align-c">
                 <a href="/" aria-label="Logo de codeShred">
                     <img src="assets/img/cs-logo.png" alt="Logo de codeShred" id="logo-cs">
                 </a>
             </div>
             <div class="header-buttons cs-fl cs-fl-align-c">
-                <div>
+                <div class="header-post-title">
                     <?php if (isset($section) && strpos($section, '/post') === 0 && $section !== '/posts') { ?>
                         <label for="post-title" class="hidden-element">Título</label>
                         <input type="text" name="title" id="post-title" value="<?php echo isset($post) ? $post['post_title'] : ''; ?>" placeholder="Título" <?php echo isset($section) && strpos($section, '/post/') !== 0 ? 'disabled' : ''; ?>>

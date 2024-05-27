@@ -171,6 +171,10 @@ header {
     width: var(--aside-width);
 }
 
+header.folded .header-logo {
+    width: var(--aside-folded-width);
+}
+
 #logo-cs {
     height: calc(var(--header-height) - 20px);
 }
@@ -179,6 +183,10 @@ header {
     width: calc(100% - var(--aside-width));
     justify-content: space-between;
     height: calc(var(--header-height) - 40px)
+}
+
+header.folded .header-buttons {
+    width: calc(100% - var(--aside-folded-width));
 }
 
 #profile-pic,
@@ -207,6 +215,10 @@ header {
 #button-my-account>span,
 .button-secondary>span {
     color: var(--dark-letter-color);
+}
+
+.header-post-title {
+    width: 100%;
 }
 
 /* Aside */
@@ -708,6 +720,14 @@ footer a.active {
         width: var(--other-elements-width-folded);
     }
 
+    .header-logo {
+        width: var(--aside-folded-width);
+    }
+
+    .header-buttons {
+        width: calc(100% - var(--aside-folded-width));
+    }
+
     aside .nav-link p {
         position: absolute;
         left: -9999px;
@@ -747,6 +767,10 @@ footer a.active {
         position: fixed;
         top: 0;
         z-index: 990;
+    }
+
+    .header-logo {
+        justify-content: start;
     }
 
     aside {
@@ -906,7 +930,7 @@ footer a.active {
 
     .posts-cards-container-grid,
     .posts-cards-container-flex {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 
     .popup-content,
@@ -914,5 +938,16 @@ footer a.active {
         width: 100%;
         padding: 20px;
         margin: auto 5%;
+    }
+
+    .post-card-img-a {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 400px) {
+    .posts-cards-container-grid,
+    .posts-cards-container-flex {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }

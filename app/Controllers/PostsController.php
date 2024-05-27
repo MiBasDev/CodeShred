@@ -104,7 +104,7 @@ class PostsController extends \CodeShred\Core\BaseController {
 
         // Creamos el modelo
         $model = new \CodeShred\Models\PostsModel();
-        // Si existe un ususario de sesión
+        // Si existe un usuario de sesión
         if (isset($_SESSION['user']['id_user'])) {
             // Obtneemos todos los posts con los datos referentes al usuario
             $data['posts'] = $model->getAll($_SESSION['user']['id_user']);

@@ -1,68 +1,65 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Asincronismo para el botón de actualizar descripción
-    document.querySelectorAll('#update-description').forEach(function (button) {
-        button.addEventListener('click', function () {
-            // Recogemos el valor del textarea
-            var userDescription = document.getElementById('user-description').value;
-            // Guardamos el texto original del botón
-            var originalButtonText = button.textContent;
+    document.getElementById('update-description').addEventListener('click', function () {
+        // Recogemos el valor del textarea
+        var userDescription = document.getElementById('user-description').value;
+        // Guardamos el texto original del botón
+        var originalButtonText = this.textContent;
 
-            // Empezamos la petición
-            fetch('/update-description', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userDescription: userDescription,
-                }),
-            })
-                    .then(function (response) {
-                        if (!response.ok) {
-                            throw new Error('Respuesta fallida.');
-                        }
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        // Procesamos la respuesta en el front
-                        if (data.action === 'updated') {
-                            // Cambiamos el texto del botón durante 2 segundos
-                            button.textContent = 'Descripción guardada';
-                            setTimeout(function () {
-                                button.textContent = originalButtonText;
-                            }, 2000);
+        // Empezamos la petición
+        fetch('/update-description', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userDescription: userDescription,
+            }),
+        })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Respuesta fallida.');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    // Procesamos la respuesta en el front
+                    if (data.action === 'updated') {
+                        // Cambiamos el texto del botón durante 2 segundos
+                        this.textContent = 'Descripción guardada';
+                        setTimeout(() => {
+                            this.textContent = originalButtonText;
+                        }, 2000);
 
-                            // Pintamos el botón durante 2 segundos
-                            button.classList.remove('button-secondary');
-                            button.classList.add('button-success');
-                            setTimeout(function () {
-                                button.classList.remove('button-success');
-                                button.classList.add('button-secondary');
-                            }, 2000);
-                        } else {
-                            // Cambiamos el texto del botón durante 2 segundos
-                            button.textContent = 'Fallo al guardar la descripción';
-                            setTimeout(function () {
-                                button.textContent = originalButtonText;
-                            }, 2000);
+                        // Pintamos el botón durante 2 segundos
+                        this.classList.remove('button-secondary');
+                        this.classList.add('button-success');
+                        setTimeout(() => {
+                            this.classList.remove('button-success');
+                            this.classList.add('button-secondary');
+                        }, 2000);
+                    } else {
+                        // Cambiamos el texto del botón durante 2 segundos
+                        this.textContent = 'Fallo al guardar la descripción';
+                        setTimeout(() => {
+                            this.textContent = originalButtonText;
+                        }, 2000);
 
-                            // Pintamos el botón durante 2 segundos
-                            button.classList.remove('button-secondary');
-                            button.classList.add('button-warning');
-                            setTimeout(function () {
-                                button.classList.remove('button-warning');
-                                button.classList.add('button-secondary');
-                            }, 2000);
-                        }
-                    })
-                    // Sacamos los errores
-                    .catch(function (error) {
-                        console.error('Error:', error);
-                    });
-        });
+                        // Pintamos el botón durante 2 segundos
+                        this.classList.remove('button-secondary');
+                        this.classList.add('button-warning');
+                        setTimeout(() => {
+                            this.classList.remove('button-warning');
+                            this.classList.add('button-secondary');
+                        }, 2000);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
     });
 
-    // Asincronismo para el botón de actualizar datos del ususario
+    // Asincronismo para el botón de actualizar datos del usuario
     document.querySelectorAll('#update-user-data').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos el valor de los inputs

@@ -13,7 +13,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * obtiene sus datos y comprueba si su contraseña es igual que la que ha recuperado.
      * 
      * @param string $user Nombre de la cuenta del usuario a buscar.
-     * @param string $password Contraseña del ususario.
+     * @param string $password Contraseña del usuario.
      * @return array|null Datos del usuario si los obtiene, null si no.
      */
     public function login(string $user, string $password): ?array {
@@ -67,7 +67,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * Método que almacena los datos de un usuario recibidos como parámetro en el
      * sistema.
      * 
-     * @param array $data Datos del ususario a almacenar.
+     * @param array $data Datos del usuario a almacenar.
      * @return bool True si inserta los datos, false si no.
      */
     public function register(array $data): bool {
@@ -174,7 +174,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * Método que actualiza la descripción del usuario con el id pasado como parámetro.
      * 
      * @param int $idUser Número identificativo del usuario a actualizar.
-     * @param string $description Descripción del ususario para actualizar.
+     * @param string $description Descripción del usuario para actualizar.
      * @return bool True si la actualiza, false si no.
      */
     public function updateUserDescription(int $idUser, string $description): bool {

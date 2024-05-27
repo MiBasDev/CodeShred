@@ -4,11 +4,13 @@ const asideHider = document.getElementById('aside-hider');
 // Le agregamos el evento para ocultar o enseñar todos los elementos que queremos
 // a la vez
 asideHider.addEventListener('click', () => {
+    const header = document.querySelector('header');
     const aside = document.querySelector('aside');
     const main = document.querySelector('main');
     const footer = document.querySelector('footer');
     const navLinkPs = document.querySelectorAll('aside .nav-link p');
 
+    header.classList.toggle('folded');
     aside.classList.toggle('folded-aside');
     main.classList.toggle('folded-others');
     footer.classList.toggle('folded-others');

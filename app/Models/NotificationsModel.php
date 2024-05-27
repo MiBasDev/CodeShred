@@ -7,7 +7,7 @@ namespace CodeShred\Models;
 class NotificationsModel extends \CodeShred\Core\BaseDbModel {
 
     /**
-     * Método que obtiene la última notificación del ususario pasado como parámetro.
+     * Método que obtiene la última notificación del usuario pasado como parámetro.
      * 
      * @param int $userId Número identificativo del usuario.
      * @return array Colección con la última notificación.

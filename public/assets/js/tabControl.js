@@ -18,7 +18,7 @@ function openTabOption(evt, sectionName) {
 // Obtenemos el botón de abrir por defecto
 const defaultButton = document.getElementById("defaultOpen");
 
-// Verificamos si el botón existe
+// Comprobamos si el botón existe
 if (defaultButton) {
     defaultButton.click();
 }
@@ -29,6 +29,12 @@ function openDeletePopup(id) {
     var popup = document.getElementById('popup-delete');
     // Agregamos el id al botón en un atributo data
     var buttonDelete = document.getElementById('button-my-account-post-delete-popup');
+
+    // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
+    var closeButton = popup.querySelector('.button-secondary');
+    if (closeButton) {
+        closeButton.focus();
+    }
 
     popup.style.display = 'flex';
     buttonDelete.setAttribute('data-id', id);
@@ -46,6 +52,12 @@ function closeDeletePopup() {
 function openDeleteAccountPopup() {
     // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup-delete-account');
+
+    // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
+    var closeButton = popup.querySelector('.button-secondary');
+    if (closeButton) {
+        closeButton.focus();
+    }
 
     popup.style.display = 'flex';
 }
@@ -67,12 +79,18 @@ function openDeleteUserPopup(id, name) {
     // Rellenamos el título del popup dinámicamente
     var title = document.getElementById('popup-delete-user-title');
 
+    // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
+    var closeButton = popup.querySelector('.button-secondary');
+    if (closeButton) {
+        closeButton.focus();
+    }
+
     popup.style.display = 'flex';
     buttonDelete.setAttribute('data-id', id);
     title.innerHTML = '¿Seguro que quieres borrar al usuario "' + name + '"?';
 }
 
-// Función que oculta el popup de borrado de un ususario por un ADMIN
+// Función que oculta el popup de borrado de un usuario por un ADMIN
 function closeDeleteUserPopup() {
     // Obtenemos el popup y lo ponemos a none
     var popup = document.getElementById('popup-delete-user');
@@ -93,6 +111,12 @@ function openUpdateUserPopup(id, name, email, rol) {
     var inputEmail = document.getElementById('email');
     var selectRole = document.getElementById('roles');
 
+    // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
+    var closeButton = popup.querySelector('.button-secondary');
+    if (closeButton) {
+        closeButton.focus();
+    }
+
     popup.style.display = 'flex';
     buttonUpdate.setAttribute('data-id', id);
     title.innerHTML = 'Datos de "' + name + '"';
@@ -101,7 +125,7 @@ function openUpdateUserPopup(id, name, email, rol) {
     selectRole.value = rol;
 }
 
-// Función que oculta el popup de borrado de un ususario por un ADMIN
+// Función que oculta el popup de borrado de un usuario por un ADMIN
 function closeUpdateUserPopup() {
     // Recargamos la paǵina dinámicamente
     location.reload();

@@ -2,12 +2,12 @@
 var postTitle = document.getElementById('post-title');
 var postTitleTwo = document.getElementById('post-title-two');
 
-// Actualizamos el otro título a la vez
+// Actualizamos los títulos a la vez
 postTitle.addEventListener('input', function () {
     postTitleTwo.value = postTitle.value;
 });
 
-// Actualizamos el otro título a la vez
+// Actualizamos los títulos a la vez
 postTitleTwo.addEventListener('input', function () {
     postTitle.value = postTitleTwo.value;
 });
@@ -55,11 +55,8 @@ function openPopup() {
     var popup = document.getElementById('popup');
     popup.style.display = 'flex';
 
-    if (postTitle !== undefined) {
-        postTitle = postTitle.value;
-    } else {
-        postTitle = postTitleTwo.value;
-    }
+    // Obtenemos los valores de los inputs del post
+    var postTitle = document.getElementById('post-title').value;
     var htmlCode = document.getElementById('html-code').value;
     var cssCode = document.getElementById('css-code').value;
     var jsCode = document.getElementById('js-code').value;
@@ -93,11 +90,18 @@ function openPopup() {
         return lines.join('\n');
     }
 
-    // Asigna los valores formateados a los campos del popup
+    // Asignamos los valores formateados a los campos del popup
+    // para guardarlos así en la base de datos
     document.getElementById('shred-title').value = postTitle;
     document.getElementById('shred-html').value = formatCode(htmlCode);
     document.getElementById('shred-css').value = formatCode(cssCode);
     document.getElementById('shred-js').value = formatCode(jsCode);
+
+    // Seleccionamos el botón de guardar dentro del popup y le damos el foco (accesibilidad)
+    var saveButton = popup.querySelector('.button-primary');
+    if (saveButton) {
+        saveButton.focus();
+    }
 }
 
 // Función para cerrar el popup de guardado
@@ -112,6 +116,12 @@ function closePopup() {
 function openDeletePopup() {
     // Obtenemos el popup y lo ponemos a flex
     var popup = document.getElementById('popup-delete');
+
+    // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
+    var closeButton = popup.querySelector('.button-secondary');
+    if (closeButton) {
+        closeButton.focus();
+    }
 
     popup.style.display = 'flex';
 }

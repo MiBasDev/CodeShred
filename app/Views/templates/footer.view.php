@@ -1,6 +1,6 @@
 <!--Notificaciones-->
 <div class="cs-fl-col cs-fl-just-c user-notificactions" id="user-notificactions">
-    <h3>Nueva notifiación</h3>
+    <h3>Nueva notificación</h3>
     <p id="notification-message"></p>
 </div>
 </main>
