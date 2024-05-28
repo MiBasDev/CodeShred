@@ -120,11 +120,25 @@ class InitController extends \CodeShred\Core\BaseController {
                 header('location: /');
             } else {
                 $data['errors']['message'] = 'Error indeterminado al enviar el formulario.';
+                // Saneamos los datos recibidos
+                $data['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+                $data['subject'] = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['message'] = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
+                
                 // Enseñamos la vista de contacto
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
             }
         } else {
             $data['errors'] = $errors;
+            // Saneamos los datos recibidos
+            $data['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['surname'] = filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $data['subject'] = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data['message'] = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
+
             // Enseñamos la vista de contacto
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
         }

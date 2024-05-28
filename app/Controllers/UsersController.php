@@ -369,6 +369,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         } else { // Si no lo es
             // Obtenemos todos los posts del sistema
             $model = new \CodeShred\Models\PostsModel();
+            $data['userPosts'] = $model->getUserPosts($_SESSION['user']['id_user'], $_SESSION['user']['id_user']);
             $data['usersPosts'] = $model->getAllAdmin();
             // Obtenemos todos los usuarios del sistema
             $model = new \CodeShred\Models\UsersModel();
@@ -480,13 +481,18 @@ class UsersController extends \CodeShred\Core\BaseController {
                 $errors['password1'] = "La contraseña debe contener una mayúscula, una minúscula, un número y tener una longitud mínima de 8 caracteres.";
             }
             // Input password2
-            if (isset($post['password2']) && empty($post['password2'])) {
+            if (isset($post['password2']) && empty($post['password2']) && !$isRegister) {
                 $errors['password2'] = "Campo obligatorio";
             }
         } else {
             if (!isset($_SESSION['user'])) {
                 $errors['password1'] = "Campo obligatorio";
             }
+        }
+
+        // Input password2, si es registro
+        if (isset($post['password2']) && empty($post['password2']) && $isRegister) {
+            $errors['password2'] = "Campo obligatorio";
         }
 
         // Inputs password1 y password2
@@ -554,7 +560,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     }
 
     /**
-     * Método que procesa un follow del usuario de la sesión  a otro usuario de 
+     * Método que procesa un follow del usuario de la sesión a otro usuario de 
      * manera asíncrona.
      * 
      * @return void
@@ -711,7 +717,7 @@ class UsersController extends \CodeShred\Core\BaseController {
                     }
                 }
                 // Si quiere cambiar el rol y es un admin
-                if (isset($data['rol']) && $isAdmin) {
+                if (isset($data['rol']) && $isAdmin && !$isSelfUpdate) {
                     $userUpdated = $model->updateUserRol($userId, intval($data['rol']));
                     $action = $userUpdated ? 'updated' : 'error updating';
                     $logModel->insertLog($action, "El usuario " . $_SESSION['user']['user'] . " ha " . ($userUpdated ? "actualizado" : "no actualizado") . " el rol de " . $data['user'] . " a " . $data['rol'] . ".", $_SESSION['user']['id_user']);

@@ -10,7 +10,7 @@
                 <!--Nombre-->
                 <div class="cs-fl-col">
                     <label for="name"><span class="hidden-element">Nombre</span></label>
-                    <input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
+                    <input type="text" name="name" id="name" placeholder="Nombre" class="form-control" value="<?php echo isset($name) ? $name : ''; ?>">
                     <?php if (isset($errors['name'])) : ?>
                         <!--Errores nombre-->
                         <p class="login-box-message error-fl"><?php echo $errors['name']; ?></p>
@@ -19,7 +19,7 @@
                 <!--Nombre-->
                 <div class="cs-fl-col">
                     <label for="surname"><span class="hidden-element">Apellidos</span></label>
-                    <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control">
+                    <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control" value="<?php echo isset($surname) ? $surname : ''; ?>">
                     <?php if (isset($errors['surname'])) : ?>
                         <!--Errores apellidos-->
                         <p class="login-box-message error-fl"><?php echo $errors['surname']; ?></p>

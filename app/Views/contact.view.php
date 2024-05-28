@@ -8,7 +8,7 @@
                 <div class="cs-fl contact-form-span space">
                     <div class="login-input cs-fl-col">
                         <label for="name"><span class="hidden-element">Nombre</span></label>
-                        <input type="text" name="name" id="name" placeholder="Nombre" class="form-control">
+                        <input type="text" name="name" id="name" placeholder="Nombre" class="form-control" value="<?php echo isset($name) ? $name : ''; ?>">
                         <?php if (isset($errors['name'])) : ?>
                             <!--Errores nombre-->
                             <p class="contact-box-message error-fl"><?php echo $errors['name']; ?></p>
@@ -17,7 +17,7 @@
 
                     <div class="login-input">
                         <label for="surname"><span class="hidden-element">Apellidos</span></label>
-                        <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control">
+                        <input type="text" name="surname" id="surname" placeholder="Apellidos" class="form-control" value="<?php echo isset($surname) ? $surname : ''; ?>">
                         <?php if (isset($errors['surname'])) : ?>
                             <!--Errores apellidos-->
                             <p class="contact-box-message error-fl"><?php echo $errors['surname']; ?></p>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="login-input contact-form-span">
                     <label for="email"><span class="hidden-element">Email</span></label>
-                    <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control">
+                    <input type="email" name="email" id="email" placeholder="Correo electrónico" class="form-control" value="<?php echo isset($email) ? $email : ''; ?>">
                 </div>
                 <?php if (isset($errors['email'])) : ?>
                     <!--Errores email-->
@@ -37,7 +37,7 @@
             <?php } ?>
             <div class="login-input contact-form-span">
                 <label for="subject"><span class="hidden-element">Asunto</span></label>
-                <input type="text" name="subject" id="subject" placeholder="Asunto" class="form-control">
+                <input type="text" name="subject" id="subject" placeholder="Asunto" class="form-control" value="<?php echo isset($subject) ? $subject : ''; ?>">
             </div>
             <?php if (isset($errors['subject'])) : ?>
                 <!--Errores asunto-->
@@ -47,7 +47,7 @@
             <?php endif; ?>
             <div class="login-input contact-form-span">
                 <label for="message"><span class="hidden-element">Mensaje</span></label>
-                <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Mensaje..."></textarea>
+                <textarea name="message" id="message" rows="10" class="contact-form-textarea" maxlength="255" placeholder="Mensaje..."><?php echo isset($message) ? $message : ''; ?></textarea>
             </div>
             <?php if (isset($errors['message'])) : ?>
                 <!--Errores ambas pass-->

@@ -1,101 +1,99 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Asincronismo para el botón de actualizar descripción
-    document.getElementById('update-description').addEventListener('click', function () {
-        // Recogemos el valor del textarea
-        var userDescription = document.getElementById('user-description').value;
-        // Guardamos el texto original del botón
-        var originalButtonText = this.textContent;
+    const updateDescriptionButton = document.getElementById('update-description');
+    if (updateDescriptionButton) {
+        updateDescriptionButton.addEventListener('click', function () {
+            // Recogemos el valor del textarea
+            var userDescription = document.getElementById('user-description').value;
+            // Guardamos el texto original del botón
+            var originalButtonText = this.textContent;
 
-        // Empezamos la petición
-        fetch('/update-description', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                userDescription: userDescription,
-            }),
-        })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Respuesta fallida.');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    // Procesamos la respuesta en el front
-                    if (data.action === 'updated') {
-                        // Cambiamos el texto del botón durante 2 segundos
-                        this.textContent = 'Descripción guardada';
-                        setTimeout(() => {
-                            this.textContent = originalButtonText;
-                        }, 2000);
+            // Empezamos la petición
+            fetch('/update-description', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userDescription: userDescription,
+                }),
+            })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Respuesta fallida.');
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        // Procesamos la respuesta en el front
+                        if (data.action === 'updated') {
+                            // Cambiamos el texto del botón durante 2 segundos
+                            this.textContent = 'Descripción guardada';
+                            setTimeout(() => {
+                                this.textContent = originalButtonText;
+                            }, 2000);
 
-                        // Pintamos el botón durante 2 segundos
-                        this.classList.remove('button-secondary');
-                        this.classList.add('button-success');
-                        setTimeout(() => {
-                            this.classList.remove('button-success');
-                            this.classList.add('button-secondary');
-                        }, 2000);
-                    } else {
-                        // Cambiamos el texto del botón durante 2 segundos
-                        this.textContent = 'Fallo al guardar la descripción';
-                        setTimeout(() => {
-                            this.textContent = originalButtonText;
-                        }, 2000);
+                            // Pintamos el botón durante 2 segundos
+                            this.classList.remove('button-secondary');
+                            this.classList.add('button-success');
+                            setTimeout(() => {
+                                this.classList.remove('button-success');
+                                this.classList.add('button-secondary');
+                            }, 2000);
+                        } else {
+                            // Cambiamos el texto del botón durante 2 segundos
+                            this.textContent = 'Fallo al guardar la descripción';
+                            setTimeout(() => {
+                                this.textContent = originalButtonText;
+                            }, 2000);
 
-                        // Pintamos el botón durante 2 segundos
-                        this.classList.remove('button-secondary');
-                        this.classList.add('button-warning');
-                        setTimeout(() => {
-                            this.classList.remove('button-warning');
-                            this.classList.add('button-secondary');
-                        }, 2000);
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-    });
+                            // Pintamos el botón durante 2 segundos
+                            this.classList.remove('button-secondary');
+                            this.classList.add('button-warning');
+                            setTimeout(() => {
+                                this.classList.remove('button-warning');
+                                this.classList.add('button-secondary');
+                            }, 2000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+        });
+    }
 
     // Asincronismo para el botón de actualizar datos del usuario
-    document.querySelectorAll('#update-user-data').forEach(function (button) {
-        button.addEventListener('click', function () {
+    const updateUserDataButton = document.getElementById('update-user-data');
+    if (updateUserDataButton) {
+        updateUserDataButton.addEventListener('click', function () {
             // Recogemos el valor de los inputs
-            var userId = this.getAttribute('data-id');
-            var user = document.getElementById('user').value;
-            var email = document.getElementById('email').value;
-            var currentPassword = '';
-            if (document.getElementById('current-password')) {
-                currentPassword = document.getElementById('current-password').value;
-            }
-            var userPass1 = document.getElementById('password1').value;
-            var userPass2 = document.getElementById('password2').value;
-            var select = document.getElementById('roles');
-            if (select) {
-                var rol = select.value;
-            }
+            const userId = this.getAttribute('data-id');
+            const user = document.getElementById('user').value;
+            const email = document.getElementById('email').value;
+            const currentPassword = document.getElementById('current-password') ? document.getElementById('current-password').value : '';
+            const userPass1 = document.getElementById('password1').value;
+            const userPass2 = document.getElementById('password2').value;
+            const select = document.getElementById('roles');
+            const rol = select ? select.value : '';
 
             // Guardamos los posibles elementos de error
-            var userError = document.getElementById('errorUser');
-            var emailError = document.getElementById('errorEmail');
-            var currentPassError = document.getElementById('errorCurrentPass');
-            var pass1Error = document.getElementById('errorPass1');
-            var pass2Error = document.getElementById('errorPass2');
-            var globalError = document.getElementById('errorGlobal');
+            const userError = document.getElementById('errorUser');
+            const emailError = document.getElementById('errorEmail');
+            const currentPassError = document.getElementById('errorCurrentPass');
+            const pass1Error = document.getElementById('errorPass1');
+            const pass2Error = document.getElementById('errorPass2');
+            const globalError = document.getElementById('errorGlobal');
 
             userError.style.display = 'none';
             emailError.style.display = 'none';
-            if (currentPassError) {
+            if (currentPassError)
                 currentPassError.style.display = 'none';
-            }
             pass1Error.style.display = 'none';
             pass2Error.style.display = 'none';
             globalError.style.display = 'none';
 
             // Guardamos el texto original del botón
-            var originalButtonText = button.textContent;
+            const originalButtonText = this.textContent;
 
             // Empezamos la petición
             fetch('/update-user-data', {
@@ -113,27 +111,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     password2: userPass2,
                 }),
             })
-                    .then(function (response) {
+                    .then(response => {
                         if (!response.ok) {
                             throw new Error('Respuesta fallida.');
                         }
                         return response.json();
                     })
-                    .then(function (data) {
+                    .then(data => {
                         // Procesamos la respuesta en el front
                         if (data.action === 'updated') {
                             // Cambiamos el texto del botón durante 2 segundos
-                            button.textContent = 'Datos actualizados';
-                            setTimeout(function () {
-                                button.textContent = originalButtonText;
+                            this.textContent = 'Datos actualizados';
+                            setTimeout(() => {
+                                this.textContent = originalButtonText;
                             }, 2000);
 
                             // Pintamos el botón durante 2 segundos
-                            button.classList.remove('button-primary');
-                            button.classList.add('button-success');
-                            setTimeout(function () {
-                                button.classList.remove('button-success');
-                                button.classList.add('button-primary');
+                            this.classList.remove('button-primary');
+                            this.classList.add('button-success');
+                            setTimeout(() => {
+                                this.classList.remove('button-success');
+                                this.classList.add('button-primary');
                             }, 2000);
 
                             if (document.getElementById('current-password')) {
@@ -144,17 +142,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         } else {
                             // Cambiamos el texto del botón durante 2 segundos
-                            button.textContent = (data.errors ? 'Error al guardar los datos' : 'Son los mismos datos');
-                            setTimeout(function () {
-                                button.textContent = originalButtonText;
+                            this.textContent = data.errors ? 'Error al guardar los datos' : 'Son los mismos datos';
+                            setTimeout(() => {
+                                this.textContent = originalButtonText;
                             }, 2000);
 
                             // Pintamos el botón durante 2 segundos
-                            button.classList.remove('button-primary');
-                            button.classList.add('button-warning');
-                            setTimeout(function () {
-                                button.classList.remove('button-warning');
-                                button.classList.add('button-primary');
+                            this.classList.remove('button-primary');
+                            this.classList.add('button-warning');
+                            setTimeout(() => {
+                                this.classList.remove('button-warning');
+                                this.classList.add('button-primary');
                             }, 2000);
 
                             if (data.errors) {
@@ -185,12 +183,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
                     })
-                    // Sacamos los errores
-                    .catch(function (error) {
+                    .catch(error => {
                         console.error('Error:', error);
                     });
         });
-    });
+    }
 
     // Asincronismo para los botones de follow
     document.querySelectorAll('.user-follow').forEach(function (button) {
@@ -239,11 +236,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Asincronismo para los botones de borrado de usuarios en el admin
-    document.querySelectorAll('#button-my-account-user-delete-popup').forEach(function (button) {
-        button.addEventListener('click', function () {
+    // Asincronismo para el botón de borrado de usuarios en el admin
+    const deleteUserButton = document.getElementById('button-my-account-user-delete-popup');
+    if (deleteUserButton) {
+        deleteUserButton.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var userId = this.getAttribute('data-id');
+            const userId = this.getAttribute('data-id');
 
             // Empezamos la petición
             fetch('/user-delete', {
@@ -255,37 +253,35 @@ document.addEventListener('DOMContentLoaded', function () {
                     userId: userId
                 }),
             })
-                    .then(function (response) {
-                        console.log('hola');
+                    .then(response => {
                         if (!response.ok) {
                             throw new Error('Respuesta fallida.');
                         }
                         return response.json();
                     })
-                    .then(function (data) {
+                    .then(data => {
                         // Procesamos la respuesta en el front
                         if (data.success) {
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
-                                var trElement = document.getElementById('my-account-table-user-' + userId);
+                                const trElement = document.getElementById('my-account-table-user-' + userId);
                                 // Lo quitamos de la tabla con una animación
                                 if (trElement) {
                                     trElement.style.opacity = 0;
-                                    setTimeout(function () {
+                                    setTimeout(() => {
                                         trElement.remove();
                                     }, 1000);
                                 }
                             }
-
                         }
                         // Pase lo que pase, cerramos el popup
-                        var popup = document.getElementById('popup-delete-user');
+                        const popup = document.getElementById('popup-delete-user');
                         popup.style.display = 'none';
                     })
                     // Sacamos los errores
-                    .catch(function (error) {
+                    .catch(error => {
                         console.error('Error:', error);
                     });
         });
-    });
+    }
 });

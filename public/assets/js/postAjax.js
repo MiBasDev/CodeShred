@@ -56,10 +56,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Asincronismo para el botón de borrar post de mi cuenta
-    document.querySelectorAll('#button-my-account-post-delete-popup').forEach(function (button) {
-        button.addEventListener('click', function () {
+    const deletePostButton = document.getElementById('button-my-account-post-delete-popup');
+    if (deletePostButton) {
+        deletePostButton.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var postId = this.getAttribute('data-id');
+            const postId = this.getAttribute('data-id');
 
             // Empezamos la petición
             fetch('/post-delete', {
@@ -71,37 +72,36 @@ document.addEventListener('DOMContentLoaded', function () {
                     postId: postId,
                 }),
             })
-                    .then(function (response) {
+                    .then(response => {
                         if (!response.ok) {
                             throw new Error('Respuesta fallida.');
                         }
                         return response.json();
                     })
-                    .then(function (data) {
+                    .then(data => {
                         // Procesamos la respuesta en el front
                         if (data.success) {
                             // Borramos la fila de la tabla
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
-                                var trElement = document.getElementById('my-account-table-post-' + postId);
+                                const trElement = document.getElementById('my-account-table-post-' + postId);
                                 // Lo quitamos de la tabla con una animación
                                 if (trElement) {
                                     trElement.style.opacity = 0;
-                                    setTimeout(function () {
+                                    setTimeout(() => {
                                         trElement.remove();
                                     }, 1000);
                                 }
                             }
-
                         }
                         // Pase lo que pase, cerramos el popup
-                        var popup = document.getElementById('popup-delete');
+                        const popup = document.getElementById('popup-delete');
                         popup.style.display = 'none';
                     })
                     // Sacamos los errores
-                    .catch(function (error) {
+                    .catch(error => {
                         console.error('Error:', error);
                     });
         });
-    });
+    }
 });
