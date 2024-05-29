@@ -54,8 +54,12 @@
     right: 2px;
 }
 
-.space {
-    justify-content: space-between;
+.contact-form-span.space {
+    gap: 10px;
+}
+
+.contact-form-span.space > div {
+    width: 100%;
 }
 
 .contact-box-message {
@@ -67,7 +71,6 @@
 @media (max-width: 847px) {
     .space {
         flex-direction: column;
-        gap: 10px;
     }
 }
 

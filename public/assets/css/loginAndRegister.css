@@ -65,6 +65,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px 20px;
+    width: 100%;
 }
 
 .register-input {
@@ -73,6 +74,10 @@
 
 .register-input.space {
     gap: 10px;
+}
+
+.register-input.space > div {
+    width: 100%;
 }
 
 .register-div-errs {
