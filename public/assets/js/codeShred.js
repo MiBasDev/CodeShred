@@ -45,22 +45,27 @@ document.addEventListener('DOMContentLoaded', function () {
     var aside = document.getElementById('aside');
     var toggleAside = document.getElementById('toggle-menu');
     var overlay = document.getElementById('overlay');
+    var body = document.body;
+    var main = document.querySelector('main');
 
     toggleAside.addEventListener('click', function () {
-        aside.classList.toggle('open');
+        var isOpen = aside.classList.toggle('open');
         toggleAside.classList.toggle('open');
         overlay.classList.toggle('active');
+        body.classList.toggle('no-action', isOpen);
+        main.classList.toggle('no-interaction', isOpen);
     });
 
-    document.addEventListener('click', function (event) {
+    document.addEventListener('click', function (event) { // sof
         if (!aside.contains(event.target) && event.target !== toggleAside) {
             aside.classList.remove('open');
             toggleAside.classList.remove('open');
             overlay.classList.remove('active');
+            body.classList.remove('no-action');
+            main.classList.remove('no-interaction');
         }
     });
 });
-
 
 // Obtenemos todas las tablas y sus respectivas filas
 var tables = document.querySelectorAll('.my-account-table');

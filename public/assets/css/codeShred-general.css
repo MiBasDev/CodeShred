@@ -283,6 +283,7 @@ aside {
 
 #button-create-shred {
     width: 150px;
+    height: 45px;
     padding: 10px 15px;
     font-weight: bold;
     border: 3px solid var(--button-primary--hover-bg-color);
@@ -345,6 +346,7 @@ nav {
 }
 
 .nav-link {
+    height: 50px;
     gap: 10px;
     padding: 15px 10px;
 }
@@ -352,6 +354,11 @@ nav {
 .nav-link.active {
     background-color: #1f1822a6;
     font-weight: bold;
+}
+
+.nav-link i {
+    display: flex;
+    align-items: center;
 }
 
 .nav-link p {
@@ -697,6 +704,14 @@ footer a.active {
     width: 30px;
     height: 30px;
     border-radius: 5px;
+}
+
+body.no-action {
+    overflow: hidden;
+}
+
+main.no-interaction {
+    pointer-events: none;
 }
 
 @media (max-width: 1468.75px) {
