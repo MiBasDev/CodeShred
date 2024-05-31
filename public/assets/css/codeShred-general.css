@@ -41,6 +41,11 @@
     font-size: 1em;
 }
 
+body {
+    background-color: var(--static-elements-bg-color);
+    overflow-x: hidden;
+}
+
 /* Encabezados */
 h1 {
     font-size: 2em;
@@ -252,6 +257,7 @@ aside {
     top: 10px;
     left: var(--aside-width);
     bottom: 0;
+    cursor: pointer;
 }
 
 .aside-hider:hover {
@@ -279,11 +285,12 @@ aside {
 
 .aside-hider-folded {
     left: var(--aside-folded-width);
+    cursor: pointer;
 }
 
 #button-create-shred {
     width: 150px;
-    height: 45px;
+    min-height: 45px;
     padding: 10px 15px;
     font-weight: bold;
     border: 3px solid var(--button-primary--hover-bg-color);
@@ -303,16 +310,21 @@ aside {
 #button-create-shred span:last-child {
     position: absolute;
     left: -9999px;
+    display: flex;
+    align-items: center;
 }
 
 aside.folded-aside #button-create-shred span:first-child {
     position: absolute;
     left: -9999px;
+    transition: none;
+    opacity: 0;
 }
 
 aside.folded-aside #button-create-shred span:last-child {
     position: relative;
     left: 0;
+    transition: none;
 }
 
 aside.folded-aside #button-create-shred {
@@ -371,6 +383,7 @@ aside.folded-aside .nav-link p {
     position: absolute;
     left: -9999px;
     opacity: 0;
+    transition: none;
 }
 
 .aside-separator {

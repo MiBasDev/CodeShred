@@ -40,11 +40,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     public function registerCheck(string $user): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user = :user");
         $stmt->execute(['user' => $user]);
-        if ($stmt->rowCount() == 1) {
-            $userData = $stmt->fetch();
-            return $userData;
-        }
-        return NULL;
+        return $stmt->fetch() ? $stmt->fetch() : null;
     }
 
     /**
@@ -56,11 +52,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     public function emailCheck(string $email): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_email = :user_email");
         $stmt->execute(['user_email' => $email]);
-        if ($stmt->rowCount() == 1) {
-            $userData = $stmt->fetch();
-            return $userData;
-        }
-        return NULL;
+        return $stmt->fetch() ? $stmt->fetch() : null;
     }
 
     /**
@@ -209,7 +201,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
 
         return $stmt->execute(['user_email' => $email, 'id_user' => $idUser]);
     }
-    
+
     /**
      * Método que actualiza la contraseña del usuario con el id pasado como parámetro.
      * 
@@ -220,7 +212,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     public function updateUserPassword(int $userId, string $pass): bool {
         $stmt = $this->pdo->prepare('UPDATE users SET user_pass = :pass WHERE id_user = :id');
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
-        
+
         return $stmt->execute(['pass' => $hashedPassword, 'id' => $userId]);
     }
 

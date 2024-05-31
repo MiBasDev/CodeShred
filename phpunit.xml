@@ -1,0 +1,19 @@
+<phpunit>
+    <php>
+        <env name="app.debug" value="1"/>
+        <env name="folder.views" value="../app/Views/"/>
+        <env name="folder.data" value="../app/Data/"/>
+        <env name="table.rowsPerPage" value="10"/>
+        <env name="db.host" value="localhost"/>
+        <env name="db.user" value="csadmin"/>
+        <env name="db.pass" value="1234abc."/>
+        <env name="db.schema" value="tests"/>
+        <env name="db.charset" value="utf8mb4"/>
+        <env name="db.emulated" value="0"/>
+    </php>
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
