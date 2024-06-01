@@ -15,7 +15,7 @@ Red social de elementos web para programadores.
 ***************************************************
 **_TODO_:**
 - [x] Portada
-- [x] Resumen
+- [ ] Resumen
 - [ ] Abstract
 - [ ] Introducción
 - [ ] Objetivos
@@ -70,6 +70,9 @@ Red social de elementos web para programadores.
 
 
 
-### Anexo A. (Título)
+### Anexo A. (DIW)
+
+
+### Anexo B. (Contornos de Desenvolvemento)
 
 
