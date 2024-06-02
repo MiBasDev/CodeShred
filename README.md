@@ -8,13 +8,13 @@
 CodeShred es una red social diseñada específicamente para desarrolladores web o personas interesadas en el Desarrollo Web.
 La plataforma permite a los usuarios crear, compartir y descubrir elementos web basados en HTML, CSS y/o JavaScript. Cada “Shred” o publicación incluye una vista previa del código junto con el código fuente que la genera, que otro usuarios de la plataforma o externos a ella pueden copiar y utilizar en sus propios proyectos dentro o fuera de la misma. Además, los usuarios pueden seguir a otros desarrolladores, dar “me gusta” a “Shreds” y, en un futuro, comentar en ellos y chatear con otros usuarios. CodeShred fomenta una comunidad colaborativa, donde los usuarios pueden aprender unos de otros, mejorar sus habilidades y compartir sus creaciones.
 
-- Keywords:
+**Keywords:**
 
-    • CodeShred
-    • Shred
-    • Desarrollo Web
-    • Desarrollador Web
-    • Red social de Desarrollo Web
+- CodeShred
+- Shred
+- Desarrollo Web
+- Desarrollador Web
+- Red social de Desarrollo Web
 
 
 ***************************************************
