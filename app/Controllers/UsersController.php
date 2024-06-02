@@ -21,7 +21,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     public function login(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de login
-        $data['title'] = 'codeShred | Login';
+        $data['title'] = 'CodeShred | Login';
         $data['section'] = '/login';
         $data['css'] = 'loginAndRegister';
 
@@ -39,7 +39,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         $model = new \CodeShred\Models\UsersModel;
         $data = [];
         // Declaramos los datos necesarios de la vista de login
-        $data['title'] = 'codeShred | Login';
+        $data['title'] = 'CodeShred | Login';
         $data['section'] = '/login';
         $data['css'] = 'loginAndRegister';
 
@@ -105,7 +105,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     public function register(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de registro
-        $data['title'] = 'codeShred | Registro';
+        $data['title'] = 'CodeShred | Registro';
         $data['section'] = '/registro';
         $data['css'] = 'loginAndRegister';
 
@@ -123,7 +123,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         $model = new \CodeShred\Models\UsersModel;
         $data = [];
         // Declaramos los datos necesarios de la vista de registro
-        $data['title'] = 'codeShred | Registro';
+        $data['title'] = 'CodeShred | Registro';
         $data['section'] = '/registro';
         $data['css'] = 'loginAndRegister';
 
@@ -210,7 +210,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     public function myAccount(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de mi cuenta
-        $data['title'] = 'codeShred | Mi cuenta';
+        $data['title'] = 'CodeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
         $data['css'] = 'account';
 
@@ -232,7 +232,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         if ($_SESSION['user']['user_rol'] != self::ADMIN) {
             $data = [];
             // Declaramos los datos necesarios de la vista de usuarios
-            $data['title'] = 'codeShred | Usuarios';
+            $data['title'] = 'CodeShred | Usuarios';
             $data['section'] = '/usuarios';
             $data['css'] = 'users';
 
@@ -258,7 +258,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         if ($_SESSION['user']['user_rol'] != self::ADMIN) {
             $data = [];
             // Declaramos los datos necesarios de la vista de usuarios seguidos
-            $data['title'] = 'codeShred | Siguiendo';
+            $data['title'] = 'CodeShred | Siguiendo';
             $data['section'] = '/siguiendo';
             $data['css'] = 'following';
 
@@ -291,7 +291,7 @@ class UsersController extends \CodeShred\Core\BaseController {
     public function myAccountDelete(string $id): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de mi cuenta
-        $data['title'] = 'codeShred | Mi cuenta';
+        $data['title'] = 'CodeShred | Mi cuenta';
         $data['section'] = '/mi-cuenta';
         $data['css'] = 'account';
 
@@ -390,7 +390,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         if ($_SESSION['user']['user_rol'] != UsersController::USER) {
             $data = [];
             // Declaramos los datos necesarios de la vista de usuarios
-            $data['title'] = 'codeShred - Admin | Usuarios';
+            $data['title'] = 'CodeShred - Admin | Usuarios';
             $data['section'] = '/admin/users';
             $data['css'] = 'account';
             $data['auxiliarCss'] = 'admin/users';

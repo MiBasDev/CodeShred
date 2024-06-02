@@ -12,7 +12,7 @@ class InitController extends \CodeShred\Core\BaseController {
     public function index(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de inicio de la página
-        $data['title'] = 'codeShred | Inicio';
+        $data['title'] = 'CodeShred | Inicio';
         $data['section'] = '/';
         $data['css'] = 'index';
 
@@ -32,7 +32,7 @@ class InitController extends \CodeShred\Core\BaseController {
     public function contact(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de contacto
-        $data['title'] = 'codeShred | Contacto';
+        $data['title'] = 'CodeShred | Contacto';
         $data['section'] = '/contacto';
         $data['css'] = 'contact';
 
@@ -48,7 +48,7 @@ class InitController extends \CodeShred\Core\BaseController {
     public function contactForm(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de contacto
-        $data['title'] = 'codeShred | Contacto';
+        $data['title'] = 'CodeShred | Contacto';
         $data['section'] = '/contacto';
         $data['css'] = 'contact';
 
@@ -152,7 +152,7 @@ class InitController extends \CodeShred\Core\BaseController {
     public function privacy(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de política de privacidad
-        $data['title'] = 'codeShred | Política de privacidad';
+        $data['title'] = 'CodeShred | Política de privacidad';
         $data['section'] = '/politica-de-privacidad';
         $data['css'] = 'privacity';
 
@@ -168,7 +168,7 @@ class InitController extends \CodeShred\Core\BaseController {
     public function cookies(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de política de cookies
-        $data['title'] = 'codeShred | Política de cookies';
+        $data['title'] = 'CodeShred | Política de cookies';
         $data['section'] = '/politica-de-cookies';
         $data['css'] = 'cookies';
 

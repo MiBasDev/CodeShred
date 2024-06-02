@@ -14,7 +14,7 @@ class TicketsController extends \CodeShred\Core\BaseController {
     public function showTickets(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de inicio de la página
-        $data['title'] = 'codeShred - Admin | Tickets';
+        $data['title'] = 'CodeShred - Admin | Tickets';
         $data['section'] = '/admin/tickets';
         $data['css'] = 'tickets';
 

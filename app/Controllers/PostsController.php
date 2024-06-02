@@ -15,7 +15,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function show(string $id): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de post
-        $data['title'] = 'codeShred | Shred';
+        $data['title'] = 'CodeShred | Shred';
         $data['section'] = '/post';
         $data['css'] = 'post';
 
@@ -38,7 +38,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function showAdd(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de añadir post
-        $data['title'] = 'codeShred | Crear Shred';
+        $data['title'] = 'CodeShred | Crear Shred';
         $data['section'] = '/post/add';
         $data['css'] = 'post';
 
@@ -55,7 +55,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function showEdit(string $id): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de editar post
-        $data['title'] = 'codeShred | Editar Shred';
+        $data['title'] = 'CodeShred | Editar Shred';
         $data['section'] = '/post/edit';
         $data['css'] = 'post';
 
@@ -98,7 +98,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function showAll(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de posts
-        $data['title'] = 'codeShred | Shreds';
+        $data['title'] = 'CodeShred | Shreds';
         $data['section'] = '/posts';
         $data['css'] = 'posts';
 
@@ -125,7 +125,7 @@ class PostsController extends \CodeShred\Core\BaseController {
     public function showMyPosts(): void {
         $data = [];
         // Declaramos los datos necesarios de la vista de los posts del usuario de la sesión.
-        $data['title'] = 'codeShred | Mis Shreds';
+        $data['title'] = 'CodeShred | Mis Shreds';
         $data['section'] = '/mi-cuenta/mis-posts';
         $data['css'] = 'posts';
 
@@ -197,7 +197,7 @@ class PostsController extends \CodeShred\Core\BaseController {
             } else { // Si no se añade
                 $data = [];
                 // Declaramos los datos necesarios de la vista de añadir un post
-                $data['title'] = 'codeShred | Shred';
+                $data['title'] = 'CodeShred | Shred';
                 $data['section'] = '/post/add';
                 $data['css'] = 'post';
 
@@ -216,7 +216,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         } else {
             $data = [];
             // Declaramos los datos necesarios de la vista de añadir un post
-            $data['title'] = 'codeShred | Shred';
+            $data['title'] = 'CodeShred | Shred';
             $data['section'] = '/post/add';
             $data['css'] = 'post';
 
@@ -286,7 +286,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         } else { // Si no se edita
             $data = [];
             // Declaramos los datos necesarios de la vista de editar un post
-            $data['title'] = 'codeShred | Editar Shred';
+            $data['title'] = 'CodeShred | Editar Shred';
             $data['section'] = '/post/edit';
             $data['css'] = 'post';
 
@@ -387,7 +387,7 @@ class PostsController extends \CodeShred\Core\BaseController {
             } else {
                 $data = [];
                 // Declaramos los datos necesarios de la vista de editar un post
-                $data['title'] = 'codeShred | Editar Shred';
+                $data['title'] = 'CodeShred | Editar Shred';
                 $data['section'] = '/post';
                 $data['css'] = 'post';
 
@@ -424,7 +424,7 @@ class PostsController extends \CodeShred\Core\BaseController {
         if ($_SESSION['user']['user_rol'] != UsersController::USER) {
             $data = [];
             // Declaramos los datos necesarios de la vista de usuarios
-            $data['title'] = 'codeShred - Admin | Shreds';
+            $data['title'] = 'CodeShred - Admin | Shreds';
             $data['section'] = '/admin/posts';
             $data['css'] = 'account';
 
