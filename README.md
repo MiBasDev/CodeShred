@@ -45,9 +45,9 @@ El contexto en el que se desarrolla CodeShred es un entorno empresarial caracter
 
 CodeShred se justifica por varias razones:
 
-    • Necesidades actuales: Existe una creciente demanda de desarrolladores web con habilidades actualizadas y la capacidad de trabajar en equipo. CodeShred proporciona un entorno donde los desarrolladores pueden practicar y mejorar sus habilidades.
-    • Oportunidades de negocio: La plataforma puede atraer a una amplia base de usuarios, incluyendo desarrolladores individuales, pequeñas empresas y grandes corporaciones que buscan talento y recursos.
-    • Innovación: CodeShred combina características de redes sociales y herramientas de desarrollo, ofreciendo una solución única en el mercado.
+- **Necesidades actuales:** Existe una creciente demanda de desarrolladores web con habilidades actualizadas y la capacidad de trabajar en equipo. CodeShred proporciona un entorno donde los desarrolladores pueden practicar y mejorar sus habilidades.
+- **Oportunidades de negocio:** La plataforma puede atraer a una amplia base de usuarios, incluyendo desarrolladores individuales, pequeñas empresas y grandes corporaciones que buscan talento y recursos.
+- **Innovación:** CodeShred combina características de redes sociales y herramientas de desarrollo, ofreciendo una solución única en el mercado.
 
 La plataforma no solo aborda necesidades inmediatas del mercado, sino que también promueve una cultura de aprendizaje y colaboración continua entre los desarrolladores web.
 
