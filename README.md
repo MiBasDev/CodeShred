@@ -39,7 +39,7 @@ Se ha observado que, en el ámbito del desarrollo web, la fragmentación de recu
 
 Este proyecto tiene como objetivo la creación de una comunidad activa y colaborativa que mejore las habilidades de desarrollo de sus usuarios y facilite el acceso a recursos de calidad. El enfoque del proyecto se centra en implementar funcionalidades que permitan a los usuarios tanto interactuar de manera significativa con otro usuarios, como la capacidad de seguir a otros desarrolladores, dar "me gusta" a las publicaciones, comentar y chatear entre ellos.
 
-1.1. Contexto y justificación
+# 1.1. Contexto y justificación
 
 El contexto en el que se desarrolla CodeShred es un entorno empresarial caracterizado por una alta demanda de desarrolladores web competentes y una constante evolución en las tecnologías y prácticas de desarrollo. Las empresas buscan continuamente formas de mejorar la eficiencia y la calidad de sus proyectos web, lo que genera una necesidad de plataformas que no solo faciliten el aprendizaje, sino también la colaboración y el intercambio de conocimientos.
 
