@@ -38,7 +38,7 @@
     </head>
     <body>
         <!--Header-->
-        <header class="cs-fl cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded' : ''; ?>" role="banner">
+        <header class="cs-fl cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded' : ''; ?>">
             <div class="header-logo cs-fl cs-fl-just-c cs-fl-align-c">
                 <a href="/" aria-label="Logo de codeShred">
                     <img src="assets/img/cs-logo.png" alt="Logo de codeShred" id="logo-cs">

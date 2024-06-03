@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
+<main class="cs-fl-col cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="my-account-container cs-fl">
         <h1 class="hidden-element">Mi cuenta</h1>
         <?php if ($_SESSION['user']['user_rol'] != CodeShred\Controllers\UsersController::ADMIN) { ?>

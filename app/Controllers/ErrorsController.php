@@ -40,7 +40,7 @@ class ErrorsController extends \CodeShred\Core\BaseController {
         $data = [];
         $data['title'] = 'CodeShred | Error 405';
         $data['section'] = '/error405';
-        $data['text'] = '405. Method not allowed';
+        $data['text'] = '405. Método no permitido...';
         $data['text2'] = 'Quizás te interese alguno de estos Shreds:';
         $data['css'] = 'error';
 

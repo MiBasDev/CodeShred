@@ -1,6 +1,6 @@
 <div class="overlay" id="overlay" aria-hidden="true"></div>
 <!--Aside-->
-<aside class="cs-fl <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside" role="complementary">
+<aside class="cs-fl <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-aside' : ''; ?>" id="aside">
     <div class="aside-content cs-fl-col cs-fl-align-c">
         <?php if (!isset($_SESSION['user'])) {
             ?>
@@ -23,7 +23,7 @@
         <a href="/<?php echo isset($_SESSION['user']) ? 'post/add' : 'login'; ?>" class="cs-fl cs-fl-just-c" id="button-create-shred" aria-label="Crear nuevo shred"><span>Crear Shred</span><span class="fas fa-code"></span></a>
 
         <!-- Sidebar Menu -->
-        <nav role="navigation" aria-label="Menú de navegación principal">
+        <nav aria-label="Menú de navegación principal">
             <ul class="nav">
                 <?php if (isset($_SESSION['user'])) : ?>
                     <li class="nav-item" title="Mis Shreds">

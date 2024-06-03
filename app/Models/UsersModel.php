@@ -63,7 +63,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return bool True si inserta los datos, false si no.
      */
     public function register(array $data): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO users(user, user_pass, user_name, user_surname, user_email, user_rol, user_gravatar) values (:user, :pass, :name, :surname, :email, :rol, :gravatar)');
+        $stmt = $this->pdo->prepare('INSERT INTO users(user, user_pass, user_name, user_surname, user_email, user_rol, user_gravatar) VALUES (:user, :pass, :name, :surname, :email, :rol, :gravatar)');
         $pass = password_hash($data['pass'], PASSWORD_DEFAULT);
 
         return $stmt->execute(['user' => $data['user'], 'pass' => $pass, 'name' => $data['name'], 'surname' => $data['surname'], 'email' => $data['email'], 'rol' => $data['rol'], 'gravatar' => $data['gravatar']]);
@@ -255,7 +255,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * @return bool True si lo almacena, false si no.
      */
     public function follow(int $userId, int $userIdToFollow): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO follows(user_id, user_id_following) values(:user_id, :user_id_following)');
+        $stmt = $this->pdo->prepare('INSERT INTO follows(user_id, user_id_following) VALUES(:user_id, :user_id_following)');
 
         return $stmt->execute(['user_id' => $userId, 'user_id_following' => $userIdToFollow]);
     }
@@ -265,12 +265,12 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
      * ids de usuario pasados como parámetro.
      * 
      * @param int $userId  Número identificativo del usuario.
-     * @param int $userIdToFollow Número identificativo del usuario al que quiere dejar de seguir.
+     * @param int $userIdToUnfollow Número identificativo del usuario al que quiere dejar de seguir.
      * @return bool  True si lo elimina, false si no.
      */
-    public function unfollow(int $userId, int $userIdToFollow): bool {
+    public function unfollow(int $userId, int $userIdToUnfollow): bool {
         $stmt = $this->pdo->prepare('DELETE FROM follows WHERE user_id = :user_id AND user_id_following = :user_id_following');
 
-        return $stmt->execute(['user_id' => $userId, 'user_id_following' => $userIdToFollow]);
+        return $stmt->execute(['user_id' => $userId, 'user_id_following' => $userIdToUnfollow]);
     }
 }

@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl cs-fl-align-c post-action-buttons">
         <h1 class="hidden-element">Post</h1>
         <div class="post-title-container cs-fl cs-fl-align-c">

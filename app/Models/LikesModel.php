@@ -30,7 +30,7 @@ class LikesModel extends \CodeShred\Core\BaseDbModel {
      * @return bool True si lo almacena, false si no.
      */
     public function like(int $userId, int $postId): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO likes(id_user, id_post) values(:id_user, :id_post)');
+        $stmt = $this->pdo->prepare('INSERT INTO likes(id_user, id_post) VALUES(:id_user, :id_post)');
 
         return $stmt->execute(['id_user' => $userId, 'id_post' => $postId]);
     }

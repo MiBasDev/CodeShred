@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="cs-fl-col following-container">
         <h1><?php echo isset($section) ? 'Siguiendo' : ''; ?></h1>
         <?php

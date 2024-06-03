@@ -25,7 +25,7 @@ class TicketsModel extends \CodeShred\Core\BaseDbModel {
      * @return bool True si lo almacena, false si no.
      */
     public function createTicket(array $data): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO tickets(ticket_email, ticket_subject, ticket_message) values(:ticket_email, :ticket_subject, :ticket_message)');
+        $stmt = $this->pdo->prepare('INSERT INTO tickets(ticket_email, ticket_subject, ticket_message) VALUES(:ticket_email, :ticket_subject, :ticket_message)');
 
         return $stmt->execute(['ticket_email' => $data['email'], 'ticket_subject' => $data['subject'], 'ticket_message' => $data['message']]);
     }

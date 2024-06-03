@@ -14,7 +14,13 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     public function getAll(int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, '
+                . '(SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :userId) AS liked, '
+                . '(SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, '
+                . '(SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views '
+                . 'FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user '
+                . 'LEFT JOIN tags t ON p.id_post = t.tags_post_id '
+                . 'WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
         $stmt->execute(['userId' => $userId, 'rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
@@ -26,7 +32,12 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     public function getAllNotSession(): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, '
+                . '(SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, '
+                . '(SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views '
+                . 'FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user '
+                . 'LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol '
+                . 'ORDER BY p.id_post DESC');
         $stmt->execute(['rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
@@ -60,7 +71,13 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts si los obtiene, null si no.
      */
     public function getAllIndex(): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.user_rol != :rol ORDER BY (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) + (SELECT view_count FROM views WHERE view_post_id = p.id_post) DESC LIMIT 4');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, '
+                . '(SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, '
+                . '(SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views '
+                . 'FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user '
+                . 'LEFT JOIN tags t ON p.id_post = t.tags_post_id '
+                . 'WHERE u.user_rol != :rol '
+                . 'ORDER BY (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) + (SELECT view_count FROM views WHERE view_post_id = p.id_post) DESC LIMIT 4');
         $stmt->execute(['rol' => \CodeShred\Controllers\UsersController::ADMIN]);
 
         return $stmt->fetchAll();
@@ -74,7 +91,14 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts del usuario si los obtiene, null si no.
      */
     public function getUserPosts(int $sessionUserId, int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, (SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked, (SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, (SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user LEFT JOIN tags t ON p.id_post = t.tags_post_id WHERE u.id_user = :userId ORDER BY p.id_post DESC');
+        $stmt = $this->pdo->prepare('SELECT p.*, u.user, u.user_gravatar, t.*, '
+                . '(SELECT id_like FROM likes WHERE id_post = p.id_post AND id_user = :sessionUserId) AS liked, '
+                . '(SELECT COUNT(id_like) FROM likes WHERE id_post = p.id_post) AS total_likes, '
+                . '(SELECT view_count FROM views WHERE view_post_id = p.id_post) AS views '
+                . 'FROM posts p LEFT JOIN users u ON p.post_user_id = u.id_user '
+                . 'LEFT JOIN tags t ON p.id_post = t.tags_post_id '
+                . 'WHERE u.id_user = :userId '
+                . 'ORDER BY p.id_post DESC');
         $stmt->execute(['sessionUserId' => $sessionUserId, 'userId' => $userId]);
 
         return $stmt->fetchAll();
@@ -87,7 +111,10 @@ class PostsModel extends \CodeShred\Core\BaseDbModel {
      * @return array|null Colección de posts a los que ha dado like usuario si los obtiene, null si no.
      */
     public function getUserLikedPosts(int $userId): ?array {
-        $stmt = $this->pdo->prepare('SELECT p.id_post, p.post_title, u.user, u.user_gravatar FROM posts p JOIN likes l ON p.id_post = l.id_post JOIN users u ON p.post_user_id = u.id_user WHERE l.id_user = :userId ORDER BY l.id_like DESC');
+        $stmt = $this->pdo->prepare('SELECT p.id_post, p.post_title, u.user, u.user_gravatar '
+                . 'FROM posts p JOIN likes l ON p.id_post = l.id_post '
+                . 'JOIN users u ON p.post_user_id = u.id_user '
+                . 'WHERE l.id_user = :userId ORDER BY l.id_like DESC');
         $stmt->execute(['userId' => $userId]);
 
         return $stmt->fetchAll();

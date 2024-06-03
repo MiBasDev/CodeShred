@@ -1,5 +1,5 @@
 <!--Main-->
-<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="main-content cs-fl-col">
         <h1>Política de Cookies de CodeShred</h1>
         <div class="cs-fl-col">

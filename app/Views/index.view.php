@@ -1,4 +1,4 @@
-<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>" role="main">
+<main class="cs-fl-col cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="index-main-container main-content cs-fl cs-fl-align-c">
         <div class="index-main-container-left cs-fl-col cs-fl-just-c">
             <!-- Logo y slogan -->
