@@ -40,7 +40,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     public function registerCheck(string $user): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user = :user");
         $stmt->execute(['user' => $user]);
-        return $stmt->fetch() ? $stmt->fetch() : null;
+        return $stmt->fetch() ?: null;
     }
 
     /**
@@ -52,7 +52,7 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
     public function emailCheck(string $email): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_email = :user_email");
         $stmt->execute(['user_email' => $email]);
-        return $stmt->fetch() ? $stmt->fetch() : null;
+        return $stmt->fetch() ?: null;
     }
 
     /**
