@@ -132,7 +132,12 @@ class UsersModel extends \CodeShred\Core\BaseDbModel {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE id_user = :id');
         $stmt->execute(['id' => $id]);
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+        if ($result === false) {
+            return null;
+        }
+
+        return $result;
     }
 
     /**

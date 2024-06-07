@@ -90,7 +90,7 @@ class UsersModelTest extends \PHPUnit\Framework\TestCase {
             'surname' => 'User',
             'email' => 'newuser@example.com',
             'rol' => 1,
-            'gravatar' => 'newgravatar.png'
+            'gravatar' => 'https://www.gravatar.com/testURL'
         ];
 
         $result = $this->usersModel->register($data);

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.ticket-resolve').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var ticketId = this.id.split('-')[1];
+            const ticketId = this.id.split('-')[1];
 
             // Empezamos la petición
             fetch('/ticket-resolve', {
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#popup-button-ticket-delete').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var ticketId = this.getAttribute('data-id');
+            const ticketId = this.getAttribute('data-id');
 
             // Empezamos la petición
             fetch('/ticket-delete', {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (data.success) {
                             if (data.action === 'deleted') {
                                 // Cogemos el tr padre
-                                var ticket = document.getElementById('tickets-card-' + ticketId);
+                                const ticket = document.getElementById('tickets-card-' + ticketId);
                                 // Lo quitamos de la vista con una animación
                                 if (ticket) {
                                     ticket.style.opacity = 0;
@@ -93,9 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
 // Función para abrir el popup de borrado de tickets
 function openDeletePopup(id) {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup-delete-ticket');
+    const popup = document.getElementById('popup-delete-ticket');
     // Agregamos el id al botón en un atributo data
-    var buttonDelete = document.getElementById('popup-button-ticket-delete');
+    const buttonDelete = document.getElementById('popup-button-ticket-delete');
 
     buttonDelete.setAttribute('data-id', id);
     popup.style.display = 'flex';
@@ -104,7 +104,7 @@ function openDeletePopup(id) {
 // Función para cerrar el popup de borrado de tickets
 function closeDeletePopup() {
     // Obtenemos el popup y lo ponemos a none
-    var popup = document.getElementById('popup-delete-ticket');
+    const popup = document.getElementById('popup-delete-ticket');
 
     popup.style.display = 'none';
 }

@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (updateDescriptionButton) {
         updateDescriptionButton.addEventListener('click', function () {
             // Recogemos el valor del textarea
-            var userDescription = document.getElementById('user-description').value;
+            const userDescription = document.getElementById('user-description').value;
             // Guardamos el texto original del botón
-            var originalButtonText = this.textContent;
+            const originalButtonText = this.textContent;
 
             // Empezamos la petición
             fetch('/update-description', {
@@ -193,8 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.user-follow').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var userId = this.id.split('-')[1];
-            var userName = this.getAttribute('data-name');
+            const userId = this.id.split('-')[1];
+            const userName = this.getAttribute('data-name');
 
             // Empezamos la petición
             fetch('/user-follow', {

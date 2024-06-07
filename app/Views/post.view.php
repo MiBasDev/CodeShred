@@ -134,7 +134,7 @@
                 <div class="popup-delete-title cs-fl cs-fl-just-c">
                     <h2>¿Seguro que quieres eliminar este Shred?</h2>
                 </div>
-                <form action="/post/delete/<?php echo $post['id_post']; ?>" method="POST" id="popup-form" class="cs-fl-col">
+                <form action="/post/delete/<?php echo $post['id_post']; ?>" method="POST" class="cs-fl-col">
                     <div class="popup-delete-button cs-fl">
                         <button type="button" class="button-secondary" onclick="closeDeletePopup()">Volver atrás</button>
                         <button type="submit" class="button-warning">Eliminar</button>

@@ -1,6 +1,6 @@
 // Obtenemos los títulos de los shreds
-var postTitle = document.getElementById('post-title');
-var postTitleTwo = document.getElementById('post-title-two');
+const postTitle = document.getElementById('post-title');
+const postTitleTwo = document.getElementById('post-title-two');
 
 // Actualizamos los títulos a la vez
 postTitle.addEventListener('input', function () {
@@ -52,14 +52,14 @@ function captureScreenshot() {
 // Función para abrir el popup de guardado
 function openPopup() {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup');
+    const popup = document.getElementById('popup');
     popup.style.display = 'flex';
 
     // Obtenemos los valores de los inputs del post
-    var postTitle = document.getElementById('post-title').value;
-    var htmlCode = document.getElementById('html-code').value;
-    var cssCode = document.getElementById('css-code').value;
-    var jsCode = document.getElementById('js-code').value;
+    const postTitle = document.getElementById('post-title').value;
+    const htmlCode = document.getElementById('html-code').value;
+    const cssCode = document.getElementById('css-code').value;
+    const jsCode = document.getElementById('js-code').value;
 
     // Función para formatear el texto indentado
     function formatCode(code) {
@@ -69,11 +69,11 @@ function openPopup() {
         }
 
         // Separamos el código en líneas
-        var lines = code.split('\n');
+        const lines = code.split('\n');
 
         // Encontramos la longitud del espacio de sangría en la primera línea
-        var indentation = 0;
-        var firstLine = lines[0];
+        let indentation = 0;
+        const firstLine = lines[0];
         while (firstLine[indentation] === ' ') {
             indentation++;
         }
@@ -82,7 +82,7 @@ function openPopup() {
         lines[0] = firstLine.trim();
 
         // Aplicamos la misma sangría al resto de las líneas
-        for (var i = 1; i < lines.length; i++) {
+        for (let i = 1; i < lines.length; i++) {
             lines[i] = lines[i].substring(indentation);
         }
 
@@ -98,7 +98,7 @@ function openPopup() {
     document.getElementById('shred-js').value = formatCode(jsCode);
 
     // Seleccionamos el botón de guardar dentro del popup y le damos el foco (accesibilidad)
-    var saveButton = popup.querySelector('.button-primary');
+    const saveButton = popup.querySelector('.button-primary');
     if (saveButton) {
         saveButton.focus();
     }
@@ -107,7 +107,7 @@ function openPopup() {
 // Función para cerrar el popup de guardado
 function closePopup() {
     // Obtenemos el popup y lo ponemos a none
-    var popup = document.getElementById('popup');
+    const popup = document.getElementById('popup');
 
     popup.style.display = 'none';
 }
@@ -115,10 +115,10 @@ function closePopup() {
 // Función para abrir el popup de borrado
 function openDeletePopup() {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup-delete');
+    const popup = document.getElementById('popup-delete');
 
     // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
-    var closeButton = popup.querySelector('.button-secondary');
+    const closeButton = popup.querySelector('.button-secondary');
     if (closeButton) {
         closeButton.focus();
     }
@@ -129,7 +129,7 @@ function openDeletePopup() {
 // Función para cerrar el popup de borrado
 function closeDeletePopup() {
     // Obtenemos el popup y lo ponemos a none
-    var popup = document.getElementById('popup-delete');
+    const popup = document.getElementById('popup-delete');
 
     popup.style.display = 'none';
 }

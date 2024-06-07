@@ -463,7 +463,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Input current-password
         if (isset($post['currentPassword']) && !empty($post['currentPassword'])) {
             $user = $userModel->getUser(intval($_SESSION['user']['id_user']));
-            if (!password_verify($post['currentPassword'], $user['user_pass'])) {
+            if ($user !== null && !password_verify($post['currentPassword'], $user['user_pass'])) {
                 $errors['currentPassword'] = 'La contraseña actual es incorrecta';
             }
 

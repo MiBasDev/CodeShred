@@ -29,9 +29,9 @@ asideHider.addEventListener('click', () => {
 
 // Función para crear una cookie, de forma que la posición del aside sea persistente
 function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
+    const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
+    const expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
@@ -42,14 +42,14 @@ function deleteCookie(cname) {
 
 // Función para enseñar y ocultar el menú hamburguesa
 document.addEventListener('DOMContentLoaded', function () {
-    var aside = document.getElementById('aside');
-    var toggleAside = document.getElementById('toggle-menu');
-    var overlay = document.getElementById('overlay');
-    var body = document.body;
-    var main = document.querySelector('main');
+    const aside = document.getElementById('aside');
+    const toggleAside = document.getElementById('toggle-menu');
+    const overlay = document.getElementById('overlay');
+    const body = document.body;
+    const main = document.querySelector('main');
 
     toggleAside.addEventListener('click', function () {
-        var isOpen = aside.classList.toggle('open');
+        const isOpen = aside.classList.toggle('open');
         toggleAside.classList.toggle('open');
         overlay.classList.toggle('active');
         body.classList.toggle('no-action', isOpen);
@@ -68,16 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Obtenemos todas las tablas y sus respectivas filas
-var tables = document.querySelectorAll('.my-account-table');
-var paginationButtons = document.querySelectorAll('.pagination-buttons');
-var rowsPerPage = 8;
+const tables = document.querySelectorAll('.my-account-table');
+const paginationButtons = document.querySelectorAll('.pagination-buttons');
+const rowsPerPage = 8;
 
 // Función para mostrar las filas de una página específica de la tabla
 function showRows(tableIndex, pageIndex) {
-    var table = tables[tableIndex];
-    var tableRows = table.querySelectorAll('tbody tr');
-    var startIndex = pageIndex * rowsPerPage;
-    var endIndex = startIndex + rowsPerPage;
+    const table = tables[tableIndex];
+    const tableRows = table.querySelectorAll('tbody tr');
+    const startIndex = pageIndex * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
 
     tableRows.forEach(function (row, index) {
         if (index >= startIndex && index < endIndex) {
@@ -88,9 +88,9 @@ function showRows(tableIndex, pageIndex) {
     });
 }
 
-// Función para enseñar la página anterior de la tabla
+// Función para enseñar la página anterior de la tabla (sof)
 function previousPage(tableIndex) {
-    var currentPage = parseInt(paginationButtons[tableIndex].getAttribute('data-page'));
+    let currentPage = parseInt(paginationButtons[tableIndex].getAttribute('data-page'));
     if (currentPage > 0) {
         currentPage--;
         paginationButtons[tableIndex].setAttribute('data-page', currentPage);
@@ -99,11 +99,11 @@ function previousPage(tableIndex) {
     updatePaginationButtons(tableIndex, currentPage);
 }
 
-// Función para enseñar la página siguiente de la tabla
+// Función para enseñar la página siguiente de la tabla (sof)
 function nextPage(tableIndex) {
-    var currentPage = parseInt(paginationButtons[tableIndex].getAttribute('data-page'));
-    var tableRows = tables[tableIndex].querySelectorAll('tbody tr');
-    var totalPages = Math.ceil(tableRows.length / rowsPerPage);
+    let currentPage = parseInt(paginationButtons[tableIndex].getAttribute('data-page'));
+    const tableRows = tables[tableIndex].querySelectorAll('tbody tr');
+    const totalPages = Math.ceil(tableRows.length / rowsPerPage);
     if (currentPage < totalPages - 1) {
         currentPage++;
         paginationButtons[tableIndex].setAttribute('data-page', currentPage);
@@ -112,12 +112,12 @@ function nextPage(tableIndex) {
     updatePaginationButtons(tableIndex, currentPage);
 }
 
-// Función para actualizar la visibilidad de los botones de paginación
+// Función para actualizar la visibilidad de los botones de paginación (sof)
 function updatePaginationButtons(tableIndex, currentPage) {
-    var tableRows = tables[tableIndex].querySelectorAll('tbody tr');
-    var totalPages = Math.ceil(tableRows.length / rowsPerPage);
-    var prevButton = paginationButtons[tableIndex].querySelector('.prev');
-    var nextButton = paginationButtons[tableIndex].querySelector('.next');
+    const tableRows = tables[tableIndex].querySelectorAll('tbody tr');
+    const totalPages = Math.ceil(tableRows.length / rowsPerPage);
+    const prevButton = paginationButtons[tableIndex].querySelector('.prev');
+    const nextButton = paginationButtons[tableIndex].querySelector('.next');
     // Enseñamos o escondemos los botones en función de la página
     if (currentPage === 0) {
         prevButton.style.display = 'none';
@@ -143,12 +143,12 @@ tables.forEach(function (table, index) {
 
 // Función para el contador de caracteres del textarea de contacto (sof)
 document.addEventListener('DOMContentLoaded', function () {
-    var textarea = document.getElementById('message');
-    var charCount = document.getElementById('charCount');
+    const textarea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
 
     if (textarea) {
         textarea.addEventListener('input', function () {
-            var currentLength = textarea.value.length;
+            const currentLength = textarea.value.length;
             charCount.textContent = `${currentLength}/255`;
         });
     }

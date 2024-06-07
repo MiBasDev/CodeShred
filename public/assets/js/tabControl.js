@@ -1,13 +1,13 @@
 // Función para abrir los tabs de mi cuenta (w3schools)
 function openTabOption(evt, sectionName) {
-    var i, tabcontent, tablinks;
+    var i;
 
-    tabcontent = document.getElementsByClassName("tabcontent");
+    const tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
 
-    tablinks = document.getElementsByClassName("tablinks");
+    const tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
@@ -26,12 +26,12 @@ if (defaultButton) {
 // Función que enseña un popup para el borrado de posts
 function openDeletePopup(id) {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup-delete');
+    const popup = document.getElementById('popup-delete');
     // Agregamos el id al botón en un atributo data
-    var buttonDelete = document.getElementById('button-my-account-post-delete-popup');
+    const buttonDelete = document.getElementById('button-my-account-post-delete-popup');
 
     // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
-    var closeButton = popup.querySelector('.button-secondary');
+    const closeButton = popup.querySelector('.button-secondary');
     if (closeButton) {
         closeButton.focus();
     }
@@ -43,7 +43,7 @@ function openDeletePopup(id) {
 // Función que oculta el popup de borrado de posts
 function closeDeletePopup() {
     // Obtenemos el popup y lo ponemos a none
-    var popup = document.getElementById('popup-delete');
+    const popup = document.getElementById('popup-delete');
 
     popup.style.display = 'none';
 }
@@ -51,10 +51,10 @@ function closeDeletePopup() {
 // Función que enseña un popup para el borrado de la cuenta del usuario
 function openDeleteAccountPopup() {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup-delete-account');
+    const popup = document.getElementById('popup-delete-account');
 
     // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
-    var closeButton = popup.querySelector('.button-secondary');
+    const closeButton = popup.querySelector('.button-secondary');
     if (closeButton) {
         closeButton.focus();
     }
@@ -65,7 +65,7 @@ function openDeleteAccountPopup() {
 // Función que oculta el popup de borrado de usuario
 function closeDeleteAccountPopup() {
     // Obtenemos el popup y lo ponemos a none
-    var popup = document.getElementById('popup-delete-account');
+    const popup = document.getElementById('popup-delete-account');
 
     popup.style.display = 'none';
 }
@@ -73,14 +73,14 @@ function closeDeleteAccountPopup() {
 // Función que enseña un popup para el borrado de la cuenta de un usuario por un ADMIN
 function openDeleteUserPopup(id, name) {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup-delete-user');
+    const popup = document.getElementById('popup-delete-user');
     // Agregamos el id al botón en un atributo data
-    var buttonDelete = document.getElementById('button-my-account-user-delete-popup');
+    const buttonDelete = document.getElementById('button-my-account-user-delete-popup');
     // Rellenamos el título del popup dinámicamente
-    var title = document.getElementById('popup-delete-user-title');
+    const title = document.getElementById('popup-delete-user-title');
 
     // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
-    var closeButton = popup.querySelector('.button-secondary');
+    const closeButton = popup.querySelector('.button-secondary');
     if (closeButton) {
         closeButton.focus();
     }
@@ -93,7 +93,7 @@ function openDeleteUserPopup(id, name) {
 // Función que oculta el popup de borrado de un usuario por un ADMIN
 function closeDeleteUserPopup() {
     // Obtenemos el popup y lo ponemos a none
-    var popup = document.getElementById('popup-delete-user');
+    const popup = document.getElementById('popup-delete-user');
 
     popup.style.display = 'none';
 }
@@ -101,18 +101,18 @@ function closeDeleteUserPopup() {
 // Función que enseña un popup para el borrado de la cuenta de un usuario por un ADMIN
 function openUpdateUserPopup(id, name, email, rol) {
     // Obtenemos el popup y lo ponemos a flex
-    var popup = document.getElementById('popup-update-user');
+    const popup = document.getElementById('popup-update-user');
     // Agregamos el id al botón en un atributo data
-    var buttonUpdate = document.getElementById('update-user-data');
+    const buttonUpdate = document.getElementById('update-user-data');
     // Rellenamos el título del popup dinámicamente
-    var title = document.getElementById('popup-admin-user-update-title');
+    const title = document.getElementById('popup-admin-user-update-title');
     // Rellenamos los inputs dinámicamente
-    var inputUser = document.getElementById('user');
-    var inputEmail = document.getElementById('email');
-    var selectRole = document.getElementById('roles');
+    const inputUser = document.getElementById('user');
+    const inputEmail = document.getElementById('email');
+    const selectRole = document.getElementById('roles');
 
     // Seleccionamos el botón de cerrar dentro del popup y le damos el foco (accesibilidad)
-    var closeButton = popup.querySelector('.button-secondary');
+    const closeButton = popup.querySelector('.button-secondary');
     if (closeButton) {
         closeButton.focus();
     }

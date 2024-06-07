@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.post-like').forEach(function (button) {
         button.addEventListener('click', function () {
             // Recogemos los datos que necesitamos del botón
-            var postId = this.id.split('-')[2];
+            const postId = this.id.split('-')[2];
             // Recogemos el total de lieks del post
-            var totalLikes = document.getElementById('post-total-likes-' + postId);
+            const totalLikes = document.getElementById('post-total-likes-' + postId);
 
             // Empezamos la petición
             fetch('/post-like', {
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.querySelector('span').classList.add('fa');
                                 button.querySelector('span').classList.add('post-liked');
                                 if (totalLikes) {
-                                    var currentLikes = parseInt(totalLikes.innerHTML);
-                                    var newLikes = currentLikes + 1;
+                                    let currentLikes = parseInt(totalLikes.innerHTML);
+                                    let newLikes = currentLikes + 1;
                                     totalLikes.innerHTML = newLikes;
                                 }
                             } else {
@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 button.querySelector('span').classList.add('far');
                                 button.querySelector('span').classList.remove('post-liked');
                                 if (totalLikes) {
-                                    var currentLikes = parseInt(totalLikes.innerHTML);
-                                    var newLikes = currentLikes - 1;
+                                    let currentLikes = parseInt(totalLikes.innerHTML);
+                                    let newLikes = currentLikes - 1;
                                     totalLikes.innerHTML = newLikes;
                                 }
                             }

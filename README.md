@@ -39,11 +39,11 @@ As a result, CodeShred has successfully created a collaborative community where 
 - [x] Portada
 - [x] Abstract
 - [x] Introducción
-- [ ] Objetivos
+- [x] Objetivos
 - [ ] Fases del trabajo
 - [ ] Conclusiones
 - [ ] Propuestas de mejora y valoración
-- [ ] Bibliografía
+- [x] Bibliografía
 ***************************************************
 
 
@@ -105,7 +105,16 @@ La plataforma no solo aborda necesidades inmediatas del mercado, sino que tambi�
 
 ## 6. Bibliografía
 
-
+Simpson, K. (2015). You don’t know JS: Async & performance. https://www.amazon.com/You-Dont-Know-JS-Performance/dp/1491904224 
+html2canvas - Screenshots with JavaScript. (s. f.). https://html2canvas.hertzen.com/ 
+CodeMirror. (s. f.). https://codemirror.net/ 
+Cure. (s. f.). GitHub - cure53/DOMPurify: DOMPurify - a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG. DOMPurify works with a secure default, but offers a lot of configurability and hooks. Demo: GitHub. https://github.com/cure53/DOMPurify 
+Stack Overflow - where developers learn, share, & build careers. (s. f.). Stack Overflow. https://stackoverflow.com/ 
+Font awesome. (s. f.). Font Awesome. https://fontawesome.com/ 
+OpenJS Foundation - openjsf.org. (s. f.). JQuery API Documentation. https://api.jquery.com/ 
+W3Schools online web tutorials. (s. f.). https://www.w3schools.com/ 
+MDN Web Docs. (s. f.). MDN Web Docs. https://developer.mozilla.org/en-US/ 
+Gravatar Developer Docs. (s. f.). Gravatar Developer Docs. https://docs.gravatar.com/ 
 
 ## Anexo A. (DIW)
 
