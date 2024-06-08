@@ -95,7 +95,7 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
             'password1' => 'Newpass1',
             'password2' => 'Newpass1'
         ];
-        $_SESSION['user'] = ['id_user' => 1];
+        $_SESSION['user'] = ['id_user' => 1025];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('La contraseña actual es incorrecta', $errors['currentPassword']);
     }
