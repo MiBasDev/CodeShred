@@ -64,7 +64,7 @@ Este proyecto tiene como objetivo la creación de una comunidad activa y colabor
 ## 6. Bibliografía
 
 Simpson, K. (2015). You don’t know JS: Async & performance. https://www.amazon.com/You-Dont-Know-JS-Performance/dp/1491904224 
-html2canvas - Screenshots with JavaScript. (s. f.). https://html2canvas.hertzen.com/ 
+html2canvas - Screenshots with JavaScript. (s. f.). https://html2canvas.hertzen.com/
 CodeMirror. (s. f.). https://codemirror.net/ 
 Cure. (s. f.). GitHub - cure53/DOMPurify: DOMPurify - a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG. DOMPurify works with a secure default, but offers a lot of configurability and hooks. Demo: GitHub. https://github.com/cure53/DOMPurify 
 Stack Overflow - where developers learn, share, & build careers. (s. f.). Stack Overflow. https://stackoverflow.com/ 
