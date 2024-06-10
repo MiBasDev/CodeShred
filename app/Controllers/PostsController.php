@@ -149,85 +149,79 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos el id de usuario del post
         $_POST['user_id'] = $_SESSION['user']['id_user'];
 
-        //Comprobamos si ya tiene un post con ese nombre
-        $isRepeated = $model->getUserPostByName($_POST['shred-title'], $_SESSION['user']['id_user']);
+        // Comprobamos que sea un título válido
+        if (preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,\'!?()_-]{0,100}$/', $_POST['shred-title'])) {
+            //Comprobamos si ya tiene un post con ese nombre
+            $isRepeated = $model->getUserPostByName($_POST['shred-title'], $_SESSION['user']['id_user']);
 
-        if (!$isRepeated) {
-            // Ponemos la imagen por defecto
-            $_POST['post_img'] = 'assets/img/cs-logo-color.png';
+            if (!$isRepeated) {
+                // Ponemos la imagen por defecto
+                $_POST['post_img'] = 'assets/img/cs-logo-color.png';
 
-            // Declaramos el post y obtenemos su id
-            $postId = $model->add($_POST);
-            if (!is_null($postId)) {
-                // Comprobamos si quiere incluir la imagen
-                $includeImg = isset($_POST['include-img']) && $_POST['include-img'] == 'on';
-                // Procesamos la imagen si existe
-                if (!empty($_POST['post-img-data'] && $includeImg)) {
-                    $imageData = $_POST['post-img-data'];
-                    $imageData = str_replace('data:image/png;base64,', '', $imageData);
-                    $imageData = str_replace(' ', '+', $imageData);
-                    $imageData = base64_decode($imageData);
+                // Declaramos el post y obtenemos su id
+                $postId = $model->add($_POST);
+                if (!is_null($postId)) {
+                    // Comprobamos si quiere incluir la imagen
+                    $includeImg = isset($_POST['include-img']) && $_POST['include-img'] == 'on';
+                    // Procesamos la imagen si existe
+                    if (!empty($_POST['post-img-data'] && $includeImg)) {
+                        $imageData = $_POST['post-img-data'];
+                        $imageData = str_replace('data:image/png;base64,', '', $imageData);
+                        $imageData = str_replace(' ', '+', $imageData);
+                        $imageData = base64_decode($imageData);
 
-                    // Redimensionamos la imagen (no usar por ahora)
-                    $resizedImageData = $this->resizeImage($imageData, 500, 282);
+                        // Redimensionamos la imagen (no usar por ahora)
+                        $resizedImageData = $this->resizeImage($imageData, 500, 282);
 
-                    $directory = 'assets/img/' . $_POST['user_id'];
-                    if (!is_dir($directory)) {
-                        mkdir($directory, 0777, true);
+                        $directory = 'assets/img/' . $_POST['user_id'];
+                        if (!is_dir($directory)) {
+                            mkdir($directory, 0777, true);
+                        }
+
+                        // Nombrar el archivo basado en el ID del post
+                        $filePath = $directory . '/' . $postId . '.png';
+
+                        if (file_put_contents($filePath, $imageData)) {
+                            // Actualiza el post con el nombre de la imagen
+                            $model->updateImg($filePath, $postId);
+                        }
                     }
 
-                    // Nombrar el archivo basado en el ID del post
-                    $filePath = $directory . '/' . $postId . '.png';
+                    // Añadir tags al post
+                    $model->addTags($_POST);
 
-                    if (file_put_contents($filePath, $imageData)) {
-                        // Actualiza el post con el nombre de la imagen
-                        $model->updateImg($filePath, $postId);
-                    }
+                    // Creamos una notificación
+                    $notificationModel = new \CodeShred\Models\NotificationsModel();
+                    $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Shred "' . $_POST['shred-title'] . '" creado.');
+
+                    // Enviamos a la vista de mis posts
+                    header('location: /mi-cuenta/mis-posts');
+                } else { // Si no se añade
+                    // Obtenemos los datos necesarios para la vista
+                    $data = $this->fillPostViewData($_POST, 'CodeShred | Shred', '/post/add', 'Error indeterminado al realizar el guardado.');
+
+                    // Rellenamos el título para mandar a la vista
+                    $data['post']['post_title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                    // Enseñamos la vista de añadir un post
+                    $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
                 }
+            } else {
+                // Obtenemos los datos necesarios para la vista
+                $data = $this->fillPostViewData($_POST, 'CodeShred | Shred', '/post/add', 'Ya tienes un Shred con ese nombre.');
 
-                // Añadir tags al post
-                $model->addTags($_POST);
-
-                // Creamos una notificación
-                $notificationModel = new \CodeShred\Models\NotificationsModel();
-                $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Shred "' . $_POST['shred-title'] . '" creado.');
-
-                // Enviamos a la vista de mis posts
-                header('location: /mi-cuenta/mis-posts');
-            } else { // Si no se añade
-                $data = [];
-                // Declaramos los datos necesarios de la vista de añadir un post
-                $data['title'] = 'CodeShred | Shred';
-                $data['section'] = '/post/add';
-                $data['css'] = 'post';
-
-                // Rellenamos el data para mandar a la vista
+                // Rellenamos el título para mandar a la vista
                 $data['post']['post_title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
-                $code = array('html' => $_POST['shred-html'], 'css' => $_POST['shred-css'], 'js' => $_POST['shred-js']);
-                $data['post']['post_code'] = json_encode($code);
-
-                // Creamos una notificación con el error
-                $notificationModel = new \CodeShred\Models\NotificationsModel();
-                $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Error indeterminado al realizar el guardado.');
 
                 // Enseñamos la vista de añadir un post
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
             }
         } else {
-            $data = [];
-            // Declaramos los datos necesarios de la vista de añadir un post
-            $data['title'] = 'CodeShred | Shred';
-            $data['section'] = '/post/add';
-            $data['css'] = 'post';
+            // Obtenemos los datos necesarios para la vista
+            $data = $this->fillPostViewData($_POST, 'CodeShred | Shred', '/post/add', 'El título no permite el uso de ciertos caracteres especiales. Longitud entre 0 y 100 caracteres');
 
-            // Rellenamos el data para mandar a la vista
+            // Rellenamos el título para mandar a la vista
             $data['post']['post_title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
-            $code = array('html' => $_POST['shred-html'], 'css' => $_POST['shred-css'], 'js' => $_POST['shred-js']);
-            $data['post']['post_code'] = json_encode($code);
-
-            // Creamos una notificación con el error
-            $notificationModel = new \CodeShred\Models\NotificationsModel();
-            $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Ya tienes un Shred con ese nombre.');
 
             // Enseñamos la vista de añadir un post
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
@@ -249,59 +243,106 @@ class PostsController extends \CodeShred\Core\BaseController {
         // Declaramos la imagen por defecto
         $_POST['post_img'] = 'assets/img/cs-logo-color.png';
 
-        // Almacenamos el post y obtenemos su id
-        if ($model->editPost(intval($id), $_POST)) {
-            // Comprobamos si quiere incluir la imagen
-            $includeImg = isset($_POST['include-img']) && $_POST['include-img'] == 'on';
-            // Procesamos la imagen si existe
-            if (!empty($_POST['post-img-data'] && $includeImg)) {
-                $imageData = $_POST['post-img-data'];
-                $imageData = str_replace('data:image/png;base64,', '', $imageData);
-                $imageData = str_replace(' ', '+', $imageData);
-                $imageData = base64_decode($imageData);
+        // Comprobamos que sea un título válido
+        if (preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,\'!?()_-]{0,100}$/', $_POST['shred-title'])) {
 
-                // Redimensionamos la imagen (no usar por ahora)
-                $resizedImageData = $this->resizeImage($imageData, 500, 282);
+            //Comprobamos si ya tiene un post con ese nombre
+            $isRepeated = $model->getUserPostByName($_POST['shred-title'], $_SESSION['user']['id_user']);
 
-                $directory = 'assets/img/' . $_POST['user_id'];
-                if (!is_dir($directory)) {
-                    mkdir($directory, 0777, true);
+            if (!$isRepeated || $isRepeated['id_post'] == $id) {
+                // Almacenamos el post y obtenemos su id
+                if ($model->editPost(intval($id), $_POST)) {
+                    // Comprobamos si quiere incluir la imagen
+                    $includeImg = isset($_POST['include-img']) && $_POST['include-img'] == 'on';
+                    // Procesamos la imagen si existe
+                    if (!empty($_POST['post-img-data'] && $includeImg)) {
+                        $imageData = $_POST['post-img-data'];
+                        $imageData = str_replace('data:image/png;base64,', '', $imageData);
+                        $imageData = str_replace(' ', '+', $imageData);
+                        $imageData = base64_decode($imageData);
+
+                        // Redimensionamos la imagen (no usar por ahora)
+                        $resizedImageData = $this->resizeImage($imageData, 500, 282);
+
+                        $directory = 'assets/img/' . $_POST['user_id'];
+                        if (!is_dir($directory)) {
+                            mkdir($directory, 0777, true);
+                        }
+
+                        // Nombrar el archivo basado en el ID del post
+                        $filePath = $directory . '/' . $id . '.png';
+
+                        if (file_put_contents($filePath, $imageData)) {
+                            // Actualiza el post con el nombre de la imagen
+                            $model->updateImg($filePath, intval($id));
+                        }
+                    }
+
+                    // Creamos una notificación
+                    $notificationModel = new \CodeShred\Models\NotificationsModel();
+                    $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Shred "' . $_POST['shred-title'] . '" modificado.');
+
+                    // Enviamos a la vista de mis posts
+                    header('location: /mi-cuenta/mis-posts');
+                } else { // Si no se edita
+                    $data = $this->fillPostViewData($_POST, 'CodeShred | Editar Shred', '/post/edit', 'Error indeterminado al realizar el guardado.');
+
+                    // Rellenamos el título y el id del post para mandar a la vista
+                    $data['post']['post_title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['post']['id_post'] = $id;
+
+                    // Enseñamos la vista de editar un post
+                    $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
                 }
+            } else {
+                // Obtenemos los datos necesarios para la vista
+                $data = $this->fillPostViewData($_POST, 'CodeShred | Editar Shred', '/post/edit', 'Ya tienes un Shred con ese nombre.');
 
-                // Nombrar el archivo basado en el ID del post
-                $filePath = $directory . '/' . $id . '.png';
+                // Rellenamos el título y el id del post para mandar a la vista
+                $data['post']['post_title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
+                $data['post']['id_post'] = $id;
 
-                if (file_put_contents($filePath, $imageData)) {
-                    // Actualiza el post con el nombre de la imagen
-                    $model->updateImg($filePath, intval($id));
-                }
+                // Enseñamos la vista de editar un post
+                $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
             }
+        } else {
+            // Obtenemos los datos necesarios para la vista
+            $data = $this->fillPostViewData($_POST, 'CodeShred | Editar Shred', '/post/edit', 'El título no permite el uso de ciertos caracteres especiales. Longitud entre 0 y 100 caracteres');
 
-            // Creamos una notificación
-            $notificationModel = new \CodeShred\Models\NotificationsModel();
-            $notificationModel->addNotification($_SESSION['user']['id_user'], 'create', 'Shred "' . $_POST['shred-title'] . '" modificado.');
-
-            // Enviamos a la vista de mis posts
-            header('location: /mi-cuenta/mis-posts');
-        } else { // Si no se edita
-            $data = [];
-            // Declaramos los datos necesarios de la vista de editar un post
-            $data['title'] = 'CodeShred | Editar Shred';
-            $data['section'] = '/post/edit';
-            $data['css'] = 'post';
-
-            // Rellenamos el data para mandar a la vista
+            // Rellenamos el título y el id del post para mandar a la vista
             $data['post']['post_title'] = filter_input(INPUT_POST, 'shred-title', FILTER_SANITIZE_SPECIAL_CHARS);
-            $code = array('html' => $_POST['shred-html'], 'css' => $_POST['shred-css'], 'js' => $_POST['shred-js']);
-            $data['post']['post_code'] = json_encode($code);
-
-            // Creamos una notificación con el error
-            $notificationModel = new \CodeShred\Models\NotificationsModel();
-            $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', 'Error indeterminado al realizar el guardado.');
+            $data['post']['id_post'] = $id;
 
             // Enseñamos la vista de editar un post
             $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'post.view.php', 'templates/footer.view.php'), $data);
         }
+    }
+
+    /**
+     * Método que rellena los datos necesarios para la vista de post.
+     * 
+     * @param array $post Colección con los datos de los inputs.
+     * @param string $title Título de la vista a enseñar.
+     * @param string $section Sección a la que pertenece la vista.
+     * @param string $notification Texto de la notificación a enseñar.
+     * @return array Colección con los datos necesarios para la vista.
+     */
+    private function fillPostViewData(array $post, string $title, string $section, string $notification): array {
+        // Declaramos los datos necesarios de la vista un post
+        $data['title'] = $title;
+        $data['section'] = $section;
+        $data['css'] = 'post';
+
+        // Rellenamos el data para mandar a la vista
+        $code = array('html' => $post['shred-html'], 'css' => $post['shred-css'], 'js' => $post['shred-js']);
+        $data['post']['post_code'] = json_encode($code);
+
+        // Creamos una notificación con el error
+        $notificationModel = new \CodeShred\Models\NotificationsModel();
+        $notificationModel->addNotification($_SESSION['user']['id_user'], 'warning', $notification);
+
+        // Devolvemos los datos
+        return $data;
     }
 
     /**

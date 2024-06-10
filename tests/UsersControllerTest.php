@@ -22,6 +22,9 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
         $stmt->execute(['user' => 'existinguser', 'pass' => $testPass, 'name' => 'Existing', 'surname' => 'User', 'email' => 'existinguser@example.com', 'rol' => 1, 'gravatar' => 'gravatar/Url']);
     }
 
+    /**
+     * Método para acceder al método privado checkForm de UserController.
+     */
     private function callCheckForm(array $post, bool $isRegister = false): array {
         // Utilizar reflexión para acceder al método privado checkForm
         $reflection = new \ReflectionClass($this->usersController);
@@ -31,51 +34,80 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
         return $method->invokeArgs($this->usersController, [$post, $isRegister]);
     }
 
-    // Pruebas para el campo 'user'
+    /**
+     * Método de prueba para validar el éxito del campo user en checkForm cuando 
+     * se proporciona un user válido.
+     */
     public function testCheckFormUserSuccess() {
         $post = ['user' => 'newUserCheck'];
         $errors = $this->callCheckForm($post);
         $this->assertArrayNotHasKey('user', $errors);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo user en checkForm cuando 
+     * se proporciona un user muy corto.
+     */
     public function testCheckFormUserTooShort() {
         $post = ['user' => 'te'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('El nombre de usuario sólo permite letras y números. Longitud entre 3 y 20 caracteres', $errors['user']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo user en checkForm cuando 
+     * se proporciona un user con caracteres inválidos.
+     */
     public function testCheckFormUserInvalidChars() {
         $post = ['user' => 'user!@#'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('El nombre de usuario sólo permite letras y números. Longitud entre 3 y 20 caracteres', $errors['user']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo user en checkForm cuando 
+     * se proporciona un user que ya existe.
+     */
     public function testCheckFormUserExists() {
         $post = ['user' => 'existinguser'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('Ya existe un usuario con el nombre existinguser', $errors['user']);
     }
 
-    // Pruebas para el campo 'email'
+    /**
+     * Método de prueba para validar el éxito del campo email en checkForm cuando 
+     * se proporciona un email válido.
+     */
     public function testCheckFormEmailSuccess() {
         $post = ['email' => 'testuserNew@example.com'];
         $errors = $this->callCheckForm($post);
         $this->assertArrayNotHasKey('email', $errors);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo email en checkForm cuando 
+     * se proporciona un email inválido.
+     */
     public function testCheckFormEmailInvalid() {
         $post = ['email' => 'invalid-email'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('El email es incorrecto', $errors['email']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo email en checkForm cuando 
+     * se proporciona un email que ya existe.
+     */
     public function testCheckFormEmailExists() {
         $post = ['email' => 'existinguser@example.com'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('Ya existe un usuario con este email', $errors['email']);
     }
 
-    // Pruebas para las contraseñas
+    /**
+     * Método de prueba para validar el éxito del campo currentPassword en checkForm 
+     * cuando se proporciona un currentPassword válido y las demás pass también válidas.
+     */
     public function testCheckFormPasswordsSuccess() {
         $post = [
             'currentPassword' => 'testpass',
@@ -89,6 +121,10 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
         $this->assertArrayNotHasKey('password2', $errors);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo currentPassword en checkForm 
+     * cuando se proporciona un currentPassword inválido.
+     */
     public function testCheckFormWrongCurrentPassword() {
         $post = [
             'currentPassword' => 'wrongpass',
@@ -100,6 +136,11 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
         $this->assertEquals('La contraseña actual es incorrecta', $errors['currentPassword']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo currentPassword en checkForm 
+     * cuando se proporciona un currentPassword válido pero las demás pass demasiado
+     * cortas.
+     */
     public function testCheckFormPasswordTooShort() {
         $post = [
             'currentPassword' => 'testpass',
@@ -111,6 +152,11 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
         $this->assertEquals('La contraseña debe contener una mayúscula, una minúscula, un número y tener una longitud mínima de 8 caracteres.', $errors['password1']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo currentPassword en checkForm 
+     * cuando se proporciona un currentPassword válido pero las demás pass no 
+     * coinciden.
+     */
     public function testCheckFormPasswordsDoNotMatch() {
         $post = [
             'currentPassword' => 'testpass',
@@ -122,51 +168,80 @@ class UsersControllerTest extends PHPUnit\Framework\TestCase {
         $this->assertEquals('Las contraseñas no coinciden', $errors['globalError']);
     }
 
-    // Pruebas para el campo 'name'
+    /**
+     * Método de prueba para validar el éxito del campo name en checkForm cuando 
+     * se proporciona un name válido.
+     */
     public function testCheckFormNameSuccess() {
         $post = ['name' => 'Miguel'];
         $errors = $this->callCheckForm($post);
         $this->assertArrayNotHasKey('name', $errors);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo name en checkForm cuando 
+     * se proporciona un name demasiado corto.
+     */
     public function testCheckFormNameTooShort() {
         $post = ['name' => 'M'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('El nombre sólo permite letras y espacios. Longitud entre 2 y 20 caracteres', $errors['name']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo name en checkForm cuando 
+     * se proporciona un name con caracteres inválidos.
+     */
     public function testCheckFormNameInvalidChars() {
         $post = ['name' => 'Miguel@Bas'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('El nombre sólo permite letras y espacios. Longitud entre 2 y 20 caracteres', $errors['name']);
     }
 
-    // Pruebas para el campo 'surname'
+    /**
+     * Método de prueba para validar el éxito del campo surname en checkForm cuando 
+     * se proporciona un surname válido.
+     */
     public function testCheckFormSurnameSuccess() {
         $post = ['surname' => 'Bastos'];
         $errors = $this->callCheckForm($post);
         $this->assertArrayNotHasKey('surname', $errors);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo surname en checkForm cuando 
+     * se proporciona un surname demasiado corto.
+     */
     public function testCheckFormSurnameTooShort() {
         $post = ['surname' => 'B'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('Los apellidos sólo permiten letras y espacios. Longitud entre 2 y 80 caracteres', $errors['surname']);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo surname en checkForm cuando 
+     * se proporciona un surname con caracteres inválidos.
+     */
     public function testCheckFormSurnameInvalidChars() {
         $post = ['surname' => 'Bastos@Gan'];
         $errors = $this->callCheckForm($post);
         $this->assertEquals('Los apellidos sólo permiten letras y espacios. Longitud entre 2 y 80 caracteres', $errors['surname']);
     }
 
-    // Pruebas para el campo 'privacity'
+    /**
+     * Método de prueba para validar el éxito del campo privacity en checkForm cuando 
+     * se proporciona como marcado.
+     */
     public function testCheckFormPrivacitySuccess() {
         $post = ['privacity' => 'true'];
         $errors = $this->callCheckForm($post, true);
         $this->assertArrayNotHasKey('privacity', $errors);
     }
 
+    /**
+     * Método de prueba para validar el éxito del campo privacity en checkForm cuando 
+     * se proporciona como no marcado.
+     */
     public function testCheckFormPrivacityNotAccepted() {
         $post = [];
         $errors = $this->callCheckForm($post, true);
