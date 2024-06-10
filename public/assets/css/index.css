@@ -109,3 +109,13 @@
         padding: 0px;
     }
 }
+
+@media (max-height: 1000px) {
+    .post-card-img-a {
+        min-height: 200px;
+    }
+    
+    .index-logo-and-slogan img {
+        width: 300px;
+    }
+}
