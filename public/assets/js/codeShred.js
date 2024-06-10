@@ -146,11 +146,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const textarea = document.getElementById('message');
     const charCount = document.getElementById('charCount');
 
+    // Función para actualizar el contador
+    function updateCharCount() {
+        const currentLength = textarea.value.length;
+        charCount.textContent = `${currentLength}/255`;
+    }
+
     if (textarea) {
-        textarea.addEventListener('input', function () {
-            const currentLength = textarea.value.length;
-            charCount.textContent = `${currentLength}/255`;
-        });
+        // Ejecutamos la función siempre al principio
+        updateCharCount();
+        textarea.addEventListener('input', updateCharCount);
     }
 });
 

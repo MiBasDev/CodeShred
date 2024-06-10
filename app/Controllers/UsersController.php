@@ -503,7 +503,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Input name
         if (isset($post['name'])) {
             if (!empty($post['name'])) {
-                if (!preg_match('/^[a-zA-Z ]{2,20}$/', $post['name'])) {
+                if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]{2,20}$/', $post['name'])) {
                     $errors['name'] = 'El nombre sólo permite letras y espacios. Longitud entre 2 y 20 caracteres';
                 }
             } else {
@@ -514,7 +514,7 @@ class UsersController extends \CodeShred\Core\BaseController {
         // Input surname
         if (isset($post['surname'])) {
             if (!empty($post['surname'])) {
-                if (!preg_match('/^[a-zA-Z ]{2,80}$/', $post['surname'])) {
+                if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]{2,80}$/', $post['surname'])) {
                     $errors['surname'] = 'Los apellidos sólo permiten letras y espacios. Longitud entre 2 y 80 caracteres';
                 }
             } else {

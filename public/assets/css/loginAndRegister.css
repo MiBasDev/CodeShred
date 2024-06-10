@@ -109,7 +109,7 @@
 }
 
 .register-privacity a:hover {
-    color: var(--button-primary--bg-color);
+    color: var(--button-primary--hover-bg-color);
 }
 
 .error-fl {

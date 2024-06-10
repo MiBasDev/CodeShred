@@ -12,7 +12,7 @@ CodeShred es una red social diseñada específicamente para desarrolladores web 
 
 Para desarrollar este proyecto, se siguió una metodología ágil, con ciclos iterativos de desarrollo que incluyeron la recopilación de requisitos, análisis, diseño, implementación y pruebas. Se emplearon tecnologías web tradicionales como PHP, HTML, CSS, JavaScript y jQuery, junto con AJAX para asegurar una plataforma interactiva y dinámica. Durante el proceso, se realizó una investigación de mercado, incluyendo estudios de viabilidad técnica y económica, así como análisis de la competencia y encuestas a desarrolladores.
 
-Como resultado, CodeShred ha busca crear una comunidad colaborativa donde los usuarios pueden aprender unos de otros, mejorar sus habilidades y compartir sus creaciones. La plataforma no solo facilita el intercambio de conocimiento y recursos entre desarrolladores, sino que también promueve la innovación y la mejora continua en el ámbito del desarrollo web.
+Como resultado, CodeShred busca crear una comunidad colaborativa donde los usuarios puedan aprender unos de otros, mejorar sus habilidades y compartir sus creaciones. La plataforma no solo facilita el intercambio de conocimiento y recursos entre desarrolladores, sino que también promueve la innovación y la mejora continua en el ámbito del desarrollo web.
 
 **Palabras clave:**
 
@@ -53,8 +53,7 @@ As a result, CodeShred has successfully created a collaborative community where 
 
 ## 1. Introducción
 
-
-El proyecto CodeShred nace como respuesta a la necesidad de una plataforma específica para desarrolladores web y personas interesadas en el desarrollo web. En un entorno donde el intercambio de conocimientos y recursos es crucial para el crecimiento profesional, CodeShred se posiciona como una solución innovadora que combina las características de una red social con herramientas avanzadas de desarrollo.
+CodeShred nace como respuesta a la necesidad de una plataforma específica para desarrolladores web y personas interesadas en el desarrollo web. En un entorno donde el intercambio de conocimientos y recursos es crucial para el crecimiento profesional, CodeShred se posiciona como una solución innovadora que combina las características de una red social con herramientas avanzadas de desarrollo.
 
 Se ha observado que, en el ámbito del desarrollo web, la fragmentación de recursos disponibles en la web y la falta de plataformas que integren tanto el aspecto social como el técnico son problemas recurrentes. Además, existe una necesidad constante de mejorar las habilidades de codificación a través de la colaboración y la retroalimentación continua.
 

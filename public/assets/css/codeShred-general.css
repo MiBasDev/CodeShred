@@ -432,19 +432,32 @@ footer {
     position: relative;
 }
 
-footer div:first-child {
+.footer-content {
     gap: 30px;
 }
 
-footer div:last-child {
+.footer-social-media {
     position: absolute;
     right: 0;
-    gap: 20px;
+    gap: 10px;
     margin-right: 10px;
 }
 
 footer a.active {
     font-weight: bold;
+}
+
+.footer-content a {
+    padding: 5px;
+}
+
+.footer-social-media a {
+    padding: 5px;
+}
+
+.footer-social-media a:hover i {
+   transform: scale(1.1);
+   font-weight: bold;
 }
 
 /* Notifications */

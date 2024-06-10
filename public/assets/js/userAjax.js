@@ -8,57 +8,75 @@ document.addEventListener('DOMContentLoaded', function () {
             // Guardamos el texto original del botón
             const originalButtonText = this.textContent;
 
-            // Empezamos la petición
-            fetch('/update-description', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userDescription: userDescription,
-                }),
-            })
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error('Respuesta fallida.');
-                        }
-                        return response.json();
-                    })
-                    .then((data) => {
-                        // Procesamos la respuesta en el front
-                        if (data.action === 'updated') {
-                            // Cambiamos el texto del botón durante 2 segundos
-                            this.textContent = 'Descripción guardada';
-                            setTimeout(() => {
-                                this.textContent = originalButtonText;
-                            }, 2000);
+            // Comprobamos que el texto sea válido
+            const regex = /^[a-zA-Z0-9\s.,'!?()_-]*$/;
+            if (regex.test(userDescription)) {
+                // Empezamos la petición
+                fetch('/update-description', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userDescription: userDescription,
+                    }),
+                })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error('Respuesta fallida.');
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            // Procesamos la respuesta en el front
+                            if (data.action === 'updated') {
+                                // Cambiamos el texto del botón durante 2 segundos
+                                this.textContent = 'Descripción guardada';
+                                setTimeout(() => {
+                                    this.textContent = originalButtonText;
+                                }, 2000);
 
-                            // Pintamos el botón durante 2 segundos
-                            this.classList.remove('button-secondary');
-                            this.classList.add('button-success');
-                            setTimeout(() => {
-                                this.classList.remove('button-success');
-                                this.classList.add('button-secondary');
-                            }, 2000);
-                        } else {
-                            // Cambiamos el texto del botón durante 2 segundos
-                            this.textContent = 'Fallo al guardar la descripción';
-                            setTimeout(() => {
-                                this.textContent = originalButtonText;
-                            }, 2000);
+                                // Pintamos el botón durante 2 segundos
+                                this.classList.remove('button-secondary');
+                                this.classList.add('button-success');
+                                setTimeout(() => {
+                                    this.classList.remove('button-success');
+                                    this.classList.add('button-secondary');
+                                }, 2000);
+                            } else {
+                                // Cambiamos el texto del botón durante 2 segundos
+                                this.textContent = 'Fallo al guardar la descripción';
+                                setTimeout(() => {
+                                    this.textContent = originalButtonText;
+                                }, 2000);
 
-                            // Pintamos el botón durante 2 segundos
-                            this.classList.remove('button-secondary');
-                            this.classList.add('button-warning');
-                            setTimeout(() => {
-                                this.classList.remove('button-warning');
-                                this.classList.add('button-secondary');
-                            }, 2000);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                                // Pintamos el botón durante 2 segundos
+                                this.classList.remove('button-secondary');
+                                this.classList.add('button-warning');
+                                setTimeout(() => {
+                                    this.classList.remove('button-warning');
+                                    this.classList.add('button-secondary');
+                                }, 2000);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+            } else {
+                // Cambiamos el texto del botón durante 2 segundos
+                this.textContent = 'Descripción no válida';
+                setTimeout(() => {
+                    this.textContent = originalButtonText;
+                }, 2000);
+
+                // Pintamos el botón durante 2 segundos
+                this.classList.remove('button-secondary');
+                this.classList.add('button-warning');
+                setTimeout(() => {
+                    this.classList.remove('button-warning');
+                    this.classList.add('button-secondary');
+                }, 2000);
+            }
         });
     }
 

@@ -66,7 +66,7 @@ class InitController extends \CodeShred\Core\BaseController {
             // Input name
             if (isset($_POST['name'])) {
                 if (!empty($_POST['name'])) {
-                    if (!preg_match('/^[a-zA-Z ]{2,20}$/', $_POST['name'])) {
+                    if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]{2,20}$/', $_POST['name'])) {
                         $errors['name'] = 'El nombre sólo permite letras y espacios. Longitud entre 2 y 20 caracteres';
                     }
                 } else {
@@ -77,7 +77,7 @@ class InitController extends \CodeShred\Core\BaseController {
             // Input surname
             if (isset($_POST['surname'])) {
                 if (!empty($_POST['surname'])) {
-                    if (!preg_match('/^[a-zA-Z ]{2,80}$/', $_POST['surname'])) {
+                    if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]{2,80}$/', $_POST['surname'])) {
                         $errors['surname'] = 'Los apellidos sólo permiten letras y espacios. Longitud entre 2 y 80 caracteres';
                     }
                 } else {
@@ -88,8 +88,8 @@ class InitController extends \CodeShred\Core\BaseController {
 
         // Input subject
         if (isset($_POST['subject']) && !empty($_POST['subject'])) {
-            if (!preg_match('/^[a-zA-Z0-9 ]{5,50}$/', $_POST['subject'])) {
-                $errors['subject'] = 'El asunto sólo permite letras, números y espacios. Longitud entre 5 y 50 caracteres';
+            if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,\'!?()_-]{5,50}$/', $_POST['subject'])) {
+                $errors['subject'] = 'El asunto no permite el uso de ciertos caracteres especiales. Longitud entre 5 y 50 caracteres';
             }
         } else {
             $errors['subject'] = 'Campo obligatorio';
@@ -97,8 +97,8 @@ class InitController extends \CodeShred\Core\BaseController {
 
         // Input message
         if (isset($_POST['message']) && !empty($_POST['message'])) {
-            if (!preg_match('/^[a-zA-Z0-9 ]{5,255}$/', $_POST['message'])) {
-                $errors['message'] = 'El asunto sólo permite letras, números y espacios. Longitud entre 5 y 255 caracteres';
+            if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ0-9\s.,\'!?()_-]{5,255}$/', $_POST['message'])) {
+                $errors['message'] = 'El mensaje no permite el uso de ciertos caracteres especiales. Longitud entre 5 y 255 caracteres';
             }
         } else {
             $errors['message'] = 'Campo obligatorio';
@@ -126,7 +126,7 @@ class InitController extends \CodeShred\Core\BaseController {
                 $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
                 $data['subject'] = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);
                 $data['message'] = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
-                
+
                 // Enseñamos la vista de contacto
                 $this->view->showViews(array('templates/header.view.php', 'templates/aside.view.php', 'contact.view.php', 'templates/footer.view.php'), $data);
             }

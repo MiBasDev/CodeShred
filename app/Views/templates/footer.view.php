@@ -7,19 +7,19 @@
 
 <!--Footer position relative si o si-->
 <footer class="cs-fl cs-fl-just-c cs-fl-align-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
-    <div class="cs-fl">
+    <div class="cs-fl footer-content">
         <a href="/politica-de-privacidad" class="<?php echo $section === '/politica-de-privacidad' ? 'active' : ''; ?>">Política de privacidad</a>
         <a href="/politica-de-cookies" class="<?php echo $section === '/politica-de-cookies' ? 'active' : ''; ?>">Cookies</a>
         <a href="/contacto" class="<?php echo $section === '/contacto' ? 'active' : ''; ?>">Contacto</a>
     </div>
-    <div class="cs-fl">
-        <a href="https://twitter.com/codeShred" target="_blank">
+    <div class="cs-fl footer-social-media">
+        <a href="https://twitter.com/codeShred" target="_blank" class="cs-fl cs-fl-just-c cs-fl-align-c">
             <i class="fab fa-instagram"></i><span class="hidden-element">Instagram</span>
         </a>
-        <a href="https://github.com/MiBasDev/codeShred" target="_blank">
+        <a href="https://github.com/MiBasDev/codeShred" target="_blank" class="cs-fl cs-fl-just-c cs-fl-align-c">
             <i class="fab fa-github"></i><span class="hidden-element">GitHub</span>
         </a>
-        <a href="https://www.instagram.com/codeShred" target="_blank">
+        <a href="https://www.instagram.com/codeShred" target="_blank" class="cs-fl cs-fl-just-c cs-fl-align-c">
             <i class="fab fa-twitter"></i><span class="hidden-element">Twitter</span>
         </a>
     </div>
