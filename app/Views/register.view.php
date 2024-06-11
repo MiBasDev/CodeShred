@@ -2,7 +2,7 @@
 <main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="register cs-fl-col cs-fl-align-c cs-fl-just-c">
 
-        <h1 class="cs-fl"><span><i class="fas fa-clipboard-list"></i></span>Registro codeShred</h1>
+        <h1 class="cs-fl"><span><i class="fas fa-clipboard-list"></i></span>Registro CodeShred</h1>
 
         <h2 class="hidden-element">Formulario de registro</h2>
         <form action="/registro" method="post" class="register-form">

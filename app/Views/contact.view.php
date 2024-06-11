@@ -1,7 +1,7 @@
 <!--Main-->
 <main class="cs-fl-col cs-fl-align-c cs-fl-just-c <?php echo isset($_COOKIE['foldedCookie']) ? 'folded-others' : ''; ?>">
     <div class="contact-cont cs-fl-col cs-fl-align-c cs-fl-just-c">
-        <h1>Contacto codeShred</h1>
+        <h1>Contacto CodeShred</h1>
         <h2 class="hidden-element">Formulario de contacto</h2>
         <form action="/contacto" method="post" class="contact-form">
             <?php if (!isset($_SESSION['user'])) { ?>
