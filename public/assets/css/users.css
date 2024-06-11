@@ -26,6 +26,7 @@
     border-radius: 5px;
     gap: 10px;
     max-width: 400px;
+    width: 100%;
 }
 
 .user-name-container {
@@ -35,6 +36,10 @@
 .user-name,
 .user-content {
     gap: 10px;
+}
+
+.user-content {
+   height: 100%;
 }
 
 .user-name {
