@@ -1,6 +1,5 @@
-# codeShred
+# CodeShred
 - **Proyecto presentado por**: *Miguel Bastos Gándara*
-- **Tutor**: *Rafael González Centeno*
 - **Fecha**: *18/06/2024*
 
 <img width="2560" alt="Inicio-CodeShred" src="https://github.com/MiBasDev/codeShred/assets/115214501/adea5574-58b1-4f8d-83f6-239c7be70fac">
